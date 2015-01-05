@@ -1,5 +1,7 @@
 package servicos;
 
+import interfaces.Pagavel;
+
 /**
  * 
  *Classe que cria uma babysitter.
@@ -19,10 +21,9 @@ public class Babysitter implements Pagavel {
  * 		As horas que trabalharah em expediente regular.
  * @param horasDobradas
  * 		As horas que trabalharah em expediente extra regular.
- * @throws Exception
  */
-	public Babysitter(String nome, int horasNormais, int horasDobradas) throws Exception{
-		if (nome == null)throw new NullPointerException();
+	public Babysitter(String nome, int horasNormais, int horasDobradas) {
+		if (nome == null)throw new IllegalArgumentException();
 		this.nome = nome;
 		this.horasNormais = horasNormais;
 		this.horasDobradas = horasDobradas;
@@ -63,7 +64,7 @@ public class Babysitter implements Pagavel {
 		}
 		Babysitter umaBaba = (Babysitter) obj;
 		
-		return umaBaba.getDescricao() == getDescricao();
+		return umaBaba.getDescricao().equals(getDescricao());
 	}
 
 	@Override

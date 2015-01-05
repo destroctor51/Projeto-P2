@@ -1,4 +1,4 @@
-package servicos;
+package interfaces;
 
 /**
  * 
@@ -14,11 +14,11 @@ public interface Pagavel {
 	 * 		a descricao do pagavel .
 	 */
 	public String getDescricao();
+	
 	/**
 	 * 
 	 * @return
 	 * 		O custo associado ao Pagavel.
 	 */
 	public float getPreco();
-
 }

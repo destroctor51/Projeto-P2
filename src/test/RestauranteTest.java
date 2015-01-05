@@ -32,11 +32,11 @@ public class RestauranteTest {
 	public void testConstrutor() {
 		try {
 			heartAttack = new Restaurante(null);
-		} catch (NullPointerException e) {
+		} catch (IllegalArgumentException e) {
 		}
 		try {
 			heartAttack = new Restaurante("les chason", null);
-		} catch (NullPointerException e) {
+		} catch (IllegalArgumentException e) {
 		}
 
 	}

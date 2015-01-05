@@ -1,5 +1,7 @@
 package servicos;
 
+import interfaces.Pagavel;
+
 /**
  * 
  * Classe que cria uma cama extra.

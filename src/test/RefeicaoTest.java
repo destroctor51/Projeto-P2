@@ -3,6 +3,7 @@ package test;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
 import servicos.Refeicao;;
 
 public class RefeicaoTest {
@@ -22,8 +23,8 @@ public class RefeicaoTest {
 	@Test
 	public void testConstrutor() throws Exception {
 		try {
-			Refeicao refeicao1 = new Refeicao(52.89f, null);
-		} catch (NullPointerException e) {
+			new Refeicao(52.89f, null);
+		} catch (IllegalArgumentException e) {
 		}
 
 	}

@@ -20,7 +20,7 @@ public class BabyssiterTest {
 	public void testConstrutor() throws Exception {
 		try {
 			baba1 = new Babysitter(null, 12, 12);
-		} catch (NullPointerException e) {
+		} catch (IllegalArgumentException e) {
 		}
 	}
 

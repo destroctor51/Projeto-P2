@@ -1,5 +1,7 @@
 package servicos;
 
+import interfaces.Pagavel;
+
 /**
  * 
  * Classe que cria uma refeicao.
@@ -18,13 +20,11 @@ public class Refeicao implements Pagavel {
 	 *            O preco da refeicao.
 	 * @param nome
 	 *            O nome da refeicao.
-	 * @throws Exception
 	 */
-	public Refeicao(float preco, String nome) throws Exception {
+	public Refeicao(float preco, String nome){
 		if (nome == null)
-			throw new NullPointerException();
+			throw new IllegalArgumentException();
 		this.preco = preco;
-		this.nome = nome;
 		this.nome = nome;
 	}
 
@@ -81,7 +81,7 @@ public class Refeicao implements Pagavel {
 		}
 		Refeicao umaRefeicao = (Refeicao) obj;
 
-		return umaRefeicao.getDescricao() == getDescricao()
+		return umaRefeicao.getDescricao().equals(getDescricao())
 				&& umaRefeicao.getPreco() == getPreco();
 	}
 }
