@@ -79,6 +79,16 @@ public class GerenciadorDeContas {
 		Conta alvo = new Conta(id, "", Permissao.FUNCIONARIO);
 		return contas.remove(alvo);
 	}
+	
+	/**
+	 * Confere se ha alguma conta cadastrada.
+	 * 
+	 * @return true se houve, false caso contrario
+	 */
+	public boolean vazio() {
+		if(contas == null) carregaContas();
+		return contas.isEmpty();
+	}
 
 	private void carregaContas() {		
 		Object leitura = Arquivo.carregaObjeto(arquivo);

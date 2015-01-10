@@ -44,6 +44,7 @@ public class GerenciadorDeContasTest {
 	@Test
 	public void testCadastra() {
 		gdc = new GerenciadorDeContas();
+		assertTrue(gdc.vazio());
 		
 		assertTrue(gdc.cadastra("Roberto", "afewgs", FUNCIONARIO));
 		assertTrue(gdc.cadastra("Paulo", "grhtrd", FUNCIONARIO));
@@ -68,6 +69,7 @@ public class GerenciadorDeContasTest {
 		assertFalse(gdc.cadastra("Rafaela", "oemugnu", GERENTE));
 		
 		assertFalse(gdc.salvaContas());
+		assertFalse(gdc.vazio());
 	}
 	
 	@Test
