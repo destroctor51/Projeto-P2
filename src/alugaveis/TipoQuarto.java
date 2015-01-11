@@ -2,8 +2,8 @@ package alugaveis;
 
 /**
  * Enum que representa um Tipo de quarto. Cada tipo de quarto tem um valor de diaria(int),
- * uma capacidade(int) e uma descrição(String).<p>
- * Enum desenvolvida para o projeto da disciplina de Laboratório de Programação II na UFCG 2014.2.
+ * uma capacidade(int) e uma descricao(String).<p>
+ * Enum desenvolvida para o projeto da disciplina de Laboratorio de Programacao II na UFCG 2014.2.
  * 
  * 31 de dezembro de 2014.
  * 
@@ -12,7 +12,7 @@ package alugaveis;
  */
 public enum TipoQuarto {
 
-	PRESIDENCIAL(1200.0, 4, "Quarto Presidencial\nQuarto equipado com TV LCD 42, split, frigobar, cofre,sala de jogos e home theater, ideal para famílias em férias.\n"),
+	PRESIDENCIAL(1200.0, 4, "Quarto Presidencial\nQuarto equipado com TV LCD 42, split, frigobar, cofre,sala de jogos e home theater, ideal para familias em ferias.\n"),
 	
 	LUXO_SIMPLES(520.0, 1, "Quarto Luxo Simples\nQuarto equipado com TV LCD 42, split, frigobar, cofre e home theater.\n"),
 	LUXO_DUPLO(570.0, 2, "Quarto Luxo Duplo\nQuarto equipado com TV LCD 42, split, frigobar, cofre e home theater.\n"),
@@ -44,7 +44,7 @@ public enum TipoQuarto {
 	/**
 	 * 
 	 * @return
-	 * 			Valor da diária.
+	 * 			Valor da diaria.
 	 */
 	public double getDiaria() {
 		return diaria;
@@ -62,7 +62,7 @@ public enum TipoQuarto {
 	/**
 	 * 
 	 * @return
-	 * 			Descrição do quarto.
+	 * 			Descricao do quarto.
 	 */
 	public String getDescricao() {
 		return descricao;

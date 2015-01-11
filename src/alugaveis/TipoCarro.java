@@ -2,7 +2,7 @@ package alugaveis;
 
 /**
  * Enum que representa um Tipo de carro. Cada tipo de carro tem um valor de diaria(int) e um nome(String).<p>
- * Enum desenvolvida para o projeto da disciplina de Laboratório de Programação II na UFCG 2014.2.
+ * Enum desenvolvida para o projeto da disciplina de Laboratorio de Programacao II na UFCG 2014.2.
  * 
  * 31 de dezembro de 2014.
  * 
@@ -19,7 +19,7 @@ package alugaveis;
 	/**
 	 * 
 	 * @param diaria
-	 * 			Diária do carro.
+	 * 			Diaria do carro.
 	 * @param nome
 	 * 			Nome do carro.
 	 */
@@ -31,7 +31,7 @@ package alugaveis;
 	/**
 	 * 
 	 * @return
-	 * 		Valor da diária.
+	 * 		Valor da diaria.
 	 */
 	public double getDiaria() {
 		return diaria;

@@ -64,7 +64,7 @@ public class Login extends JPanel {
 		gbl_checkPanel.rowWeights = new double[]{};
 		checkPanel.setLayout(gbl_checkPanel);
 		
-		JInternalFrame firstLogin = new JInternalFrame("Primeiro cad\u00E1stro");
+		JInternalFrame firstLogin = new JInternalFrame("Primeiro cadastro");
 		firstLogin.setFrameIcon(null);
 		GridBagConstraints gbc_firstLogin = new GridBagConstraints();
 		gbc_firstLogin.fill = GridBagConstraints.BOTH;

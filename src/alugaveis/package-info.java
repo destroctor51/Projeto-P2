@@ -1,5 +1,5 @@
 /**
- * Conjunto de classes que implementam a interface alugável.
+ * Conjunto de classes que implementam a interface alugavel.
  * 
  * @author Marianne Linhares Monteiro
  */

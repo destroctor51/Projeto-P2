@@ -112,7 +112,7 @@ public class CarroTest {
 		
 		Assert.assertEquals( "Carro Luxo. " +
 				   "Placa do carro: " + "ABC-123" + ". " + 
-				   "Valor da diária: " + 100.0 + ". " +
+				   "Valor da diaria: " + 100.0 + ". " +
 				   "Servico tanque cheio: incluso. " + 
 				   "Seguro: incluso. " +
 				   "Valor total: 450.0.", carro1.getDescricao());
@@ -123,7 +123,7 @@ public class CarroTest {
 		
 		Assert.assertEquals( "Carro Executivo. " +
 				   "Placa do carro: " + "ABC-123" + ". " + 
-				   "Valor da diária: " + 60.0 + ". " +
+				   "Valor da diaria: " + 60.0 + ". " +
 				   "Servico tanque cheio: incluso. " + 
 				   "Seguro: nao incluso. " +
 				   "Valor total: 1830.0.", carro2.getDescricao());	
@@ -136,7 +136,7 @@ public class CarroTest {
 	
 		Assert.assertEquals( "Carro Executivo. " +
 			   "Placa do carro: " + "ABC-123" + ". " + 
-			   "Valor da diária: " + 60.0 + ". " +
+			   "Valor da diaria: " + 60.0 + ". " +
 			   "Servico tanque cheio: incluso. " + 
 			   "Seguro: nao incluso. " +
 			   "Valor total: 270.0.", carro2.getDescricao());	

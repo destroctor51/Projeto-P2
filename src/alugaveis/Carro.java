@@ -5,9 +5,9 @@ import interfaces.Alugavel;
 import classesTemporarias.Hospede;
 
 /**
- * Classe que representa um Carro. Carro se comporta como alugável,tem uma placa que o designa
- * e pode estar vinculado a um Hóspede e consequentemente estando com seu retorno pendente.<p>
- * Classe desenvolvida para o projeto da disciplina de Laboratório de Programação II na UFCG 2014.2.
+ * Classe que representa um Carro. Carro se comporta como alugavel,tem uma placa que o designa
+ * e pode estar vinculado a um Hospede e consequentemente estando com seu retorno pendente.<p>
+ * Classe desenvolvida para o projeto da disciplina de Laboratorio de Programacao II na UFCG 2014.2.
  * 
  * 31 de dezembro de 2014.
  * 
@@ -17,7 +17,7 @@ import classesTemporarias.Hospede;
 public class Carro implements Alugavel{
 	
 	/**
-	 * Valor pago se o serviço tanque cheio for solicitado.
+	 * Valor pago se o servico tanque cheio for solicitado.
 	 */
 	public final static double VALOR_TANQUE = 150.0;
 
@@ -27,7 +27,7 @@ public class Carro implements Alugavel{
 	public final static double VALOR_SEGURO = 100.0;
 	
 	/**
-	 * Valor padrão pago se um serviço não for solicitado.
+	 * Valor padrao pago se um servico nao for solicitado.
 	 */
 	public final static double SEM_SERVICO = 0.0;
 
@@ -66,15 +66,15 @@ public class Carro implements Alugavel{
 	}
 	
 	/**
-	 * Método utilizado para alugar um carro.
+	 * Metodo utilizado para alugar um carro.
 	 * @param responsavel
-	 * 			Hóspede responsável pelo aluguel.
+	 * 			Hospede responsavel pelo aluguel.
 	 * @param tanqueCheio
-	 * 			boolean que representa se o serviço tanque cheio foi solicitado ou não.
+	 * 			boolean que representa se o servico tanque cheio foi solicitado ou nao.
 	 * @param seguro
-	 * 			boolean que representa se o seguro foi solicitado ou não.
+	 * 			boolean que representa se o seguro foi solicitado ou nao.
 	 * @param periodo
-	 * 			Período que será alugado. 
+	 * 			Periodo que sera alugado. 
 	 */
 	public void alugar(Hospede responsavel, boolean tanqueCheio, boolean seguro, Periodo periodo) {
 		
@@ -120,7 +120,7 @@ public class Carro implements Alugavel{
 	/**
 	 * 
 	 * @return
-	 * 			Número de dias alugados.
+	 * 			Numero de dias alugados.
 	 */
 	public int getNumeroDias() {
 		return periodo.getNumeroDias();
@@ -137,7 +137,7 @@ public class Carro implements Alugavel{
 	/**
 	 * 
 	 * @param periodo
-	 * 		O período em que o objeto foi alugado será alterado para o período recebido como parâmetro.
+	 * 		O periodo em que o objeto foi alugado sera alterado para o periodo recebido como parametro.
 	 */
 	public void setPeriodo(Periodo periodo) {
 		this.periodo = periodo;
@@ -146,7 +146,7 @@ public class Carro implements Alugavel{
 	/**
 	 * 
 	 * @return
-	 * 			Hóspede responsável pelo carro.
+	 * 			Hospede responsavel pelo carro.
 	 */
 	public Hospede getResponsavel() {
 		return responsavel;
@@ -155,7 +155,7 @@ public class Carro implements Alugavel{
 	/**
 	 * 
 	 * @param responsavel
-	 * 			O responsável pelo carro será alterado para o hóspede recebido como parâmetro.
+	 * 			O responsavel pelo carro sera alterado para o hospede recebido como parametro.
 	 */
 	public void setResponsavel(Hospede responsavel) {
 		this.responsavel = responsavel;
@@ -190,12 +190,12 @@ public class Carro implements Alugavel{
 	@Override
 	/**
 	 *@return
-	 *		Uma representação textual do objeto.
+	 *		Uma representacao textual do objeto.
 	 */
 	public String toString(){
 		return tipoCarro.getNome() + ". " +
 			   "Placa do carro: " + getPlaca() + ". " + 
-			   "Valor da diária: " + tipoCarro.getDiaria() + ". " +
+			   "Valor da diaria: " + tipoCarro.getDiaria() + ". " +
 			   "Servico tanque cheio: " + (tanqueCheio ? "" : "nao ") + "incluso. " + 
 			   "Seguro: " + (seguro ? "" : "nao ") + "incluso. " +
 			   "Valor total: " + getPreco() + ".";
@@ -203,7 +203,7 @@ public class Carro implements Alugavel{
 	
 	/**
 	 * @return
-	 * 		Se dois carros forem iguais retorna true, caso contrário retorna false. Dois carros são iguais
+	 * 		Se dois carros forem iguais retorna true, caso contrario retorna false. Dois carros sao iguais
 	 * 		se tiverem mesma placa.
 	 */
 	public boolean equals(Object obj){
@@ -220,8 +220,8 @@ public class Carro implements Alugavel{
 	 * 
 	 * @param placa
 	 * @return
-	 * 		Se a placa é válida ou não. Uma placa é válida(de acordo com os padrões brasileiros)
-	 * 		se é formada por 3 letras e 4 números respectivamente.
+	 * 		Se a placa e valida ou nao. Uma placa e valida (de acordo com os padroes brasileiros)
+	 * 		se e formada por 3 letras e 4 numeros respectivamente.
 	 * 	 */
 	public static boolean verificaPlaca(String placa) {
 		if (placa.length() != LENGTH_PLACA)

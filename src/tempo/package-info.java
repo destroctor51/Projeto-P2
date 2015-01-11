@@ -1,5 +1,5 @@
 /**
- * Classes relacionadas com duração de tempo.
+ * Classes relacionadas com duracao de tempo.
  * 
  * @author Marianne Linhares Monteiro
  */

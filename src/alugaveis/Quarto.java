@@ -5,9 +5,9 @@ import interfaces.Alugavel;
 import classesTemporarias.Hospede;
 
 /**
- * Classe que representa um Quarto. A Classe Quarto guarda as informações referentes ao quarto alugado
- * além de gerenciar o tempo conferido ao Hospede para o usufruto do Quarto. <p>
- * Classe desenvolvida para o projeto da disciplina de Laboratório de Programação II na UFCG 2014.2.
+ * Classe que representa um Quarto. A Classe Quarto guarda as informacoes referentes ao quarto alugado
+ * alem de gerenciar o tempo conferido ao Hospede para o usufruto do Quarto. <p>
+ * Classe desenvolvida para o projeto da disciplina de Laboratorio de Programacao II na UFCG 2014.2.
  * 
  * 31 de dezembro de 2014.
  * 
@@ -42,11 +42,11 @@ public class Quarto implements Alugavel{
 	}
 	
 	/**
-	 * Método utilizado para alugar um quarto.
+	 * Metodo utilizado para alugar um quarto.
 	 * @param responsavel
-	 * 			Hóspede responsável pelo aluguel.
+	 * 			Hospede responsavel pelo aluguel.
 	 * @param periodo
-	 * 			Período que foi alugado. 
+	 * 			Periodo que foi alugado. 
 	 */
 	public void alugar(Hospede responsavel, Periodo periodo){
 
@@ -80,7 +80,7 @@ public class Quarto implements Alugavel{
 	/**
 	 * 
 	 * @return
-	 * 			Número do quarto.
+	 * 			Numero do quarto.
 	 */
 	public int getNumero() {
 		return numero;
@@ -89,7 +89,7 @@ public class Quarto implements Alugavel{
 	/**
 	 * 
 	 * @return
-	 * 			Hóspede responsável pelo quarto.
+	 * 			Hospede responsavel pelo quarto.
 	 */
 	public Hospede getResponsavel() {
 		return responsavel;
@@ -98,7 +98,7 @@ public class Quarto implements Alugavel{
 	/**
 	 * 
 	 * @param responsavel
-	 * 			O responsável pelo quarto será alterado para o hóspede recebido como parâmetro.
+	 * 			O responsavel pelo quarto sera alterado para o hospede recebido como parametro.
 	 */
 	public void setResponsavel(Hospede responsavel) {
 		this.responsavel = responsavel;
@@ -107,7 +107,7 @@ public class Quarto implements Alugavel{
 	/**
 	 * 
 	 * @return
-	 * 			Número de dias alugados.
+	 * 			Numero de dias alugados.
 	 */
 	public int getDiasAlugados() {
 		return periodo.getNumeroDias();
@@ -124,7 +124,7 @@ public class Quarto implements Alugavel{
 	/**
 	 * 
 	 * @param periodo
-	 * 		O período em que o objeto foi alugado será alterado para o período recebido como parâmetro.
+	 * 		O periodo em que o objeto foi alugado sera alterado para o periodo recebido como parametro.
 	 */
 	public void setPeriodo(Periodo periodo) {
 		this.periodo = periodo;
@@ -154,21 +154,21 @@ public class Quarto implements Alugavel{
 	@Override
 	/**
 	 *@return
-	 *		Uma representação textual do objeto.
+	 *		Uma representacao textual do objeto.
 	 */
 	public String toString(){
 		return "Numero do quarto: " + getNumero() + ". " +
 				tipoQuarto.getDescricao() +
 			   "Quarto para " + tipoQuarto.getCapacidade() + " pessoas. " +
-			   "Valor da diária: " + tipoQuarto.getDiaria() + ". " +
+			   "Valor da diaria: " + tipoQuarto.getDiaria() + ". " +
 			   "Valor total: " + getPreco() + ".";
 	}
 	
 	@Override
 	/**
 	 * @return
-	 * 		Se dois quartos forem iguais retorna true, caso contrário retorna false. Dois quartos são iguais quando
-	 * 		possuem o mesmo número.
+	 * 		Se dois quartos forem iguais retorna true, caso contrario retorna false. Dois quartos sao iguais quando
+	 * 		possuem o mesmo numero.
 	 */
 	public boolean equals(Object obj){
 		

@@ -2,9 +2,9 @@ package interfaces;
 
 import tempo.Periodo;
 /**
- * Interface que representa um alugável. Um alugável extende pagável e além disso possui métodos para
- * checar se o objeto já foi devolvido e o período que foi alugado.<p>
- * Interface desenvolvida para o projeto da disciplina de Laboratório de Programação II na UFCG 2014.2. 
+ * Interface que representa um alugavel. Um alugavel extende pagavel e alem disso possui metodos para
+ * checar se o objeto ja foi devolvido e o periodo que foi alugado.<p>
+ * Interface desenvolvida para o projeto da disciplina de Laboratorio de Programacao II na UFCG 2014.2. 
  * 
  * 31 de dezembro de 2014.
  * 
@@ -14,20 +14,20 @@ import tempo.Periodo;
 public interface Alugavel extends Pagavel{
 
 	/**
-	 * @return periodo
-	 * 		Período em que objeto foi alugado.
+	 * @return
+	 * 		periodo em que objeto foi alugado.
 	 */
 	public Periodo getPeriodo();
 	
 	/**
-	 * altera o "estado" do objeto para devolvido.
+	 * Altera o "estado" do objeto para devolvido.
 	 */
 	public void devolve();
 	
 	/**
 	 * 
 	 * @return
-	 * 		Se o objeto já foi devolvido ou não.
+	 * 		se o objeto ja foi devolvido ou nao.
 	 */
 	public boolean isDevolvido();
 }

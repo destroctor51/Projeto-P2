@@ -127,9 +127,9 @@ public class QuartoTest {
 		quarto1.devolve();
 		
 		Assert.assertEquals( "Numero do quarto: " + 100 + ". " + 
-					"Quarto Presidencial\nQuarto equipado com TV LCD 42, split, frigobar, cofre,sala de jogos e home theater, ideal para famílias em férias.\n" +
+					"Quarto Presidencial\nQuarto equipado com TV LCD 42, split, frigobar, cofre,sala de jogos e home theater, ideal para familias em ferias.\n" +
 				   "Quarto para " + 4 + " pessoas. " + 
-				   "Valor da diária: " + 1200.0 + ". " +
+				   "Valor da diaria: " + 1200.0 + ". " +
 				   "Valor total: 2400.0.", quarto1.getDescricao());
 		
 		quarto2.alugar(h1,p1);
@@ -139,7 +139,7 @@ public class QuartoTest {
 		Assert.assertEquals("Numero do quarto: " + 101 + ". " + 
 				"Quarto Luxo Simples\nQuarto equipado com TV LCD 42, split, frigobar, cofre e home theater.\n" +
 				"Quarto para " + 1 + " pessoas. " +
-			   "Valor da diária: " + 520.0 + ". " +
+			   "Valor da diaria: " + 520.0 + ". " +
 			   "Valor total: " + 1040.0 + ".", quarto2.getDescricao());	
 	}
 	

@@ -4,9 +4,9 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 /**
- * Classe que representa um período de tempo,guardado a data de início e de fim de tal período,
- * além de fornecer métodos para comparar períodos. <p>
- * Classe desenvolvida para o projeto da disciplina de Laboratório de Programação II na UFCG 2014.2.
+ * Classe que representa um periodo de tempo, guardado a data de inicio e de fim de tal periodo,
+ * alem de fornecer metodos para comparar periodos. <p>
+ * Classe desenvolvida para o projeto da disciplina de Laboratorio de Programacao II na UFCG 2014.2.
  * 
  * 31 de dezembro de 2014.
  * 
@@ -20,11 +20,11 @@ public class Periodo implements Comparable<Periodo>{
 	private Calendar fim;
 	
 	/**
-	 * Construtor do período.
+	 * Construtor do periodo.
 	 * @param inicio
-	 * 			Data de início do período.
+	 * 			Data de inicio do periodo.
 	 * @param fim
-	 * 			Data de fim do período.
+	 * 			Data de fim do periodo.
 	 */
 	public Periodo(Calendar inicio, Calendar fim){
 		
@@ -40,7 +40,7 @@ public class Periodo implements Comparable<Periodo>{
 	/**
 	 * 
 	 * @return
-	 * 		Data de início do período.
+	 * 		Data de inicio do periodo.
 	 */
 	public Calendar getInicio() {
 		return inicio;
@@ -49,7 +49,7 @@ public class Periodo implements Comparable<Periodo>{
 	/**
 	 * 
 	 * @param inicio
-	 * 		Troca a data de início do período pela data recebida como parâmetro.
+	 * 		Troca a data de inicio do periodo pela data recebida como parametro.
 	 */
 	public void setInicio(Calendar inicio) {
 		this.inicio = inicio;
@@ -58,7 +58,7 @@ public class Periodo implements Comparable<Periodo>{
 	/**
 	 * 
 	 * @return
-	 * 		Data de fim do perído.
+	 * 		Data de fim do perido.
 	 */
 	public Calendar getFim() {
 		return fim;
@@ -67,7 +67,7 @@ public class Periodo implements Comparable<Periodo>{
 	/**
 	 * 
 	 * @param fim
-	 * 		Troca a data de fim do período pela data recebida como parâmetro.
+	 * 		Troca a data de fim do periodo pela data recebida como parametro.
 	 */
 	public void setFim(Calendar fim) {
 		this.fim = fim;
@@ -76,7 +76,7 @@ public class Periodo implements Comparable<Periodo>{
 	/**
 	 * 
 	 * @return 
-	 * 		Quantidade de dias do período.
+	 * 		Quantidade de dias do periodo.
 	 */
 	public int getNumeroDias(){
 		int diasNaoContados = 0;
@@ -96,7 +96,7 @@ public class Periodo implements Comparable<Periodo>{
 	/**
 	 * 
 	 * @param outroPeriodo
-	 * 			Outro período.
+	 * 			Outro periodo.
 	 * @return
 	 * 			Se entra em conflito.
 	 */
@@ -110,7 +110,7 @@ public class Periodo implements Comparable<Periodo>{
 	@Override
 	/**
 	 * @return
-	 * 		Se dois períodos forem iguais retorna true, caso contrário retorna false. Dois períodos são considerados iguais
+	 * 		Se dois periodos forem iguais retorna true, caso contrario retorna false. Dois periodos sao considerados iguais
 	 * 		se entrarem em conflito.
 	 */
 	public boolean equals(Object obj){
