@@ -1,60 +1,133 @@
 package servicos;
 
-import interfaces.Pagavel;
+import interfaces.Alugavel;
+
+import java.util.Calendar;
+
+import tempo.Periodo;
 
 /**
  * 
- *Classe que cria uma babysitter.
+ * Classe que cria uma babysitter.
  *
- *@author Jose Benardi de Souza Nunes
+ * @author Jose Benardi de Souza Nunes
  */
-public class Babysitter implements Pagavel {
+public class Babysitter implements Alugavel {
+	private String descricao = "Servico de Babysitter";
 	private String nome;
-	private int horasNormais;
-	private int horasDobradas;
-/**
- * Cria  uma babysitter a partir de um nome, as horas normais e dobradas em que estara empregada.
- * 
- * @param nome
- * 		O nome da babysitter.
- * @param horasNormais
- * 		As horas que trabalharah em expediente regular.
- * @param horasDobradas
- * 		As horas que trabalharah em expediente extra regular.
- */
-	public Babysitter(String nome, int horasNormais, int horasDobradas) {
-		if (nome == null)throw new IllegalArgumentException();
-		this.nome = nome;
-		this.horasNormais = horasNormais;
-		this.horasDobradas = horasDobradas;
-	}
-//metodo
+	private Periodo aluguel;
+	public static final float HORA_EXTRA = 50.0f;
+	public static final float HORA_REGULAR = 25.0f;
+
 	/**
-	 * Recupera o nome da babysitter.
+	 * Cria uma babysitter a partir de um nome.
 	 * 
-	 * @return nome
-	 * 		O nome da babysitter.
+	 * @param nome
+	 *            O nome da babysitter.
+	 * @param horasNormais
+	 *            As horas que trabalharou em expediente regular.
+	 * @param horasDobradas
+	 *            As horas que trabalharou em expediente extra regular.
+	 */
+	public Babysitter(String nome) {
+		if (nome == null)
+			throw new IllegalArgumentException();
+		this.nome = nome;
+	}
+
+	// metodos
+
+	/**
+	 * Recupera a descricao da babysitter.
+	 * 
+	 * @return descricao 
+	 * 		A descricao do servico babysitter.
 	 */
 	@Override
 	public String getDescricao() {
+		return descricao;
+	}
+
+	/**
+	 * Recupera o nome da babysitter.
+	 * 
+	 * @return nome 
+	 * 		O nome da babysitter.
+	 */
+	public String getNome() {
 		return nome;
 	}
+
 	/**
-	 *  Altera o nome da babysitter.
-	 *  
-	 * @param novoNome
-	 *  O novo nome da babysitter.
-	 */
-	public void alteraNome(String novoNome){
-		nome = novoNome;
-	}
-	/**
-	 * Retorna o preco resultante do servico prestado pela babyssiter.
+	 * Seta o periodo de trabalho ah ser realizado pela babysitter.
 	 * 
+	 * @param periodo
+	 *            Tempo de trabalho.
+	 */
+	public void setPeriodo(Periodo periodo) {
+		aluguel = periodo;
+	}
+
+	/**
+	 * Determina o custo da locacao do servico prestado pela babysitter a partir
+	 * do periodo de trabalho.
+	 * 
+	 * @return custo
+	 * 		 O custo pelo servico da babysitter.
 	 */
 	@Override
 	public float getPreco() {
-		return horasNormais * 25 + horasDobradas * 50;
+		int hora_inicial = aluguel.getInicio().get(Calendar.HOUR_OF_DAY);
+		int hora_final = aluguel.getFim().get(Calendar.HOUR_OF_DAY);
+		float custo = 0;
+
+		if (aluguel.getInicio().get(Calendar.DAY_OF_YEAR) != aluguel.getFim()
+				.get(Calendar.DAY_OF_YEAR)) {
+			for (int i = hora_inicial; i < 24; i++) {
+				if (i < 7) {
+					custo += HORA_EXTRA;
+				} else if (i >= 18) {
+					custo += HORA_EXTRA;
+				} else {
+					custo += HORA_REGULAR;
+				}
+
+			}
+
+			for (int i = hora_final; i < 24; i++) {
+				if (i < 7) {
+					custo += HORA_EXTRA;
+				} else if (i >= 18) {
+					custo += HORA_EXTRA;
+				} else {
+					custo += HORA_REGULAR;
+				}
+
+			}
+			custo += ((aluguel.getNumeroDias() - 1) * 13 * HORA_EXTRA);
+			custo += ((aluguel.getNumeroDias() - 1) * 11 * HORA_REGULAR);
+		} else if (aluguel.getInicio().get(Calendar.DAY_OF_YEAR) == aluguel
+				.getFim().get(Calendar.DAY_OF_YEAR)
+				&& aluguel.getInicio().get(Calendar.YEAR) == aluguel.getFim()
+						.get(Calendar.YEAR)) {
+			for (int i = hora_inicial; i < hora_final; i++) {
+				if (i < 7) {
+					custo += HORA_EXTRA;
+				} else if (i >= 18) {
+					custo += HORA_EXTRA;
+				} else {
+					custo += HORA_REGULAR;
+				}
+
+			}
+		}
+		return custo;
+
+	}
+
+	@Override
+	public String toString() {
+		return "Babysitter [descricao=" + descricao + ", nome=" + nome + "]";
 	}
 
 	@Override
@@ -63,13 +136,30 @@ public class Babysitter implements Pagavel {
 			return false;
 		}
 		Babysitter umaBaba = (Babysitter) obj;
-		
-		return umaBaba.getDescricao().equals(getDescricao());
+
+		return umaBaba.getNome() == getNome();
+	}
+	/**
+	 * Retorna o periodo mais recente de locacao do servico da babysitter.
+	 * 
+	 * @return aluguel
+	 * 		O periodo de aluguel do servico da babysitter.
+	 */
+	@Override
+	public Periodo getPeriodo() {
+		return aluguel;
 	}
 
 	@Override
-	public String toString() {
-		return "Babysitter [nome=" + nome + ", horasNormais=" + horasNormais
-				+ ", horasDobradas=" + horasDobradas + "]";
+	public void devolve() {
+		// TODO Auto-generated method stub
+
 	}
+
+	@Override
+	public boolean isDevolvido() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

@@ -1,7 +1,8 @@
 package servicos;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 /**
  * 
@@ -12,7 +13,7 @@ import java.util.List;
  */
 public class Restaurante {
 	private String nome;
-	private List<Refeicao> estoque;
+	private Set<Refeicao> estoque;
 
 	/**
 	 * Cria um restaurante a partir de seu futuro nome.
@@ -21,22 +22,10 @@ public class Restaurante {
 	 *            O nome do restaurante.
 	 */
 	public Restaurante(String nome) {
+		if (nome == null)
+			throw new IllegalArgumentException();
 		this.nome = nome;
-		estoque = new ArrayList<Refeicao>();
-	}
-
-	/**
-	 * Cria um restaurante a partir de seu futuro nome e de um estoque ja
-	 * definido.
-	 * 
-	 * @param nome
-	 *            O nome do restaurante.
-	 * @param novoestoque
-	 *            O estoque a ser utilizado.
-	 */
-	public Restaurante(String nome, List<Refeicao> novoestoque) {
-		this.nome = nome;
-		estoque = novoestoque;
+		estoque = new HashSet<Refeicao>(100);
 	}
 
 	// metodos
@@ -44,22 +33,31 @@ public class Restaurante {
 	/**
 	 * Cadastra uma refeicao ao estoque do restaurante.
 	 * 
-	 * @param umaRefeicao
-	 *            Refeicao a ser cadastrada.
+	 * @param nome
+	 *            O nome da refeicao a ser cadastrada.
+	 * @param preco
+	 *            O preco da refeicao a ser cadastrada.
 	 */
-	public void cadastraRefeicao(Refeicao umaRefeicao) {
+	public void cadastraRefeicao(String nome, float preco) {
+		Refeicao umaRefeicao = new Refeicao(preco, nome);
 		estoque.add(umaRefeicao);
 	}
 
 	/**
 	 * Retira refeicao do estoque do restaurante.
 	 * 
-	 * @param umaRefeicao
-	 *            Refeicao a ser descadastrada.
+	 * @param nome
+	 *            O nome de uma refeicao a ser descadastrada.
 	 */
-	public void descadastraRefeicao(Refeicao umaRefeicao) {
-		estoque.remove(umaRefeicao);
-
+	public void descadastraRefeicao(String nome) {
+		Refeicao ahRetirar = new Refeicao(0, nome);
+		Iterator<Refeicao> iterator = estoque.iterator();
+		while (iterator.hasNext()) {
+			if (ahRetirar.equals(iterator.next())) {
+				iterator.remove();
+				break;
+			}
+		}
 	}
 
 	/**
@@ -68,14 +66,15 @@ public class Restaurante {
 	 * @param novoNome
 	 *            O novo nome a ser dado ao restaurante.
 	 */
-	public void ateraNome(String novoNome) {
+	public void alteraNome(String novoNome) {
 		nome = novoNome;
 	}
 
 	/**
 	 * Recupera o nome do restaurante.
 	 * 
-	 * @return nome O nome do restaurante.
+	 * @return nome 
+	 * 		O nome do restaurante.
 	 */
 	public String getNome() {
 		return nome;
@@ -84,16 +83,13 @@ public class Restaurante {
 	/**
 	 * Recupera o estoque do restaurante.
 	 * 
-	 * @return estoque O estoque do restaurante.
+	 * @return estoque 
+	 * 		O estoque do restaurante.
 	 */
-	public List<Refeicao> getEstoque() {
+	public Set<Refeicao> getEstoque() {
 		return estoque;
 	}
 
-	/**
-	 * Um restaurante eh igual ao outro quando tem o mesmo nome e o mesmo
-	 * estoque.
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (!(obj instanceof Restaurante)) {
@@ -101,24 +97,12 @@ public class Restaurante {
 		}
 		Restaurante umRestaurante = (Restaurante) obj;
 
-		return umRestaurante.getNome().equals(getNome())
-				&& umRestaurante.getEstoque().size() == getEstoque().size()
-				&& umRestaurante.getEstoque().containsAll(getEstoque());
+		return umRestaurante.getNome().equals(getNome());
 	}
 
 	@Override
 	public String toString() {
-		String respective = "Restaurante [nome=" + nome + ", estoque= ";
-		for (int i = 0; i < getEstoque().size(); i++) {
-			if (i == getEstoque().size() - 1) {
-				respective += getEstoque().get(i);
-			} else {
-				respective += getEstoque().get(i) + ", ";
-			}
-		}
-		respective += "]";
-		return respective;
-
+		return "Restaurante [nome=" + nome + ", estoque=" + estoque + "]";
 	}
 
 }

@@ -1,10 +1,14 @@
 package test;
 
+import static org.junit.Assert.*;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
 import servicos.Restaurante;
 import servicos.Refeicao;
 
@@ -25,35 +29,31 @@ public class RestauranteTest {
 		estoque.add(refeicao1);
 		estoque.add(refeicao2);
 		heartAttack = new Restaurante("Le chanson");
-		diabetes = new Restaurante("Mon petit", estoque);
+		diabetes = new Restaurante("Prestes a fechar.");
+		diabetes.cadastraRefeicao("Um prato generico de valor aceitavel.",52.89f);
+		diabetes.cadastraRefeicao("Um prato refinado, caro e de gosto detestavel.",199.89f);
 	}
 
 	@Test
 	public void testConstrutor() {
 		try {
 			heartAttack = new Restaurante(null);
+			fail();
 		} catch (IllegalArgumentException e) {
 		}
-		try {
-			heartAttack = new Restaurante("les chason", null);
-		} catch (IllegalArgumentException e) {
-		}
-
 	}
 
 	@Test
 	public void testEquals() {
 		Assert.assertFalse(heartAttack.equals(diabetes));
-		heartAttack.cadastraRefeicao(refeicao1);
-		heartAttack.cadastraRefeicao(refeicao2);
-		heartAttack.ateraNome(diabetes.getNome());
+		heartAttack.alteraNome(diabetes.getNome());
 		Assert.assertEquals(heartAttack, diabetes);
 	}
 
 	@Test
 	public void testToString() {
-		Assert.assertEquals(diabetes.toString(), "Restaurante [nome=Mon petit, estoque= Refeicao [Descricao=Um prato generico de valor aceitavel., Preco=52.89], Refeicao [Descricao=Um prato refinado, caro e de gosto detestavel., Preco=199.89]]");
-		Assert.assertEquals(heartAttack.toString(), "Restaurante [nome=Le chanson, estoque= ]");
+		Assert.assertEquals(diabetes.toString(), "Restaurante [nome=Prestes a fechar., estoque=[Refeicao [Descricao=Um prato generico de valor aceitavel., Preco=52.89], Refeicao [Descricao=Um prato refinado, caro e de gosto detestavel., Preco=199.89]]]");
+		Assert.assertEquals(heartAttack.toString(), "Restaurante [nome=Le chanson, estoque=[]]");
 	}
 	
 

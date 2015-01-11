@@ -6,7 +6,7 @@ import interfaces.Pagavel;
  * 
  * Classe que cria uma refeicao.
  *
- *@author Jose Benardi de Souza Nunes
+ * @author Jose Benardi de Souza Nunes
  *
  */
 public class Refeicao implements Pagavel {
@@ -21,7 +21,7 @@ public class Refeicao implements Pagavel {
 	 * @param nome
 	 *            O nome da refeicao.
 	 */
-	public Refeicao(float preco, String nome){
+	public Refeicao(float preco, String nome) {
 		if (nome == null)
 			throw new IllegalArgumentException();
 		this.preco = preco;
@@ -51,7 +51,10 @@ public class Refeicao implements Pagavel {
 	}
 
 	/**
-	 * Recupera a descricao da refeicao.
+	 * Recupera a descricao da refeicao
+	 * 
+	 * @return nome
+	 * 		O nome da refeicao
 	 */
 	@Override
 	public String getDescricao() {
@@ -65,15 +68,24 @@ public class Refeicao implements Pagavel {
 	}
 
 	/**
-	 * Recupera o preco da Refeicao.
+	 * Recupera o preco da refeicao.
+	 * 
+	 * @return
+	 * 		Preco da refeicao.
 	 */
 	@Override
 	public float getPreco() {
 		return preco;
 	}
-/**
- * Uma refeicao eh igual ah outra quando ambas tem a mesma descricao e o mesmo preco.
- */
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		return result;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (!(obj instanceof Refeicao)) {
@@ -81,7 +93,6 @@ public class Refeicao implements Pagavel {
 		}
 		Refeicao umaRefeicao = (Refeicao) obj;
 
-		return umaRefeicao.getDescricao().equals(getDescricao())
-				&& umaRefeicao.getPreco() == getPreco();
+		return umaRefeicao.getDescricao() == getDescricao();
 	}
 }
