@@ -1,8 +1,8 @@
 package alugaveis;
 
-import tempo.Periodo;
+import hotel.Hospede;
 import interfaces.Alugavel;
-import classesTemporarias.Hospede;
+import tempo.Periodo;
 
 /**
  * Classe que representa um Quarto. A Classe Quarto guarda as informacoes referentes ao quarto alugado
@@ -27,10 +27,10 @@ public class Quarto implements Alugavel{
 	 * Construtor do Quarto.
 	 * @param tipoQuarto
 	 * 			Tipo do quarto.
-	 * @param placa
+	 * @param numero
 	 * 			Numero do quarto.
 	 */
-	public Quarto(TipoQuarto tipoQuarto,int numero){	
+	public Quarto(TipoQuarto tipoQuarto, int numero){	
 		
 		if(tipoQuarto == null)
 			throw new IllegalArgumentException();

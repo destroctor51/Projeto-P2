@@ -24,10 +24,6 @@ public class Babysitter implements Alugavel {
 	 * 
 	 * @param nome
 	 *            O nome da babysitter.
-	 * @param horasNormais
-	 *            As horas que trabalharou em expediente regular.
-	 * @param horasDobradas
-	 *            As horas que trabalharou em expediente extra regular.
 	 */
 	public Babysitter(String nome) {
 		if (nome == null)

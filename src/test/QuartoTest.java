@@ -1,5 +1,7 @@
 package test;
 
+import hotel.Hospede;
+
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -10,7 +12,6 @@ import org.junit.Test;
 import tempo.Periodo;
 import alugaveis.Quarto;
 import alugaveis.TipoQuarto;
-import classesTemporarias.Hospede;
 
 public class QuartoTest {
 
@@ -48,8 +49,8 @@ public class QuartoTest {
 		new GregorianCalendar(2014,2,28);
 		
 		p1 = new Periodo(c1,c2);
-		h1 = new Hospede();
-		h2 = new Hospede();
+		h1 = new Hospede("Maria", "telefone", "cpf", "email", "endereco", "cidade");
+		h2 = new Hospede("Jose", "telefone", "cpf", "email", "endereco", "cidade");
 	}
 	
 	@Test

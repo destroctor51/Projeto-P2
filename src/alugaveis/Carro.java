@@ -1,8 +1,8 @@
 package alugaveis;
 
-import tempo.Periodo;
+import hotel.Hospede;
 import interfaces.Alugavel;
-import classesTemporarias.Hospede;
+import tempo.Periodo;
 
 /**
  * Classe que representa um Carro. Carro se comporta como alugavel,tem uma placa que o designa
@@ -230,8 +230,6 @@ public class Carro implements Alugavel{
 		String letras = placa.substring(0, 3);
 		String numeros = placa.substring(3);
 	  
-		System.out.println(letras);
-		System.out.println(numeros);
 		for (int i = 0; i < letras.length(); i++) {
 			if (Character.isLetter(letras.charAt(i)) == false) {
 				return false;
