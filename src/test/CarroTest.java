@@ -9,9 +9,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import servicos.devolviveis.Carro;
+import servicos.devolviveis.TipoCarro;
 import tempo.Periodo;
-import alugaveis.Carro;
-import alugaveis.TipoCarro;
 
 public class CarroTest {
 
@@ -105,7 +105,7 @@ public class CarroTest {
 	}
 	
 	@Test
-	public void getDescricaoTest() {
+	public void toStringTest() {
 		
 		carro1.alugar(h1, true, true, p1);
 		Assert.assertEquals(0, carro1.getPreco(),0.001);
@@ -116,7 +116,7 @@ public class CarroTest {
 				   "Valor da diaria: " + 100.0 + ". " +
 				   "Servico tanque cheio: incluso. " + 
 				   "Seguro: incluso. " +
-				   "Valor total: 450.0.", carro1.getDescricao());
+				   "Valor total: 450.0.", carro1.toString());
 		
 		carro2.alugar(h1, true, false, p3);
 		Assert.assertEquals(0, carro2.getPreco(),0.001);
@@ -127,7 +127,7 @@ public class CarroTest {
 				   "Valor da diaria: " + 60.0 + ". " +
 				   "Servico tanque cheio: incluso. " + 
 				   "Seguro: nao incluso. " +
-				   "Valor total: 1830.0.", carro2.getDescricao());	
+				   "Valor total: 1830.0.", carro2.toString());	
 	
 	
 		carro2.alugar(h1, true, false, p3);
@@ -140,8 +140,16 @@ public class CarroTest {
 			   "Valor da diaria: " + 60.0 + ". " +
 			   "Servico tanque cheio: incluso. " + 
 			   "Seguro: nao incluso. " +
-			   "Valor total: 270.0.", carro2.getDescricao());	
+			   "Valor total: 270.0.", carro2.toString());	
 	}
+	
+	@Test
+	public void getDescricaoTest() {
+		
+		Assert.assertEquals( "Carro Luxo", carro1.getDescricao());	
+		Assert.assertEquals( "Carro Executivo", carro2.getDescricao());	
+	}
+	
 	
 	@Test
 	public void equalsTest() {

@@ -9,9 +9,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import servicos.devolviveis.Quarto;
+import servicos.devolviveis.TipoQuarto;
 import tempo.Periodo;
-import alugaveis.Quarto;
-import alugaveis.TipoQuarto;
 
 public class QuartoTest {
 
@@ -121,7 +121,7 @@ public class QuartoTest {
 	}
 	
 	@Test
-	public void getDescricaoTest() {
+	public void toStringTest() {
 		
 		quarto1.alugar(h1,p1);
 		Assert.assertEquals(0, quarto1.getPreco(),0.001);
@@ -131,7 +131,7 @@ public class QuartoTest {
 					"Quarto Presidencial\nQuarto equipado com TV LCD 42, split, frigobar, cofre,sala de jogos e home theater, ideal para familias em ferias.\n" +
 				   "Quarto para " + 4 + " pessoas. " + 
 				   "Valor da diaria: " + 1200.0 + ". " +
-				   "Valor total: 2400.0.", quarto1.getDescricao());
+				   "Valor total: 2400.0.", quarto1.toString());
 		
 		quarto2.alugar(h1,p1);
 		Assert.assertEquals(0, quarto2.getPreco(),0.001);
@@ -141,7 +141,14 @@ public class QuartoTest {
 				"Quarto Luxo Simples\nQuarto equipado com TV LCD 42, split, frigobar, cofre e home theater.\n" +
 				"Quarto para " + 1 + " pessoas. " +
 			   "Valor da diaria: " + 520.0 + ". " +
-			   "Valor total: " + 1040.0 + ".", quarto2.getDescricao());	
+			   "Valor total: " + 1040.0 + ".", quarto2.toString());	
+	}
+	
+	@Test
+	public void getDescricaoTest() {
+
+		Assert.assertEquals("Quarto Presidencial\nQuarto equipado com TV LCD 42, split, frigobar, cofre,sala de jogos e home theater, ideal para familias em ferias.\n" , quarto1.getDescricao());
+		Assert.assertEquals("Quarto Luxo Simples\nQuarto equipado com TV LCD 42, split, frigobar, cofre e home theater.\n", quarto2.getDescricao());	
 	}
 	
 	@Test

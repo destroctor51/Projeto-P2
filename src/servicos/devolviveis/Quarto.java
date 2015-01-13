@@ -1,7 +1,7 @@
-package alugaveis;
+package servicos.devolviveis;
 
 import hotel.Hospede;
-import interfaces.Alugavel;
+import interfaces.Devolvivel;
 import tempo.Periodo;
 
 /**
@@ -14,7 +14,7 @@ import tempo.Periodo;
  * @author Marianne Linhares Monteiro
  * @version 1.0
  */
-public class Quarto implements Alugavel{
+public class Quarto implements Devolvivel{
 	
 	private Hospede responsavel;
 	private TipoQuarto tipoQuarto;
@@ -27,10 +27,10 @@ public class Quarto implements Alugavel{
 	 * Construtor do Quarto.
 	 * @param tipoQuarto
 	 * 			Tipo do quarto.
-	 * @param numero
+	 * @param placa
 	 * 			Numero do quarto.
 	 */
-	public Quarto(TipoQuarto tipoQuarto, int numero){	
+	public Quarto(TipoQuarto tipoQuarto,int numero){	
 		
 		if(tipoQuarto == null)
 			throw new IllegalArgumentException();
@@ -66,7 +66,7 @@ public class Quarto implements Alugavel{
 	 * @inheritDoc
 	 */
 	public String getDescricao() {
-		return toString();
+		return tipoQuarto.getDescricao();
 	}
 
 	@Override

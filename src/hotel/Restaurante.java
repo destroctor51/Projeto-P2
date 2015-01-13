@@ -1,13 +1,16 @@
-package servicos;
+package hotel;
 
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import servicos.pagaveis.Refeicao;
+
 /**
  * 
- * Classe que cria um Restaurante.
- *
+ * Classe que gerencia por meio de cadastramento e remocao a manutencao e
+ * disponibilidade de refeicoes.
+ * 
  * @author Jose Benardi de Souza Nunes
  *
  */

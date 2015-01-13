@@ -2,12 +2,13 @@ package test;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import tempo.Periodo;
 
-import servicos.Babysitter;
+import servicos.alugaveis.Babysitter;
+import tempo.Periodo;
 
 public class BabyssiterTest {
 

@@ -1,11 +1,11 @@
-package alugaveis;
+package servicos.devolviveis;
 
 import hotel.Hospede;
-import interfaces.Alugavel;
+import interfaces.Devolvivel;
 import tempo.Periodo;
 
 /**
- * Classe que representa um Carro. Carro se comporta como alugavel,tem uma placa que o designa
+ * Classe que representa um Carro. Carro se comporta como devolvivel,tem uma placa que o designa
  * e pode estar vinculado a um Hospede e consequentemente estando com seu retorno pendente.<p>
  * Classe desenvolvida para o projeto da disciplina de Laboratorio de Programacao II na UFCG 2014.2.
  * 
@@ -14,7 +14,7 @@ import tempo.Periodo;
  * @author Marianne Linhares Monteiro
  * @version 1.0
  */
-public class Carro implements Alugavel{
+public class Carro implements Devolvivel{
 	
 	/**
 	 * Valor pago se o servico tanque cheio for solicitado.
@@ -97,7 +97,7 @@ public class Carro implements Alugavel{
 	 * @inheritDoc
 	 */
 	public String getDescricao() {
-		return toString();
+		return tipoCarro.getDescricao();
 	}
 
 	@Override
@@ -193,7 +193,7 @@ public class Carro implements Alugavel{
 	 *		Uma representacao textual do objeto.
 	 */
 	public String toString(){
-		return tipoCarro.getNome() + ". " +
+		return tipoCarro.getDescricao() + ". " +
 			   "Placa do carro: " + getPlaca() + ". " + 
 			   "Valor da diaria: " + tipoCarro.getDiaria() + ". " +
 			   "Servico tanque cheio: " + (tanqueCheio ? "" : "nao ") + "incluso. " + 

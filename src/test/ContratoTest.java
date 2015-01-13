@@ -12,10 +12,10 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import servicos.CamaExtra;
+import servicos.alugaveis.CamaExtra;
+import servicos.devolviveis.Quarto;
+import servicos.devolviveis.TipoQuarto;
 import tempo.Periodo;
-import alugaveis.Quarto;
-import alugaveis.TipoQuarto;
 
 public class ContratoTest {
 	private String cartao1 = "5555666677778884";

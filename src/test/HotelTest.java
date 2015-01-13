@@ -6,8 +6,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import alugaveis.TipoCarro;
-import alugaveis.TipoQuarto;
+import servicos.devolviveis.TipoCarro;
+import servicos.devolviveis.TipoQuarto;
 
 
 public class HotelTest {

@@ -1,4 +1,4 @@
-package servicos;
+package servicos.pagaveis;
 
 import interfaces.Pagavel;
 

@@ -7,7 +7,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import servicos.CamaExtra;
+import servicos.alugaveis.CamaExtra;
 import tempo.Periodo;
 
 public class CamaExtraTest {

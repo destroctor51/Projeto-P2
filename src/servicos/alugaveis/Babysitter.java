@@ -1,4 +1,4 @@
-package servicos;
+package servicos.alugaveis;
 
 import interfaces.Alugavel;
 
@@ -8,7 +8,10 @@ import tempo.Periodo;
 
 /**
  * 
- * Classe que cria uma babysitter.
+ * Classe que representa uma baby-sitter cujo custo nao so depende da quantidade
+ * de tempo empregado, mas eh relativo ao periodo em que foi requisitado.
+ * Enquanto tipo de Alugavel, o uso de uma baby-sitter eh referido aos gastos
+ * dos hospedes no Hotel.
  *
  * @author Jose Benardi de Souza Nunes
  */
@@ -24,6 +27,10 @@ public class Babysitter implements Alugavel {
 	 * 
 	 * @param nome
 	 *            O nome da babysitter.
+	 * @param horasNormais
+	 *            As horas que trabalharou em expediente regular.
+	 * @param horasDobradas
+	 *            As horas que trabalharou em expediente extra regular.
 	 */
 	public Babysitter(String nome) {
 		if (nome == null)
@@ -144,18 +151,6 @@ public class Babysitter implements Alugavel {
 	@Override
 	public Periodo getPeriodo() {
 		return aluguel;
-	}
-
-	@Override
-	public void devolve() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public boolean isDevolvido() {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 }

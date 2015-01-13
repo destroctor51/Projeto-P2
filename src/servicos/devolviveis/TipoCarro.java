@@ -1,7 +1,7 @@
-package alugaveis;
+package servicos.devolviveis;
 
 /**
- * Enum que representa um Tipo de carro. Cada tipo de carro tem um valor de diaria(int) e um nome(String).<p>
+ * Enum que representa um Tipo de carro. Cada tipo de carro tem um valor de diaria(int) e uma descricao(String).<p>
  * Enum desenvolvida para o projeto da disciplina de Laboratorio de Programacao II na UFCG 2014.2.
  * 
  * 31 de dezembro de 2014.
@@ -11,9 +11,9 @@ package alugaveis;
  */
  public enum TipoCarro {
 	
-	LUXO(100.0, "Carro Luxo"),EXECUTIVO(60.0, "Carro Executivo");
+	LUXO(100.0f, "Carro Luxo"),EXECUTIVO(60.0f, "Carro Executivo");
 	
-	private double diaria;
+	private float diaria;
 	private String nome;
 	
 	/**
@@ -23,7 +23,7 @@ package alugaveis;
 	 * @param nome
 	 * 			Nome do carro.
 	 */
-	TipoCarro(double diaria, String nome){
+	TipoCarro(float diaria, String nome){
 		this.diaria = diaria;
 		this.nome = nome;
 	}
@@ -33,15 +33,15 @@ package alugaveis;
 	 * @return
 	 * 		Valor da diaria.
 	 */
-	public double getDiaria() {
+	public float getDiaria() {
 		return diaria;
 	}
 	/**
 	 * 
 	 * @return
-	 * 		Nome do tipo de carro.
+	 * 		Descricao do carro.
 	 */
-	public String getNome() {
+	public String getDescricao() {
 		return nome;
 	}
 

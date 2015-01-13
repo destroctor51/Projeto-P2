@@ -1,4 +1,4 @@
-package alugaveis;
+package servicos.devolviveis;
 
 /**
  * Enum que representa um Tipo de quarto. Cada tipo de quarto tem um valor de diaria(int),
@@ -12,15 +12,15 @@ package alugaveis;
  */
 public enum TipoQuarto {
 
-	PRESIDENCIAL(1200, 4, "Quarto Presidencial\nQuarto equipado com TV LCD 42, split, frigobar, cofre,sala de jogos e home theater, ideal para familias em ferias.\n"),
+	PRESIDENCIAL(1200.0f, 4, "Quarto Presidencial\nQuarto equipado com TV LCD 42, split, frigobar, cofre,sala de jogos e home theater, ideal para familias em ferias.\n"),
 	
-	LUXO_SIMPLES(520, 1, "Quarto Luxo Simples\nQuarto equipado com TV LCD 42, split, frigobar, cofre e home theater.\n"),
-	LUXO_DUPLO(570, 2, "Quarto Luxo Duplo\nQuarto equipado com TV LCD 42, split, frigobar, cofre e home theater.\n"),
-	LUXO_TRIPLO(620, 3, "Quarto Luxo Triplo\nQuarto equipado com TV LCD 42, split, frigobar, cofre e home theater.\n"),
+	LUXO_SIMPLES(520.0f, 1, "Quarto Luxo Simples\nQuarto equipado com TV LCD 42, split, frigobar, cofre e home theater.\n"),
+	LUXO_DUPLO(570.0f, 2, "Quarto Luxo Duplo\nQuarto equipado com TV LCD 42, split, frigobar, cofre e home theater.\n"),
+	LUXO_TRIPLO(620.0f, 3, "Quarto Luxo Triplo\nQuarto equipado com TV LCD 42, split, frigobar, cofre e home theater.\n"),
 	
-	EXECUTIVO_SIMPLES(360, 1, "Quarto Executivo Simples\nQuarto equipado com TV LCD 42, split, frigobar e cofre.\n"),
-	EXECUTIVO_DUPLO(385, 2, "Quarto Executivo Duplo\nQuarto equipado com TV LCD 42, split, frigobar e cofre.\n"),
-	EXECUTIVO_TRIPLO(440, 3 , "Quarto Executivo Triplo\nQuarto equipado com TV LCD 42, split, frigobar e cofre.\n");
+	EXECUTIVO_SIMPLES(360.0f, 1, "Quarto Executivo Simples\nQuarto equipado com TV LCD 42, split, frigobar e cofre.\n"),
+	EXECUTIVO_DUPLO(385.0f, 2, "Quarto Executivo Duplo\nQuarto equipado com TV LCD 42, split, frigobar e cofre.\n"),
+	EXECUTIVO_TRIPLO(440.0f, 3 , "Quarto Executivo Triplo\nQuarto equipado com TV LCD 42, split, frigobar e cofre.\n");
 	
 	private float diaria;
 	private int capacidade;

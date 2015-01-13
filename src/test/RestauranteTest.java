@@ -1,6 +1,7 @@
 package test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
+import hotel.Restaurante;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,8 +10,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import servicos.Restaurante;
-import servicos.Refeicao;
+import servicos.pagaveis.Refeicao;
 
 public class RestauranteTest {
 	List<Refeicao> estoque;

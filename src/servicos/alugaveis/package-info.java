@@ -4,4 +4,4 @@
  * @author Marianne Linhares Monteiro
  */
  
-package alugaveis;
+package servicos.alugaveis;

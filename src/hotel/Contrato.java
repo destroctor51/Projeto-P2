@@ -1,13 +1,13 @@
 package hotel;
 
-import interfaces.Alugavel;
+import interfaces.Devolvivel;
 import interfaces.Pagavel;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import servicos.devolviveis.Quarto;
 import tempo.Periodo;
-import alugaveis.Quarto;
 
 /**
  * Uma classe que cria contratos.
@@ -199,7 +199,7 @@ public class Contrato {
 			return false;
 		
 		for (Pagavel servico : servicos) {
-			if (servico instanceof Alugavel && !(((Alugavel)servico).isDevolvido()))
+			if (servico instanceof Devolvivel && !(((Devolvivel) servico).isDevolvido()))
 				return false;
 		}
 		

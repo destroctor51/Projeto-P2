@@ -1,11 +1,13 @@
-package servicos;
+package servicos.alugaveis;
 
 import interfaces.Alugavel;
 import tempo.Periodo;
 
 /**
  * 
- * Classe que cria uma cama extra.
+ * Classe que permite a adicao de um custo aos gastos do hospede no Hotel, no que
+ * se refere a uma flexibilidade na acomodacao de um numero de pessoas que excede
+ * a capacidade regular de um determinado quarto.
  *
  * @author Jose Benardi de Souza Nunes *
  */
@@ -90,17 +92,4 @@ public class CamaExtra implements Alugavel {
 	public Periodo getPeriodo() {
 		return aluguel;
 	}
-
-	@Override
-	public void devolve() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public boolean isDevolvido() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 }

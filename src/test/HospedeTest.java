@@ -11,9 +11,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import alugaveis.Quarto;
-import alugaveis.TipoQuarto;
-
+import servicos.devolviveis.Quarto;
+import servicos.devolviveis.TipoQuarto;
 import tempo.Periodo;
 
 public class HospedeTest {

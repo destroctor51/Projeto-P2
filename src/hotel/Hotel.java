@@ -2,14 +2,13 @@ package hotel;
 
 import java.util.ArrayList;
 import java.util.List;
-import alugaveis.Carro;
-import alugaveis.Quarto;
-import alugaveis.TipoCarro;
-import alugaveis.TipoQuarto;
 
-import servicos.Babysitter;
-import servicos.CamaExtra;
-import servicos.Restaurante;
+import servicos.alugaveis.Babysitter;
+import servicos.alugaveis.CamaExtra;
+import servicos.devolviveis.Carro;
+import servicos.devolviveis.Quarto;
+import servicos.devolviveis.TipoCarro;
+import servicos.devolviveis.TipoQuarto;
 import tempo.Estacao;
 import tempo.Periodo;
 

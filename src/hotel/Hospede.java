@@ -5,8 +5,8 @@ import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.List;
 
+import servicos.devolviveis.Quarto;
 import tempo.Periodo;
-import alugaveis.Quarto;
 
 /**
  * Uma classe que cria hospedes.
@@ -179,11 +179,15 @@ public class Hospede {
 	 * 			O numero do cartao do hospede.
 	 * @param tarifa
 	 * 			A tarifa a ser cobrada sobre o preco do contrato.
+	 * @param estadia
+	 * 			Periodo de estadia no hotel.
+	 * @param quartos
+	 * 			Lista de quartos do hotel.
+	 * @throws Exception
 	 */
 	public void realizarReserva(String cartao, double tarifa, Periodo estadia, List<Quarto> quartos) throws Exception {
 		if (cartao == null || estadia == null || quartos == null || cartao.equals("") || tarifa < 0)
 			throw new IllegalArgumentException();
-		
 		if (!(verificaCartao(cartao)))
 			throw new Exception("Cartao invalido.");
 		
