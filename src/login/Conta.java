@@ -14,7 +14,7 @@ public class Conta implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Permissao permissao;
-	private String id, senha;
+	private String nome, id, senha;
 	
 	/**
 	 * Cria uma conta com um id, uma senha e um nivel de acesso.
@@ -40,6 +40,17 @@ public class Conta implements Serializable {
 	 */
 	public boolean possuiPermissao(Permissao requerimento) {
 		return permissao.ordinal() >= requerimento.ordinal();
+	}
+	
+	/**
+	 * Relaciona um nome a conta, para facilitar sua identificacao e melhorar sua seguranca.
+	 *  
+	 * @param nome  o nome a ser relacionado, nao null
+	 */
+	public void setNome(String nome) {
+		if(nome == null)
+			throw new IllegalArgumentException();
+		this.nome = nome;
 	}
 	
 	/**
@@ -98,5 +109,10 @@ public class Conta implements Serializable {
 		
 		Conta outro = (Conta) obj;
 		return id.equals(outro.id);
-	}	
+	}
+	
+	@Override
+	public String toString() {
+		return nome == null? id : nome;
+	}
 }

@@ -11,6 +11,7 @@ public class ContaTest {
 	@Test
 	public void testConstrutor() {
 		Conta conta = new Conta("Victor", "segredo", ADMINISTRADOR);
+		assertEquals("Victor", conta.toString());
 		
 		assertTrue(conta.confereAcesso("Victor", "segredo"));
 		assertFalse(conta.confereAcesso("Victor", "senha"));
@@ -64,7 +65,7 @@ public class ContaTest {
 	}
 	
 	@Test
-	public void testSetSenha() {
+	public void testSet() {
 		Conta conta = new Conta("Victor", "segredo", ADMINISTRADOR);
 		assertTrue(conta.confereAcesso("Victor", "segredo"));
 		
@@ -79,5 +80,14 @@ public class ContaTest {
 			conta.setSenha("confidencial", null);
 			fail("Esperava excecao, pois nova senha nao pode ser null");
 		} catch(IllegalArgumentException e) {}
+		
+		try {
+			conta.setNome(null);
+			fail("Esperava excecao, pois nome nao pode ser null");
+		} catch(IllegalArgumentException e) {}
+		
+		conta.setNome("Victor Andrade de Almeida");
+		assertEquals("Victor Andrade de Almeida", conta.toString());
+		assertTrue(conta.confereAcesso("Victor", "confidencial"));
 	}
 }

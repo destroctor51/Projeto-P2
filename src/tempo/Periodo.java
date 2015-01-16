@@ -28,9 +28,9 @@ public class Periodo implements Comparable<Periodo>{
 	 */
 	public Periodo(Calendar inicio, Calendar fim){
 		
-		if(inicio == null)
+		if(inicio == null || fim == null)
 			throw new IllegalArgumentException();
-		if(fim == null)
+		if(fim.before(inicio))
 			throw new IllegalArgumentException();
 		
 		this.inicio = inicio;
@@ -78,7 +78,7 @@ public class Periodo implements Comparable<Periodo>{
 	 * @return 
 	 * 		Quantidade de dias do periodo.
 	 */
-	public int getNumeroDias(){
+	public int getNumeroDias() {
 		int diasNaoContados = 0;
 		int anoInicial = inicio.get(Calendar.YEAR);
 		int anoFinal = fim.get(Calendar.YEAR);
@@ -94,17 +94,32 @@ public class Periodo implements Comparable<Periodo>{
 	}
 	
 	/**
+	 * Confere se ha uma intercessao entre dois periodos.
+	 * <p>
+	 * Caso um deles seja null, considera-se que nao ha intercessao.
 	 * 
-	 * @param outroPeriodo
-	 * 			Outro periodo.
-	 * @return
-	 * 			Se entra em conflito.
+	 * @param outroPeriodo  o periodo a ser checado
+	 * @return true se os os periodos entrarem em conflito, false caso contrario
 	 */
-	public boolean entraEmConflito(Periodo outroPeriodo){
-		return ((getInicio().after(outroPeriodo.getInicio()) || getInicio().equals(outroPeriodo.getInicio())) &&
-				(getInicio().before(outroPeriodo.getFim()) || getInicio().equals(outroPeriodo.getFim()))) ||
-				((getFim().before(outroPeriodo.getFim()) || getFim().equals(outroPeriodo.getFim())) &&
-				(getFim().after(outroPeriodo.getInicio())) || getFim().equals(outroPeriodo.getInicio()));
+	public boolean entraEmConflito(Periodo outroPeriodo) {
+		if(outroPeriodo == null)
+			return false;
+		
+		return outroPeriodo.inicio.compareTo(fim) <= 0 &&
+				(outroPeriodo.fim.compareTo(inicio) >= 0 || outroPeriodo.inicio.compareTo(inicio) >= 0);
+	}
+	
+	/**
+	 * Confere se o periodo engloba uma data especifica.
+	 * <p>
+	 * Caso a data seja null, considera-se que o periodo nao a engloba.
+	 * 
+	 * @param data  data a ser checada
+	 * @return true se o periodo contem a data, false caso contrario
+	 */
+	public boolean contem(Calendar data) {
+		if(data == null) return false;
+		return data.compareTo(inicio) >= 0 && data.compareTo(fim) <= 0;
 	}
 	
 	@Override

@@ -55,13 +55,13 @@ public class GerenciadorDeContas {
 	 * @param id  a identificacao da conta
 	 * @param senha  a senha usada para o acesso da conta
 	 * @param permissao  o nivel de acesso que a conta possui
-	 * @return true se a operacao foi realizada com sucesso, false caso contrario
+	 * @return a nova conta se a operacao foi realizada com sucesso, null caso contrario
 	 */
-	public boolean cadastra(String id, String senha, Permissao permissao) {
+	public Conta cadastra(String id, String senha, Permissao permissao) {
 		if(contas == null) carregaContas();
 		
 		Conta novaConta = new Conta(id, senha, permissao);
-		return contas.add(novaConta);
+		return contas.add(novaConta)? novaConta : null;
 	}
 	
 	/**

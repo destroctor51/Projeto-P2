@@ -23,7 +23,7 @@ public class PeriodoTest {
 	public void before(){
 		
 		c1 = new GregorianCalendar(2014,1,28);
-		c2 = new GregorianCalendar(2014,1,30);
+		c2 = new GregorianCalendar(2014,2,2);
 		c3 = new GregorianCalendar(2014,2,28);
 		
 		p1 = new Periodo(c1,c2);
@@ -34,11 +34,18 @@ public class PeriodoTest {
 	@Test
 	public void ConstrutorTest() {
 		try {
-			new Periodo(null,c1);
-		} catch(IllegalArgumentException i){}
+			new Periodo(null, c1);
+			Assert.fail();
+		} catch(IllegalArgumentException i) {}
 	
 		try {
-			new Periodo(c1,null);
+			new Periodo(c1, null);
+			Assert.fail();
+		} catch(IllegalArgumentException i) {}
+		
+		try {
+			new Periodo(c2, c1);
+			Assert.fail();
 		} catch(IllegalArgumentException i) {}
 	}
 	
@@ -68,6 +75,7 @@ public class PeriodoTest {
 	
 	@Test
 	public void entraEmConlitoTest() {
+		Assert.assertFalse(p1.entraEmConflito(null));
 		
 		Assert.assertTrue(p2.entraEmConflito(p3));
 		Assert.assertTrue(p3.entraEmConflito(p2));
@@ -82,7 +90,19 @@ public class PeriodoTest {
 	}
 	
 	@Test
+	public void contemTest() {
+		Assert.assertFalse(p1.contem(null));
+		Assert.assertTrue(p1.contem(c1));
+		Assert.assertTrue(p1.contem(c2));
+		Assert.assertTrue(p1.contem(new GregorianCalendar(2014,2,1)));
+		Assert.assertFalse(p1.contem(new GregorianCalendar(2014,1,1)));
+		Assert.assertFalse(p1.contem(new GregorianCalendar(2014,2,4)));
+	}
+	
+	@Test
 	public void equalsTest() {
+		Assert.assertFalse(p2.equals(null));
+		
 		Assert.assertTrue(p2.equals(p3));
 		Assert.assertTrue(p3.equals(p2));
 		Assert.assertTrue(p3.equals(p3));

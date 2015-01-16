@@ -1,14 +1,13 @@
 package test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static login.Permissao.ADMINISTRADOR;
+import static login.Permissao.FUNCIONARIO;
+import static login.Permissao.GERENTE;
+import static org.junit.Assert.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import static login.Permissao.*;
 import login.Conta;
 import login.GerenciadorDeContas;
 
@@ -46,27 +45,27 @@ public class GerenciadorDeContasTest {
 		gdc = new GerenciadorDeContas();
 		assertTrue(gdc.vazio());
 		
-		assertTrue(gdc.cadastra("Roberto", "afewgs", FUNCIONARIO));
-		assertTrue(gdc.cadastra("Paulo", "grhtrd", FUNCIONARIO));
-		assertTrue(gdc.cadastra("Mateus", "aofnhsue", FUNCIONARIO));
-		assertTrue(gdc.cadastra("Rodrigo", "asdpi", FUNCIONARIO));
-		assertTrue(gdc.cadastra("Rafaela", "eqrete", FUNCIONARIO));
-		assertTrue(gdc.cadastra("Nara", "htrthr", ADMINISTRADOR));
-		assertTrue(gdc.cadastra("Ingrid", "asdfe", ADMINISTRADOR));
-		assertTrue(gdc.cadastra("Maria", "ththuy", ADMINISTRADOR));
-		assertTrue(gdc.cadastra("Safire", "ahybnui", ADMINISTRADOR));
-		assertTrue(gdc.cadastra("Victor", "oemugnu", GERENTE));
+		assertNotEquals(null, gdc.cadastra("Roberto", "afewgs", FUNCIONARIO));
+		assertNotEquals(null, gdc.cadastra("Paulo", "grhtrd", FUNCIONARIO));
+		assertNotEquals(null, gdc.cadastra("Mateus", "aofnhsue", FUNCIONARIO));
+		assertNotEquals(null, gdc.cadastra("Rodrigo", "asdpi", FUNCIONARIO));
+		assertNotEquals(null, gdc.cadastra("Rafaela", "eqrete", FUNCIONARIO));
+		assertNotEquals(null, gdc.cadastra("Nara", "htrthr", ADMINISTRADOR));
+		assertNotEquals(null, gdc.cadastra("Ingrid", "asdfe", ADMINISTRADOR));
+		assertNotEquals(null, gdc.cadastra("Maria", "ththuy", ADMINISTRADOR));
+		assertNotEquals(null, gdc.cadastra("Safire", "ahybnui", ADMINISTRADOR));
+		assertNotEquals(null, gdc.cadastra("Victor", "oemugnu", GERENTE));
 		
-		assertFalse(gdc.cadastra("Nara", "afewgs", FUNCIONARIO));
-		assertFalse(gdc.cadastra("Ingrid", "grhtrd", FUNCIONARIO));
-		assertFalse(gdc.cadastra("Maria", "aofnhsue", FUNCIONARIO));
-		assertFalse(gdc.cadastra("Safire", "asdpi", FUNCIONARIO));
-		assertFalse(gdc.cadastra("Victor", "eqrete", FUNCIONARIO));
-		assertFalse(gdc.cadastra("Roberto", "htrthr", ADMINISTRADOR));
-		assertFalse(gdc.cadastra("Paulo", "asdfe", ADMINISTRADOR));
-		assertFalse(gdc.cadastra("Mateus", "ththuy", ADMINISTRADOR));
-		assertFalse(gdc.cadastra("Rodrigo", "ahybnui", ADMINISTRADOR));
-		assertFalse(gdc.cadastra("Rafaela", "oemugnu", GERENTE));
+		assertEquals(null, gdc.cadastra("Nara", "afewgs", FUNCIONARIO));
+		assertEquals(null, gdc.cadastra("Ingrid", "grhtrd", FUNCIONARIO));
+		assertEquals(null, gdc.cadastra("Maria", "aofnhsue", FUNCIONARIO));
+		assertEquals(null, gdc.cadastra("Safire", "asdpi", FUNCIONARIO));
+		assertEquals(null, gdc.cadastra("Victor", "eqrete", FUNCIONARIO));
+		assertEquals(null, gdc.cadastra("Roberto", "htrthr", ADMINISTRADOR));
+		assertEquals(null, gdc.cadastra("Paulo", "asdfe", ADMINISTRADOR));
+		assertEquals(null, gdc.cadastra("Mateus", "ththuy", ADMINISTRADOR));
+		assertEquals(null, gdc.cadastra("Rodrigo", "ahybnui", ADMINISTRADOR));
+		assertEquals(null, gdc.cadastra("Rafaela", "oemugnu", GERENTE));
 		
 		assertFalse(gdc.salvaContas());
 		assertFalse(gdc.vazio());
@@ -116,14 +115,14 @@ public class GerenciadorDeContasTest {
 	public void testCarregaContas() {
 		Arquivo.salvaObjeto(null, "test.dat");
 		gdc = new GerenciadorDeContas("test.dat");
-		assertTrue(gdc.cadastra("Victor", "senha", GERENTE));
+		assertNotEquals(null, gdc.cadastra("Victor", "senha", GERENTE));
 		assertEquals("Victor".hashCode(), gdc.login("Victor", "senha").hashCode());
 		
 		Set<Object> arquivo = new HashSet<Object>();
 		
 		Arquivo.salvaObjeto(arquivo, "test.dat");
 		gdc = new GerenciadorDeContas("test.dat");
-		assertTrue(gdc.cadastra("Emanuell", "senha", ADMINISTRADOR));
+		assertNotEquals(null, gdc.cadastra("Emanuell", "senha", ADMINISTRADOR));
 		assertEquals("Emanuell".hashCode(), gdc.login("Emanuell", "senha").hashCode());
 		
 		arquivo.add(new Conta("Safire", "senha", FUNCIONARIO));
