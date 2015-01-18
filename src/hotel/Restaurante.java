@@ -1,16 +1,15 @@
 package hotel;
 
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 import servicos.pagaveis.Refeicao;
 
 /**
- * 
+ *
  * Classe que gerencia por meio de cadastramento e remocao a manutencao e
  * disponibilidade de refeicoes.
- * 
+ *
  * @author Jose Benardi de Souza Nunes
  *
  */
@@ -20,7 +19,7 @@ public class Restaurante {
 
 	/**
 	 * Cria um restaurante a partir de seu futuro nome.
-	 * 
+	 *
 	 * @param nome
 	 *            O nome do restaurante.
 	 */
@@ -35,37 +34,29 @@ public class Restaurante {
 
 	/**
 	 * Cadastra uma refeicao ao estoque do restaurante.
-	 * 
-	 * @param nome
-	 *            O nome da refeicao a ser cadastrada.
-	 * @param preco
-	 *            O preco da refeicao a ser cadastrada.
+	 *
+	 * @param nome  o nome da refeicao a ser cadastrada.
+	 * @param preco  o preco da refeicao a ser cadastrada.
+	 * @return true se a refeicao for cadastrada com sucesso, false caso ja hava uma refeicao com o mesmo nome
 	 */
-	public void cadastraRefeicao(String nome, float preco) {
-		Refeicao umaRefeicao = new Refeicao(preco, nome);
-		estoque.add(umaRefeicao);
+	public boolean cadastraRefeicao(String nome, float preco) {
+		Refeicao umaRefeicao = new Refeicao(nome, preco);
+		return estoque.add(umaRefeicao);
 	}
 
 	/**
 	 * Retira refeicao do estoque do restaurante.
-	 * 
-	 * @param nome
-	 *            O nome de uma refeicao a ser descadastrada.
+	 *
+	 * @param refeicao  a refeicao a ser removida
+	 * @return true caso a refeicao seja removida com sucesso
 	 */
-	public void descadastraRefeicao(String nome) {
-		Refeicao ahRetirar = new Refeicao(0, nome);
-		Iterator<Refeicao> iterator = estoque.iterator();
-		while (iterator.hasNext()) {
-			if (ahRetirar.equals(iterator.next())) {
-				iterator.remove();
-				break;
-			}
-		}
+	public boolean removeRefeicao(Refeicao refeicao) {
+		return estoque.remove(refeicao);
 	}
 
 	/**
 	 * Muda o nome dado ao restaurante.
-	 * 
+	 *
 	 * @param novoNome
 	 *            O novo nome a ser dado ao restaurante.
 	 */
@@ -75,8 +66,8 @@ public class Restaurante {
 
 	/**
 	 * Recupera o nome do restaurante.
-	 * 
-	 * @return nome 
+	 *
+	 * @return nome
 	 * 		O nome do restaurante.
 	 */
 	public String getNome() {
@@ -85,8 +76,8 @@ public class Restaurante {
 
 	/**
 	 * Recupera o estoque do restaurante.
-	 * 
-	 * @return estoque 
+	 *
+	 * @return estoque
 	 * 		O estoque do restaurante.
 	 */
 	public Set<Refeicao> getEstoque() {
@@ -95,11 +86,10 @@ public class Restaurante {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (!(obj instanceof Restaurante)) {
+		if (!(obj instanceof Restaurante))
 			return false;
-		}
-		Restaurante umRestaurante = (Restaurante) obj;
 
+		Restaurante umRestaurante = (Restaurante) obj;
 		return umRestaurante.getNome().equals(getNome());
 	}
 

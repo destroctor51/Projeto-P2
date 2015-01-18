@@ -1,7 +1,5 @@
 package test;
 
-import static org.junit.Assert.fail;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,28 +15,30 @@ public class RefeicaoTest {
 
 	@Before
 	public void setUp() {
-		refeicao1 = new Refeicao(52.89f, "Pra nao morrer de fome");
-		refeicao2 = new Refeicao(199.89f, "sss Pra ostentar");
+		refeicao1 = new Refeicao("Pra nao morrer de fome", 52.89f);
+		refeicao2 = new Refeicao("sss Pra ostentar", 199.89f);
 
 	}
 
 	@Test
 	public void testConstrutor() {
 		try {
-			new Refeicao(52.89f, null);
-			fail();
-		} catch (IllegalArgumentException e) {
-		}
+			new Refeicao(null, 52.89f);
+			Assert.fail();
+		} catch (IllegalArgumentException e) {}
 
+		try {
+			refeicao1.alteraDescricao(null);
+		} catch (IllegalArgumentException e) {}
 	}
 
 	@Test
 	public void testEquals() {
-		Assert.assertFalse(refeicao1.equals(refeicao2) == true);
+		Assert.assertNotEquals(refeicao1, refeicao2);
 		refeicao2.alteraDescricao(refeicao1.getDescricao());
 		refeicao2.alteraPreco(refeicao1.getPreco());
 		Assert.assertEquals(refeicao1, refeicao2);
-
+		Assert.assertNotEquals(refeicao1, null);
 	}
 
 	@Test
@@ -53,9 +53,17 @@ public class RefeicaoTest {
 	}
 
 	@Test
-	public void TestHash() {
+	public void testHas() {
 		Assert.assertFalse(refeicao1.hashCode()== refeicao2.hashCode());
 		refeicao1.alteraDescricao(refeicao2.getDescricao());
 		Assert.assertEquals(refeicao1.hashCode(), refeicao2.hashCode());
+	}
+
+	@Test
+	public void testClone() {
+		refeicao2 = (Refeicao) refeicao1.clone();
+		Assert.assertEquals(refeicao1, refeicao2);
+		refeicao1.alteraDescricao("Outro nome");
+		Assert.assertNotEquals(refeicao1, refeicao2);
 	}
 }

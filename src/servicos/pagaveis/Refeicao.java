@@ -3,7 +3,7 @@ package servicos.pagaveis;
 import interfaces.Pagavel;
 
 /**
- * 
+ *
  * Classe que cria uma refeicao.
  *
  * @author Jose Benardi de Souza Nunes
@@ -15,13 +15,13 @@ public class Refeicao implements Pagavel {
 
 	/**
 	 * Cria uma refeicao a partir de um preco e um nome.
-	 * 
+	 *
 	 * @param preco
 	 *            O preco da refeicao.
 	 * @param nome
 	 *            O nome da refeicao.
 	 */
-	public Refeicao(float preco, String nome) {
+	public Refeicao(String nome, float preco) {
 		if (nome == null)
 			throw new IllegalArgumentException();
 		this.preco = preco;
@@ -32,17 +32,19 @@ public class Refeicao implements Pagavel {
 
 	/**
 	 * Altera o nome da refeicao.
-	 * 
+	 *
 	 * @param novaDescricao
 	 *            O novo nome dado ah refeicao.
 	 */
 	public void alteraDescricao(String novaDescricao) {
+		if (novaDescricao == null)
+			throw new IllegalArgumentException();
 		nome = novaDescricao;
 	}
 
 	/**
 	 * Altera o preco da refeicao.
-	 * 
+	 *
 	 * @param novoPreco
 	 *            O novo preco dado ah refeicao.
 	 */
@@ -52,7 +54,7 @@ public class Refeicao implements Pagavel {
 
 	/**
 	 * Recupera a descricao da refeicao
-	 * 
+	 *
 	 * @return nome
 	 * 		O nome da refeicao
 	 */
@@ -69,7 +71,7 @@ public class Refeicao implements Pagavel {
 
 	/**
 	 * Recupera o preco da refeicao.
-	 * 
+	 *
 	 * @return
 	 * 		Preco da refeicao.
 	 */
@@ -82,17 +84,25 @@ public class Refeicao implements Pagavel {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		result = prime * result + nome.hashCode();
 		return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (!(obj instanceof Refeicao)) {
+		if (!(obj instanceof Refeicao))
 			return false;
-		}
-		Refeicao umaRefeicao = (Refeicao) obj;
 
-		return umaRefeicao.getDescricao() == getDescricao();
+		Refeicao umaRefeicao = (Refeicao) obj;
+		return umaRefeicao.getDescricao().equals(getDescricao());
+	}
+
+	@Override
+	public Object clone() {
+		try {
+			return super.clone();
+		} catch (CloneNotSupportedException e) {
+			throw new RuntimeException();
+		}
 	}
 }

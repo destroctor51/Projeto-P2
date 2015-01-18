@@ -3,11 +3,13 @@ package servicos.alugaveis;
 import interfaces.Alugavel;
 
 import java.util.Calendar;
+import java.util.Set;
+import java.util.TreeSet;
 
 import tempo.Periodo;
 
 /**
- * 
+ *
  * Classe que representa uma baby-sitter cujo custo nao so depende da quantidade
  * de tempo empregado, mas eh relativo ao periodo em que foi requisitado.
  * Enquanto tipo de Alugavel, o uso de uma baby-sitter eh referido aos gastos
@@ -16,21 +18,20 @@ import tempo.Periodo;
  * @author Jose Benardi de Souza Nunes
  */
 public class Babysitter implements Alugavel {
-	private String descricao = "Servico de Babysitter";
-	private String nome;
-	private Periodo aluguel;
+
 	public static final float HORA_EXTRA = 50.0f;
 	public static final float HORA_REGULAR = 25.0f;
+	private final String descricao = "Servico de Babysitter";
+
+	private String nome;
+	private Periodo periodoAlugado;
+	private Set<Periodo> historico = new TreeSet<>();
 
 	/**
 	 * Cria uma babysitter a partir de um nome.
-	 * 
+	 *
 	 * @param nome
-	 *            O nome da babysitter.
-	 * @param horasNormais
-	 *            As horas que trabalharou em expediente regular.
-	 * @param horasDobradas
-	 *            As horas que trabalharou em expediente extra regular.
+	 *            o nome da babysitter
 	 */
 	public Babysitter(String nome) {
 		if (nome == null)
@@ -42,8 +43,8 @@ public class Babysitter implements Alugavel {
 
 	/**
 	 * Recupera a descricao da babysitter.
-	 * 
-	 * @return descricao 
+	 *
+	 * @return descricao
 	 * 		A descricao do servico babysitter.
 	 */
 	@Override
@@ -53,8 +54,8 @@ public class Babysitter implements Alugavel {
 
 	/**
 	 * Recupera o nome da babysitter.
-	 * 
-	 * @return nome 
+	 *
+	 * @return nome
 	 * 		O nome da babysitter.
 	 */
 	public String getNome() {
@@ -62,29 +63,22 @@ public class Babysitter implements Alugavel {
 	}
 
 	/**
-	 * Seta o periodo de trabalho ah ser realizado pela babysitter.
-	 * 
-	 * @param periodo
-	 *            Tempo de trabalho.
-	 */
-	public void setPeriodo(Periodo periodo) {
-		aluguel = periodo;
-	}
-
-	/**
 	 * Determina o custo da locacao do servico prestado pela babysitter a partir
 	 * do periodo de trabalho.
-	 * 
+	 *
 	 * @return custo
 	 * 		 O custo pelo servico da babysitter.
 	 */
 	@Override
 	public float getPreco() {
-		int hora_inicial = aluguel.getInicio().get(Calendar.HOUR_OF_DAY);
-		int hora_final = aluguel.getFim().get(Calendar.HOUR_OF_DAY);
+		if(periodoAlugado == null)
+			return 0;
+
+		int hora_inicial = periodoAlugado.getInicio().get(Calendar.HOUR_OF_DAY);
+		int hora_final = periodoAlugado.getFim().get(Calendar.HOUR_OF_DAY);
 		float custo = 0;
 
-		if (aluguel.getInicio().get(Calendar.DAY_OF_YEAR) != aluguel.getFim()
+		if (periodoAlugado.getInicio().get(Calendar.DAY_OF_YEAR) != periodoAlugado.getFim()
 				.get(Calendar.DAY_OF_YEAR)) {
 			for (int i = hora_inicial; i < 24; i++) {
 				if (i < 7) {
@@ -107,12 +101,12 @@ public class Babysitter implements Alugavel {
 				}
 
 			}
-			custo += ((aluguel.getNumeroDias() - 1) * 13 * HORA_EXTRA);
-			custo += ((aluguel.getNumeroDias() - 1) * 11 * HORA_REGULAR);
-		} else if (aluguel.getInicio().get(Calendar.DAY_OF_YEAR) == aluguel
+			custo += ((periodoAlugado.getNumeroDias() - 1) * 13 * HORA_EXTRA);
+			custo += ((periodoAlugado.getNumeroDias() - 1) * 11 * HORA_REGULAR);
+		} else if (periodoAlugado.getInicio().get(Calendar.DAY_OF_YEAR) == periodoAlugado
 				.getFim().get(Calendar.DAY_OF_YEAR)
-				&& aluguel.getInicio().get(Calendar.YEAR) == aluguel.getFim()
-						.get(Calendar.YEAR)) {
+				&& periodoAlugado.getInicio().get(Calendar.YEAR) == periodoAlugado.getFim()
+				.get(Calendar.YEAR)) {
 			for (int i = hora_inicial; i < hora_final; i++) {
 				if (i < 7) {
 					custo += HORA_EXTRA;
@@ -135,22 +129,39 @@ public class Babysitter implements Alugavel {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (!(obj instanceof Babysitter)) {
+		if (!(obj instanceof Babysitter))
 			return false;
-		}
 		Babysitter umaBaba = (Babysitter) obj;
-
-		return umaBaba.getNome() == getNome();
+		return umaBaba.getNome().equals(getNome());
 	}
-	/**
-	 * Retorna o periodo mais recente de locacao do servico da babysitter.
-	 * 
-	 * @return aluguel
-	 * 		O periodo de aluguel do servico da babysitter.
-	 */
+
 	@Override
-	public Periodo getPeriodo() {
-		return aluguel;
+	public Object clone() {
+		try {
+			Babysitter clone = (Babysitter) super.clone();
+			clone.historico = new TreeSet<Periodo>();
+			if(periodoAlugado != null) {
+				clone.periodoAlugado = (Periodo) periodoAlugado.clone();
+				clone.historico.add(clone.periodoAlugado);
+			} return clone;
+		} catch (CloneNotSupportedException e) {
+			throw new RuntimeException();
+		}
 	}
 
+	@Override
+	public boolean aluga(Periodo periodo) {
+		if(periodo == null)
+			throw new IllegalArgumentException();
+
+		if(!historico.add(periodo))
+			return false;
+		periodoAlugado = periodo;
+		return true;
+	}
+
+	@Override
+	public Set<Periodo> getHistorico() {
+		return historico;
+	}
 }

@@ -2,9 +2,9 @@ package test;
 
 import hotel.Contrato;
 import hotel.EstadoDeContrato;
+import interfaces.Pagavel;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -15,84 +15,107 @@ import org.junit.Test;
 import servicos.alugaveis.CamaExtra;
 import servicos.devolviveis.Quarto;
 import servicos.devolviveis.TipoQuarto;
+import servicos.pagaveis.Refeicao;
 import tempo.Periodo;
 
 public class ContratoTest {
-	private String cartao1 = "5555666677778884";
-	private Calendar c1 = new GregorianCalendar(2014,1,28);
-	private Calendar c2 = new GregorianCalendar(2014,1,30);
-	private Periodo p1 = new Periodo(c1,c2);
-	private Quarto quarto1 = new Quarto(TipoQuarto.LUXO_SIMPLES,101);
-	private Quarto quarto2 = new Quarto(TipoQuarto.LUXO_DUPLO,102);
-	private Quarto quarto3 = new Quarto(TipoQuarto.LUXO_TRIPLO,103);
-	private List<Quarto> quartos = new ArrayList<>();
+	private String cartao = "5555666677778884";
 	private Contrato contrato;
-	
+
 	@Before
-	public void criaObjetos() {
-		quartos.add(quarto1);
-		quartos.add(quarto2);
-		quartos.add(quarto3);
-		
-		contrato = new Contrato(cartao1, 100, p1, quartos);
-	}
-	
-	@Test
-	public void testaCriaContrato() {
-		try {
-			new Contrato(null, 100, p1, quartos);
-			Assert.fail("Esperava exceção, pois o cartao esta null.");
-		} catch (IllegalArgumentException e) {
-		}
-		
-		try {
-			new Contrato(cartao1, -1, p1, quartos);
-			Assert.fail("Esperava exceção, pois a tarifa é menor ou igual a 0.");
-		} catch (IllegalArgumentException e) {
-		}
-		
-		try {
-			new Contrato(cartao1, 100, null, quartos);
-			Assert.fail("Esperava exceção, pois o periodo esta null.");
-		} catch (IllegalArgumentException e) {
-		}
-		
-		try {
-			new Contrato(cartao1, 100, p1, null);
-			Assert.fail("Esperava exceção, pois a lista de quartos esta null.");
-		} catch (IllegalArgumentException e) {
-		}
+	public void setUp() {
+		contrato = new Contrato(cartao, 100);
 	}
 
 	@Test
-	public void testaAdicionaeRemoveServicos() {
-		Assert.assertTrue(contrato.getServicos().size() == 0);
-		Assert.assertFalse(contrato.getServicos().size() == 1);
-		
-		CamaExtra cama = new CamaExtra(10394);
-		
-		contrato.adicionaServico(cama);
-		
-		Assert.assertFalse(contrato.getServicos().size() == 0);
-		Assert.assertTrue(contrato.getServicos().size() == 1);
-		
-		contrato.removeServico(cama);
-		
-		Assert.assertTrue(contrato.getServicos().size() == 0);
-		Assert.assertFalse(contrato.getServicos().size() == 1);
+	public void testaCriaContrato() {
+		try {
+			new Contrato(null, 100);
+			Assert.fail("Esperava excecao, pois o cartao esta null.");
+		} catch (IllegalArgumentException e) {}
+
+		try {
+			new Contrato(cartao, -1);
+			Assert.fail("Esperava excecao, pois a tarifa e menor ou igual a 0.");
+		} catch (IllegalArgumentException e) {}
+
+		Assert.assertEquals(cartao, contrato.getCartao());
+		Assert.assertEquals(100, contrato.getTarifa(), 0.01);
+		Assert.assertEquals(EstadoDeContrato.valueOf("PENDENTE"), contrato.getEstado());
 	}
-	
+
 	@Test
-	public void testaCheckIneCheckOut() {
-		Assert.assertEquals(contrato.getEstado(), EstadoDeContrato.PENDENTE);
-		
-		contrato.realizarCheckIn(cartao1);
-		Assert.assertEquals(contrato.getEstado(), EstadoDeContrato.ABERTO);
+	public void testaAdicionaServico() {
+		Assert.assertEquals(0, contrato.getServicos().size());
+		Assert.assertNotEquals(1, contrato.getServicos().size());
+
+		CamaExtra cama = new CamaExtra(10394);
+		Assert.assertFalse(contrato.adicionaServico(null));
+
+		Assert.assertTrue(contrato.adicionaServico(cama));
+		Assert.assertNotEquals(0, contrato.getServicos().size());
+		Assert.assertEquals(1, contrato.getServicos().size());
+
+		Assert.assertTrue(contrato.removeServico(cama));
+		Assert.assertEquals(0, contrato.getServicos().size());
+		Assert.assertNotEquals(1, contrato.getServicos().size());
 	}
-	
+
+	@Test
+	public void testaAdicionaServicos() {
+		Quarto quarto = new Quarto(TipoQuarto.PRESIDENCIAL, 102);
+		CamaExtra cama = new CamaExtra(39);
+		Refeicao comida = new Refeicao("barata frita", 12.25f);
+
+		List<Pagavel> colecao = new ArrayList<>();
+		Assert.assertFalse(contrato.adicionaServicos(null));
+		Assert.assertFalse(contrato.adicionaServicos(colecao));
+
+		colecao.add(null);
+		Assert.assertFalse(contrato.adicionaServicos(colecao));
+
+		colecao.add(quarto);
+		colecao.add(cama);
+		colecao.add(comida);
+		Assert.assertTrue(contrato.adicionaServicos(colecao));
+
+		Assert.assertEquals(3, contrato.getServicos().size());
+
+		colecao.clear();
+		Assert.assertFalse(contrato.removeServicos(null));
+		Assert.assertFalse(contrato.removeServicos(colecao));
+
+		colecao.add(null);
+		colecao.add(quarto);
+		Assert.assertTrue(contrato.removeServicos(colecao));
+		Assert.assertEquals(2, contrato.getServicos().size());
+	}
+
+	@Test
+	public void testaCheckInOut() {
+		Assert.assertEquals(contrato.getEstado(), EstadoDeContrato.PENDENTE);
+		Assert.assertFalse(contrato.realizarCheckOut(cartao));
+
+		Assert.assertFalse(contrato.realizarCheckIn(null));
+		Assert.assertTrue(contrato.realizarCheckIn(cartao));
+		Assert.assertEquals(contrato.getEstado(), EstadoDeContrato.ABERTO);
+		Assert.assertFalse(contrato.realizarCheckIn(cartao));
+
+		Quarto quarto = new Quarto(TipoQuarto.EXECUTIVO_SIMPLES, 102);
+		quarto.aluga(new Periodo(new GregorianCalendar(2015, 0, 15), new GregorianCalendar(2015, 0, 25)));
+		contrato.adicionaServico(new Refeicao("barata frita", 12.25f));
+		contrato.adicionaServico(quarto);
+
+		Assert.assertFalse(contrato.realizarCheckOut(null));
+		Assert.assertFalse(contrato.realizarCheckOut(cartao));
+
+		((Quarto) contrato.getServicos().get(1)).devolve();
+		Assert.assertTrue(contrato.realizarCheckOut(cartao));
+	}
+
 	@Test
 	public void testaToString() {
 		Assert.assertEquals("Contrato [Estado = PENDENTE]", contrato.toString());
 	}
-	
+
 }
