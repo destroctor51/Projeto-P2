@@ -1,8 +1,10 @@
-alugaveis
 disco
-gui
+eventos
 hotel
 interfaces
 login
 servicos
+servicos.alugaveis
+servicos.devolviveis
+servicos.pagaveis
 tempo
