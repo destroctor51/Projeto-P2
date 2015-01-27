@@ -61,8 +61,8 @@ public class CamaExtraTest {
 		Assert.assertEquals(camaextra1.getPreco(), 1290, 0.0005);
 		Assert.assertEquals(camaextra2.getPreco(), 4590, 0.0005);
 
-		Assert.assertEquals("Servico de Cama Extra", camaextra1.getDescricao());
-		Assert.assertEquals("Servico de Cama Extra", camaextra2.getDescricao());
+		Assert.assertEquals("Cama extra alugada por 43 dias", camaextra1.getDescricao());
+		Assert.assertEquals("Cama extra alugada por 153 dias", camaextra2.getDescricao());
 
 		Assert.assertTrue(camaextra1.getHistorico().contains(p1));
 		Assert.assertFalse(camaextra1.getHistorico().contains(p2));
@@ -80,9 +80,9 @@ public class CamaExtraTest {
 
 	@Test
 	public void testToString(){
-		Assert.assertEquals(camaextra1.toString(), "CamaExtra [descricao=Servico de Cama Extra, codigo=10]");
-		Assert.assertEquals(camaextra2.toString(), "CamaExtra [descricao=Servico de Cama Extra, codigo=18]");
-		Assert.assertEquals(camaextra3.toString(), "CamaExtra [descricao=Servico de Cama Extra, codigo=18]");
+		Assert.assertEquals(camaextra1.toString(), "10");
+		Assert.assertEquals(camaextra2.toString(), "18");
+		Assert.assertEquals(camaextra3.toString(), "18");
 		Assert.assertEquals(camaextra2.toString(), camaextra3.toString());
 	}
 

@@ -124,7 +124,7 @@ public class Babysitter implements Alugavel {
 
 	@Override
 	public String toString() {
-		return "Babysitter [descricao=" + descricao + ", nome=" + nome + "]";
+		return nome;
 	}
 
 	@Override

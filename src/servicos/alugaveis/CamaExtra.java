@@ -18,7 +18,7 @@ import tempo.Periodo;
 public class CamaExtra implements Alugavel {
 
 	public static final float DIARIA_CAMA_EXTRA = 30;
-	private final String descricao = "Servico de Cama Extra";
+	private final String descricao = "Cama extra";
 	private int codigo;
 
 	private Periodo periodoAlugado;
@@ -41,7 +41,7 @@ public class CamaExtra implements Alugavel {
 	 */
 	@Override
 	public String getDescricao() {
-		return descricao;
+		return descricao + " alugada por " + periodoAlugado.getNumeroDias() + " dias";
 	}
 
 	/**
@@ -66,7 +66,7 @@ public class CamaExtra implements Alugavel {
 
 	@Override
 	public String toString() {
-		return "CamaExtra [descricao=" + descricao + ", codigo=" + codigo + "]";
+		return Integer.toString(codigo);
 	}
 
 	@Override

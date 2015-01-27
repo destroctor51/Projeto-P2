@@ -14,6 +14,7 @@ import servicos.pagaveis.Refeicao;
  *
  */
 public class Restaurante {
+
 	private String nome;
 	private Set<Refeicao> estoque;
 
@@ -27,7 +28,7 @@ public class Restaurante {
 		if (nome == null)
 			throw new IllegalArgumentException();
 		this.nome = nome;
-		estoque = new HashSet<Refeicao>(100);
+		estoque = new HashSet<Refeicao>();
 	}
 
 	// metodos
@@ -95,7 +96,7 @@ public class Restaurante {
 
 	@Override
 	public String toString() {
-		return "Restaurante [nome=" + nome + ", estoque=" + estoque + "]";
+		return nome;
 	}
 
 }

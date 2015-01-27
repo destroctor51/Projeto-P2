@@ -65,8 +65,7 @@ public class Refeicao implements Pagavel {
 
 	@Override
 	public String toString() {
-		return "Refeicao [Descricao=" + getDescricao() + ", Preco="
-				+ getPreco() + "]";
+		return getDescricao();
 	}
 
 	/**

@@ -63,8 +63,8 @@ public class RestauranteTest {
 
 	@Test
 	public void testToString() {
-		Assert.assertEquals(diabetes.toString(), "Restaurante [nome=Prestes a fechar., estoque=[Refeicao [Descricao=Um prato refinado, caro e de gosto detestavel., Preco=199.89], Refeicao [Descricao=Um prato generico de valor aceitavel., Preco=52.89]]]");
-		Assert.assertEquals(heartAttack.toString(), "Restaurante [nome=Le chanson, estoque=[]]");
+		Assert.assertEquals(diabetes.toString(), "Prestes a fechar.");
+		Assert.assertEquals(heartAttack.toString(), "Le chanson");
 	}
 
 

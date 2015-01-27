@@ -66,7 +66,12 @@ public class Carro implements Devolvivel{
 
 	@Override
 	public String getDescricao() {
-		return tipoCarro.getDescricao();
+		String opcionais = "";
+		if(tanqueCheio || seguro) {
+			opcionais = " com " + (tanqueCheio? "tanque cheio ": "seguro");
+			if(tanqueCheio && seguro) opcionais += " e seguro";
+		}
+		return tipoCarro+opcionais+" alugado por "+getNumeroDias()+" dias";
 	}
 
 	@Override
@@ -123,12 +128,7 @@ public class Carro implements Devolvivel{
 	 */
 	@Override
 	public String toString(){
-		return tipoCarro.getDescricao() + ". " +
-				"Placa do carro: " + getPlaca() + ". " +
-				"Valor da diaria: " + tipoCarro.getDiaria() + ". " +
-				"Servico tanque cheio: " + (tanqueCheio ? "" : "nao ") + "incluso. " +
-				"Seguro: " + (seguro ? "" : "nao ") + "incluso. " +
-				"Valor total: " + getPreco() + ".";
+		return tipoCarro + " de placa " + placa;
 	}
 
 	/**

@@ -76,8 +76,8 @@ public class BabyssiterTest {
 
 	@Test
 	public void testToString() {
-		Assert.assertEquals(baba1.toString(), "Babysitter [descricao=Servico de Babysitter, nome=Juliana]");
-		Assert.assertEquals(baba2.toString(), "Babysitter [descricao=Servico de Babysitter, nome=Maria]");
+		Assert.assertEquals(baba1.toString(), "Juliana");
+		Assert.assertEquals(baba2.toString(), "Maria");
 	}
 
 	@Test

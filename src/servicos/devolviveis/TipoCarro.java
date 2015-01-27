@@ -11,7 +11,7 @@ package servicos.devolviveis;
  */
 public enum TipoCarro {
 
-	LUXO(100.0f, "Carro Luxo"), EXECUTIVO(60.0f, "Carro Executivo");
+	LUXO(100.0f, "Carro de luxo"), EXECUTIVO(60.0f, "Carro executivo");
 
 	private float diaria;
 	private String nome;
@@ -36,12 +36,9 @@ public enum TipoCarro {
 	public float getDiaria() {
 		return diaria;
 	}
-	/**
-	 *
-	 * @return
-	 * 		Descricao do carro.
-	 */
-	public String getDescricao() {
+
+	@Override
+	public String toString() {
 		return nome;
 	}
 }

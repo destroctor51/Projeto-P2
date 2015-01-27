@@ -45,7 +45,7 @@ public class Quarto implements Devolvivel{
 
 	@Override
 	public String getDescricao() {
-		return tipoQuarto.getDescricao();
+		return tipoQuarto + " alugado por "+getDiasAlugados()+" dias";
 	}
 
 	@Override
@@ -99,11 +99,7 @@ public class Quarto implements Devolvivel{
 	 */
 	@Override
 	public String toString(){
-		return "Numero do quarto: " + getNumero() + ". " +
-				tipoQuarto.getDescricao() +
-				"Quarto para " + tipoQuarto.getCapacidade() + " pessoas. " +
-				"Valor da diaria: " + tipoQuarto.getDiaria() + ". " +
-				"Valor total: " + getPreco() + ".";
+		return tipoQuarto + " de numero " + numero;
 	}
 
 	/**

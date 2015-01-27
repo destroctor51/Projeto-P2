@@ -43,10 +43,8 @@ public class RefeicaoTest {
 
 	@Test
 	public void testToString() {
-		Assert.assertEquals(refeicao1.toString(),
-				"Refeicao [Descricao=Pra nao morrer de fome, Preco=52.89]");
-		Assert.assertEquals(refeicao2.toString(),
-				"Refeicao [Descricao=sss Pra ostentar, Preco=199.89]");
+		Assert.assertEquals("Pra nao morrer de fome", refeicao1.toString());
+		Assert.assertEquals("sss Pra ostentar", refeicao2.toString());
 		refeicao2.alteraDescricao(refeicao1.getDescricao());
 		refeicao2.alteraPreco(refeicao1.getPreco());
 		Assert.assertEquals(refeicao1.toString(), refeicao2.toString());
