@@ -450,8 +450,6 @@ public class Hotel {
 
 	@Override
 	public String toString() {
-		return "Hotel [Nome = " + getNome() + ", numero de hospedes = " + getHospedes().size() + ", numero de quartos = " + getQuartos().size() +
-				", numero de carros = " + getCarros().size() + ", numero de restaurantes = " + getRestaurantes().size() +
-				", opinioes registradas = " + getOpinioes().size() + "]";
+		return nome;
 	}
 }

@@ -131,6 +131,15 @@ public class CarroTest {
 	public void getDescricaoTest() {
 		Assert.assertEquals( "Carro de luxo alugado por 0 dias", carro1.getDescricao());
 		Assert.assertEquals( "Carro executivo alugado por 0 dias", carro2.getDescricao());
+
+		Assert.assertTrue(carro1.aluga(p1, true, false));
+		Assert.assertEquals( "Carro de luxo com tanque cheio alugado por 2 dias", carro1.getDescricao());
+
+		Assert.assertTrue(carro2.aluga(p2, false, true));
+		Assert.assertEquals( "Carro executivo com seguro alugado por 26 dias", carro2.getDescricao());
+
+		Assert.assertTrue(carro3.aluga(p3, true, true));
+		Assert.assertEquals( "Carro de luxo com tanque cheio e seguro alugado por 18 dias", carro3.getDescricao());
 	}
 
 

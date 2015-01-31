@@ -49,6 +49,8 @@ public class HospedeTest {
 
 	@Test
 	public void testaSets() {
+		Assert.assertFalse(hospede.getContratos().hasNext());
+
 		Assert.assertEquals("99999999", hospede.getTelefone());
 		hospede.setTelefone("11111111");
 		Assert.assertFalse("99999999".equals(hospede.getTelefone()));
@@ -83,6 +85,8 @@ public class HospedeTest {
 		hospede.setEndereco("Sem Rua");
 		Assert.assertFalse("Rua Qualquer, 10".equals(hospede.getEndereco()));
 		Assert.assertEquals("Sem Rua", hospede.getEndereco());
+
+		Assert.assertEquals("Arthur", hospede.getNome());
 
 		try {
 			hospede.setEndereco(null);
@@ -124,8 +128,7 @@ public class HospedeTest {
 
 	@Test
 	public void testaToString() {
-		Assert.assertEquals("Hospede [Nome = Arthur, telefone = 99999999, cpf = 01234567890" +
-				", email = email@gmail.com, cidade = Campina Grande, endereco = Rua Qualquer, 10]", hospede.toString());
+		Assert.assertEquals("Arthur - 01234567890", hospede.toString());
 	}
 
 	@Test

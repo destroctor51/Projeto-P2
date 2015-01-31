@@ -60,6 +60,9 @@ public class QuartoTest {
 
 		Assert.assertEquals(TipoQuarto.valueOf("PRESIDENCIAL"), quarto1.getTipo());
 		Assert.assertEquals(0, quarto1.getDiasAlugados());
+		Assert.assertEquals(4, quarto1.getTipo().getCapacidade());
+		Assert.assertEquals("Quarto presidencial", "Quarto equipado com TV LCD 42, split, frigobar, cofre,sala de jogos e home theater, ideal para familias em ferias",
+				quarto1.getTipo().getDescricao());
 	}
 
 	@Test

@@ -193,9 +193,7 @@ public class Hospede {
 
 	@Override
 	public String toString() {
-		return "Hospede [Nome = " + getNome() + ", telefone = " + getTelefone() + ", cpf = "
-				+ getCpf() + ", email = " + getEmail() + ", cidade = " + getCidade()
-				+ ", endereco = " + getEndereco() + "]";
+		return nome + " - " + cpf;
 	}
 
 	@Override

@@ -17,7 +17,7 @@ import tempo.Periodo;
  * @author Marianne Linhares Monteiro
  * @version 1.0
  */
-public class Quarto implements Devolvivel{
+public class Quarto implements Devolvivel {
 
 	private TipoQuarto tipoQuarto;
 	private int numero;
@@ -83,7 +83,6 @@ public class Quarto implements Devolvivel{
 	public void devolve() {
 		if (devolvido == false) {
 			preco = getDiasAlugados() * tipoQuarto.getDiaria();
-			periodoAlugado = null;
 			devolvido = true;
 		}
 	}

@@ -20,17 +20,16 @@ public class Periodo implements Comparable<Periodo>, Cloneable {
 	private Calendar fim;
 
 	/**
-	 * Construtor do periodo.
-	 * @param inicio
-	 * 			Data de inicio do periodo.
-	 * @param fim
-	 * 			Data de fim do periodo.
+	 * Cria um periodo usando as datas dadas.
+	 * <p>
+	 * A data de inicio deve vir antes da data de fim.
+	 *
+	 * @param inicio  data de inicio do periodo.
+	 * @param fim  data de fim do periodo.
 	 */
 	public Periodo(Calendar inicio, Calendar fim){
 
-		if(inicio == null || fim == null)
-			throw new IllegalArgumentException();
-		if(fim.before(inicio))
+		if(inicio == null || fim == null || fim.before(inicio))
 			throw new IllegalArgumentException();
 
 		this.inicio = inicio;
@@ -120,6 +119,20 @@ public class Periodo implements Comparable<Periodo>, Cloneable {
 	public boolean contem(Calendar data) {
 		if(data == null) return false;
 		return data.compareTo(inicio) >= 0 && data.compareTo(fim) <= 0;
+	}
+
+	/**
+	 * Confere se o periodo engloba outro.
+	 * <p>
+	 * Caso o outro periodo seja null, considera-se que este nao o engloba.
+	 *
+	 * @param periodo  o periodo a ser checado
+	 * @return true se o periodo contem o outro, false caso contrario
+	 */
+	public boolean contem(Periodo periodo) {
+		if(periodo == null) return false;
+		return inicio.compareTo(periodo.inicio) <= 0 &&
+				fim.compareTo(periodo.fim) >= 0;
 	}
 
 	@Override

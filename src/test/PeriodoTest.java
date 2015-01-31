@@ -91,12 +91,37 @@ public class PeriodoTest {
 
 	@Test
 	public void contemTest() {
-		Assert.assertFalse(p1.contem(null));
+		Calendar dataNull = null;
+		Assert.assertFalse(p1.contem(dataNull));
 		Assert.assertTrue(p1.contem(c1));
 		Assert.assertTrue(p1.contem(c2));
 		Assert.assertTrue(p1.contem(new GregorianCalendar(2014,2,1)));
 		Assert.assertFalse(p1.contem(new GregorianCalendar(2014,1,1)));
 		Assert.assertFalse(p1.contem(new GregorianCalendar(2014,2,4)));
+
+		Periodo periodoNull = null;
+		Assert.assertFalse(p2.contem(periodoNull));
+		Assert.assertFalse(p2.contem(p1));
+		Assert.assertFalse(p2.contem(p3));
+		Assert.assertTrue(p2.contem(p2));
+
+		c1 = new GregorianCalendar(2014,2,3);
+		c2 = new GregorianCalendar(2014,2,27);
+		p1 = new Periodo(c1,c2);
+
+		Assert.assertTrue(p2.contem(p1));
+
+		c1 = new GregorianCalendar(2014,2,3);
+		c2 = new GregorianCalendar(2014,3,2);
+		p1 = new Periodo(c1,c2);
+
+		Assert.assertFalse(p2.contem(p1));
+
+		c1 = new GregorianCalendar(2014,2,1);
+		c2 = new GregorianCalendar(2014,2,27);
+		p1 = new Periodo(c1,c2);
+
+		Assert.assertFalse(p2.contem(p1));
 	}
 
 	@Test

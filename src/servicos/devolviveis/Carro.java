@@ -68,7 +68,7 @@ public class Carro implements Devolvivel{
 	public String getDescricao() {
 		String opcionais = "";
 		if(tanqueCheio || seguro) {
-			opcionais = " com " + (tanqueCheio? "tanque cheio ": "seguro");
+			opcionais = " com " + (tanqueCheio? "tanque cheio": "seguro");
 			if(tanqueCheio && seguro) opcionais += " e seguro";
 		}
 		return tipoCarro+opcionais+" alugado por "+getNumeroDias()+" dias";
@@ -111,9 +111,7 @@ public class Carro implements Devolvivel{
 			preco = getNumeroDias() * tipoCarro.getDiaria();
 			preco += tanqueCheio ? Carro.VALOR_TANQUE : Carro.SEM_SERVICO;
 			preco += seguro ? Carro.VALOR_SEGURO : Carro.SEM_SERVICO;
-
 			devolvido = true;
-			periodoAlugado = null;
 		}
 	}
 

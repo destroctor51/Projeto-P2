@@ -18,38 +18,44 @@ public class Estacao {
 
 	private Set<Periodo> periodos = new TreeSet<>();
 	private double tarifa;
+	private String id;
 
 	/**
 	 * Construtor da Estacao.
 	 * @param tarifa
 	 * 			Tarifa da estacao.
 	 */
-	public Estacao(double tarifa){
+	public Estacao(String id, double tarifa){
+		if(id == null)
+			throw new IllegalArgumentException();
+
 		this.tarifa = tarifa;
+		this.id = id;
 	}
 
 	/**
-	 *
-	 * @return
-	 * 		Valor da tarifa.
+	 * @return o valor da tarifa.
 	 */
 	public double getTarifa() {
 		return tarifa;
 	}
 
 	/**
-	 *
-	 * @param tarifa
-	 * 		A tarifa da estacao para a tarifa passada como parametro.
+	 * @return o id da estacao
+	 */
+	public String getId() {
+		return id;
+	}
+
+	/**
+	 * @param tarifa  a nova tarifa a ser atribuida
 	 */
 	public void setTarifa(double tarifa) {
 		this.tarifa = tarifa;
 	}
 
 	/**
-	 *
-	 * @return periodos
-	 * 		  Periodos da estacao.
+	 * @return periodos  os periodos da estacao
 	 */
 	public Set<Periodo> getPeriodos() {
 		return periodos;
@@ -57,10 +63,8 @@ public class Estacao {
 
 	/**
 	 *
-	 * @param novoPeriodo
-	 * 		  Periodo a ser comparado.
-	 * @return
-	 * 		  Se entra em conflito ou nao.
+	 * @param novoPeriodo  periodo a ser comparado
+	 * @return se entra em conflito ou nao
 	 */
 	public boolean entraEmConflito(Periodo novoPeriodo) {
 		return periodos.contains(novoPeriodo);
@@ -68,13 +72,16 @@ public class Estacao {
 
 	/**
 	 *
-	 * @param novoPeriodo
-	 * 			Periodo a ser adicionado.
-	 * @return
-	 * 			Se acao foi realizada com sucesso ou nao.
+	 * @param novoPeriodo  periodo a ser adicionado.
+	 * @return se acao foi realizada com sucesso ou nao.
 	 *
 	 */
 	public boolean addPeriodo(Periodo novoPeriodo) {
 		return periodos.add(novoPeriodo);
+	}
+
+	@Override
+	public String toString() {
+		return id;
 	}
 }

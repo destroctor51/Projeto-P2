@@ -59,6 +59,7 @@ public class HotelTest {
 		Assert.assertEquals(0, hotel.getHospedes().size());
 		Assert.assertEquals(85, hotel.getQuartos().size());
 		Assert.assertEquals(0, hotel.getCarros().size());
+		Assert.assertEquals("Riviera", hotel.getNome());
 		Assert.assertFalse(hotel.getTarifas().hasNext());
 	}
 
@@ -195,13 +196,13 @@ public class HotelTest {
 
 		// ESTACAO
 
-		Estacao estacao = new Estacao(100);
+		Estacao estacao = new Estacao("Sao Joao", 100);
 		Calendar c1 = new GregorianCalendar(2014,1,28);
 		Calendar c2 = new GregorianCalendar(2014,1,30);
 		Periodo periodo = new Periodo(c1, c2);
 		estacao.addPeriodo(periodo);
 
-		Estacao estacao2 = new Estacao(100);
+		Estacao estacao2 = new Estacao("Natal", 100);
 		hotel.adicionaEstacao(estacao2);
 		hotel.adicionaEstacao(estacao);
 		Assert.assertTrue(hotel.getTarifas().hasNext());
@@ -233,8 +234,7 @@ public class HotelTest {
 
 	@Test
 	public void testaToString() {
-		Assert.assertEquals("Hotel [Nome = Riviera, numero de hospedes = 0, numero de quartos = 85, numero de carros = 0," +
-				" numero de restaurantes = 0, opinioes registradas = 0]", hotel.toString());
+		Assert.assertEquals("Riviera", hotel.toString());
 	}
 
 }

@@ -99,7 +99,8 @@ public class Contrato {
 	 * @return true se o servico foi adicionado com sucesso, false caso contrario
 	 */
 	public boolean adicionaServico(Pagavel servico) {
-		if(servico == null) return false;
+		if(estado == EstadoDeContrato.FECHADO || servico == null)
+			return false;
 		Pagavel clone = (Pagavel) servico.clone();
 		return servicos.add(clone);
 	}
