@@ -95,50 +95,115 @@ public class PesquisaHospede extends JPanel {
 		ErrorLabel.setIcon(new ImageIcon(PesquisaHospede.class
 				.getResource("/gui/images/error.png")));
 		GroupLayout groupLayout = new GroupLayout(this);
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-							.addGap(28)
-							.addComponent(ErrorLabel, GroupLayout.PREFERRED_SIZE, 342, GroupLayout.PREFERRED_SIZE))
-						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-							.addContainerGap()
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(scrollPane_1, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
-								.addComponent(scrollPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
-								.addComponent(panel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
-								.addComponent(panel_1, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
-								.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-									.addComponent(btnExcluir, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(btnAtualizar)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(btnVisualizar))
-								.addComponent(lblHspedeSelecionado, Alignment.TRAILING))))
-					.addContainerGap())
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 159, GroupLayout.PREFERRED_SIZE)
-					.addGap(22)
-					.addComponent(lblHspedeSelecionado)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(scrollPane_1, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnExcluir)
-						.addComponent(btnAtualizar)
-						.addComponent(btnVisualizar))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(ErrorLabel, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
-					.addGap(78))
-		);
+		groupLayout
+				.setHorizontalGroup(groupLayout
+						.createParallelGroup(Alignment.LEADING)
+						.addGroup(
+								Alignment.TRAILING,
+								groupLayout
+										.createSequentialGroup()
+										.addGroup(
+												groupLayout
+														.createParallelGroup(
+																Alignment.TRAILING)
+														.addGroup(
+																Alignment.LEADING,
+																groupLayout
+																		.createSequentialGroup()
+																		.addGap(28)
+																		.addComponent(
+																				ErrorLabel,
+																				GroupLayout.PREFERRED_SIZE,
+																				342,
+																				GroupLayout.PREFERRED_SIZE))
+														.addGroup(
+																Alignment.LEADING,
+																groupLayout
+																		.createSequentialGroup()
+																		.addContainerGap()
+																		.addGroup(
+																				groupLayout
+																						.createParallelGroup(
+																								Alignment.LEADING)
+																						.addComponent(
+																								scrollPane_1,
+																								Alignment.TRAILING,
+																								GroupLayout.DEFAULT_SIZE,
+																								696,
+																								Short.MAX_VALUE)
+																						.addComponent(
+																								scrollPane,
+																								Alignment.TRAILING,
+																								GroupLayout.DEFAULT_SIZE,
+																								696,
+																								Short.MAX_VALUE)
+																						.addComponent(
+																								panel,
+																								Alignment.TRAILING,
+																								GroupLayout.DEFAULT_SIZE,
+																								696,
+																								Short.MAX_VALUE)
+																						.addComponent(
+																								panel_1,
+																								Alignment.TRAILING,
+																								GroupLayout.DEFAULT_SIZE,
+																								696,
+																								Short.MAX_VALUE)
+																						.addGroup(
+																								Alignment.TRAILING,
+																								groupLayout
+																										.createSequentialGroup()
+																										.addComponent(
+																												btnExcluir,
+																												GroupLayout.PREFERRED_SIZE,
+																												89,
+																												GroupLayout.PREFERRED_SIZE)
+																										.addPreferredGap(
+																												ComponentPlacement.RELATED)
+																										.addComponent(
+																												btnAtualizar)
+																										.addPreferredGap(
+																												ComponentPlacement.UNRELATED)
+																										.addComponent(
+																												btnVisualizar))
+																						.addComponent(
+																								lblHspedeSelecionado,
+																								Alignment.TRAILING))))
+										.addContainerGap()));
+		groupLayout
+				.setVerticalGroup(groupLayout.createParallelGroup(
+						Alignment.LEADING).addGroup(
+						groupLayout
+								.createSequentialGroup()
+								.addComponent(panel,
+										GroupLayout.PREFERRED_SIZE, 45,
+										GroupLayout.PREFERRED_SIZE)
+								.addGap(18)
+								.addComponent(panel_1,
+										GroupLayout.PREFERRED_SIZE, 36,
+										GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(ComponentPlacement.UNRELATED)
+								.addComponent(scrollPane,
+										GroupLayout.PREFERRED_SIZE, 159,
+										GroupLayout.PREFERRED_SIZE)
+								.addGap(22)
+								.addComponent(lblHspedeSelecionado)
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(scrollPane_1,
+										GroupLayout.PREFERRED_SIZE, 23,
+										GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(ComponentPlacement.UNRELATED)
+								.addGroup(
+										groupLayout
+												.createParallelGroup(
+														Alignment.BASELINE)
+												.addComponent(btnExcluir)
+												.addComponent(btnAtualizar)
+												.addComponent(btnVisualizar))
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(ErrorLabel,
+										GroupLayout.PREFERRED_SIZE, 23,
+										GroupLayout.PREFERRED_SIZE).addGap(78)));
 
 		list_1 = new JList();
 		scrollPane_1.setViewportView(list_1);
@@ -169,17 +234,6 @@ public class PesquisaHospede extends JPanel {
 		lblPesquisarHospde.setFont(new Font("Tahoma", Font.BOLD, 22));
 		panel.add(lblPesquisarHospde);
 		setLayout(groupLayout);
-
-		try {
-			Sistema.getHotel().adicionaHospede("Babidi Lokao", "99999999",
-					"27840743587", "arthurxdmaster@gmail.com", "Lisboa",
-					"Rua dos galegos");
-			Sistema.getHotel().adicionaHospede("Babidi Lokao2", "99999999",
-					"22683819005", "arthurxdmaster@gmail.com", "Lisboa",
-					"Rua dos galegos");
-
-		} catch (Exception e1) {
-		}
 	}
 
 	private boolean checaSemelhanca(String palavra, String str) {
@@ -228,8 +282,8 @@ public class PesquisaHospede extends JPanel {
 		dlm.clear();
 		ErrorLabel.setVisible(false);
 	}
-	
-	public static  DefaultListModel getDlm1(){
+
+	public static DefaultListModel getDlm1() {
 		return dlm1;
 	}
 }
@@ -250,5 +304,5 @@ class doubleClick9 extends MouseAdapter {
 			PesquisaHospede.selecionaHospede((Hospede) item);
 		}
 	}
-	
+
 }
