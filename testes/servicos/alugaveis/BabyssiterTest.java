@@ -1,4 +1,4 @@
-package test;
+package servicos.alugaveis;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;

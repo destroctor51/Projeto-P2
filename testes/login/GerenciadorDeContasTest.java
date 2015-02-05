@@ -1,4 +1,4 @@
-package test;
+package login;
 
 import static login.Permissao.ADMINISTRADOR;
 import static login.Permissao.FUNCIONARIO;

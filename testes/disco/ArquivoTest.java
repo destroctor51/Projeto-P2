@@ -1,4 +1,4 @@
-package test;
+package disco;
 
 import static org.junit.Assert.*;
 

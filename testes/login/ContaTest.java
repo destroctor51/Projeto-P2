@@ -1,4 +1,4 @@
-package test;
+package login;
 
 import static org.junit.Assert.*;
 import static login.Permissao.*;
