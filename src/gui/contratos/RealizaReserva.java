@@ -273,11 +273,6 @@ public class RealizaReserva extends JPanel {
 		panel.add(lblNewLabel);
 		setLayout(groupLayout);
 		
-		try {
-			Sistema.getHotel().adicionaHospede("Arthur bla", "99999999", "01234567890", "email@gmail.com", "Campina Grande", "Rua Qualquer, 10");
-			Sistema.getHotel().adicionaHospede("Arthurf", "99999998", "79805274373", "email1@gmail.com", "Campina Grande", "Rua Qualquer, 11");
-		} catch (Exception e) {
-		}
 		
 	}
 	

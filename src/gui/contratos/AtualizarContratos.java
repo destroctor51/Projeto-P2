@@ -34,9 +34,6 @@ import java.util.Iterator;
 
 import javax.swing.ImageIcon;
 
-import servicos.devolviveis.Quarto;
-import servicos.devolviveis.TipoQuarto;
-
 public class AtualizarContratos extends JPanel {
 	/**
 	 * 
@@ -203,31 +200,6 @@ public class AtualizarContratos extends JPanel {
 		});
 		scrollPane.setViewportView(list);
 		setLayout(groupLayout);
-
-		try {
-			Sistema.getHotel().adicionaHospede("Arthur bla", "99999999",
-					"01234567890", "email@gmail.com", "Campina Grande",
-					"Rua Qualquer, 10");
-			Sistema.getHotel().adicionaHospede("Arthurf", "99999998",
-					"79805274373", "email1@gmail.com", "Campina Grande",
-					"Rua Qualquer, 11");
-		} catch (Exception e) {
-		}
-
-		for (Hospede hosp : Sistema.getHotel().getHospedes()) {
-			if (hosp.getNome().equals("Arthur bla")) {
-				try {
-					Quarto quarto = new Quarto(TipoQuarto.EXECUTIVO_SIMPLES, 70);
-					Quarto quarto1 = new Quarto(TipoQuarto.PRESIDENCIAL, 75);
-					hosp.realizarReserva("376411112222331", 100);
-					hosp.getContratos().next().adicionaServico(quarto);
-					hosp.getContratos().next().adicionaServico(quarto1);
-				} catch (Exception e) {
-				}
-				hosp.getContratos().next().realizarCheckIn("376411112222331");
-				break;
-			}
-		}
 
 	}
 

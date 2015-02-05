@@ -199,23 +199,6 @@ public class CheckOut extends JPanel {
 		scrollPane.setViewportView(list);
 		setLayout(groupLayout);
 		
-		try {
-			Sistema.getHotel().adicionaHospede("Arthur bla", "99999999", "01234567890", "email@gmail.com", "Campina Grande", "Rua Qualquer, 10");
-			Sistema.getHotel().adicionaHospede("Arthurf", "99999998", "79805274373", "email1@gmail.com", "Campina Grande", "Rua Qualquer, 11");
-		} catch (Exception e) {
-		}
-		
-		for (Hospede hosp : Sistema.getHotel().getHospedes()) {
-			if (hosp.getNome().equals("Arthur bla")) {
-				try {
-					hosp.realizarReserva("376411112222331", 100);
-				} catch (Exception e) {
-				}
-				hosp.getContratos().next().realizarCheckIn("376411112222331");
-				break;
-			}
-		}
-		
 	}
 	
 	private void pesquisaHospede() {
