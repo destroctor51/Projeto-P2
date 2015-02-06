@@ -227,8 +227,8 @@ public class HotelTest {
 
 		Assert.assertEquals(0, hotel.getOpinioes().size());
 
-		hotel.adicionaOpiniao("Arthur", 9, "Hotel otimo e atendimento rapido, recomendo");
-		hotel.adicionaOpiniao(9, "Hotel otimo e atendimento rapido, recomendo");
+		hotel.adicionaOpiniao("Arthur", 9, "Hotel otimo e atendimento rapido, recomendo", new GregorianCalendar());
+		hotel.adicionaOpiniao(9, "Hotel otimo e atendimento rapido, recomendo", new GregorianCalendar());
 		Assert.assertEquals(2, hotel.getOpinioes().size());
 	}
 

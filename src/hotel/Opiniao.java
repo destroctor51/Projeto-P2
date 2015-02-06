@@ -1,5 +1,7 @@
 package hotel;
 
+import java.util.Calendar;
+
 /**
  * Uma classe que cria opinioes.
  *
@@ -9,7 +11,7 @@ public class Opiniao {
 	private int nota;
 	private String comentario;
 	private String autor = "Anonimo";
-
+	private Calendar data;
 	// construtor
 
 	/**
@@ -20,8 +22,8 @@ public class Opiniao {
 	 * @param comentario
 	 * 			O comentario da opiniao.
 	 */
-	public Opiniao(int nota, String comentario) {
-		this("Anonimo", nota, comentario);
+	public Opiniao(int nota, String comentario, Calendar data) {
+		this("Anonimo", nota, comentario, data);
 	}
 
 	/**
@@ -34,13 +36,14 @@ public class Opiniao {
 	 * @param comentario
 	 * 			O comentario da opiniao.
 	 */
-	public Opiniao(String autor, int nota, String comentario) {
-		if(comentario == null)
+	public Opiniao(String autor, int nota, String comentario, Calendar data) {
+		if(comentario == null || data == null)
 			throw new IllegalArgumentException();
 
 		this.nota = nota;
 		this.comentario = comentario;
 		this.autor = autor;
+		this.data = data;
 	}
 
 	// metodos
@@ -53,6 +56,16 @@ public class Opiniao {
 	 */
 	public int getNota() {
 		return nota;
+	}
+
+	/**
+	 * Recupera a data da opiniao.
+	 *
+	 * @return
+	 * 			A data da opiniao
+	 */
+	public Calendar getData() {
+		return data;
 	}
 
 	/**

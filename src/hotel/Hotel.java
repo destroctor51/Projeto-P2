@@ -1,6 +1,7 @@
 package hotel;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 
@@ -431,8 +432,8 @@ public class Hotel {
 	 * @param comentario
 	 * 			O comentario sobre o hotel.
 	 */
-	public void adicionaOpiniao(String autor, int nota, String comentario) {
-		Opiniao opiniao = new Opiniao(autor, nota, comentario);
+	public void adicionaOpiniao(String autor, int nota, String comentario, Calendar data) {
+		Opiniao opiniao = new Opiniao(autor, nota, comentario, data);
 		opinioes.add(opiniao);
 	}
 
@@ -444,8 +445,8 @@ public class Hotel {
 	 * @param comentario
 	 * 			O comentario sobre o hotel.
 	 */
-	public void adicionaOpiniao(int nota, String comentario) {
-		adicionaOpiniao("Anonimo", nota, comentario);
+	public void adicionaOpiniao(int nota, String comentario, Calendar data) {
+		adicionaOpiniao("Anonimo", nota, comentario, data);
 	}
 
 	@Override
