@@ -188,6 +188,7 @@ public class Contrato {
 
 	@Override
 	public String toString() {
+		// TODO colocar periodo em contrato
 		return "Contrato [Estado = " + estado + "]";
 	}
 }

@@ -1,27 +1,13 @@
 package gui.contratos;
 
+import gui.Menu;
 import gui.Sistema;
 import hotel.Contrato;
 import hotel.EstadoDeContrato;
 import hotel.Hospede;
 
-import javax.imageio.ImageIO;
-import javax.swing.JPanel;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JLabel;
-import java.awt.Font;
-
-import javax.swing.DefaultListModel;
-import javax.swing.SwingConstants;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import javax.swing.BorderFactory;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JList;
-import javax.swing.JScrollPane;
-import javax.swing.border.LineBorder;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -32,11 +18,25 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Iterator;
 
+import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
 
 public class AtualizarContratos extends JPanel {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 	private Hospede hospede;
@@ -55,7 +55,7 @@ public class AtualizarContratos extends JPanel {
 
 	/**
 	 * Create the panel.
-	 * 
+	 *
 	 */
 	public AtualizarContratos() {
 
@@ -95,68 +95,76 @@ public class AtualizarContratos extends JPanel {
 
 		JButton btnContinuar = new JButton("Contratar Serviços");
 		btnContinuar.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				continuar();
 			}
 		});
 
 		JButton btnCancelar = new JButton("Cancelar");
-		
+		btnCancelar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Sistema.setTela(new Menu(true));
+			}
+		});
+
 		JButton btnNewButton = new JButton("Visualizar");
 		btnNewButton.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				visualizarContrato();
 			}
 		});
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+				groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(panel, GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
-						.addComponent(panel_1, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addComponent(ErrorLabel, GroupLayout.PREFERRED_SIZE, 276, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-							.addComponent(btnCancelar)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(btnNewButton)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(btnContinuar)
-							.addGap(3))
-						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
-						.addComponent(list_2, GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
-						.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-						.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
-						.addComponent(list_3, GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE))
-					.addContainerGap())
-		);
+						.addContainerGap()
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(panel, GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
+								.addComponent(panel_1, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
+								.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+										.addComponent(ErrorLabel, GroupLayout.PREFERRED_SIZE, 276, GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+										.addComponent(btnCancelar)
+										.addPreferredGap(ComponentPlacement.UNRELATED)
+										.addComponent(btnNewButton)
+										.addPreferredGap(ComponentPlacement.UNRELATED)
+										.addComponent(btnContinuar)
+										.addGap(3))
+										.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
+										.addComponent(list_2, GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
+										.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+										.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
+										.addComponent(list_3, GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE))
+										.addContainerGap())
+				);
 		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+				groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
-					.addGap(18)
-					.addComponent(list_2, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addComponent(label_1)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
-					.addGap(17)
-					.addComponent(list_3, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-							.addComponent(btnCancelar)
-							.addComponent(btnNewButton)
-							.addComponent(btnContinuar))
-						.addComponent(ErrorLabel, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap())
-		);
+						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
+						.addGap(18)
+						.addComponent(list_2, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
+						.addGap(18)
+						.addComponent(label_1)
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
+						.addGap(17)
+						.addComponent(list_3, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
+						.addGap(18)
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+										.addComponent(btnCancelar)
+										.addComponent(btnNewButton)
+										.addComponent(btnContinuar))
+										.addComponent(ErrorLabel, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
+										.addContainerGap())
+				);
 
 		SearchButton = new JButton("");
 		BufferedImage buttonIcon = null;
@@ -168,6 +176,7 @@ public class AtualizarContratos extends JPanel {
 		}
 		SearchButton = new JButton(new ImageIcon(buttonIcon));
 		SearchButton.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				pesquisaHospede();
 			}
@@ -278,7 +287,7 @@ public class AtualizarContratos extends JPanel {
 		ErrorLabel.setVisible(false);
 		Sistema.setTela(new SelecionarServicos(contrato));
 	}
-	
+
 	private void visualizarContrato() {
 		if (hospede == null) {
 			ErrorLabel.setText("Hóspede ainda não escolhido.");

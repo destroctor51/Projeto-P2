@@ -1,5 +1,6 @@
 package gui.opinioes;
 
+import gui.Menu;
 import gui.Sistema;
 import hotel.Opiniao;
 
@@ -57,7 +58,7 @@ public class Opinioes extends JPanel {
 			@Override
 			public void ancestorRemoved(AncestorEvent arg0) {}
 		});
-		setName("Servi\u00E7os");
+		setName("Opiniões");
 		setMinimumSize(new Dimension(0, 0));
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -180,6 +181,12 @@ public class Opinioes extends JPanel {
 		add(panel_1, gbc_panel_1);
 
 		JButton btVoltar = new JButton("Voltar");
+		btVoltar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Sistema.setTela(new Menu());
+			}
+		});
 		panel_1.add(btVoltar);
 
 

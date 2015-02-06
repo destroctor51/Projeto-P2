@@ -33,6 +33,7 @@ public class AtualizarRefeicao extends JPanel {
 	 * Create the panel.
 	 */
 	public AtualizarRefeicao(final JPanel telaAnterior,final String nomeRestaurante, final Refeicao refeicao) {
+		setName("Atualizar Refeição");
 		this.setTelaAnterior(telaAnterior);
 		this.setRefeicao(refeicao);
 		this.setNomeRestaurante(nomeRestaurante);

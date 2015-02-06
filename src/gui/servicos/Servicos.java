@@ -1,5 +1,6 @@
 package gui.servicos;
 
+import gui.Menu;
 import gui.Sistema;
 import hotel.Restaurante;
 
@@ -76,10 +77,10 @@ public class Servicos extends JPanel {
 		setMinimumSize(new Dimension(0, 0));
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.rowHeights = new int[] {0, 0, 0, 0};
+		gridBagLayout.rowHeights = new int[] {0, 0, 90, 0};
 		gridBagLayout.columnWidths = new int[] {0, 400, 0};
 		gridBagLayout.columnWeights = new double[]{1.0, 1.0, 1.0};
-		gridBagLayout.rowWeights = new double[]{0.75, 0.5, 1.0, 0.75};
+		gridBagLayout.rowWeights = new double[]{0.75, 0.5, 1.0, 1.0};
 		setLayout(gridBagLayout);
 
 		JPanel panelSuperior = new JPanel();
@@ -214,32 +215,32 @@ public class Servicos extends JPanel {
 
 				switch(selected) {
 
-					case 0:
-						Babysitter bs = (Babysitter)item;
-						Sistema.getHotel().removeBaba(bs);
-						break;
+				case 0:
+					Babysitter bs = (Babysitter)item;
+					Sistema.getHotel().removeBaba(bs);
+					break;
 
-					case 1:
-						CamaExtra ce = (CamaExtra)item;
-						Sistema.getHotel().removeCamaExtra(ce);
-						break;
-					case 2:
-						Carro c = (Carro)item;
-						try {
-							Sistema.getHotel().removeCarro(c);
-						} catch (Exception e1) {
-							e1.printStackTrace();
-						}
-						break;
+				case 1:
+					CamaExtra ce = (CamaExtra)item;
+					Sistema.getHotel().removeCamaExtra(ce);
+					break;
+				case 2:
+					Carro c = (Carro)item;
+					try {
+						Sistema.getHotel().removeCarro(c);
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+					break;
 
-					case 3:
-						Quarto q = (Quarto)item;
-						Sistema.getHotel().removeQuarto(q);
-						break;
-					case 4:
-						Restaurante r = (Restaurante)item;
-						Sistema.getHotel().removeRestaurante(r);
-						break;
+				case 3:
+					Quarto q = (Quarto)item;
+					Sistema.getHotel().removeQuarto(q);
+					break;
+				case 4:
+					Restaurante r = (Restaurante)item;
+					Sistema.getHotel().removeRestaurante(r);
+					break;
 				}
 				ordenaJList();
 			}
@@ -291,12 +292,39 @@ public class Servicos extends JPanel {
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		list.setModel(dlm);
 		list.setSelectedIndex(0);
+
+		JPanel panel_1 = new JPanel();
+		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
+		gbc_panel_1.anchor = GridBagConstraints.NORTH;
+		gbc_panel_1.insets = new Insets(5, 0, 0, 5);
+		gbc_panel_1.fill = GridBagConstraints.HORIZONTAL;
+		gbc_panel_1.gridx = 1;
+		gbc_panel_1.gridy = 3;
+		add(panel_1, gbc_panel_1);
+		GridBagLayout gbl_panel_1 = new GridBagLayout();
+		gbl_panel_1.columnWidths = new int[] {0, 0};
+		gbl_panel_1.rowHeights = new int[] {0};
+		gbl_panel_1.columnWeights = new double[]{1.0, 0.0};
+		gbl_panel_1.rowWeights = new double[]{0.0};
+		panel_1.setLayout(gbl_panel_1);
 		GridBagConstraints gbc_lbObs = new GridBagConstraints();
-		gbc_lbObs.anchor = GridBagConstraints.NORTH;
+		gbc_lbObs.anchor = GridBagConstraints.WEST;
 		gbc_lbObs.insets = new Insets(0, 0, 0, 5);
-		gbc_lbObs.gridx = 1;
-		gbc_lbObs.gridy = 3;
-		add(lbObs, gbc_lbObs);
+		gbc_lbObs.gridx = 0;
+		gbc_lbObs.gridy = 0;
+		panel_1.add(lbObs, gbc_lbObs);
+
+		JButton btnNewButton = new JButton("Voltar");
+		btnNewButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Sistema.setTela(new Menu());
+			}
+		});
+		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+		gbc_btnNewButton.gridx = 1;
+		gbc_btnNewButton.gridy = 0;
+		panel_1.add(btnNewButton, gbc_btnNewButton);
 
 		lbObs.setVisible(false);
 
@@ -339,26 +367,26 @@ public class Servicos extends JPanel {
 		if (selecionado == null)
 			return;
 		switch(selecionado){
-			case "Babysitter":
-				for(Babysitter bs: Sistema.getHotel().getBabas())
-					dlm.addElement(bs);
-				break;
-			case "Cama Extra":
-				for(CamaExtra bs: Sistema.getHotel().getCamas())
-					dlm.addElement(bs);
-				break;
-			case "Carro":
-				for(Carro c: Sistema.getHotel().getCarros())
-					dlm.addElement(c);
-				break;
-			case "Quarto":
-				for(Quarto q: Sistema.getHotel().getQuartos())
-					dlm.addElement(q);
-				break;
-			case "Restaurante":
-				for(Restaurante r: Sistema.getHotel().getRestaurantes())
-					dlm.addElement(r);
-				break;
+		case "Babysitter":
+			for(Babysitter bs: Sistema.getHotel().getBabas())
+				dlm.addElement(bs);
+			break;
+		case "Cama Extra":
+			for(CamaExtra bs: Sistema.getHotel().getCamas())
+				dlm.addElement(bs);
+			break;
+		case "Carro":
+			for(Carro c: Sistema.getHotel().getCarros())
+				dlm.addElement(c);
+			break;
+		case "Quarto":
+			for(Quarto q: Sistema.getHotel().getQuartos())
+				dlm.addElement(q);
+			break;
+		case "Restaurante":
+			for(Restaurante r: Sistema.getHotel().getRestaurantes())
+				dlm.addElement(r);
+			break;
 
 		}
 		ordenaJList();

@@ -1,5 +1,6 @@
 package gui.refeicoes;
 
+import gui.Menu;
 import gui.Sistema;
 import hotel.Restaurante;
 
@@ -78,7 +79,7 @@ public class Refeicoes extends JPanel {
 		gridBagLayout.rowHeights = new int[] {0, 0, 90, 0};
 		gridBagLayout.columnWidths = new int[] {0, 400, 0};
 		gridBagLayout.columnWeights = new double[]{1.0, 1.0, 1.0};
-		gridBagLayout.rowWeights = new double[]{0.75, 0.5, 0.5, 1.0};
+		gridBagLayout.rowWeights = new double[]{0.75, 0.5, 1.0, 1.0};
 		setLayout(gridBagLayout);
 
 		JPanel panelSuperior = new JPanel();
@@ -284,17 +285,36 @@ public class Refeicoes extends JPanel {
 
 		JPanel panel_1 = new JPanel();
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
-		gbc_panel_1.insets = new Insets(0, 0, 0, 5);
-		gbc_panel_1.fill = GridBagConstraints.BOTH;
-		gbc_panel_1.gridx = 0;
+		gbc_panel_1.anchor = GridBagConstraints.NORTH;
+		gbc_panel_1.insets = new Insets(5, 0, 0, 5);
+		gbc_panel_1.fill = GridBagConstraints.HORIZONTAL;
+		gbc_panel_1.gridx = 1;
 		gbc_panel_1.gridy = 3;
 		add(panel_1, gbc_panel_1);
+		GridBagLayout gbl_panel_1 = new GridBagLayout();
+		gbl_panel_1.columnWidths = new int[] {0, 0};
+		gbl_panel_1.rowHeights = new int[] {0};
+		gbl_panel_1.columnWeights = new double[]{1.0, 0.0};
+		gbl_panel_1.rowWeights = new double[]{0.0};
+		panel_1.setLayout(gbl_panel_1);
 		GridBagConstraints gbc_lbObs = new GridBagConstraints();
-		gbc_lbObs.anchor = GridBagConstraints.NORTH;
+		gbc_lbObs.anchor = GridBagConstraints.WEST;
 		gbc_lbObs.insets = new Insets(0, 0, 0, 5);
-		gbc_lbObs.gridx = 1;
-		gbc_lbObs.gridy = 3;
-		add(lbObs, gbc_lbObs);
+		gbc_lbObs.gridx = 0;
+		gbc_lbObs.gridy = 0;
+		panel_1.add(lbObs, gbc_lbObs);
+
+		JButton btnNewButton = new JButton("Voltar");
+		btnNewButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Sistema.setTela(new Menu());
+			}
+		});
+		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+		gbc_btnNewButton.gridx = 1;
+		gbc_btnNewButton.gridy = 0;
+		panel_1.add(btnNewButton, gbc_btnNewButton);
 
 		lbObs.setVisible(false);
 

@@ -18,6 +18,8 @@ import java.util.GregorianCalendar;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -56,7 +58,8 @@ public class Sistema extends JFrame implements ActionListener, FullscreenListene
 	private int lastExtendedState;
 
 	private final Action fullscreenAction = new FullscreenAction();
-	private final Action logoffAction = new LogoffAction();
+	private final Action logoutAction = new LogoutAction();
+	private JButton logoutButton;
 	private JLabel titleLabel;
 
 	/**
@@ -77,7 +80,7 @@ public class Sistema extends JFrame implements ActionListener, FullscreenListene
 		setMinimumSize(new Dimension(720, 540));
 		setTitle("Hotel Riviera Campina");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1280, 768);
+		setBounds(100, 100, 1280, 720);
 		storeState();
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -96,11 +99,29 @@ public class Sistema extends JFrame implements ActionListener, FullscreenListene
 		gbc_toolBar.gridy = 0;
 		getContentPane().add(toolBar, gbc_toolBar);
 		GridBagLayout gbl_toolBar = new GridBagLayout();
-		gbl_toolBar.columnWidths = new int[] {300, 0, 300};
+		gbl_toolBar.columnWidths = new int[] {15, 280, 0, 300};
 		gbl_toolBar.rowHeights = new int[] {17};
-		gbl_toolBar.columnWeights = new double[]{0.0, 1.0, 0.0};
+		gbl_toolBar.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0};
 		gbl_toolBar.rowWeights = new double[]{0.0};
 		toolBar.setLayout(gbl_toolBar);
+
+		logoutButton = new JButton("");
+		logoutButton.setRolloverIcon(new ImageIcon(Sistema.class.getResource("/gui/images/power_hover.png")));
+		logoutButton.setBorderPainted(false);
+		logoutButton.setIcon(new ImageIcon(Sistema.class.getResource("/gui/images/power.png")));
+		logoutButton.setFocusPainted(false);
+		logoutButton.setContentAreaFilled(false);
+		logoutButton.setPreferredSize(new Dimension(15, 15));
+		logoutButton.setMargin(new Insets(0, 0, 0, 0));
+		logoutButton.setMaximumSize(new Dimension(15, 15));
+		logoutButton.setMinimumSize(new Dimension(15, 15));
+		GridBagConstraints gbc_logoutButton = new GridBagConstraints();
+		gbc_logoutButton.anchor = GridBagConstraints.WEST;
+		gbc_logoutButton.insets = new Insets(0, 0, 0, 5);
+		gbc_logoutButton.gridx = 0;
+		gbc_logoutButton.gridy = 0;
+		logoutButton.addActionListener(logoutAction);
+		toolBar.add(logoutButton, gbc_logoutButton);
 
 		userLabel = new JLabel();
 		userLabel.setText("<user>");
@@ -108,7 +129,7 @@ public class Sistema extends JFrame implements ActionListener, FullscreenListene
 		GridBagConstraints gbc_userLabel = new GridBagConstraints();
 		gbc_userLabel.anchor = GridBagConstraints.WEST;
 		gbc_userLabel.insets = new Insets(0, 0, 0, 5);
-		gbc_userLabel.gridx = 0;
+		gbc_userLabel.gridx = 1;
 		gbc_userLabel.gridy = 0;
 		toolBar.add(userLabel, gbc_userLabel);
 
@@ -117,7 +138,7 @@ public class Sistema extends JFrame implements ActionListener, FullscreenListene
 		titleLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
 		GridBagConstraints gbc_titleLabel = new GridBagConstraints();
 		gbc_titleLabel.insets = new Insets(0, 0, 0, 5);
-		gbc_titleLabel.gridx = 1;
+		gbc_titleLabel.gridx = 2;
 		gbc_titleLabel.gridy = 0;
 		toolBar.add(titleLabel, gbc_titleLabel);
 
@@ -127,7 +148,7 @@ public class Sistema extends JFrame implements ActionListener, FullscreenListene
 		dateLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_dateLabel = new GridBagConstraints();
 		gbc_dateLabel.anchor = GridBagConstraints.EAST;
-		gbc_dateLabel.gridx = 2;
+		gbc_dateLabel.gridx = 3;
 		gbc_dateLabel.gridy = 0;
 		toolBar.add(dateLabel, gbc_dateLabel);
 
@@ -257,6 +278,7 @@ public class Sistema extends JFrame implements ActionListener, FullscreenListene
 
 	private void updateUserLabel() {
 		userLabel.setText(usuario == null? "" : "Usu\u00E1rio: "+usuario);
+		logoutButton.setVisible(usuario != null);
 	}
 
 	private void updateDateLabel() {
@@ -283,7 +305,7 @@ public class Sistema extends JFrame implements ActionListener, FullscreenListene
 		}
 	}
 
-	private class LogoffAction extends AbstractAction {
+	private class LogoutAction extends AbstractAction {
 
 		private static final long serialVersionUID = 1L;
 

@@ -1,33 +1,27 @@
 package gui.hospede;
 
+import gui.Menu;
 import gui.Sistema;
 import hotel.Hospede;
 
-import javax.swing.DefaultListModel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.GroupLayout;
-import javax.swing.ListModel;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JLabel;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JButton;
-import javax.swing.JTextArea;
-
-import java.awt.event.ActionListener;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.JList;
-
-import java.awt.Font;
-
-import javax.swing.JScrollPane;
+import javax.swing.DefaultListModel;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.ListModel;
 
 public class PesquisaHospede extends JPanel {
 	private JTextField tf_nome;
@@ -40,13 +34,14 @@ public class PesquisaHospede extends JPanel {
 
 	/**
 	 * Create the panel.
-	 * 
+	 *
 	 * @throws Exception
 	 */
 	public PesquisaHospede() {
 
 		JButton btnExcluir = new JButton("Excluir");
 		btnExcluir.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				excluirHospede();
 			}
@@ -54,6 +49,7 @@ public class PesquisaHospede extends JPanel {
 
 		JButton btnAtualizar = new JButton("Atualizar");
 		btnAtualizar.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (dlm1.size() == 0) {
 					ErrorLabel.setText("Selecione um hospede.");
@@ -78,6 +74,7 @@ public class PesquisaHospede extends JPanel {
 
 		JButton btnVisualizar = new JButton("Visualizar");
 		btnVisualizar.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (dlm1.size() == 0) {
 					ErrorLabel.setText("Selecione um hospede.");
@@ -96,114 +93,114 @@ public class PesquisaHospede extends JPanel {
 				.getResource("/gui/images/error.png")));
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout
-				.setHorizontalGroup(groupLayout
-						.createParallelGroup(Alignment.LEADING)
+		.setHorizontalGroup(groupLayout
+				.createParallelGroup(Alignment.LEADING)
+				.addGroup(
+						Alignment.TRAILING,
+						groupLayout
+						.createSequentialGroup()
 						.addGroup(
-								Alignment.TRAILING,
 								groupLayout
-										.createSequentialGroup()
+								.createParallelGroup(
+										Alignment.TRAILING)
 										.addGroup(
+												Alignment.LEADING,
 												groupLayout
-														.createParallelGroup(
-																Alignment.TRAILING)
+												.createSequentialGroup()
+												.addGap(28)
+												.addComponent(
+														ErrorLabel,
+														GroupLayout.PREFERRED_SIZE,
+														342,
+														GroupLayout.PREFERRED_SIZE))
 														.addGroup(
 																Alignment.LEADING,
 																groupLayout
-																		.createSequentialGroup()
-																		.addGap(28)
-																		.addComponent(
-																				ErrorLabel,
-																				GroupLayout.PREFERRED_SIZE,
-																				342,
-																				GroupLayout.PREFERRED_SIZE))
-														.addGroup(
-																Alignment.LEADING,
-																groupLayout
-																		.createSequentialGroup()
-																		.addContainerGap()
-																		.addGroup(
-																				groupLayout
-																						.createParallelGroup(
-																								Alignment.LEADING)
-																						.addComponent(
-																								scrollPane_1,
-																								Alignment.TRAILING,
-																								GroupLayout.DEFAULT_SIZE,
-																								696,
-																								Short.MAX_VALUE)
+																.createSequentialGroup()
+																.addContainerGap()
+																.addGroup(
+																		groupLayout
+																		.createParallelGroup(
+																				Alignment.LEADING)
+																				.addComponent(
+																						scrollPane_1,
+																						Alignment.TRAILING,
+																						GroupLayout.DEFAULT_SIZE,
+																						696,
+																						Short.MAX_VALUE)
 																						.addComponent(
 																								scrollPane,
 																								Alignment.TRAILING,
 																								GroupLayout.DEFAULT_SIZE,
 																								696,
 																								Short.MAX_VALUE)
-																						.addComponent(
-																								panel,
-																								Alignment.TRAILING,
-																								GroupLayout.DEFAULT_SIZE,
-																								696,
-																								Short.MAX_VALUE)
-																						.addComponent(
-																								panel_1,
-																								Alignment.TRAILING,
-																								GroupLayout.DEFAULT_SIZE,
-																								696,
-																								Short.MAX_VALUE)
-																						.addGroup(
-																								Alignment.TRAILING,
-																								groupLayout
-																										.createSequentialGroup()
+																								.addComponent(
+																										panel,
+																										Alignment.TRAILING,
+																										GroupLayout.DEFAULT_SIZE,
+																										696,
+																										Short.MAX_VALUE)
 																										.addComponent(
-																												btnExcluir,
-																												GroupLayout.PREFERRED_SIZE,
-																												89,
-																												GroupLayout.PREFERRED_SIZE)
-																										.addPreferredGap(
-																												ComponentPlacement.RELATED)
-																										.addComponent(
-																												btnAtualizar)
-																										.addPreferredGap(
-																												ComponentPlacement.UNRELATED)
-																										.addComponent(
-																												btnVisualizar))
-																						.addComponent(
-																								lblHspedeSelecionado,
-																								Alignment.TRAILING))))
-										.addContainerGap()));
+																												panel_1,
+																												Alignment.TRAILING,
+																												GroupLayout.DEFAULT_SIZE,
+																												696,
+																												Short.MAX_VALUE)
+																												.addGroup(
+																														Alignment.TRAILING,
+																														groupLayout
+																														.createSequentialGroup()
+																														.addComponent(
+																																btnExcluir,
+																																GroupLayout.PREFERRED_SIZE,
+																																89,
+																																GroupLayout.PREFERRED_SIZE)
+																																.addPreferredGap(
+																																		ComponentPlacement.RELATED)
+																																		.addComponent(
+																																				btnAtualizar)
+																																				.addPreferredGap(
+																																						ComponentPlacement.UNRELATED)
+																																						.addComponent(
+																																								btnVisualizar))
+																																								.addComponent(
+																																										lblHspedeSelecionado,
+																																										Alignment.TRAILING))))
+																																										.addContainerGap()));
 		groupLayout
-				.setVerticalGroup(groupLayout.createParallelGroup(
-						Alignment.LEADING).addGroup(
+		.setVerticalGroup(groupLayout.createParallelGroup(
+				Alignment.LEADING).addGroup(
 						groupLayout
-								.createSequentialGroup()
-								.addComponent(panel,
-										GroupLayout.PREFERRED_SIZE, 45,
-										GroupLayout.PREFERRED_SIZE)
+						.createSequentialGroup()
+						.addComponent(panel,
+								GroupLayout.PREFERRED_SIZE, 45,
+								GroupLayout.PREFERRED_SIZE)
 								.addGap(18)
 								.addComponent(panel_1,
 										GroupLayout.PREFERRED_SIZE, 36,
 										GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(ComponentPlacement.UNRELATED)
-								.addComponent(scrollPane,
-										GroupLayout.PREFERRED_SIZE, 159,
-										GroupLayout.PREFERRED_SIZE)
-								.addGap(22)
-								.addComponent(lblHspedeSelecionado)
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(scrollPane_1,
-										GroupLayout.PREFERRED_SIZE, 23,
-										GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(ComponentPlacement.UNRELATED)
-								.addGroup(
-										groupLayout
-												.createParallelGroup(
-														Alignment.BASELINE)
-												.addComponent(btnExcluir)
-												.addComponent(btnAtualizar)
-												.addComponent(btnVisualizar))
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(ErrorLabel,
-										GroupLayout.PREFERRED_SIZE, 23,
-										GroupLayout.PREFERRED_SIZE).addGap(78)));
+										.addPreferredGap(ComponentPlacement.UNRELATED)
+										.addComponent(scrollPane,
+												GroupLayout.PREFERRED_SIZE, 159,
+												GroupLayout.PREFERRED_SIZE)
+												.addGap(22)
+												.addComponent(lblHspedeSelecionado)
+												.addPreferredGap(ComponentPlacement.RELATED)
+												.addComponent(scrollPane_1,
+														GroupLayout.PREFERRED_SIZE, 23,
+														GroupLayout.PREFERRED_SIZE)
+														.addPreferredGap(ComponentPlacement.UNRELATED)
+														.addGroup(
+																groupLayout
+																.createParallelGroup(
+																		Alignment.BASELINE)
+																		.addComponent(btnExcluir)
+																		.addComponent(btnAtualizar)
+																		.addComponent(btnVisualizar))
+																		.addPreferredGap(ComponentPlacement.RELATED)
+																		.addComponent(ErrorLabel,
+																				GroupLayout.PREFERRED_SIZE, 23,
+																				GroupLayout.PREFERRED_SIZE).addGap(78)));
 
 		list_1 = new JList();
 		scrollPane_1.setViewportView(list_1);
@@ -221,6 +218,7 @@ public class PesquisaHospede extends JPanel {
 
 		JButton btnPesquisar = new JButton("Pesquisar");
 		btnPesquisar.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				pesquisaHospede();
 			}
@@ -228,6 +226,12 @@ public class PesquisaHospede extends JPanel {
 		panel_1.add(btnPesquisar);
 
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Sistema.setTela(new Menu());
+			}
+		});
 		panel_1.add(btnCancelar);
 
 		JLabel lblPesquisarHospde = new JLabel("Pesquisar Hosp\u00E9de");
@@ -295,6 +299,7 @@ class doubleClick9 extends MouseAdapter {
 		list = l;
 	}
 
+	@Override
 	public void mouseClicked(MouseEvent e) {
 		if (e.getClickCount() == 2) {
 			int index = list.locationToIndex(e.getPoint());

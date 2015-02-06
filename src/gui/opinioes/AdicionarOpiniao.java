@@ -1,8 +1,8 @@
 package gui.opinioes;
 
 import gui.Sistema;
-import gui.components.TextFieldSelecaoDefault;
 import gui.components.NotaPorEstrelas;
+import gui.components.TextFieldSelecaoDefault;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -24,17 +24,17 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 public class AdicionarOpiniao extends JPanel {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	private Calendar dataAtual = GregorianCalendar.getInstance();
 
 	/**
 	 * Create the panel.
 	 */
 	public AdicionarOpiniao(final JPanel tela) {
-		
-		setName("Servi\u00E7os");
+
+		setName("Adicionar Opinião");
 		setMinimumSize(new Dimension(0, 0));
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -58,7 +58,7 @@ public class AdicionarOpiniao extends JPanel {
 		gbl_panel.columnWeights = new double[]{1.0, 0.0, 1.0, Double.MIN_VALUE};
 		gbl_panel.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
-		
+
 		JLabel lblAno = new JLabel("Nome:");
 		GridBagConstraints gbc_lblAno = new GridBagConstraints();
 		gbc_lblAno.anchor = GridBagConstraints.WEST;
@@ -66,7 +66,7 @@ public class AdicionarOpiniao extends JPanel {
 		gbc_lblAno.gridx = 0;
 		gbc_lblAno.gridy = 0;
 		panel.add(lblAno, gbc_lblAno);
-		
+
 		JLabel lblMs = new JLabel("*Nota:");
 		GridBagConstraints gbc_lblMs = new GridBagConstraints();
 		gbc_lblMs.insets = new Insets(0, 0, 5, 5);
@@ -76,7 +76,7 @@ public class AdicionarOpiniao extends JPanel {
 
 		final JLabel lblAvaliacao = new JLabel("Avaliacao");
 		lblAvaliacao.setVisible(false);
-				
+
 		final TextFieldSelecaoDefault tfNome = new TextFieldSelecaoDefault("Anonimo");
 		GridBagConstraints gbc_tfNome = new GridBagConstraints();
 		gbc_tfNome.insets = new Insets(0, 0, 0, 5);
@@ -88,7 +88,7 @@ public class AdicionarOpiniao extends JPanel {
 		gbc_lblAvaliacao.gridx = 2;
 		gbc_lblAvaliacao.gridy = 1;
 		panel.add(lblAvaliacao, gbc_lblAvaliacao);
-		
+
 		final NotaPorEstrelas starRate = new NotaPorEstrelas();
 		starRate.addMouseListener(new MouseAdapter() {
 
@@ -109,7 +109,7 @@ public class AdicionarOpiniao extends JPanel {
 		gbc_starRate.gridx = 1;
 		gbc_starRate.gridy = 1;
 		panel.add(starRate, gbc_starRate);
-		
+
 		JPanel panelLista = new JPanel();
 		panelLista.setMaximumSize(new Dimension(10, 10));
 		GridBagConstraints gbc_panelLista = new GridBagConstraints();
@@ -124,7 +124,7 @@ public class AdicionarOpiniao extends JPanel {
 		gbl_panelLista.columnWeights = new double[]{1.0};
 		gbl_panelLista.rowWeights = new double[]{0.0, 1.0};
 		panelLista.setLayout(gbl_panelLista);
-		
+
 		JLabel lblComentrio = new JLabel("*Comentário:");
 		GridBagConstraints gbc_lblComentrio = new GridBagConstraints();
 		gbc_lblComentrio.anchor = GridBagConstraints.NORTHWEST;
@@ -132,14 +132,14 @@ public class AdicionarOpiniao extends JPanel {
 		gbc_lblComentrio.gridx = 0;
 		gbc_lblComentrio.gridy = 0;
 		panelLista.add(lblComentrio, gbc_lblComentrio);
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane.gridx = 0;
 		gbc_scrollPane.gridy = 1;
 		panelLista.add(scrollPane, gbc_scrollPane);
-		
+
 		final JTextArea tfComentario = new JTextArea(2,2);
 		scrollPane.setViewportView(tfComentario);
 		JPanel panel_2 = new JPanel();
@@ -150,11 +150,11 @@ public class AdicionarOpiniao extends JPanel {
 		gbc_panel_2.gridx = 1;
 		gbc_panel_2.gridy = 2;
 		add(panel_2, gbc_panel_2);
-		
+
 		final JLabel lblobs = new JLabel("*Obs");
 		lblobs.setVisible(false);
 		panel_2.add(lblobs);
-		
+
 		JPanel panel_1 = new JPanel();
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
 		gbc_panel_1.anchor = GridBagConstraints.NORTH;
@@ -166,6 +166,7 @@ public class AdicionarOpiniao extends JPanel {
 
 		JButton btnNewButton = new JButton("Voltar");
 		btnNewButton.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				Sistema.setTela(tela);
 			}
@@ -178,11 +179,11 @@ public class AdicionarOpiniao extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					
+
 					int nota = starRate.getSelection();
 					String nome = tfNome.getText();
 					String comentario = tfComentario.getText();
-										
+
 					if (nota <= 0)
 						throw new NumberFormatException();
 					if (comentario.length() < 5)
@@ -190,21 +191,21 @@ public class AdicionarOpiniao extends JPanel {
 					if (nome == null || nome.equals(""))
 						Sistema.getHotel().adicionaOpiniao(nota, comentario, dataAtual);
 					else{
-					    if(nome.length() < 5)
-					    	throw new IllegalArgumentException();
+						if(nome.length() < 5)
+							throw new IllegalArgumentException();
 						Sistema.getHotel().adicionaOpiniao(nome, nota, comentario, dataAtual);
 					}
-					
+
 					lblobs.setVisible(true);
 					lblobs.setForeground(Color.GREEN);
 					lblobs.setText("Opiniao adicionada com sucesso!");
-					
+
 					tfComentario.setText("");
 					lblAvaliacao.setVisible(false);
 					starRate.setSelection(0);
 					tfNome.setText("Anonimo");
 					tfNome.setForeground(Color.GRAY);
-					
+
 				} catch (NumberFormatException nfe) {
 					lblobs.setVisible(true);
 					lblobs.setForeground(Color.RED);
@@ -249,6 +250,6 @@ public class AdicionarOpiniao extends JPanel {
 			lblAvaliacao.setVisible(true);
 			lblAvaliacao.setText("Excelente!");
 			break;
-		}		
+		}
 	}
 }
