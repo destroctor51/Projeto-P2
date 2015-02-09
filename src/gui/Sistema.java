@@ -72,7 +72,6 @@ public class Sistema extends JFrame implements ActionListener, FullscreenListene
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (Exception e) {}
 
-		initHotel();
 		setTela(new Login());
 	}
 
@@ -191,6 +190,11 @@ public class Sistema extends JFrame implements ActionListener, FullscreenListene
 		else hotel = new Hotel("Hotel Riviera Campina");
 	}
 
+	private static void salvaHotel() {
+		if(hotel == null) return;
+		Arquivo.salvaObjeto(hotel, "hotel.dat");
+	}
+
 	/**
 	 * Troca a tela atual para a tela dada.
 	 *
@@ -198,6 +202,8 @@ public class Sistema extends JFrame implements ActionListener, FullscreenListene
 	 */
 	public static void setTela(JPanel novaTela) {
 		if(janela == null) initGUI();
+		if(hotel == null) initHotel();
+		salvaHotel();
 
 		if(novaTela == null)
 			throw new IllegalArgumentException();
@@ -248,8 +254,8 @@ public class Sistema extends JFrame implements ActionListener, FullscreenListene
 	 * @return o objeto usado para guardar informacoes sobre o hotel
 	 */
 	public static Hotel getHotel() {
-		if(Sistema.hotel == null) initHotel();
-		return Sistema.hotel;
+		if(hotel == null) initHotel();
+		return hotel;
 	}
 
 	/**
@@ -268,7 +274,7 @@ public class Sistema extends JFrame implements ActionListener, FullscreenListene
 	 * @return  o objeto que representa quem esta usando o sistema
 	 */
 	public static Conta getUsuario() {
-		return Sistema.usuario;
+		return usuario;
 	}
 
 	@Override

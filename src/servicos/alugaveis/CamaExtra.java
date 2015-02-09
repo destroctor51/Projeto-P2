@@ -17,6 +17,8 @@ import tempo.Periodo;
  */
 public class CamaExtra implements Alugavel {
 
+	private static final long serialVersionUID = 1L;
+
 	public static final float DIARIA_CAMA_EXTRA = 30;
 	private final String descricao = "Cama extra";
 	private int codigo;

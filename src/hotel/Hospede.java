@@ -1,5 +1,6 @@
 package hotel;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Iterator;
@@ -10,7 +11,9 @@ import java.util.List;
  *
  * @author Arthur Vinicius Tome Rodrigues
  */
-public class Hospede {
+public class Hospede implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private String nome;
 	private String telefone;

@@ -19,6 +19,8 @@ import tempo.Periodo;
  */
 public class Babysitter implements Alugavel {
 
+	private static final long serialVersionUID = 1L;
+
 	public static final float HORA_EXTRA = 50.0f;
 	public static final float HORA_REGULAR = 25.0f;
 	private final String descricao = "Servico de Babysitter";

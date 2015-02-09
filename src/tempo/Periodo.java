@@ -1,5 +1,6 @@
 package tempo;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -14,7 +15,9 @@ import java.util.GregorianCalendar;
  * @version 1.0
  */
 
-public class Periodo implements Comparable<Periodo>, Cloneable {
+public class Periodo implements Comparable<Periodo>, Cloneable, Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private Calendar inicio;
 	private Calendar fim;

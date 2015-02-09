@@ -3,6 +3,7 @@ package hotel;
 import interfaces.Devolvivel;
 import interfaces.Pagavel;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -13,7 +14,10 @@ import java.util.List;
  *
  * @author Arthur Vinicius Tome Rodrigues
  */
-public class Contrato {
+public class Contrato implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
 	private EstadoDeContrato estado;
 	private String cartao;
 	private double tarifa;

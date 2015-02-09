@@ -1,5 +1,6 @@
 package hotel;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 /**
@@ -7,7 +8,10 @@ import java.util.Calendar;
  *
  * @author Arthur Vinicius Tome Rodrigues
  */
-public class Opiniao {
+public class Opiniao implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
 	private int nota;
 	private String comentario;
 	private String autor = "Anonimo";

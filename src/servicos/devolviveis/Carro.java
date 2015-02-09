@@ -19,6 +19,8 @@ import tempo.Periodo;
  */
 public class Carro implements Devolvivel{
 
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * Valor pago se o servico tanque cheio for solicitado.
 	 */

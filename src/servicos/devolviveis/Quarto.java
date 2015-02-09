@@ -19,6 +19,8 @@ import tempo.Periodo;
  */
 public class Quarto implements Devolvivel {
 
+	private static final long serialVersionUID = 1L;
+
 	private TipoQuarto tipoQuarto;
 	private int numero;
 

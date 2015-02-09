@@ -1,5 +1,6 @@
 package hotel;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,7 +14,9 @@ import servicos.pagaveis.Refeicao;
  * @author Jose Benardi de Souza Nunes
  *
  */
-public class Restaurante {
+public class Restaurante implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private String nome;
 	private Set<Refeicao> estoque;

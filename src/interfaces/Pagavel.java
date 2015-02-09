@@ -1,5 +1,7 @@
 package interfaces;
 
+import java.io.Serializable;
+
 /**
  *
  * Interface que representa classes passiveis de pagamento. Um objeto pagavel deve ser capaz de retornar
@@ -7,7 +9,7 @@ package interfaces;
  * Interface desenvolvida para o projeto da disciplina de Laboratorio de Programacao II na UFCG 2014.2.
  *@author Jose Benardi de Souza Nunes
  */
-public interface Pagavel extends Cloneable {
+public interface Pagavel extends Cloneable, Serializable {
 
 	/**
 	 *

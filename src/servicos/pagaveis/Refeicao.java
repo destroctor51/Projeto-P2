@@ -10,6 +10,9 @@ import interfaces.Pagavel;
  *
  */
 public class Refeicao implements Pagavel {
+
+	private static final long serialVersionUID = 1L;
+
 	private String nome;
 	private float preco;
 

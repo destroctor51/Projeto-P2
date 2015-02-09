@@ -1,5 +1,6 @@
 package hotel;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
@@ -19,7 +20,10 @@ import tempo.Periodo;
  *
  * @author Arthur Vinicius Tome Rodrigues
  */
-public class Hotel {
+public class Hotel implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
 	private String nome;
 	private List<CamaExtra> camas = new ArrayList<>();
 	private List<Babysitter> babas = new ArrayList<>();
