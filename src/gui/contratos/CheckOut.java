@@ -27,7 +27,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -264,7 +263,7 @@ public class CheckOut extends JPanel {
 
 			contrato.realizarCheckOut(cartao);
 			ErrorLabel.setVisible(false);
-			JOptionPane.showMessageDialog(null,"Check out realizado com sucesso!");
+			Sistema.setTela(new Menu());
 		} catch (IllegalArgumentException e) {
 			ErrorLabel.setText("Cartão inválido.");
 			ErrorLabel.setVisible(true);

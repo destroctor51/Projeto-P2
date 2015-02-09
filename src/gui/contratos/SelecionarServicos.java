@@ -5,7 +5,6 @@ import interfaces.Alugavel;
 import interfaces.Pagavel;
 
 import javax.swing.DefaultListModel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -26,6 +25,7 @@ import tempo.Periodo;
 
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+import gui.Menu;
 import gui.Sistema;
 import gui.components.Calendario;
 
@@ -109,7 +109,7 @@ public class SelecionarServicos extends JPanel {
 			}
 		});
 
-		JButton btnCancelar = new JButton("Voltar");
+		JButton btnCancelar = new JButton("Retornar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Sistema.setTela(new AtualizarContratos());
@@ -646,8 +646,7 @@ public class SelecionarServicos extends JPanel {
 			contrato.adicionaServico(c);
 		}
 
-		JOptionPane
-				.showMessageDialog(null, "Serviços contratados com sucesso!");
+		Sistema.setTela(new Menu());
 		ErrorLabel.setVisible(false);
 	}
 

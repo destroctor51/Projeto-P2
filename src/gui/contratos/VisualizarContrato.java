@@ -51,14 +51,12 @@ public class VisualizarContrato extends JPanel {
 		textField.setEditable(false);
 		textField.setColumns(10);
 		
-		JButton btnVoltar = new JButton("Voltar");
+		JButton btnVoltar = new JButton("Retornar");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Sistema.setTela(new AtualizarContratos());
 			}
 		});
-		
-		JButton btnFechar = new JButton("Fechar");
 		
 		JLabel lblDataDeEntrada = new JLabel("Data de entrada :");
 		
@@ -87,10 +85,7 @@ public class VisualizarContrato extends JPanel {
 							.addComponent(lblEstadoDoContrato)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addComponent(btnFechar)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(btnVoltar))
+						.addComponent(btnVoltar, Alignment.TRAILING)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblDataDeEntrada)
 							.addPreferredGap(ComponentPlacement.RELATED)
@@ -121,9 +116,7 @@ public class VisualizarContrato extends JPanel {
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
 					.addGap(18)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnVoltar)
-						.addComponent(btnFechar))
+					.addComponent(btnVoltar)
 					.addContainerGap())
 		);
 		

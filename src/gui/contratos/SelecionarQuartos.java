@@ -1,11 +1,11 @@
 package gui.contratos;
 
+import gui.Menu;
 import gui.Sistema;
 import hotel.Contrato;
 import hotel.Hospede;
 
 import javax.swing.DefaultListModel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -84,7 +84,12 @@ public class SelecionarQuartos extends JPanel {
 			}
 		});
 		
-		JButton btnCancelar = new JButton("Cancelar");
+		JButton btnCancelar = new JButton("Retornar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Sistema.setTela(new RealizaReserva());
+			}
+		});
 		
 		ErrorLabel = new JLabel("");
 		ErrorLabel.setForeground(Color.RED);
@@ -212,7 +217,7 @@ public class SelecionarQuartos extends JPanel {
 		
 		ErrorLabel.setVisible(false);
 		lista1.clear();
-		JOptionPane.showMessageDialog(null,"Reserva efetuada com sucesso!");
+		Sistema.setTela(new Menu());
 	}
 	
 	private void adicionaQuartosEscolhidos(Quarto quarto) {
