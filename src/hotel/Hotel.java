@@ -117,7 +117,7 @@ public class Hotel implements Serializable {
 	public void adicionaCamaExtra(int codigo) throws Exception {
 		for (CamaExtra cama : camas) {
 			if (cama.getCodigo() == codigo)
-				throw new Exception("Codigo ja esta sendo utilizado");
+				throw new Exception("C\u00F3digo j\u00E1 est\u00E1 sendo utilizado");
 		}
 
 		CamaExtra cama = new CamaExtra(codigo);
@@ -153,7 +153,7 @@ public class Hotel implements Serializable {
 	public void adicionaBaba(String nome) throws Exception {
 		for (Babysitter baba : babas)
 			if (baba.getNome().equals(nome))
-				throw new Exception("Nome ja existente");
+				throw new Exception("Nome j\u00E1 existente");
 
 		Babysitter baba = new Babysitter(nome);
 		babas.add(baba);
@@ -193,15 +193,15 @@ public class Hotel implements Serializable {
 	 */
 	public void adicionaHospede(String nome, String telefone, String cpf, String email, String cidade, String endereco) throws Exception {
 		if (!(Hospede.verificaCpf(cpf)))
-			throw new Exception("Cpf invalido");
+			throw new Exception("CPF inv\u00E1lido");
 
 		for (Hospede hosp : hospedes) {
 			if (hosp.getTelefone().equals(telefone))
-				throw new Exception("Telefone ja esta sendo utilizado");
+				throw new Exception("Telefone j\u00E1 est\u00E1 sendo utilizado");
 			if (hosp.getEmail().equals(email))
-				throw new Exception("Email ja esta sendo utilizado");
+				throw new Exception("Email j\u00E1 est\u00E1 sendo utilizado");
 			if (hosp.getCpf().equals(cpf))
-				throw new Exception("Cpf ja esta sendo utilizado");
+				throw new Exception("CPF j\u00E1 est\u00E1 sendo utilizado");
 		}
 
 		Hospede hospede = new Hospede(nome, telefone, cpf, email, cidade, endereco);
@@ -259,7 +259,7 @@ public class Hotel implements Serializable {
 	public void adicionaQuarto(TipoQuarto tipo, int numero) throws Exception {
 		for (Quarto quarto : quartos)
 			if (quarto.getNumero() == numero)
-				throw new Exception("Numero ja existente");
+				throw new Exception("N\u00FAmero j\u00E1 existente");
 
 		Quarto quarto = new Quarto(tipo, numero);
 		quartos.add(quarto);
@@ -315,11 +315,11 @@ public class Hotel implements Serializable {
 	 */
 	public void adicionaCarro(TipoCarro tipo, String placa) throws Exception {
 		if (!(Carro.verificaPlaca(placa)))
-			throw new Exception("Placa invalida");
+			throw new Exception("Placa inv\u00E1lida (ex: ABC1234)");
 
 		for (Carro carro : carros)
 			if (carro.getPlaca().equals(placa))
-				throw new Exception("Placa ja existente");
+				throw new Exception("Placa j\u00E1 existente");
 
 		Carro carro = new Carro(tipo, placa);
 		carros.add(carro);
@@ -354,7 +354,7 @@ public class Hotel implements Serializable {
 	public void adicionaRestaurante(String nome) throws Exception {
 		for (Restaurante restaurante : restaurantes)
 			if (restaurante.getNome().equals(nome))
-				throw new Exception("Nome ja existente");
+				throw new Exception("Nome j\u00E1 existente");
 
 		Restaurante restaurante = new Restaurante(nome);
 		restaurantes.add(restaurante);
@@ -450,7 +450,7 @@ public class Hotel implements Serializable {
 	 * 			O comentario sobre o hotel.
 	 */
 	public void adicionaOpiniao(int nota, String comentario, Calendar data) {
-		adicionaOpiniao("Anonimo", nota, comentario, data);
+		adicionaOpiniao("An\u00F4nimo", nota, comentario, data);
 	}
 
 	@Override

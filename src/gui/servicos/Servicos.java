@@ -31,7 +31,6 @@ import javax.swing.JTextField;
 import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.border.EmptyBorder;
 import javax.swing.event.AncestorEvent;
 import javax.swing.event.AncestorListener;
 
@@ -158,7 +157,6 @@ public class Servicos extends JPanel {
 		gbc_lblTipoDeServio_1.gridy = 2;
 		panelSuperior.add(lblTipoDeServio_1, gbc_lblTipoDeServio_1);
 		cbServicos_1.setModel(new DefaultComboBoxModel<String>(new String[] {"Babysitter", "Cama Extra", "Carro", "Quarto", "Restaurante"}));
-		cbServicos_1.setSelectedIndex(-1);
 		GridBagConstraints gbc_cbServicos_1 = new GridBagConstraints();
 		gbc_cbServicos_1.fill = GridBagConstraints.HORIZONTAL;
 		gbc_cbServicos_1.gridx = 1;
@@ -255,8 +253,8 @@ public class Servicos extends JPanel {
 		btnAdicionar_1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				Object cbSelecionado = cbServicos_1.getSelectedItem();
-				Sistema.setTela(new AdicionarServico(cbSelecionado,tela));
+				String cbSelecionado = (String) cbServicos_1.getSelectedItem();
+				Sistema.setTela(new AdicionarServico(cbSelecionado, tela));
 			}
 		});
 
@@ -286,7 +284,6 @@ public class Servicos extends JPanel {
 
 		list.setVisibleRowCount(-1); //controla crescimento vertical
 		list.setFixedCellWidth(100); //controla crescimento horizontal
-		list.setBorder(new EmptyBorder(0, 0, 0, 0));
 		list.addMouseListener(new doubleClick(list));
 		scrollPane.setViewportView(list);
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
