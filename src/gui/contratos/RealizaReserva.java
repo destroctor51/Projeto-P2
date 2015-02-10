@@ -3,7 +3,6 @@ package gui.contratos;
 import gui.Menu;
 import gui.Sistema;
 import gui.components.Calendario;
-import hotel.Hospede;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -36,10 +35,11 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-import servicos.devolviveis.Quarto;
-import servicos.devolviveis.TipoQuarto;
-import tempo.Estacao;
-import tempo.Periodo;
+import core.hotel.Hospede;
+import core.servicos.devolviveis.Quarto;
+import core.servicos.devolviveis.TipoQuarto;
+import core.tempo.Estacao;
+import core.tempo.Periodo;
 
 
 public class RealizaReserva extends JPanel {

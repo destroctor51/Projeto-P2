@@ -1,7 +1,6 @@
 package gui.refeicoes;
 
 import gui.Sistema;
-import hotel.Restaurante;
 
 import java.awt.Color;
 import java.awt.GridBagConstraints;
@@ -15,6 +14,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+
+import core.hotel.Restaurante;
 
 public class AdicionarRefeicao extends JPanel {
 

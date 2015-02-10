@@ -22,8 +22,8 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
-import servicos.devolviveis.TipoCarro;
-import servicos.devolviveis.TipoQuarto;
+import core.servicos.devolviveis.TipoCarro;
+import core.servicos.devolviveis.TipoQuarto;
 
 public class AdicionarServico extends JPanel {
 
@@ -42,7 +42,7 @@ public class AdicionarServico extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public AdicionarServico(String cbSelecionado, JPanel telaAnterior) {
+	public AdicionarServico(final String cbSelecionado, final JPanel telaAnterior) {
 		setName("Adicionar Servi\u00E7o");
 
 		GridBagLayout gridBagLayout = new GridBagLayout();

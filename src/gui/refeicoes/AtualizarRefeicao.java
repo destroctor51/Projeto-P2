@@ -1,7 +1,6 @@
 package gui.refeicoes;
 
 import gui.Sistema;
-import hotel.Restaurante;
 
 import java.awt.Color;
 import java.awt.GridBagConstraints;
@@ -16,7 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import servicos.pagaveis.Refeicao;
+import core.hotel.Restaurante;
+import core.servicos.pagaveis.Refeicao;
 
 public class AtualizarRefeicao extends JPanel {
 

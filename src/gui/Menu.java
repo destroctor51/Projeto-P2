@@ -20,7 +20,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import login.Permissao;
+import core.login.Permissao;
 
 public class Menu extends JPanel {
 

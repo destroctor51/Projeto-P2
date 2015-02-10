@@ -2,7 +2,6 @@ package gui.servicos;
 
 import gui.Menu;
 import gui.Sistema;
-import hotel.Restaurante;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -36,10 +35,11 @@ import javax.swing.event.AncestorListener;
 
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
-import servicos.alugaveis.Babysitter;
-import servicos.alugaveis.CamaExtra;
-import servicos.devolviveis.Carro;
-import servicos.devolviveis.Quarto;
+import core.hotel.Restaurante;
+import core.servicos.alugaveis.Babysitter;
+import core.servicos.alugaveis.CamaExtra;
+import core.servicos.devolviveis.Carro;
+import core.servicos.devolviveis.Quarto;
 
 public class Servicos extends JPanel {
 

@@ -28,11 +28,11 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 
-import login.Conta;
-import login.GerenciadorDeContas;
-import login.Permissao;
-import eventos.FullscreenEvent;
-import eventos.FullscreenListener;
+import core.eventos.FullscreenEvent;
+import core.eventos.FullscreenListener;
+import core.login.Conta;
+import core.login.GerenciadorDeContas;
+import core.login.Permissao;
 
 /**
  * A tela de login e responsavel por controlar a entrada de usuarios no sistema.

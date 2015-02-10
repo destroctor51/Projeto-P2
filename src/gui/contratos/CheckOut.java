@@ -2,9 +2,6 @@ package gui.contratos;
 
 import gui.Menu;
 import gui.Sistema;
-import hotel.Contrato;
-import hotel.EstadoDeContrato;
-import hotel.Hospede;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -33,6 +30,10 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
+
+import core.hotel.Contrato;
+import core.hotel.EstadoDeContrato;
+import core.hotel.Hospede;
 
 public class CheckOut extends JPanel {
 	/**

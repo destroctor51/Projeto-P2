@@ -17,7 +17,7 @@ import javax.swing.JComponent;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
-import tempo.Periodo;
+import core.tempo.Periodo;
 
 /**
  * Um compontente Swing que e capaz de graficamente permitir a determinacao de um periodo.

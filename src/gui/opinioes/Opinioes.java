@@ -2,7 +2,6 @@ package gui.opinioes;
 
 import gui.Menu;
 import gui.Sistema;
-import hotel.Opiniao;
 
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -30,6 +29,8 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.AncestorEvent;
 import javax.swing.event.AncestorListener;
+
+import core.hotel.Opiniao;
 
 public class Opinioes extends JPanel {
 

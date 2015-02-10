@@ -1,9 +1,5 @@
 package gui.contratos;
 
-import hotel.Contrato;
-import interfaces.Alugavel;
-import interfaces.Pagavel;
-
 import javax.swing.DefaultListModel;
 import javax.swing.JPanel;
 import javax.swing.GroupLayout;
@@ -14,15 +10,6 @@ import java.awt.Font;
 
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
-
-import servicos.alugaveis.Babysitter;
-import servicos.alugaveis.CamaExtra;
-import servicos.devolviveis.Carro;
-import servicos.devolviveis.Quarto;
-import servicos.devolviveis.TipoCarro;
-import servicos.devolviveis.TipoQuarto;
-import tempo.Periodo;
-
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import gui.Menu;
@@ -45,9 +32,21 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
 import javax.swing.JTextPane;
 import javax.swing.JCheckBox;
 import javax.swing.JLayeredPane;
+
+import core.hotel.Contrato;
+import core.interfaces.Alugavel;
+import core.interfaces.Pagavel;
+import core.servicos.alugaveis.Babysitter;
+import core.servicos.alugaveis.CamaExtra;
+import core.servicos.devolviveis.Carro;
+import core.servicos.devolviveis.Quarto;
+import core.servicos.devolviveis.TipoCarro;
+import core.servicos.devolviveis.TipoQuarto;
+import core.tempo.Periodo;
 
 public class SelecionarServicos extends JPanel {
 	/**

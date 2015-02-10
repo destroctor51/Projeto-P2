@@ -1,7 +1,6 @@
 package gui.hospede;
 
 import gui.Sistema;
-import hotel.Hospede;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -16,6 +15,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import javax.swing.ImageIcon;
+
+import core.hotel.Hospede;
 
 public class AtualizaHospede extends JPanel {
 	/**

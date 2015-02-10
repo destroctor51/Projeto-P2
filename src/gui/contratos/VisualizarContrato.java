@@ -1,11 +1,10 @@
 package gui.contratos;
 
 import gui.Sistema;
-import hotel.Contrato;
-import interfaces.Pagavel;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+
 import java.awt.Font;
 
 import javax.swing.DefaultListModel;
@@ -14,13 +13,17 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import javax.swing.JScrollPane;
 import javax.swing.JList;
 import javax.swing.border.LineBorder;
 
-import servicos.devolviveis.Quarto;
+import core.hotel.Contrato;
+import core.interfaces.Pagavel;
+import core.servicos.devolviveis.Quarto;
 
 import java.awt.Color;
 

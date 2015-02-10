@@ -2,19 +2,20 @@ package gui.contratos;
 
 import gui.Menu;
 import gui.Sistema;
-import hotel.Contrato;
-import hotel.Hospede;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JPanel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
+
 import java.awt.Font;
+
 import javax.swing.JScrollPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JList;
 import javax.swing.border.LineBorder;
+
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -22,8 +23,11 @@ import java.awt.event.MouseEvent;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 
-import servicos.devolviveis.Quarto;
-import tempo.Periodo;
+import core.hotel.Contrato;
+import core.hotel.Hospede;
+import core.servicos.devolviveis.Quarto;
+import core.tempo.Periodo;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.Iterator;

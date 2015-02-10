@@ -2,7 +2,6 @@ package gui.refeicoes;
 
 import gui.Menu;
 import gui.Sistema;
-import hotel.Restaurante;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -37,7 +36,8 @@ import javax.swing.event.AncestorListener;
 
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
-import servicos.pagaveis.Refeicao;
+import core.hotel.Restaurante;
+import core.servicos.pagaveis.Refeicao;
 
 public class Refeicoes extends JPanel {
 

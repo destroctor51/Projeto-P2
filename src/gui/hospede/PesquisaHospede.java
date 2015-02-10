@@ -2,7 +2,6 @@ package gui.hospede;
 
 import gui.Menu;
 import gui.Sistema;
-import hotel.Hospede;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -21,6 +20,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
+import core.hotel.Hospede;
 
 public class PesquisaHospede extends JPanel {
 	/**

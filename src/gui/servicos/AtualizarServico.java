@@ -1,7 +1,6 @@
 package gui.servicos;
 
 import gui.Sistema;
-import hotel.Restaurante;
 
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -23,12 +22,13 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
-import servicos.alugaveis.Babysitter;
-import servicos.alugaveis.CamaExtra;
-import servicos.devolviveis.Carro;
-import servicos.devolviveis.Quarto;
-import servicos.devolviveis.TipoCarro;
-import servicos.devolviveis.TipoQuarto;
+import core.hotel.Restaurante;
+import core.servicos.alugaveis.Babysitter;
+import core.servicos.alugaveis.CamaExtra;
+import core.servicos.devolviveis.Carro;
+import core.servicos.devolviveis.Quarto;
+import core.servicos.devolviveis.TipoCarro;
+import core.servicos.devolviveis.TipoQuarto;
 
 public class AtualizarServico extends JPanel {
 
@@ -46,7 +46,7 @@ public class AtualizarServico extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public AtualizarServico(final JPanel telaAnterior, Object servico) {
+	public AtualizarServico(final JPanel telaAnterior, final Object servico) {
 		setName("Atualizar Servi\u00E7o");
 
 		GridBagLayout gridBagLayout = new GridBagLayout();

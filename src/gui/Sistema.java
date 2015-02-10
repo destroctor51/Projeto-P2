@@ -1,7 +1,5 @@
 package gui;
 
-import hotel.Hotel;
-
 import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -30,10 +28,11 @@ import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
-import login.Conta;
-import disco.Arquivo;
-import eventos.FullscreenEvent;
-import eventos.FullscreenListener;
+import core.disco.Arquivo;
+import core.eventos.FullscreenEvent;
+import core.eventos.FullscreenListener;
+import core.hotel.Hotel;
+import core.login.Conta;
 
 /**
  * Janela principal do programa, que controla as telas sendo mostradas e contem o metodo main.
