@@ -47,10 +47,6 @@ public class CheckOut extends JPanel {
 	private JLabel ErrorLabel;
 	private DefaultListModel<Object> lista = new DefaultListModel<>();
 	private DefaultListModel<Object> lista1 = new DefaultListModel<>();
-	private DefaultListModel<Object> lista2 = new DefaultListModel<>();
-	private JList<Object> list_2;
-	private JList<Object> list_3;
-	private DefaultListModel<Object> lista3 = new DefaultListModel<>();
 	private JList<Object> list;
 	private JList<Object> list_1;
 
@@ -112,58 +108,48 @@ public class CheckOut extends JPanel {
 		ErrorLabel.setForeground(Color.RED);
 		ErrorLabel.setVisible(false);
 		ErrorLabel.setIcon(new ImageIcon(CheckOut.class.getResource("/gui/images/error.png")));
-
-		list_2 = new JList<Object>();
-
-		list_3 = new JList<Object>();
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
-				groupLayout.createParallelGroup(Alignment.TRAILING)
+			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-						.addContainerGap()
-						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(scrollPane_1, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
-								.addComponent(scrollPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
-								.addComponent(panel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
-								.addComponent(panel_1, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
-								.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-										.addComponent(ErrorLabel, GroupLayout.PREFERRED_SIZE, 315, GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.RELATED, 170, Short.MAX_VALUE)
-										.addComponent(btnCancelar)
-										.addPreferredGap(ComponentPlacement.UNRELATED)
-										.addComponent(btnConfirmar))
-										.addComponent(list_3, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
-										.addComponent(list_2, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
-										.addComponent(panel_2, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
-										.addComponent(label_2, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
-										.addContainerGap())
-				);
+					.addContainerGap()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(scrollPane_1, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
+						.addComponent(scrollPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
+						.addComponent(panel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
+						.addComponent(panel_1, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+							.addComponent(ErrorLabel, GroupLayout.PREFERRED_SIZE, 315, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED, 170, Short.MAX_VALUE)
+							.addComponent(btnCancelar)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(btnConfirmar))
+						.addComponent(panel_2, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
+						.addComponent(label_2, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap())
+		);
 		groupLayout.setVerticalGroup(
-				groupLayout.createParallelGroup(Alignment.LEADING)
+			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.UNRELATED)
-						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
-						.addGap(10)
-						.addComponent(list_2, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.UNRELATED)
-						.addComponent(label_2)
-						.addGap(12)
-						.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
-						.addGap(9)
-						.addComponent(list_3, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
-						.addGap(12)
-						.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-										.addComponent(btnConfirmar)
-										.addComponent(btnCancelar))
-										.addComponent(ErrorLabel, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
-										.addContainerGap())
-				);
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
+					.addGap(12)
+					.addComponent(label_2)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+							.addComponent(btnConfirmar)
+							.addComponent(btnCancelar))
+						.addComponent(ErrorLabel, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap())
+		);
 
 		BufferedImage buttonIcon = null;
 		try {
@@ -263,7 +249,7 @@ public class CheckOut extends JPanel {
 
 			contrato.realizarCheckOut(cartao);
 			ErrorLabel.setVisible(false);
-			Sistema.setTela(new Menu());
+			Sistema.setTela(new Menu(true));
 		} catch (IllegalArgumentException e) {
 			ErrorLabel.setText("Cartão inválido.");
 			ErrorLabel.setVisible(true);
@@ -272,25 +258,17 @@ public class CheckOut extends JPanel {
 	}
 
 	private void setHospede(Hospede hosp) {
-		lista2.clear();
-		lista3.clear();
 		contrato = null;
 
 		if (hosp == null)
 			throw new IllegalArgumentException();
 		hospede = hosp;
-		lista2.addElement(hospede);
-		list_2.setModel(lista2);
 	}
 
 	private void setContrato(Contrato cont) {
-		lista3.clear();
-
 		if (cont == null)
 			throw new IllegalArgumentException();
 		contrato = cont;
-		lista3.addElement(contrato);
-		list_3.setModel(lista3);
 	}
 
 	private void preencheContratos(Hospede hosp) {

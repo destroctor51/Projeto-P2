@@ -204,7 +204,7 @@ public class Menu extends JPanel {
 		gbc_btnNewButton_8.gridy = 1;
 		contractPanel.add(btnNewButton_8, gbc_btnNewButton_8);
 
-		JButton btnNewButton_9 = new JButton("Atualizar servi\u00E7os");
+		JButton btnNewButton_9 = new JButton("Atualizar contratos");
 		btnNewButton_9.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

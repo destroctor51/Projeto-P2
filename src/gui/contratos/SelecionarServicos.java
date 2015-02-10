@@ -534,6 +534,7 @@ public class SelecionarServicos extends JPanel {
 			pcarrosAlugados.add(periodo);
 			tanque.add(chckbxNewCheckBox.isSelected());
 			seguro.add(chckbxNewCheckBox_1.isSelected());
+			
 		} else if (pagavel instanceof CamaExtra) {
 			camasAlugadas.add((CamaExtra) pagavel);
 			pcamasAlugadas.add(periodo);
@@ -634,7 +635,7 @@ public class SelecionarServicos extends JPanel {
 		}
 
 		for (int i = 0; i < carrosAlugados.size(); i++) {
-			Periodo periodo = pbabasAlugadas.get(i);
+			Periodo periodo = pcarrosAlugados.get(i);
 			carrosAlugados.get(i).aluga(periodo, tanque.get(i), seguro.get(i));
 			contrato.adicionaServico(carrosAlugados.get(i));
 		}
@@ -651,7 +652,7 @@ public class SelecionarServicos extends JPanel {
 	}
 
 	private void checaDisponibilidade() {
-		boolean disponivel = true;
+		boolean disponivel = false;
 		Periodo periodo = calendario.getSelecao();
 		if (periodo != null) {
 			String servico = (String) comboBox_1.getSelectedItem();
@@ -682,9 +683,6 @@ public class SelecionarServicos extends JPanel {
 			}
 
 			else if (servico.equals("Carro")) {
-				if (Sistema.getHotel().getCarrosDisponiveis(
-						periodo).size() == 0)
-					disponivel = false;
 				
 				for (Carro carro : Sistema.getHotel().getCarrosDisponiveis(
 						periodo)) {
@@ -711,10 +709,6 @@ public class SelecionarServicos extends JPanel {
 			}
 
 			else {
-				if (Sistema.getHotel().getCamasDisponiveis(
-						periodo).size() == 0)
-					disponivel = false;
-				
 				for (CamaExtra cama : Sistema.getHotel().getCamasDisponiveis(
 						periodo)) {
 					disponivel = true;
