@@ -180,16 +180,16 @@ public class Servicos extends JPanel {
 		add(panel, gbc_panel);
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[]{113, 115, 0};
-		gbl_panel.rowHeights = new int[]{0, 23, 0};
+		gbl_panel.rowHeights = new int[]{23, 0};
 		gbl_panel.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		JButton btnRemoverServio = new JButton("Remover Servi\u00E7o");
 		GridBagConstraints gbc_btnRemoverServio = new GridBagConstraints();
 		gbc_btnRemoverServio.anchor = GridBagConstraints.NORTHWEST;
 		gbc_btnRemoverServio.insets = new Insets(0, 0, 0, 5);
 		gbc_btnRemoverServio.gridx = 0;
-		gbc_btnRemoverServio.gridy = 1;
+		gbc_btnRemoverServio.gridy = 0;
 		panel.add(btnRemoverServio, gbc_btnRemoverServio);
 		btnRemoverServio.setMaximumSize(new Dimension(150, 100));
 		btnRemoverServio.setBounds(new Rectangle(100, 0, 100, 50));
@@ -248,7 +248,7 @@ public class Servicos extends JPanel {
 		GridBagConstraints gbc_btnAdicionar_1 = new GridBagConstraints();
 		gbc_btnAdicionar_1.anchor = GridBagConstraints.NORTHWEST;
 		gbc_btnAdicionar_1.gridx = 1;
-		gbc_btnAdicionar_1.gridy = 1;
+		gbc_btnAdicionar_1.gridy = 0;
 		panel.add(btnAdicionar_1, gbc_btnAdicionar_1);
 		btnAdicionar_1.addActionListener(new ActionListener() {
 			@Override

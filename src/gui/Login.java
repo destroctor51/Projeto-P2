@@ -45,7 +45,7 @@ public class Login extends JPanel implements FullscreenListener {
 
 	private static final long serialVersionUID = 1L;
 
-	GerenciadorDeContas gdc = new GerenciadorDeContas("login.dat");
+	private GerenciadorDeContas gdc = Sistema.getContas();
 
 	private JInternalFrame loginFrame;
 	private JTextField loginUserField;
@@ -337,21 +337,19 @@ public class Login extends JPanel implements FullscreenListener {
 				registerErrorLabel.setVisible(true);
 			}
 
-			else if(registerPasswordField.getPassword().length < 5) {
-				registerErrorLabel.setText("Senha menor que 5 caract\u00E9res");
+			else if(!Arrays.equals(senha, confereSenha)) {
+				registerErrorLabel.setText("Senha n\u00E3o confere");
 				registerErrorLabel.setVisible(true);
 			}
 
-			else if(!Arrays.equals(senha, confereSenha)) {
-				registerErrorLabel.setText("Senha n\u00E3o confere");
+			else if(registerPasswordField.getPassword().length < 5) {
+				registerErrorLabel.setText("Senha menor que 5 caract\u00E9res");
 				registerErrorLabel.setVisible(true);
 			}
 
 			else {
 				Conta usuario = gdc.cadastra(id, new String(senha), Permissao.GERENTE);
 				Sistema.fazLogin(usuario);
-				gdc.salvaContas();
-
 				Sistema.setTela(new Menu());
 			}
 

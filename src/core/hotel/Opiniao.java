@@ -27,22 +27,24 @@ public class Opiniao implements Serializable {
 	 * 			O comentario da opiniao.
 	 */
 	public Opiniao(int nota, String comentario, Calendar data) {
-		this("Anonimo", nota, comentario, data);
+		this("An\00F4nimo", nota, comentario, data);
 	}
 
 	/**
 	 * Cria uma opiniao a partir do autor, da nota e do comentario.
+	 * <p>
+	 * Caso o autor seja null ou vazio, ele sera convertido para "Anonimo".
 	 *
-	 * @param autor
-	 * 			O nome do autor da opiniao.
-	 * @param nota
-	 * 			A nota do produto em que sera registrada a opiniao.
-	 * @param comentario
-	 * 			O comentario da opiniao.
+	 * @param autor  o nome do autor da opiniao.
+	 * @param nota  a nota dada em relacao ao objeto avaliado.
+	 * @param comentario  um comentario do autor, nao null
+	 * @param data  a data em que a opiniao foi criada, nao null
 	 */
 	public Opiniao(String autor, int nota, String comentario, Calendar data) {
-		if(comentario == null || data == null)
+		if(data == null || comentario == null)
 			throw new IllegalArgumentException();
+		if(autor == null || autor.isEmpty())
+			autor = "An\00F4nimo";
 
 		this.nota = nota;
 		this.comentario = comentario;

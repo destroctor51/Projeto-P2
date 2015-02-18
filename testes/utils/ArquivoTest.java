@@ -1,4 +1,4 @@
-package core.disco;
+package utils;
 
 import static org.junit.Assert.*;
 
@@ -10,7 +10,7 @@ import java.util.Random;
 import org.junit.After;
 import org.junit.Test;
 
-import core.disco.Arquivo;
+import utils.Arquivo;
 
 public class ArquivoTest {
 

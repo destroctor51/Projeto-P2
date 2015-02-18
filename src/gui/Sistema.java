@@ -28,11 +28,12 @@ import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
-import core.disco.Arquivo;
+import utils.Arquivo;
 import core.eventos.FullscreenEvent;
 import core.eventos.FullscreenListener;
 import core.hotel.Hotel;
 import core.login.Conta;
+import core.login.GerenciadorDeContas;
 
 /**
  * Janela principal do programa, que controla as telas sendo mostradas e contem o metodo main.
@@ -47,6 +48,7 @@ public class Sistema extends JFrame implements ActionListener, FullscreenListene
 
 	private static Hotel hotel;
 	private static Conta usuario;
+	private static GerenciadorDeContas gdc;
 
 	private JPanel contentPane;
 	private JLabel userLabel;
@@ -189,9 +191,15 @@ public class Sistema extends JFrame implements ActionListener, FullscreenListene
 		else hotel = new Hotel("Hotel Riviera Campina");
 	}
 
-	private static void salvaHotel() {
-		if(hotel == null) return;
-		Arquivo.salvaObjeto(hotel, "hotel.dat");
+	private static void initContas() {
+		Object leitura = Arquivo.carregaObjeto("login.dat");
+		if(leitura instanceof GerenciadorDeContas) gdc = (GerenciadorDeContas) leitura;
+		else gdc = new GerenciadorDeContas();
+	}
+
+	private static void salvaEstado() {
+		if(hotel != null) Arquivo.salvaObjeto(hotel, "hotel.dat");
+		if(gdc != null) Arquivo.salvaObjeto(gdc, "login.dat");
 	}
 
 	/**
@@ -201,8 +209,7 @@ public class Sistema extends JFrame implements ActionListener, FullscreenListene
 	 */
 	public static void setTela(JPanel novaTela) {
 		if(janela == null) initGUI();
-		if(hotel == null) initHotel();
-		salvaHotel();
+		salvaEstado();
 
 		if(novaTela == null)
 			throw new IllegalArgumentException();
@@ -255,6 +262,16 @@ public class Sistema extends JFrame implements ActionListener, FullscreenListene
 	public static Hotel getHotel() {
 		if(hotel == null) initHotel();
 		return hotel;
+	}
+
+	/**
+	 * Retorna o objeto GerenciadorDeContas do sistema.
+	 *
+	 * @return o objeto usado para guardar informacoes sobre as contas de usuario
+	 */
+	public static GerenciadorDeContas getContas() {
+		if(gdc == null) initContas();
+		return gdc;
 	}
 
 	/**

@@ -1,5 +1,6 @@
 package gui;
 
+import gui.contas.Contas;
 import gui.contratos.AtualizarContratos;
 import gui.contratos.CheckIn;
 import gui.contratos.CheckOut;
@@ -22,6 +23,11 @@ import javax.swing.JPanel;
 
 import core.login.Permissao;
 
+/**
+ * Essa tela conecta todas as outras do sistema.
+ *
+ * @author Victor Andrade de Almeida
+ */
 public class Menu extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -118,9 +124,14 @@ public class Menu extends JPanel {
 		btnNewButton_3.setFocusPainted(false);
 
 		JButton btnNewButton_4 = new JButton("Contas de usu\u00E1rio");
+		btnNewButton_4.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Sistema.setTela(new Contas());
+			}
+		});
 		btnNewButton_4.setMinimumSize(new Dimension(150, 150));
 		btnNewButton_4.setEnabled(Sistema.getUsuario().possuiPermissao(Permissao.GERENTE));
-		btnNewButton_4.setEnabled(false); // OUT OF ORDER
 		btnNewButton_4.setFocusable(false);
 		btnNewButton_4.setFocusPainted(false);
 		btnNewButton_4.setPreferredSize(new Dimension(150, 150));
