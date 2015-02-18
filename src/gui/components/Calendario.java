@@ -2,7 +2,6 @@ package gui.components;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -10,8 +9,6 @@ import java.awt.event.MouseListener;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
-import java.util.Set;
-import java.util.TreeSet;
 
 import javax.swing.JComponent;
 import javax.swing.border.Border;
@@ -28,15 +25,13 @@ public class Calendario extends JComponent {
 
 	private static final long serialVersionUID = 1L;
 
-	private static final Color corIndisponivel = new Color(255, 120, 120);
-	private static final Color corSelecinado = new Color(120, 255, 120);
-
-	private Set<Periodo> periodos;
+	protected static final Color corIndisponivel = new Color(255, 120, 120);
+	protected static final Color corSelecinado = new Color(120, 255, 120);
 
 	private Color[][] cores;
 	private Calendar[][] dias;
 	private Calendar dataAtual;
-	private Calendar dataInicio, dataFim;
+	protected Calendar dataInicio, dataFim;
 
 	private int largura;
 	private int altura;
@@ -55,7 +50,6 @@ public class Calendario extends JComponent {
 		recalculaTamanho();
 
 		dataAtual = GregorianCalendar.getInstance();
-		periodos = new TreeSet<Periodo>();
 		dias = new Calendar[7][6];
 		cores = new Color[7][6];
 
@@ -78,29 +72,6 @@ public class Calendario extends JComponent {
 		return new Periodo(dataInicio, dataFim);
 	}
 
-	/**
-	 * Marca um periodo no calendario como indisponivel.
-	 * <p>
-	 * Periodos indisponiveis nao podem entrar em conflito uns com os outros e nao podem ser marcados pelo usuario.
-	 *
-	 * @param periodo  o periodo a ser adicionado, nao null
-	 * @return true se o periodo foi adicionado com sucesso, false caso contrario
-	 */
-	public boolean adicionaPeriodoIndisponivel(Periodo periodo) {
-		if(periodo == null)
-			return false;
-
-		boolean operacaoValida = periodos.add(periodo);
-
-		if(operacaoValida) {
-			dataInicio = null;
-			dataFim = null;
-			atualizaDias();
-		}
-
-		return operacaoValida;
-	}
-
 	@Override
 	public Dimension getMinimumSize() {
 		return getPreferredSize();
@@ -116,57 +87,6 @@ public class Calendario extends JComponent {
 		Dimension size = new Dimension();
 		size.setSize(largura-1, altura-1);
 		return size;  // TODO make resize better
-	}
-
-	@Override
-	protected void paintComponent(Graphics g) {
-		int left = getInsets().left-1;
-		int right = largura - getInsets().right;
-		int top = separator + getInsets().top-1;
-		int bottom = altura - getInsets().bottom;
-
-		int dateWidth = (right-left) / 7;
-		int dateHeight = (bottom-top) / 6;
-
-		// paint colors
-		g.setColor(getBackground());
-		g.fillRect(0, 0, largura, top);
-
-		for(int y=0; y<6; y++) for(int x=0; x<7; x++) {
-			g.setColor(cores[x][y]);
-			g.fillRect(left+x*dateWidth, top+y*dateHeight, dateWidth, dateHeight);
-		}
-
-		// paint grid
-		g.setColor(getForeground());
-
-		for(int x=1; x<7; x++)
-			g.drawLine(left+x*dateWidth, top, left+x*dateWidth, bottom);
-		for(int y=0; y<6; y++)
-			g.drawLine(left, top+y*dateHeight, right, top+y*dateHeight);
-
-		// TODO paint text
-		g.setColor(Color.BLACK);
-		g.drawString("<   "+dataAtual.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH)+" / "+dataAtual.get(Calendar.YEAR)+"   >", left+50, top-5);
-
-		// TODO paint numbers
-		g.setColor(Color.BLACK);
-		for(int y=0; y<6; y++) for(int x=0; x<7; x++) {
-			if(dias[x][y].get(Calendar.MONTH) == dataAtual.get(Calendar.MONTH)) g.setFont(g.getFont().deriveFont(Font.PLAIN));
-			else  g.setFont(g.getFont().deriveFont(Font.ITALIC));
-			g.drawString(Integer.toString(dias[x][y].get(Calendar.DATE)), (int)(dateWidth*0.35)+left+x*dateWidth, (int)(dateHeight*0.7)+top+y*dateHeight);
-		}
-	}
-
-	private void recalculaTamanho() {
-		largura = (int) (tamanho/7) * 7;
-		altura = (int) (tamanho/7) * 6;
-
-		separator = (int) (altura * proporcao);
-		altura += separator;
-
-		largura += getInsets().left + getInsets().right;
-		altura += getInsets().top + getInsets().bottom;
 	}
 
 	/**
@@ -187,7 +107,82 @@ public class Calendario extends JComponent {
 		recalculaTamanho();
 	}
 
-	private void atualizaDias() {
+	private void recalculaTamanho() {
+		largura = (int) (tamanho/7) * 7;
+		altura = (int) (tamanho/7) * 6;
+
+		separator = (int) (altura * proporcao);
+		altura += separator;
+
+		largura += getInsets().left + getInsets().right;
+		altura += getInsets().top + getInsets().bottom;
+	}
+
+	private void alteraMes(int variacao) {
+		dataAtual.add(Calendar.MONTH, variacao);
+		atualizaDias();
+	}
+
+	protected boolean isDiaIndisponivel(Calendar dia) {
+		return false;
+	}
+
+	protected boolean isSelecaoInvalida() {
+		return false;
+	}
+
+	@Override
+	protected void paintComponent(Graphics g) {
+		int left = getInsets().left-1;
+		int right = largura - getInsets().right;
+		int top = separator + getInsets().top-1;
+		int bottom = altura - getInsets().bottom;
+
+		int dateWidth = (right-left) / 7;
+		int dateHeight = (bottom-top) / 6;
+
+		// paint colors
+		g.setColor(getBackground());
+		g.fillRect(0, 0, right, top);
+
+		for(int y=0; y<6; y++) for(int x=0; x<7; x++) {
+			g.setColor(cores[x][y]);
+			g.fillRect(left+x*dateWidth, top+y*dateHeight, dateWidth, dateHeight);
+		}
+
+		// paint grid
+		g.setColor(getForeground());
+
+		for(int x=1; x<7; x++)
+			g.drawLine(left+x*dateWidth, top, left+x*dateWidth, bottom);
+		for(int y=0; y<6; y++)
+			g.drawLine(left, top+y*dateHeight, right, top+y*dateHeight);
+
+
+		{ // paint header
+			String header = dataAtual.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH)+" / "+dataAtual.get(Calendar.YEAR);
+			int drawingHeight = top/2 + g.getFont().getSize()/2;
+
+			g.setColor(Color.BLACK);
+			g.drawString(header, (right-left)/2 - g.getFontMetrics().stringWidth(header)/2, drawingHeight);
+			g.drawString("<", (right-left)*1/6 - g.getFontMetrics().stringWidth("<")/2, drawingHeight);
+			g.drawString(">", (right-left)*5/6 - g.getFontMetrics().stringWidth(">")/2, drawingHeight);
+		}
+
+		// paint numbers
+		for(int y=0; y<6; y++) for(int x=0; x<7; x++) {
+			if(dias[x][y].get(Calendar.MONTH) == dataAtual.get(Calendar.MONTH)) g.setColor(Color.BLACK);
+			else g.setColor(Color.GRAY);
+
+			String text = Integer.toString(dias[x][y].get(Calendar.DATE));
+			int posx = left+x*dateWidth+dateWidth/2 - g.getFontMetrics().stringWidth(text)/2;
+			int posy = top+y*dateHeight+dateHeight/2 + g.getFont().getSize()/2;
+
+			g.drawString(text, posx, posy);
+		}
+	}
+
+	protected final void atualizaDias() {
 		int year = dataAtual.get(Calendar.YEAR);
 		int month = dataAtual.get(Calendar.MONTH);
 		Calendar base = new GregorianCalendar(year, month, 1);
@@ -202,9 +197,8 @@ public class Calendario extends JComponent {
 
 		for(int y=0; y<6; y++) for(int x=0; x<7; x++) {
 			cores[x][y] = getBackground();
-			for(Periodo p : periodos)
-				if(p.contem(dias[x][y]))
-					cores[x][y] = corIndisponivel;
+			if(isDiaIndisponivel(dias[x][y]))
+				cores[x][y] = corIndisponivel;
 
 			Periodo selecionado = getSelecao();
 			if(selecionado != null && selecionado.contem(dias[x][y]))
@@ -214,12 +208,7 @@ public class Calendario extends JComponent {
 		repaint();
 	}
 
-	private void alteraMes(int variacao) {
-		dataAtual.add(Calendar.MONTH, variacao);
-		atualizaDias();
-	}
-
-	private class ControleCalendario extends MouseAdapter {
+	private final class ControleCalendario extends MouseAdapter {
 
 		@Override
 		public void mousePressed(MouseEvent e) {
@@ -238,8 +227,8 @@ public class Calendario extends JComponent {
 					return;
 
 				if(my <= top) {
-					if(mx < largura/2) alteraMes(-1);
-					else alteraMes(+1);
+					if(mx < largura*1/4) alteraMes(-1);
+					if(mx > largura*3/4) alteraMes(+1);
 				}
 
 				if(isEnabled() && my > top && my <= bottom) {
@@ -270,11 +259,10 @@ public class Calendario extends JComponent {
 						else dataFim = dias[x][y];
 					}
 
-					for(Periodo p : periodos)
-						if(p.entraEmConflito(getSelecao())) {
-							dataInicio = backInicio;
-							dataFim = backFim;
-						}
+					if(isSelecaoInvalida()) {
+						dataInicio = backInicio;
+						dataFim = backFim;
+					}
 				}
 			}
 
