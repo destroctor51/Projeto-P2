@@ -5,14 +5,16 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 
 import javax.crypto.Cipher;
-import javax.crypto.KeyGenerator;
+import javax.crypto.CipherInputStream;
+import javax.crypto.CipherOutputStream;
+import javax.crypto.SealedObject;
 import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 
 /**
  * Essa classe disponibiliza operacoes estaticas para lidar com o armazenamento e recuperacao de informacoes em arquivos, de forma criptografada.
@@ -22,17 +24,16 @@ import javax.crypto.SecretKey;
 public final class Arquivo {
 
 	private static SecretKey key;
+	private static Cipher cipher;
 
 	private Arquivo() {}
 
 	private static void initKey() {
 		try {
-			byte[] preSeed = "(d012kpo^K)(DsuP0AUS2ijAOdjiisodAPS~jd".getBytes();
-			SecureRandom seed = new SecureRandom(preSeed);
-			KeyGenerator generator = KeyGenerator.getInstance("AES");
-			generator.init(seed);
-			key = generator.generateKey();
-		} catch (NoSuchAlgorithmException e) {}
+			byte[] seed = "dkpoKDPUSAddAPSd".getBytes("UTF-8");
+			key = new SecretKeySpec(seed, "AES");
+			cipher = Cipher.getInstance("AES");
+		} catch (Exception e) {}
 	}
 
 	/**
@@ -44,20 +45,19 @@ public final class Arquivo {
 	 * @param arquivo  o caminho do arquivo destino
 	 * @return true se a operacao foi concluida com sucesso, false caso contrario
 	 */
-	public static boolean salvaObjeto(Object alvo, String arquivo) {
+	public static boolean salvaObjeto(Serializable alvo, String arquivo) {
 		if(key == null) initKey();
 		ObjectOutputStream out = null;
 
 		try {
-			Cipher encryptCipher = Cipher.getInstance("AES");
-			encryptCipher.init(Cipher.ENCRYPT_MODE, key);
+			cipher.init(Cipher.ENCRYPT_MODE, key);
 
-			/*out = new ObjectOutputStream(new CipherOutputStream(
-					new FileOutputStream(arquivo), encryptCipher));*/
+			SealedObject sealedObject = new SealedObject(alvo, cipher);
 
-			out = new ObjectOutputStream(new FileOutputStream(arquivo));
+			out = new ObjectOutputStream(new CipherOutputStream(
+					new FileOutputStream(arquivo), cipher));
 
-			out.writeObject(alvo);
+			out.writeObject(sealedObject);
 			out.flush();
 		}
 
@@ -90,15 +90,13 @@ public final class Arquivo {
 		Object leitura = null;
 
 		try {
-			Cipher encryptCipher = Cipher.getInstance("AES");
-			encryptCipher.init(Cipher.DECRYPT_MODE, key);
+			cipher.init(Cipher.DECRYPT_MODE, key);
 
-			/*in = new ObjectInputStream(new CipherInputStream(
-					new FileInputStream(arquivo), encryptCipher));*/
+			in = new ObjectInputStream(new CipherInputStream(
+					new FileInputStream(arquivo), cipher));
 
-			in = new ObjectInputStream(new FileInputStream(arquivo));
-
-			leitura = in.readObject();
+			SealedObject sealedObject = (SealedObject) in.readObject();
+			leitura = sealedObject.getObject(cipher);
 		} catch (Exception e) {}
 
 		finally {

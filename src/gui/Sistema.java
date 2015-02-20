@@ -3,10 +3,11 @@ package gui;
 import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -55,9 +56,6 @@ public class Sistema extends JFrame implements ActionListener, FullscreenListene
 	private JLabel dateLabel;
 	private Timer timer;
 
-	private Rectangle lastBounds;
-	private int lastExtendedState;
-
 	private final Action fullscreenAction = new FullscreenAction();
 	private final Action logoutAction = new LogoutAction();
 	private JButton logoutButton;
@@ -81,7 +79,6 @@ public class Sistema extends JFrame implements ActionListener, FullscreenListene
 		setTitle("Hotel Riviera Campina");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1280, 720);
-		storeState();
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWeights = new double[]{1.0};
@@ -169,16 +166,6 @@ public class Sistema extends JFrame implements ActionListener, FullscreenListene
 		timer.start();
 	}
 
-	private void storeState() {
-		lastBounds = getBounds();
-		lastExtendedState = getExtendedState();
-	}
-
-	private void resetState() {
-		setBounds(lastBounds);
-		setExtendedState(lastExtendedState);
-	}
-
 	private static void initGUI() {
 		janela = new Sistema();
 		janela.updateUserLabel();
@@ -234,7 +221,9 @@ public class Sistema extends JFrame implements ActionListener, FullscreenListene
 	 * Ativa ou desativa a funcao de tela cheia do sistema.
 	 */
 	public static void toggleFullscreen() {
-		if(janela == null)
+		GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+
+		if(janela == null || !gd.isFullScreenSupported())
 			return;
 
 		boolean fullscreen = !Sistema.isFullscreen();
@@ -243,12 +232,8 @@ public class Sistema extends JFrame implements ActionListener, FullscreenListene
 		janela.setUndecorated(fullscreen);
 		janela.setVisible(true);
 
-		if(fullscreen) {
-			janela.storeState();
-			janela.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		}
-
-		else janela.resetState();
+		if(fullscreen) gd.setFullScreenWindow(janela);
+		else gd.setFullScreenWindow(null);
 
 		FullscreenEvent event = new FullscreenEvent(janela, fullscreen);
 		event.sendDown();

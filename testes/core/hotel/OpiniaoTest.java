@@ -7,8 +7,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import core.hotel.Opiniao;
-
 
 public class OpiniaoTest {
 
@@ -47,8 +45,8 @@ public class OpiniaoTest {
 		Opiniao opiniao2 = new Opiniao(10, "", new GregorianCalendar());
 
 		Assert.assertEquals(opiniao.toString(), "Opiniao [Nota = 9, comentario = Hotel otimo e atendimento rapido, recomendo., autor = Arthur]");
-		Assert.assertEquals(opiniao1.toString(), "Opiniao [Nota = 2, comentario = Pessimo quarto e atendimento., autor = Anonimo]");
-		Assert.assertEquals(opiniao2.toString(), "Opiniao [Nota = 10, comentario = , autor = Anonimo]");
+		Assert.assertEquals(opiniao1.toString(), "Opiniao [Nota = 2, comentario = Pessimo quarto e atendimento., autor = An\00F4nimo]");
+		Assert.assertEquals(opiniao2.toString(), "Opiniao [Nota = 10, comentario = , autor = An\00F4nimo]");
 	}
 
 	@Test
