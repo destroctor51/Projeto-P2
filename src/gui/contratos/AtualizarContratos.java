@@ -2,21 +2,15 @@ package gui.contratos;
 
 import gui.Menu;
 import gui.Sistema;
+import gui.components.SuperTextField;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.Iterator;
 
-import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -26,11 +20,13 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.AncestorListener;
 
+import utils.Filtro;
 import core.hotel.Contrato;
 import core.hotel.EstadoDeContrato;
 import core.hotel.Hospede;
@@ -42,25 +38,31 @@ public class AtualizarContratos extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private Hospede hospede;
 	private Contrato contrato;
-	private JTextField NameField;
-	private JButton SearchButton;
+	private SuperTextField NameField;
 	private JLabel ErrorLabel;
-	private DefaultListModel<Object> lista = new DefaultListModel<>();
-	private DefaultListModel<Object> lista1 = new DefaultListModel<>();
-	private JList<Object> list;
-	private JList<Object> list_1;
+	private DefaultListModel<Contrato> lista1 = new DefaultListModel<>();
+	private JList<Hospede> list;
+	private JList<Contrato> list_1;
 
+	private JPanel tela = this;
 	/**
 	 * Create the panel.
 	 *
 	 */
 	public AtualizarContratos() {
+		addAncestorListener(new AncestorListener() {
+			public void ancestorAdded(AncestorEvent event) {
+				Filtro.exibeFiltrado(NameField.getText(), Sistema.getHotel().getHospedes(), list);
+			}
+			public void ancestorMoved(AncestorEvent event) {
+			}
+			public void ancestorRemoved(AncestorEvent event) {
+			}
+		});
 
+		this.setName("Atualizar Contratos");
+		
 		JPanel panel = new JPanel();
-
-		JLabel lblContratarServios = new JLabel("Atualizar Contratos");
-		lblContratarServios.setFont(new Font("Arial", Font.BOLD, 20));
-		panel.add(lblContratarServios);
 
 		JPanel panel_1 = new JPanel();
 
@@ -68,7 +70,13 @@ public class AtualizarContratos extends JPanel {
 		label.setHorizontalAlignment(SwingConstants.LEFT);
 		panel_1.add(label);
 
-		NameField = new JTextField();
+		NameField = new SuperTextField() {
+			private static final long serialVersionUID = 1L;
+			@Override
+			protected void textChanged(String text) {
+				Filtro.exibeFiltrado(text, Sistema.getHotel().getHospedes(), list);
+			}
+		};
 		NameField.setColumns(37);
 		panel_1.add(NameField);
 
@@ -86,7 +94,7 @@ public class AtualizarContratos extends JPanel {
 		ErrorLabel.setIcon(new ImageIcon(AtualizarContratos.class
 				.getResource("/gui/images/error.png")));
 
-		JButton btnContinuar = new JButton("Contratar Serviços");
+		JButton btnContinuar = new JButton("Contratar Servicos");
 		btnContinuar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -153,26 +161,7 @@ public class AtualizarContratos extends JPanel {
 					.addContainerGap())
 		);
 
-		SearchButton = new JButton("");
-		BufferedImage buttonIcon = null;
-		try {
-			buttonIcon = ImageIO.read(new File(RealizaReserva.class
-					.getResource("/gui/images/search1.png").toURI()));
-		} catch (IOException e1) {
-		} catch (URISyntaxException e1) {
-		}
-		SearchButton = new JButton(new ImageIcon(buttonIcon));
-		SearchButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				pesquisaHospede();
-			}
-		});
-		SearchButton.setBorder(BorderFactory.createEmptyBorder());
-		SearchButton.setContentAreaFilled(false);
-		panel_1.add(SearchButton);
-
-		list_1 = new JList<Object>();
+		list_1 = new JList<>();
 		list_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -183,7 +172,7 @@ public class AtualizarContratos extends JPanel {
 		});
 		scrollPane_1.setViewportView(list_1);
 
-		list = new JList<Object>();
+		list = new JList<>();
 		list.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -197,30 +186,6 @@ public class AtualizarContratos extends JPanel {
 		scrollPane.setViewportView(list);
 		setLayout(groupLayout);
 
-	}
-
-	private void pesquisaHospede() {
-		try {
-			lista.clear();
-			String nome = NameField.getText();
-
-			if (nome.equals("")) {
-				ErrorLabel.setText("Digite um nome.");
-				ErrorLabel.setVisible(true);
-				return;
-			}
-
-			for (Hospede hosp : Sistema.getHotel().getHospedes()) {
-				if (checaSemelhanca(nome, hosp.getNome()))
-					lista.addElement(hosp);
-			}
-
-			list.setModel(lista);
-			ErrorLabel.setVisible(false);
-		} catch (IllegalArgumentException e) {
-			ErrorLabel.setText("Nome inválido.");
-			ErrorLabel.setVisible(true);
-		}
 	}
 
 	private void setHospede(Hospede hosp) {
@@ -238,7 +203,7 @@ public class AtualizarContratos extends JPanel {
 	}
 
 	private void preencheContratos(Hospede hosp) {
-		lista1.clear();
+		 lista1.clear();
 		Iterator<Contrato> contratos = hosp.getContratos();
 
 		while (contratos.hasNext()) {
@@ -264,32 +229,23 @@ public class AtualizarContratos extends JPanel {
 		}
 
 		ErrorLabel.setVisible(false);
-		Sistema.setTela(new SelecionarServicos(contrato));
+		Sistema.setTela(new SelecionarServicos(contrato,this));
 	}
 
 	private void visualizarContrato() {
 		if (hospede == null) {
-			ErrorLabel.setText("Hóspede ainda não escolhido.");
+			ErrorLabel.setText("Hospede ainda nao escolhido.");
 			ErrorLabel.setVisible(true);
 			return;
 		}
 
 		else if (contrato == null) {
-			ErrorLabel.setText("Contrato ainda não escolhido.");
+			ErrorLabel.setText("Contrato ainda nao escolhido.");
 			ErrorLabel.setVisible(true);
 			return;
 		}
 
 		ErrorLabel.setVisible(false);
-		Sistema.setTela(new VisualizarContrato(contrato));
-	}
-
-	private boolean checaSemelhanca(String palavra, String str) {
-		for (int i = 0; i <= str.length() - palavra.length(); i++)
-			if (str.substring(i, i + palavra.length()).toLowerCase()
-					.equals(palavra.toLowerCase()))
-				return true;
-
-		return false;
+		Sistema.setTela(new VisualizarContrato(contrato,tela));
 	}
 }

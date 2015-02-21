@@ -2,7 +2,6 @@ package gui.opinioes;
 
 import gui.Sistema;
 import gui.components.NotaPorEstrelas;
-import gui.components.TextFieldSelecaoDefault;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -22,6 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import gui.components.SuperTextField;
 
 public class AdicionarOpiniao extends JPanel {
 
@@ -34,7 +34,7 @@ public class AdicionarOpiniao extends JPanel {
 	 */
 	public AdicionarOpiniao(final JPanel tela) {
 
-		setName("Adicionar Opinião");
+		setName("Adicionar Opiniao");
 		setMinimumSize(new Dimension(0, 0));
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -76,14 +76,15 @@ public class AdicionarOpiniao extends JPanel {
 
 		final JLabel lblAvaliacao = new JLabel("Avaliacao");
 		lblAvaliacao.setVisible(false);
-
-		final TextFieldSelecaoDefault tfNome = new TextFieldSelecaoDefault("Anonimo");
-		GridBagConstraints gbc_tfNome = new GridBagConstraints();
-		gbc_tfNome.insets = new Insets(0, 0, 0, 5);
-		gbc_tfNome.fill = GridBagConstraints.HORIZONTAL;
-		gbc_tfNome.gridx = 0;
-		gbc_tfNome.gridy = 1;
-		panel.add(tfNome, gbc_tfNome);
+		
+		final SuperTextField tfNome = new SuperTextField();
+		tfNome.setHint("Anonimo");
+		GridBagConstraints gbc_superTextField = new GridBagConstraints();
+		gbc_superTextField.insets = new Insets(0, 0, 0, 5);
+		gbc_superTextField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_superTextField.gridx = 0;
+		gbc_superTextField.gridy = 1;
+		panel.add(tfNome, gbc_superTextField);
 		GridBagConstraints gbc_lblAvaliacao = new GridBagConstraints();
 		gbc_lblAvaliacao.gridx = 2;
 		gbc_lblAvaliacao.gridy = 1;
@@ -186,34 +187,26 @@ public class AdicionarOpiniao extends JPanel {
 
 					if (nota <= 0)
 						throw new NumberFormatException();
-					if (comentario.length() < 5)
+					if (comentario.length() < 3)
 						throw new IllegalArgumentException();
 					if (nome == null || nome.equals(""))
 						Sistema.getHotel().adicionaOpiniao(nota, comentario, dataAtual);
 					else{
-						if(nome.length() < 5)
+						if(nome.length() < 3)
 							throw new IllegalArgumentException();
 						Sistema.getHotel().adicionaOpiniao(nome, nota, comentario, dataAtual);
 					}
-
-					lblobs.setVisible(true);
-					lblobs.setForeground(Color.GREEN);
-					lblobs.setText("Opiniao adicionada com sucesso!");
-
-					tfComentario.setText("");
-					lblAvaliacao.setVisible(false);
-					starRate.setSelection(0);
-					tfNome.setText("Anonimo");
-					tfNome.setForeground(Color.GRAY);
+					
+					Sistema.setTela(tela);
 
 				} catch (NumberFormatException nfe) {
 					lblobs.setVisible(true);
 					lblobs.setForeground(Color.RED);
-					lblobs.setText("Nota deve ser um numero de 0 a 10");
+					lblobs.setText("Deve ser dada uma nota!");
 				} catch (IllegalArgumentException iae) {
 					lblobs.setVisible(true);
 					lblobs.setForeground(Color.RED);
-					lblobs.setText("Comentario e nome(se for preenchido) devem ter no minimo 5 caracteres!");
+					lblobs.setText("Comentario e nome(se for preenchido) devem ter no minimo 3 caracteres!");
 				}
 			}
 		});

@@ -2,6 +2,7 @@ package gui.servicos;
 
 import gui.Menu;
 import gui.Sistema;
+import gui.components.SuperTextField;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -13,20 +14,19 @@ import java.awt.Insets;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
@@ -35,6 +35,7 @@ import javax.swing.event.AncestorListener;
 
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
+import utils.Filtro;
 import core.hotel.Restaurante;
 import core.servicos.alugaveis.Babysitter;
 import core.servicos.alugaveis.CamaExtra;
@@ -45,7 +46,7 @@ public class Servicos extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	private JTextField tfBuscar;
+	private SuperTextField tfBuscar;
 	final JComboBox<String> cbServicos_1 = new JComboBox<>();
 	private JButton btnAdicionar;
 	private JLabel  lblAtualizarServios, lblBuscar, lblTipoDeServio;
@@ -58,13 +59,12 @@ public class Servicos extends JPanel {
 	 */
 	public Servicos() {
 
-		final DefaultListModel<Object> dlm = new DefaultListModel<Object>();
-		final DefaultListModel<Object> dlmNotVisible = new DefaultListModel<>();
-
 		addAncestorListener(new AncestorListener() {
 			@Override
 			public void ancestorAdded(AncestorEvent arg0) {
-				atualizaJList(dlm);
+				List<Object> elementos = filtraList();
+				Filtro.exibeFiltrado(tfBuscar.getText(), elementos, list);
+				
 				lbObs.setVisible(false);
 			}
 			@Override
@@ -88,43 +88,17 @@ public class Servicos extends JPanel {
 		gbl_panelSuperior.rowWeights = new double[]{1.0, 1.0, 1.0};
 		panelSuperior.setLayout(gbl_panelSuperior);
 
-		tfBuscar = new JTextField();
-		tfBuscar.setMaximumSize(new Dimension(100, 100));
-		tfBuscar.addKeyListener(new KeyAdapter() {
+		tfBuscar = new SuperTextField() {
+			private static final long serialVersionUID = 1L;
 			@Override
-			public void keyTyped(KeyEvent e) {
-
-				//coloca de volta os elementos que nao estavam visiveis
-				for(int i=0; i < dlmNotVisible.getSize();i++)
-					dlm.addElement(dlmNotVisible.getElementAt(i));
-
-				//como agora todos os elementos estao visiveis sao retirados dessa lista
-				dlmNotVisible.clear();
-				list.setModel(dlm);
-
-				String palavra = tfBuscar.getText();
-				if(e.getKeyChar() != '\b' && e.getKeyChar() != '\u007F' )
-					palavra = tfBuscar.getText() + e.getKeyChar();
-
-				//seleciona palavras validas de acordo com o texto do tf
-				if (!palavra.equals("")) {
-					for (int i = 0; i < dlm.getSize(); i++) {
-						String str = dlm.getElementAt(i).toString();
-						if (!checaSemelhanca(palavra,str)) {
-							dlmNotVisible.addElement(dlm.getElementAt(i));
-						}
-					}
-				}
-
-				//remove elementos invalidos
-				for(int i=0; i < dlmNotVisible.getSize();i++)
-					dlm.removeElement(dlmNotVisible.getElementAt(i));
-
-				ordenaJList();
+			protected void textChanged(String text) {
+				List<Object> elementos = filtraList();
+				Filtro.exibeFiltrado(text, elementos, list);
 			}
-		});
+		};
+		
+		tfBuscar.setMaximumSize(new Dimension(100, 100));
 		panelSuperior.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{tfBuscar, cbServicos_1, btnAdicionar, lblAtualizarServios, lblBuscar, lblTipoDeServio}));
-
 
 		JLabel lblBuscar_1 = new JLabel("Buscar:");
 		GridBagConstraints gbc_lblBuscar_1 = new GridBagConstraints();
@@ -145,7 +119,8 @@ public class Servicos extends JPanel {
 		cbServicos_1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				atualizaJList(dlm);
+				atualizaJList();
+				tfBuscar.setText("");
 			}
 		});
 
@@ -197,7 +172,6 @@ public class Servicos extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Object item = list.getSelectedValue();
-				dlm.removeElement(item);
 				int selected = cbServicos_1.getSelectedIndex();
 
 				if (item == null) {
@@ -240,7 +214,8 @@ public class Servicos extends JPanel {
 					Sistema.getHotel().removeRestaurante(r);
 					break;
 				}
-				ordenaJList();
+				List<Object> elementos = filtraList();
+				Filtro.exibeFiltrado(tfBuscar.getText(), elementos, list);
 			}
 		});
 
@@ -287,7 +262,6 @@ public class Servicos extends JPanel {
 		list.addMouseListener(new doubleClick(list));
 		scrollPane.setViewportView(list);
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		list.setModel(dlm);
 		list.setSelectedIndex(0);
 
 		JPanel panel_1 = new JPanel();
@@ -327,66 +301,44 @@ public class Servicos extends JPanel {
 
 	}
 
-	private boolean checaSemelhanca(String palavra, String str) {
-		for (int i = 0; i <= str.length() - palavra.length(); i++)
-			if (str.substring(i, i + palavra.length()).toLowerCase().equals(palavra.toLowerCase()))
-				return true;
-
-		return false;
-	}
-
-	private void ordenaJList(){
-
-		ListModel<Object> lm = list.getModel();
-		DefaultListModel<Object> dlm = (DefaultListModel<Object>) lm;
-		Object[] contents = dlm.toArray();
-		for(int i =0; i< contents.length;i++){
-			for(int j=i+1; j<contents.length;j++){
-				String str1 = contents[i].toString().toLowerCase();
-				String str2 = contents[j].toString().toLowerCase();
-				if(str1.compareTo(str2) > 0) {
-					Object temp = contents[i];
-					contents[i] = contents[j];
-					contents[j] = temp;
-				}
-			}
-		}
-
-		dlm.clear();
-		for(Object obj: contents)
-			dlm.addElement(obj);
-		list.setModel(dlm);
-	}
-
-	private void atualizaJList(DefaultListModel<Object> dlm) {
+	private List<Object> filtraList() {
 		String selecionado = (String) cbServicos_1.getSelectedItem();
-		dlm.clear();
+		
 		if (selecionado == null)
-			return;
+			return new ArrayList<Object>();
+		
+		List<Object> elementos = new LinkedList<>();
+		
 		switch(selecionado){
 		case "Babysitter":
 			for(Babysitter bs: Sistema.getHotel().getBabas())
-				dlm.addElement(bs);
+				elementos.add(bs);
 			break;
 		case "Cama Extra":
 			for(CamaExtra bs: Sistema.getHotel().getCamas())
-				dlm.addElement(bs);
+				elementos.add(bs);
 			break;
 		case "Carro":
 			for(Carro c: Sistema.getHotel().getCarros())
-				dlm.addElement(c);
+				elementos.add(c);
 			break;
 		case "Quarto":
 			for(Quarto q: Sistema.getHotel().getQuartos())
-				dlm.addElement(q);
+				elementos.add(q);
 			break;
 		case "Restaurante":
 			for(Restaurante r: Sistema.getHotel().getRestaurantes())
-				dlm.addElement(r);
+				elementos.add(r);
 			break;
-
 		}
-		ordenaJList();
+		
+		return elementos;
+	}
+	
+	private void atualizaJList() {
+		List<Object> elementos = filtraList();
+		Filtro.ordenaToString(elementos);
+		Filtro.preencheJList(elementos, list);
 	}
 
 	class doubleClick extends MouseAdapter {

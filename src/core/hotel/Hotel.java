@@ -209,16 +209,6 @@ public class Hotel implements Serializable {
 	}
 
 	/**
-	 * Remove hospede cadastrado no hotel.
-	 *
-	 * @param hospede  o hospede a ser removido
-	 * @return true se ele for removido com sucesso, false caso contrario
-	 */
-	public boolean removeHospede(Hospede hospede) {
-		return hospedes.remove(hospede);
-	}
-
-	/**
 	 * Recupera uma lista com todos os quartos existentes no hotel.
 	 *
 	 * @return

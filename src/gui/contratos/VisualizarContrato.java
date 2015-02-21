@@ -5,8 +5,6 @@ import gui.Sistema;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 
-import java.awt.Font;
-
 import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -40,13 +38,11 @@ public class VisualizarContrato extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public VisualizarContrato(Contrato contrato) {
+	public VisualizarContrato(Contrato contrato, final JPanel tela) {
+
+		this.setName("Visuzalizar Contrato");
 		
 		JPanel panel = new JPanel();
-		
-		JLabel lblVisualizarContrato = new JLabel("Visualizar Contrato");
-		lblVisualizarContrato.setFont(new Font("Arial", Font.BOLD, 20));
-		panel.add(lblVisualizarContrato);
 		
 		JLabel lblEstadoDoContrato = new JLabel("Estado do contrato :");
 		
@@ -57,7 +53,7 @@ public class VisualizarContrato extends JPanel {
 		JButton btnVoltar = new JButton("Retornar");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Sistema.setTela(new AtualizarContratos());
+				Sistema.setTela(tela);
 			}
 		});
 		

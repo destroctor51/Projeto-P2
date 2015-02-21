@@ -52,8 +52,8 @@ public class AtualizarServico extends JPanel {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] {0, 0, 0};
 		gridBagLayout.rowHeights = new int[] {0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{1.0, 0.5, 1.0};
-		gridBagLayout.rowWeights = new double[]{1.0, 1.0, 1.0};
+		gridBagLayout.columnWeights = new double[]{1.0, 0.25, 1.0};
+		gridBagLayout.rowWeights = new double[]{1.0, 0.25, 1.0};
 		setLayout(gridBagLayout);
 
 		final JPanel panel = new JPanel();
@@ -70,9 +70,9 @@ public class AtualizarServico extends JPanel {
 		panel.add(panel_ce, "Cama Extra");
 		GridBagLayout gbl_panel_ce = new GridBagLayout();
 		gbl_panel_ce.columnWidths = new int[] {0, 0};
-		gbl_panel_ce.rowHeights = new int[] {0};
+		gbl_panel_ce.rowHeights = new int[] {0, 0, 0};
 		gbl_panel_ce.columnWeights = new double[]{0.0, 1.0};
-		gbl_panel_ce.rowWeights = new double[]{0.0};
+		gbl_panel_ce.rowWeights = new double[]{1.0, 0.5, 1.0};
 		panel_ce.setLayout(gbl_panel_ce);
 
 		JLabel lblCdigo = new JLabel("C\u00F3digo:");
@@ -80,7 +80,7 @@ public class AtualizarServico extends JPanel {
 		gbc_lblCdigo.anchor = GridBagConstraints.EAST;
 		gbc_lblCdigo.insets = new Insets(0, 0, 0, 10);
 		gbc_lblCdigo.gridx = 0;
-		gbc_lblCdigo.gridy = 0;
+		gbc_lblCdigo.gridy = 1;
 		panel_ce.add(lblCdigo, gbc_lblCdigo);
 
 
@@ -89,16 +89,16 @@ public class AtualizarServico extends JPanel {
 		GridBagConstraints gbc_tfCodigo = new GridBagConstraints();
 		gbc_tfCodigo.fill = GridBagConstraints.HORIZONTAL;
 		gbc_tfCodigo.gridx = 1;
-		gbc_tfCodigo.gridy = 0;
+		gbc_tfCodigo.gridy = 1;
 		panel_ce.add(tfCodigo, gbc_tfCodigo);
 
 		JPanel panel_q = new JPanel();
 		panel.add(panel_q, "Quarto");
 		GridBagLayout gbl_panel_q = new GridBagLayout();
 		gbl_panel_q.columnWidths = new int[] {0, 0};
-		gbl_panel_q.rowHeights = new int[] {0, 0};
+		gbl_panel_q.rowHeights = new int[] {0, 0, 0, 0};
 		gbl_panel_q.columnWeights = new double[]{0.0, 1.0};
-		gbl_panel_q.rowWeights = new double[]{0.0, 0.0};
+		gbl_panel_q.rowWeights = new double[]{1.0, 0.5, 0.5, 1.0};
 		panel_q.setLayout(gbl_panel_q);
 
 		JLabel lblNmero = new JLabel("N\u00FAmero:");
@@ -106,7 +106,7 @@ public class AtualizarServico extends JPanel {
 		gbc_lblNmero.anchor = GridBagConstraints.EAST;
 		gbc_lblNmero.insets = new Insets(0, 0, 10, 10);
 		gbc_lblNmero.gridx = 0;
-		gbc_lblNmero.gridy = 0;
+		gbc_lblNmero.gridy = 1;
 		panel_q.add(lblNmero, gbc_lblNmero);
 
 		tfNumero.setColumns(10);
@@ -114,7 +114,7 @@ public class AtualizarServico extends JPanel {
 		gbc_tfNumero.fill = GridBagConstraints.HORIZONTAL;
 		gbc_tfNumero.insets = new Insets(0, 0, 10, 0);
 		gbc_tfNumero.gridx = 1;
-		gbc_tfNumero.gridy = 0;
+		gbc_tfNumero.gridy = 1;
 		panel_q.add(tfNumero, gbc_tfNumero);
 
 		JLabel label_5 = new JLabel("Tipo de quarto:");
@@ -122,23 +122,23 @@ public class AtualizarServico extends JPanel {
 		gbc_label_5.insets = new Insets(0, 0, 0, 10);
 		gbc_label_5.anchor = GridBagConstraints.EAST;
 		gbc_label_5.gridx = 0;
-		gbc_label_5.gridy = 1;
+		gbc_label_5.gridy = 2;
 		panel_q.add(label_5, gbc_label_5);
 
 		cbTipoQuarto.setModel(new DefaultComboBoxModel<>(TipoQuarto.values()));
 		GridBagConstraints gbc_cbTipoQuarto = new GridBagConstraints();
 		gbc_cbTipoQuarto.fill = GridBagConstraints.HORIZONTAL;
 		gbc_cbTipoQuarto.gridx = 1;
-		gbc_cbTipoQuarto.gridy = 1;
+		gbc_cbTipoQuarto.gridy = 2;
 		panel_q.add(cbTipoQuarto, gbc_cbTipoQuarto);
 
 		JPanel panel_r = new JPanel();
 		panel.add(panel_r, "Restaurante");
 		GridBagLayout gbl_panel_r = new GridBagLayout();
 		gbl_panel_r.columnWidths = new int[] {0, 0};
-		gbl_panel_r.rowHeights = new int[] {0};
+		gbl_panel_r.rowHeights = new int[] {0, 0, 0};
 		gbl_panel_r.columnWeights = new double[]{0.0, 1.0};
-		gbl_panel_r.rowWeights = new double[]{0.0};
+		gbl_panel_r.rowWeights = new double[]{1.0, 0.5, 1.0};
 		panel_r.setLayout(gbl_panel_r);
 
 		JLabel label_6 = new JLabel("Nome:");
@@ -146,23 +146,23 @@ public class AtualizarServico extends JPanel {
 		gbc_label_6.anchor = GridBagConstraints.EAST;
 		gbc_label_6.insets = new Insets(0, 0, 0, 10);
 		gbc_label_6.gridx = 0;
-		gbc_label_6.gridy = 0;
+		gbc_label_6.gridy = 1;
 		panel_r.add(label_6, gbc_label_6);
 
 		tfNomeR.setColumns(10);
 		GridBagConstraints gbc_tfNomeR = new GridBagConstraints();
 		gbc_tfNomeR.fill = GridBagConstraints.HORIZONTAL;
 		gbc_tfNomeR.gridx = 1;
-		gbc_tfNomeR.gridy = 0;
+		gbc_tfNomeR.gridy = 1;
 		panel_r.add(tfNomeR, gbc_tfNomeR);
 
 		JPanel panel_bs = new JPanel();
 		panel.add(panel_bs, "Babysitter");
 		GridBagLayout gbl_panel_bs = new GridBagLayout();
 		gbl_panel_bs.columnWidths = new int[] {0, 0};
-		gbl_panel_bs.rowHeights = new int[] {0};
+		gbl_panel_bs.rowHeights = new int[] {0, 0, 0};
 		gbl_panel_bs.columnWeights = new double[]{0.0, 1.0};
-		gbl_panel_bs.rowWeights = new double[]{0.0};
+		gbl_panel_bs.rowWeights = new double[]{1.0, 0.5, 1.0};
 		panel_bs.setLayout(gbl_panel_bs);
 
 		JLabel label = new JLabel("Nome:");
@@ -170,23 +170,23 @@ public class AtualizarServico extends JPanel {
 		gbc_label.anchor = GridBagConstraints.EAST;
 		gbc_label.insets = new Insets(0, 0, 0, 10);
 		gbc_label.gridx = 0;
-		gbc_label.gridy = 0;
+		gbc_label.gridy = 1;
 		panel_bs.add(label, gbc_label);
 
 		tfNomeBs.setColumns(10);
 		GridBagConstraints gbc_tfNomeBs = new GridBagConstraints();
 		gbc_tfNomeBs.fill = GridBagConstraints.HORIZONTAL;
 		gbc_tfNomeBs.gridx = 1;
-		gbc_tfNomeBs.gridy = 0;
+		gbc_tfNomeBs.gridy = 1;
 		panel_bs.add(tfNomeBs, gbc_tfNomeBs);
 
 		JPanel panel_c = new JPanel();
 		panel.add(panel_c, "Carro");
 		GridBagLayout gbl_panel_c = new GridBagLayout();
 		gbl_panel_c.columnWidths = new int[] {0, 0};
-		gbl_panel_c.rowHeights = new int[] {0, 0};
+		gbl_panel_c.rowHeights = new int[] {0, 0, 0, 0};
 		gbl_panel_c.columnWeights = new double[]{0.0, 1.0};
-		gbl_panel_c.rowWeights = new double[]{0.0, 0.0};
+		gbl_panel_c.rowWeights = new double[]{1.0, 0.5, 0.5, 1.0};
 		panel_c.setLayout(gbl_panel_c);
 
 		JLabel label_2 = new JLabel("Placa:");
@@ -194,7 +194,7 @@ public class AtualizarServico extends JPanel {
 		gbc_label_2.anchor = GridBagConstraints.EAST;
 		gbc_label_2.insets = new Insets(0, 0, 10, 10);
 		gbc_label_2.gridx = 0;
-		gbc_label_2.gridy = 0;
+		gbc_label_2.gridy = 1;
 		panel_c.add(label_2, gbc_label_2);
 
 		tfPlaca.setColumns(10);
@@ -202,7 +202,7 @@ public class AtualizarServico extends JPanel {
 		gbc_tfPlaca.fill = GridBagConstraints.HORIZONTAL;
 		gbc_tfPlaca.insets = new Insets(0, 0, 10, 0);
 		gbc_tfPlaca.gridx = 1;
-		gbc_tfPlaca.gridy = 0;
+		gbc_tfPlaca.gridy = 1;
 		panel_c.add(tfPlaca, gbc_tfPlaca);
 
 		JLabel label_3 = new JLabel("Tipo de carro:");
@@ -210,7 +210,7 @@ public class AtualizarServico extends JPanel {
 		gbc_label_3.insets = new Insets(0, 0, 0, 10);
 		gbc_label_3.anchor = GridBagConstraints.EAST;
 		gbc_label_3.gridx = 0;
-		gbc_label_3.gridy = 1;
+		gbc_label_3.gridy = 2;
 		panel_c.add(label_3, gbc_label_3);
 
 		selecionaCard(servico, panel, cbTipoCarro, cbTipoQuarto);
@@ -219,7 +219,7 @@ public class AtualizarServico extends JPanel {
 		GridBagConstraints gbc_cbTipoCarro = new GridBagConstraints();
 		gbc_cbTipoCarro.fill = GridBagConstraints.HORIZONTAL;
 		gbc_cbTipoCarro.gridx = 1;
-		gbc_cbTipoCarro.gridy = 1;
+		gbc_cbTipoCarro.gridy = 2;
 		panel_c.add(cbTipoCarro, gbc_cbTipoCarro);
 
 		JPanel panel_3 = new JPanel();

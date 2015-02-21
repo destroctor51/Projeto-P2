@@ -66,9 +66,9 @@ public class EditarConta extends JPanel {
 		add(panel, gbc_panel);
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[] {0, 0};
-		gbl_panel.rowHeights = new int[] {0, 0, 0, 0};
+		gbl_panel.rowHeights = new int[] {0, 0, 0, 0, 0, 0};
 		gbl_panel.columnWeights = new double[]{0.0, 1.0};
-		gbl_panel.rowWeights = new double[]{1.0, 0.5, 1.0, 0.5, 0.5};
+		gbl_panel.rowWeights = new double[]{1.0, 0.5, 0.5, 0.5, 0.5, 1.0};
 		panel.setLayout(gbl_panel);
 
 		JLabel lblNewLabel_1 = new JLabel("Nome de usuário:");
@@ -128,7 +128,7 @@ public class EditarConta extends JPanel {
 		JLabel lblNewLabel_4 = new JLabel("Nova senha:");
 		GridBagConstraints gbc_lblNewLabel_4 = new GridBagConstraints();
 		gbc_lblNewLabel_4.anchor = GridBagConstraints.EAST;
-		gbc_lblNewLabel_4.insets = new Insets(0, 0, 5, 10);
+		gbc_lblNewLabel_4.insets = new Insets(0, 0, 0, 10);
 		gbc_lblNewLabel_4.gridx = 0;
 		gbc_lblNewLabel_4.gridy = 4;
 		panel.add(lblNewLabel_4, gbc_lblNewLabel_4);
@@ -136,7 +136,6 @@ public class EditarConta extends JPanel {
 		passwordField_1 = new JPasswordField(HIDDEN);
 		passwordField_1.setEditable(false);
 		GridBagConstraints gbc_passwordField_1 = new GridBagConstraints();
-		gbc_passwordField_1.insets = new Insets(0, 0, 5, 0);
 		gbc_passwordField_1.fill = GridBagConstraints.HORIZONTAL;
 		gbc_passwordField_1.gridx = 1;
 		gbc_passwordField_1.gridy = 4;

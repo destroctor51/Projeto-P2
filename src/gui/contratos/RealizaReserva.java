@@ -3,22 +3,17 @@ package gui.contratos;
 import gui.Menu;
 import gui.Sistema;
 import gui.components.Calendario;
+import gui.components.SuperTextField;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
-import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
-import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
@@ -35,31 +30,44 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+import utils.Filtro;
 import core.hotel.Hospede;
 import core.servicos.devolviveis.Quarto;
 import core.servicos.devolviveis.TipoQuarto;
 import core.tempo.Estacao;
 import core.tempo.Periodo;
+import javax.swing.event.AncestorListener;
+import javax.swing.event.AncestorEvent;
 
 
 public class RealizaReserva extends JPanel {
 	private static final long serialVersionUID = 5463443942126778065L;
-	private JTextField NameField;
+	private SuperTextField NameField;
 	private JTextField cardField;
 	private JTable table;
-	private JButton btnSearch_1;
 	private Hospede hospede;
 	private Calendario calendario;
 	private Periodo estadia;
-	private JList<Object> list_1;
+	private JList<Hospede> list_1;
 
 	private JLabel ErrorLabel;
-	private DefaultListModel<Object> lista = new DefaultListModel<>();
-
+	private JPanel tela = this;
 	/**
 	 * Create the panel.
 	 */
 	public RealizaReserva() {
+
+		this.setName("Realizar Reserva");
+		
+		addAncestorListener(new AncestorListener() {
+			public void ancestorAdded(AncestorEvent arg0) {
+				Filtro.exibeFiltrado(NameField.getText(), Sistema.getHotel().getHospedes(), list_1);
+			}
+			public void ancestorMoved(AncestorEvent arg0) {
+			}
+			public void ancestorRemoved(AncestorEvent arg0) {
+			}
+		});
 		setVisible(false);
 
 		JPanel panel = new JPanel();
@@ -198,7 +206,7 @@ public class RealizaReserva extends JPanel {
 		table.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
 		table.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
 
-		list_1 = new JList<Object>();
+		list_1 = new JList<>();
 		list_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -258,56 +266,26 @@ public class RealizaReserva extends JPanel {
 		lblProcurarHspede.setHorizontalAlignment(SwingConstants.LEFT);
 		panel_1.add(lblProcurarHspede);
 
-		NameField = new JTextField();
+		NameField = new SuperTextField() {
+			private static final long serialVersionUID = 1L;
+			@Override
+			protected void textChanged(String text) {
+				Filtro.exibeFiltrado(text, Sistema.getHotel().getHospedes(), list_1);
+			}
+		};
 		panel_1.add(NameField);
 		NameField.setColumns(45);
-
-		BufferedImage buttonIcon = null;
-		try {
-			buttonIcon = ImageIO.read(new File(RealizaReserva.class.getResource("/gui/images/search1.png").toURI()));
-		} catch (IOException e) {
-		} catch (URISyntaxException e) {
-		}
-		btnSearch_1 = new JButton(new ImageIcon(buttonIcon));
-		btnSearch_1.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				pesquisaHospede();
-			}
-		});
-		btnSearch_1.setBorder(BorderFactory.createEmptyBorder());
-		btnSearch_1.setContentAreaFilled(false);
-		panel_1.add(btnSearch_1);
-
-		JLabel lblNewLabel = new JLabel("Realiza Reserva");
-		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 20));
-		panel.add(lblNewLabel);
 		setLayout(groupLayout);
-
-
+		preencheJList();
 	}
-
-	private void pesquisaHospede() {
-		try {
-			lista.clear();
-			String nome = NameField.getText();
-
-			if (nome.equals("")) {
-				ErrorLabel.setText("Digite um nome.");
-				ErrorLabel.setVisible(true);
-				return;
-			}
-
-			for (Hospede hosp : Sistema.getHotel().getHospedes()) {
-				if (checaSemelhanca(nome, hosp.getNome()))
-					lista.addElement(hosp);
-			}
-			list_1.setModel(lista);
-			ErrorLabel.setVisible(false);
-		} catch (IllegalArgumentException e) {
-			ErrorLabel.setText("Nome inválido.");
-			ErrorLabel.setVisible(true);
-		}
+	
+	private void preencheJList(){
+		List<Hospede> elementos = new LinkedList<>();
+		for(Hospede hospede: Sistema.getHotel().getHospedes())
+			elementos.add(hospede);
+		
+		Filtro.ordenaToString(elementos);
+		Filtro.preencheJList(elementos, list_1);	
 	}
 
 	private void checarDisponibilidade() {
@@ -398,7 +376,7 @@ public class RealizaReserva extends JPanel {
 			}
 		}
 
-		Sistema.setTela(new SelecionarQuartos(estadia, hospede, cartao, tarifa));
+		Sistema.setTela(new SelecionarQuartos(estadia, hospede, cartao, tarifa, tela));
 	}
 
 	private void setHospede(Hospede hosp) {
@@ -407,12 +385,5 @@ public class RealizaReserva extends JPanel {
 		hospede = hosp;
 	}
 
-	private boolean checaSemelhanca(String palavra, String str) {
-		for (int i = 0; i <= str.length() - palavra.length(); i++)
-			if (str.substring(i, i + palavra.length()).toLowerCase().equals(palavra.toLowerCase()))
-				return true;
-
-		return false;
-	}
 }
 

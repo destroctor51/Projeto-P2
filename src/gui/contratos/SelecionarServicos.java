@@ -1,41 +1,33 @@
 package gui.contratos;
 
-import javax.swing.DefaultListModel;
-import javax.swing.JPanel;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JLabel;
-
-import java.awt.Font;
-
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.LayoutStyle.ComponentPlacement;
-
-import gui.Menu;
 import gui.Sistema;
 import gui.components.Calendario;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-
 import java.awt.Color;
-
-import javax.swing.JScrollPane;
-import javax.swing.border.LineBorder;
-import javax.swing.JList;
-
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import javax.swing.JTextPane;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextPane;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.border.LineBorder;
 
 import core.hotel.Contrato;
 import core.interfaces.Alugavel;
@@ -85,15 +77,14 @@ public class SelecionarServicos extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public SelecionarServicos(Contrato contrato) {
+	public SelecionarServicos(Contrato contrato, final JPanel tela) {
+		
+		this.setName("Selecionar Servicos");
+		
 		setForeground(Color.BLACK);
 		this.contrato = contrato;
 
 		JPanel panel = new JPanel();
-
-		JLabel lblSelecionarServios = new JLabel("Selecionar Serviços");
-		lblSelecionarServios.setFont(new Font("Arial", Font.BOLD, 20));
-		panel.add(lblSelecionarServios);
 
 		ErrorLabel = new JLabel("");
 		ErrorLabel.setForeground(Color.RED);
@@ -104,14 +95,14 @@ public class SelecionarServicos extends JPanel {
 		JButton btnConfirmar = new JButton("Confirmar");
 		btnConfirmar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				concluir();
+				concluir(tela);
 			}
 		});
 
 		JButton btnCancelar = new JButton("Retornar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Sistema.setTela(new AtualizarContratos());
+				Sistema.setTela(tela);
 			}
 		});
 
@@ -619,7 +610,7 @@ public class SelecionarServicos extends JPanel {
 		}
 	}
 
-	private void concluir() {
+	private void concluir(JPanel tela) {
 		if (lista1.isEmpty()) {
 			ErrorLabel.setText("Nenhum serviço foi escolhido.");
 			ErrorLabel.setVisible(true);
@@ -646,7 +637,7 @@ public class SelecionarServicos extends JPanel {
 			contrato.adicionaServico(c);
 		}
 
-		Sistema.setTela(new Menu());
+		Sistema.setTela(tela);
 		ErrorLabel.setVisible(false);
 	}
 

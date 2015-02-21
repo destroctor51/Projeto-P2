@@ -128,9 +128,6 @@ public class HotelTest {
 
 		Assert.assertEquals(2, hotel.getHospedes().size());
 
-		hotel.removeHospede(new Hospede("Arthur", "99999999", "72921211602", "email@gmail.com", "Campina Grande", "Rua Qualquer, 10"));
-		Assert.assertEquals(1, hotel.getHospedes().size());
-
 		// QUARTO
 
 		hotel.adicionaQuarto(TipoQuarto.LUXO_SIMPLES, 1000);

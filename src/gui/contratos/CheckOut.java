@@ -2,21 +2,17 @@ package gui.contratos;
 
 import gui.Menu;
 import gui.Sistema;
+import gui.components.SuperTextField;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
-import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -31,6 +27,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
+import utils.Filtro;
 import core.hotel.Contrato;
 import core.hotel.EstadoDeContrato;
 import core.hotel.Hospede;
@@ -42,25 +39,21 @@ public class CheckOut extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private static Hospede hospede;
 	private static Contrato contrato;
-	private JTextField NameField;
+	private SuperTextField NameField;
 	private JTextField cartaoField;
-	private JButton SearchButton;
 	private JLabel ErrorLabel;
-	private DefaultListModel<Object> lista = new DefaultListModel<>();
-	private DefaultListModel<Object> lista1 = new DefaultListModel<>();
-	private JList<Object> list;
-	private JList<Object> list_1;
+	private DefaultListModel<Contrato> lista1 = new DefaultListModel<>();
+	private JList<Hospede> list;
+	private JList<Contrato> list_1;
 
 	/**
 	 * Create the panel.
 	 */
 	public CheckOut() {
 
+		this.setName("Realizar Check out");
+		
 		JPanel panel = new JPanel();
-
-		JLabel lblRealizaCheckOut = new JLabel("Realiza Check out");
-		lblRealizaCheckOut.setFont(new Font("Arial", Font.BOLD, 20));
-		panel.add(lblRealizaCheckOut);
 
 		JPanel panel_1 = new JPanel();
 
@@ -68,7 +61,13 @@ public class CheckOut extends JPanel {
 		label_1.setHorizontalAlignment(SwingConstants.LEFT);
 		panel_1.add(label_1);
 
-		NameField = new JTextField();
+		NameField = new SuperTextField() {
+			private static final long serialVersionUID = 1L;
+			@Override
+			protected void textChanged(String text) {
+				Filtro.exibeFiltrado(text, Sistema.getHotel().getHospedes(), list);
+			}
+		};
 		NameField.setColumns(37);
 		panel_1.add(NameField);
 
@@ -152,24 +151,7 @@ public class CheckOut extends JPanel {
 					.addContainerGap())
 		);
 
-		BufferedImage buttonIcon = null;
-		try {
-			buttonIcon = ImageIO.read(new File(RealizaReserva.class.getResource("/gui/images/search1.png").toURI()));
-		} catch (IOException e) {
-		} catch (URISyntaxException e) {
-		}
-		SearchButton = new JButton(new ImageIcon(buttonIcon));
-		SearchButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				pesquisaHospede();
-			}
-		});
-		SearchButton.setBorder(BorderFactory.createEmptyBorder());
-		SearchButton.setContentAreaFilled(false);
-		panel_1.add(SearchButton);
-
-		list_1 = new JList<Object>();
+		list_1 = new JList<>();
 		list_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -180,7 +162,7 @@ public class CheckOut extends JPanel {
 		});
 		scrollPane_1.setViewportView(list_1);
 
-		list = new JList<Object>();
+		list = new JList<>();
 		list.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -193,31 +175,7 @@ public class CheckOut extends JPanel {
 		});
 		scrollPane.setViewportView(list);
 		setLayout(groupLayout);
-
-	}
-
-	private void pesquisaHospede() {
-		try {
-			lista.clear();
-			String nome = NameField.getText();
-
-			if (nome.equals("")) {
-				ErrorLabel.setText("Digite um nome.");
-				ErrorLabel.setVisible(true);
-				return;
-			}
-
-			for (Hospede hosp : Sistema.getHotel().getHospedes()) {
-				if (checaSemelhanca(nome, hosp.getNome()))
-					lista.addElement(hosp);
-			}
-
-			list.setModel(lista);
-			ErrorLabel.setVisible(false);
-		} catch (IllegalArgumentException e) {
-			ErrorLabel.setText("Nome inválido.");
-			ErrorLabel.setVisible(true);
-		}
+		preencheJList();
 	}
 
 	private void concluirCheckOut() {
@@ -272,6 +230,15 @@ public class CheckOut extends JPanel {
 		contrato = cont;
 	}
 
+	private void preencheJList(){
+		List<Hospede> elementos = new LinkedList<>();
+		for(Hospede hospede: Sistema.getHotel().getHospedes())
+			elementos.add(hospede);
+		
+		Filtro.ordenaToString(elementos);
+		Filtro.preencheJList(elementos, list);	
+	}
+
 	private void preencheContratos(Hospede hosp) {
 		lista1.clear();
 		Iterator<Contrato> contratos = hosp.getContratos();
@@ -283,13 +250,5 @@ public class CheckOut extends JPanel {
 				lista1.addElement(contrato);
 		}
 		list_1.setModel(lista1);
-	}
-
-	private boolean checaSemelhanca(String palavra, String str) {
-		for (int i = 0; i <= str.length() - palavra.length(); i++)
-			if (str.substring(i, i + palavra.length()).toLowerCase().equals(palavra.toLowerCase()))
-				return true;
-
-		return false;
 	}
 }

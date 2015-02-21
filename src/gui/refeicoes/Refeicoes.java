@@ -2,6 +2,7 @@ package gui.refeicoes;
 
 import gui.Menu;
 import gui.Sistema;
+import gui.components.SuperTextField;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -13,20 +14,18 @@ import java.awt.Insets;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
@@ -36,6 +35,7 @@ import javax.swing.event.AncestorListener;
 
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
+import utils.Filtro;
 import core.hotel.Restaurante;
 import core.servicos.pagaveis.Refeicao;
 
@@ -45,11 +45,11 @@ public class Refeicoes extends JPanel {
 	 *
 	 */
 	private static final long serialVersionUID = 1L;
-	private JTextField tfBuscar;
+	private SuperTextField tfBuscar;
 	final static JComboBox<String> cbRestaurantes = new JComboBox<>();
 	private JButton btnAdicionar;
 	private JLabel  lblAtualizarServios, lblBuscar, lblTipoDeServio;
-	final JList<Object> list = new JList<Object>();
+	final JList<Refeicao> list = new JList<>();
 	private JLabel lbObs = new JLabel("*Observa\u00E7\u00F5es");
 	private JPanel tela = this;
 
@@ -57,14 +57,13 @@ public class Refeicoes extends JPanel {
 	 * Create the panel.
 	 */
 	public Refeicoes() {
-
-		final DefaultListModel<Object> dlm = new DefaultListModel<Object>();
-		final DefaultListModel<Object> dlmNotVisible = new DefaultListModel<>();
-
+		
 		addAncestorListener(new AncestorListener() {
 			@Override
 			public void ancestorAdded(AncestorEvent arg0) {
-				atualizaJList(dlm);
+				List<Refeicao> elementos = filtraList();
+				Filtro.exibeFiltrado(tfBuscar.getText(), elementos, list);
+				
 				lbObs.setVisible(false);
 			}
 			@Override
@@ -88,41 +87,16 @@ public class Refeicoes extends JPanel {
 		gbl_panelSuperior.rowWeights = new double[]{1.0, 1.0, 1.0};
 		panelSuperior.setLayout(gbl_panelSuperior);
 
-		tfBuscar = new JTextField();
-		tfBuscar.setMaximumSize(new Dimension(100, 100));
-		tfBuscar.addKeyListener(new KeyAdapter() {
+		
+		tfBuscar = new SuperTextField() {
+			private static final long serialVersionUID = 1L;
 			@Override
-			public void keyTyped(KeyEvent e) {
-
-				//coloca de volta os elementos que nao estavam visiveis
-				for(int i=0; i < dlmNotVisible.getSize();i++)
-					dlm.addElement(dlmNotVisible.getElementAt(i));
-
-				//como agora todos os elementos estao visiveis sao retirados dessa lista
-				dlmNotVisible.clear();
-				list.setModel(dlm);
-
-				String palavra = tfBuscar.getText();
-				if(e.getKeyChar() != '\b' && e.getKeyChar() != '\u007F' )
-					palavra = tfBuscar.getText() + e.getKeyChar();
-
-				//seleciona palavras validas de acordo com o texto do tf
-				if (!palavra.equals("")) {
-					for (int i = 0; i < dlm.getSize(); i++) {
-						String str = dlm.getElementAt(i).toString();
-						if (!checaSemelhanca(palavra,str)) {
-							dlmNotVisible.addElement(dlm.getElementAt(i));
-						}
-					}
-				}
-
-				//remove elementos invalidos
-				for(int i=0; i < dlmNotVisible.getSize();i++)
-					dlm.removeElement(dlmNotVisible.getElementAt(i));
-
-				ordenaJList();
+			protected void textChanged(String text) {
+				List<Refeicao> elementos = filtraList();
+				Filtro.exibeFiltrado(text, elementos, list);
 			}
-		});
+		};
+		tfBuscar.setMaximumSize(new Dimension(100, 100));
 		panelSuperior.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{tfBuscar, cbRestaurantes, btnAdicionar, lblAtualizarServios, lblBuscar, lblTipoDeServio}));
 
 
@@ -145,7 +119,8 @@ public class Refeicoes extends JPanel {
 		cbRestaurantes.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				atualizaJList(dlm);
+				tfBuscar.setText("");
+				atualizaJList();
 			}
 		});
 
@@ -156,13 +131,13 @@ public class Refeicoes extends JPanel {
 		gbc_lbRestaurante.gridx = 0;
 		gbc_lbRestaurante.gridy = 2;
 		panelSuperior.add(lbRestaurante, gbc_lbRestaurante);
-
+		
 		DefaultComboBoxModel<String> dcm = new DefaultComboBoxModel<>();
 		for (Restaurante r: Sistema.getHotel().getRestaurantes())
 			dcm.addElement(r.getNome());
 		cbRestaurantes.setModel(dcm);
 
-		cbRestaurantes.setSelectedIndex(-1);
+		cbRestaurantes.setSelectedIndex(0);
 		GridBagConstraints gbc_cbRestaurantes = new GridBagConstraints();
 		gbc_cbRestaurantes.fill = GridBagConstraints.HORIZONTAL;
 		gbc_cbRestaurantes.gridx = 1;
@@ -212,17 +187,17 @@ public class Refeicoes extends JPanel {
 					lbObs.setVisible(true);
 					return;
 				}
-
-				dlm.removeElement(value);
-				Refeicao v = (Refeicao) value;
+				
 				String nomeRestaurante = (String) item;
 				for (Restaurante r : Sistema.getHotel().getRestaurantes())
-					if (r.getNome().equals(nomeRestaurante))
-						for (Refeicao re : r.getEstoque())
-							if (re.equals(v)) {
-								r.removeRefeicao(re);
-							}
-				ordenaJList();
+					if (r.getNome().equals(nomeRestaurante)){
+						r.getEstoque().remove(value);
+						break;
+					}
+				
+				List<Refeicao> elementos = filtraList();
+				Filtro.exibeFiltrado(tfBuscar.getText(), elementos, list);
+				
 				lbObs.setForeground(new Color(0, 180, 0));
 				lbObs.setText("Item removido com sucesso");
 				lbObs.setVisible(true);
@@ -280,7 +255,6 @@ public class Refeicoes extends JPanel {
 		list.addMouseListener(new doubleClick(list));
 		scrollPane.setViewportView(list);
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		list.setModel(dlm);
 		list.setSelectedIndex(-1);
 
 		JPanel panel_1 = new JPanel();
@@ -317,57 +291,32 @@ public class Refeicoes extends JPanel {
 		panel_1.add(btnNewButton, gbc_btnNewButton);
 
 		lbObs.setVisible(false);
-
+		atualizaJList();
 	}
 
-	private boolean checaSemelhanca(String palavra, String str) {
-		for (int i = 0; i <= str.length() - palavra.length(); i++)
-			if (str.substring(i, i + palavra.length()).toLowerCase().equals(palavra.toLowerCase()))
-				return true;
-
-		return false;
+	private void atualizaJList() {
+		List<Refeicao> elementos = filtraList();
+		Filtro.ordenaToString(elementos);
+		Filtro.preencheJList(elementos, list);
 	}
-
-	private void ordenaJList(){
-
-		ListModel<Object> lm = list.getModel();
-		DefaultListModel<Object> dlm = (DefaultListModel<Object>) lm;
-		Object[] contents = dlm.toArray();
-		for(int i =0; i< contents.length;i++){
-			for(int j=i+1; j<contents.length;j++){
-				String str1 = contents[i].toString().toLowerCase();
-				String str2 = contents[j].toString().toLowerCase();
-				if(str1.compareTo(str2) > 0) {
-					Object temp = contents[i];
-					contents[i] = contents[j];
-					contents[j] = temp;
-				}
-			}
-		}
-
-		dlm.clear();
-		for(Object obj: contents)
-			dlm.addElement(obj);
-		list.setModel(dlm);
-	}
-
-	private void atualizaJList(DefaultListModel<Object> dlm) {
+	
+	private List<Refeicao> filtraList() {
 		String selecionado = (String) cbRestaurantes.getSelectedItem();
-		dlm.clear();
 		if (selecionado == null)
-			return;
+			return new ArrayList<>();
+		
+		List<Refeicao> resultado = new ArrayList<>();
 		for (Restaurante r : Sistema.getHotel().getRestaurantes())
 			if (r.getNome().equals(selecionado))
 				for (Refeicao re : r.getEstoque())
-					dlm.addElement(re);
-
-		ordenaJList();
+					resultado.add(re);
+		return resultado;
 	}
 
 	class doubleClick extends MouseAdapter {
-		protected JList<Object> list;
+		protected JList<Refeicao> list;
 
-		public doubleClick(JList<Object> l) {
+		public doubleClick(JList<Refeicao> l) {
 			list = l;
 		}
 
@@ -375,12 +324,11 @@ public class Refeicoes extends JPanel {
 		public void mouseClicked(MouseEvent e) {
 			if (e.getClickCount() == 2) {
 				int index = list.locationToIndex(e.getPoint());
-				ListModel<Object> dlm = list.getModel();
+				ListModel<Refeicao> dlm = list.getModel();
 				Object item = dlm.getElementAt(index);
 				list.ensureIndexIsVisible(index);
 				String nome = (String) Refeicoes.cbRestaurantes.getSelectedItem();
-				Sistema.setTela(new AtualizarRefeicao(tela, nome,
-						(Refeicao) item));
+				Sistema.setTela(new AtualizarRefeicao(tela, nome,(Refeicao) item));
 			}
 		}
 	}

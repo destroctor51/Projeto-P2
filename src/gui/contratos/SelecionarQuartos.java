@@ -9,8 +9,6 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 
-import java.awt.Font;
-
 import javax.swing.JScrollPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JList;
@@ -52,17 +50,16 @@ public class SelecionarQuartos extends JPanel {
 	 * @param tarifa 
 	 * @param cartao 
 	 */
-	public SelecionarQuartos(Periodo estadia, Hospede hospede, String cartao, double tarifa) {
+	public SelecionarQuartos(Periodo estadia, Hospede hospede, String cartao, double tarifa,final JPanel tela) {
+		
+		this.setName("Selecionar Quartos");
+		
 		this.estadia = estadia;
 		this.hospede = hospede;
 		this.cartao = cartao;
 		this.tarifa = tarifa;
 		
 		JPanel panel = new JPanel();
-		
-		JLabel lblSelecionarQuarto = new JLabel("Selecionar Quartos");
-		lblSelecionarQuarto.setFont(new Font("Arial", Font.BOLD, 20));
-		panel.add(lblSelecionarQuarto);
 		
 		JLabel lblSelecioneOsQuartos = new JLabel("Selecione os quartos desejados :");
 		
@@ -91,7 +88,7 @@ public class SelecionarQuartos extends JPanel {
 		JButton btnCancelar = new JButton("Retornar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Sistema.setTela(new RealizaReserva());
+				Sistema.setTela(tela);
 			}
 		});
 		

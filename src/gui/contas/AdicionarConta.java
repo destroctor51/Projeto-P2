@@ -101,14 +101,13 @@ public class AdicionarConta extends JPanel {
 		JLabel lblNewLabel_4 = new JLabel("Repita a senha:");
 		GridBagConstraints gbc_lblNewLabel_4 = new GridBagConstraints();
 		gbc_lblNewLabel_4.anchor = GridBagConstraints.EAST;
-		gbc_lblNewLabel_4.insets = new Insets(0, 0, 5, 10);
+		gbc_lblNewLabel_4.insets = new Insets(0, 0, 0, 10);
 		gbc_lblNewLabel_4.gridx = 0;
 		gbc_lblNewLabel_4.gridy = 3;
 		panel.add(lblNewLabel_4, gbc_lblNewLabel_4);
 
 		passwordField_1 = new JPasswordField();
 		GridBagConstraints gbc_passwordField_1 = new GridBagConstraints();
-		gbc_passwordField_1.insets = new Insets(0, 0, 5, 0);
 		gbc_passwordField_1.fill = GridBagConstraints.HORIZONTAL;
 		gbc_passwordField_1.gridx = 1;
 		gbc_passwordField_1.gridy = 3;
@@ -135,7 +134,7 @@ public class AdicionarConta extends JPanel {
 		lblNewLabel.setForeground(Color.RED);
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.anchor = GridBagConstraints.WEST;
-		gbc_lblNewLabel.insets = new Insets(0, 0, 0, 5);
+		gbc_lblNewLabel.insets = new Insets(0, 2, 0, 5);
 		gbc_lblNewLabel.gridx = 0;
 		gbc_lblNewLabel.gridy = 0;
 		panel_1.add(lblNewLabel, gbc_lblNewLabel);
@@ -195,6 +194,7 @@ public class AdicionarConta extends JPanel {
 			}
 		});
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+		gbc_btnNewButton.insets = new Insets(0, 0, 0, 1);
 		gbc_btnNewButton.gridx = 2;
 		gbc_btnNewButton.gridy = 0;
 		panel_1.add(btnNewButton, gbc_btnNewButton);
