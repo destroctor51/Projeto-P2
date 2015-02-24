@@ -136,6 +136,8 @@ public class Contrato implements Serializable {
 	 * @return true se o servico pode ser removido, false caso contrario
 	 */
 	public boolean removeServico(Pagavel servico) {
+		if(estado == EstadoDeContrato.FECHADO)
+			return false;
 		return servicos.remove(servico);
 	}
 

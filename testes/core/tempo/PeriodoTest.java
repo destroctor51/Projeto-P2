@@ -7,8 +7,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import core.tempo.Periodo;
-
 public class PeriodoTest {
 
 	private Calendar c1;
@@ -50,27 +48,42 @@ public class PeriodoTest {
 	}
 
 	@Test
-	public void getNumeroDiasTest() {
+	public void getNumeroDiasHorasTest() {
 
-		Assert.assertEquals(2,p1.getNumeroDias());
-		Assert.assertEquals(26,p2.getNumeroDias());
-		Assert.assertEquals(28,p3.getNumeroDias());
+		Assert.assertEquals(2, p1.getNumeroDias());
+		Assert.assertEquals(26, p2.getNumeroDias());
+		Assert.assertEquals(28, p3.getNumeroDias());
 
-		c1 = new GregorianCalendar(2016,1,1);
-		c2 = new GregorianCalendar(2017,1,1);
-		p3 = new Periodo(c1,c2);
-		Assert.assertEquals(366,p3.getNumeroDias());
+		c1 = new GregorianCalendar(2016, 1, 1);
+		c2 = new GregorianCalendar(2017, 1, 1);
+		p3 = new Periodo(c1, c2);
+		Assert.assertEquals(366, p3.getNumeroDias());
 
-		c1 = new GregorianCalendar(2016,1,1);
-		c2 = new GregorianCalendar(2025,1,11);
-		p3 = new Periodo(c1,c2);
-		Assert.assertEquals(3298,p3.getNumeroDias());
+		c1 = new GregorianCalendar(2016, 1, 1);
+		c2 = new GregorianCalendar(2025, 1, 11);
+		p3 = new Periodo(c1, c2);
+		Assert.assertEquals(3298, p3.getNumeroDias());
 
-		c1 = new GregorianCalendar(2016,1,1);
+		c1 = new GregorianCalendar(2016, 1, 1);
 		p3.setInicio(c1);
-		c1 = new GregorianCalendar(2016,1,2);
+		c1 = new GregorianCalendar(2016, 1, 2);
 		p3.setFim(c1);
-		Assert.assertEquals(1,p3.getNumeroDias());
+		Assert.assertEquals(1, p3.getNumeroDias());
+
+		c1 = new GregorianCalendar(2016, 1, 1, 12, 36, 48);
+		c2 = new GregorianCalendar(2016, 1, 1, 15, 56, 12);
+		p3 = new Periodo(c1, c2);
+		Assert.assertEquals(3, p3.getNumeroHoras());
+
+		c1 = new GregorianCalendar(2016, 1, 1, 12, 36, 48);
+		c2 = new GregorianCalendar(2016, 1, 1, 16, 26, 34);
+		p3 = new Periodo(c1, c2);
+		Assert.assertEquals(3, p3.getNumeroHoras());
+
+		c1 = new GregorianCalendar(2016, 1, 1, 12, 36, 48);
+		c2 = new GregorianCalendar(2016, 1, 1, 13, 36, 47);
+		p3 = new Periodo(c1, c2);
+		Assert.assertEquals(0, p3.getNumeroHoras());
 	}
 
 	@Test

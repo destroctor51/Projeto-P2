@@ -2,7 +2,6 @@ package core.tempo;
 
 import java.io.Serializable;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 /**
  * Classe que representa um periodo de tempo, guardado a data de inicio e de fim de tal periodo,
@@ -76,23 +75,19 @@ public class Periodo implements Comparable<Periodo>, Cloneable, Serializable {
 	}
 
 	/**
-	 *
-	 * @return
-	 * 		Quantidade de dias do periodo.
+	 * @return quantidade de dias do periodo
 	 */
-	public int getNumeroDias() {
-		int diasNaoContados = 0;
-		int anoInicial = inicio.get(Calendar.YEAR);
-		int anoFinal = fim.get(Calendar.YEAR);
-		while (anoInicial != anoFinal) {
-			if (new GregorianCalendar().isLeapYear(anoInicial))
-				diasNaoContados += 366;
-			else
-				diasNaoContados += 365;
-			anoInicial += 1;
-		}
+	public long getNumeroDias() {
+		long ms = fim.getTimeInMillis() - inicio.getTimeInMillis();
+		return ms / 86400000;
+	}
 
-		return (diasNaoContados + fim.get(Calendar.DAY_OF_YEAR)) - (inicio.get(Calendar.DAY_OF_YEAR));
+	/**
+	 * @return quantidade de horas do periodo
+	 */
+	public long getNumeroHoras() {
+		long ms = fim.getTimeInMillis() - inicio.getTimeInMillis();
+		return ms / 3600000;
 	}
 
 	/**

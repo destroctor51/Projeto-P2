@@ -1,5 +1,6 @@
 package core.servicos.devolviveis;
 
+import java.util.Calendar;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -23,17 +24,12 @@ public class Carro implements Devolvivel{
 	/**
 	 * Valor pago se o servico tanque cheio for solicitado.
 	 */
-	public final static double VALOR_TANQUE = 150.0;
+	public final static float VALOR_TANQUE = 150.0f;
 
 	/**
 	 * Valor pago se o seguro do carro for solicitado.
 	 */
-	public final static double VALOR_SEGURO = 100.0;
-
-	/**
-	 * Valor padrao pago se um servico nao for solicitado.
-	 */
-	public final static double SEM_SERVICO = 0.0;
+	public final static float VALOR_SEGURO = 100.0f;
 
 	private final static int LENGTH_PLACA = 7;
 
@@ -43,6 +39,7 @@ public class Carro implements Devolvivel{
 	private boolean seguro;
 
 	private float preco = 0;
+	private float multa = 0;
 	private boolean devolvido = true;
 	private Periodo periodoAlugado;
 	private Set<Periodo> historico = new TreeSet<>();
@@ -60,24 +57,22 @@ public class Carro implements Devolvivel{
 
 		this.tipoCarro = tipoCarro;
 		this.placa = placa;
-
-		devolvido = true;
-		preco = 0;
 	}
 
 	@Override
 	public String getDescricao() {
 		String opcionais = "";
 		if(tanqueCheio || seguro) {
-			opcionais = " com " + (tanqueCheio? "tanque cheio": "seguro");
-			if(tanqueCheio && seguro) opcionais += " e seguro";
+			opcionais = ", com " + (tanqueCheio? "tanque cheio": "seguro");
+			opcionais += tanqueCheio && seguro? " e seguro," : ",";
 		}
-		return tipoCarro+opcionais+" alugado por "+getNumeroDias()+" dias";
+		String multa = this.multa > 0? " e com multa de R$"+this.multa : "";
+		return tipoCarro+opcionais+" alugado por "+getNumeroDias()+" dias"+multa;
 	}
 
 	@Override
 	public float getPreco() {
-		return preco;
+		return preco+multa;
 	}
 
 	/**
@@ -97,23 +92,38 @@ public class Carro implements Devolvivel{
 	}
 
 	/**
-	 *
-	 * @return
-	 * 			Numero de dias alugados.
+	 * @return numero de dias alugados
 	 */
-	public int getNumeroDias() {
+	private long getNumeroDias() {
 		if(periodoAlugado == null) return 0;
 		return periodoAlugado.getNumeroDias();
 	}
 
+	private float getMulta(Calendar data) {
+		Calendar limite = (Calendar) periodoAlugado.getFim().clone();
+		limite.add(Calendar.HOUR_OF_DAY, -10);
+
+		if(limite.after(data)) return 0;
+		return new Periodo(limite, data).getNumeroHoras() * tipoCarro.getDiaria() / 12;
+	}
+
 	@Override
-	public void devolve() {
-		if (devolvido == false) {
-			preco = getNumeroDias() * tipoCarro.getDiaria();
-			preco += tanqueCheio ? Carro.VALOR_TANQUE : Carro.SEM_SERVICO;
-			preco += seguro ? Carro.VALOR_SEGURO : Carro.SEM_SERVICO;
-			devolvido = true;
-		}
+	public boolean devolve(Calendar data) {
+		if (devolvido == true) return false;
+		multa = getMulta(data);
+		preco = getNumeroDias() * tipoCarro.getDiaria();
+		preco += tanqueCheio ? Carro.VALOR_TANQUE : 0;
+		preco += seguro ? Carro.VALOR_SEGURO : 0;
+		return devolvido = true;
+	}
+
+	@Override
+	public boolean cancela() {
+		if (devolvido == true)
+			return false;
+		devolvido = true;
+		preco = 0; multa = 0;
+		return true;
 	}
 
 	@Override
@@ -126,7 +136,7 @@ public class Carro implements Devolvivel{
 	 *		Uma representacao textual do objeto.
 	 */
 	@Override
-	public String toString(){
+	public String toString() {
 		return tipoCarro + " de placa " + placa;
 	}
 
@@ -137,7 +147,7 @@ public class Carro implements Devolvivel{
 	 * 		se dois carros forem iguais retorna true, caso contrario retorna false
 	 */
 	@Override
-	public boolean equals(Object obj){
+	public boolean equals(Object obj) {
 		if(!(obj instanceof Carro))
 			return false;
 
@@ -172,7 +182,7 @@ public class Carro implements Devolvivel{
 	}
 
 	@Override
-	public Object clone()  {
+	public Object clone() {
 		try {
 			Carro clone = (Carro) super.clone();
 			clone.historico = new TreeSet<Periodo>();
@@ -218,6 +228,7 @@ public class Carro implements Devolvivel{
 		tanqueCheio = false;
 		seguro = false;
 		preco = 0;
+		multa = 0;
 
 		return true;
 	}

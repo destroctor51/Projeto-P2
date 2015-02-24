@@ -57,13 +57,13 @@ public class Refeicoes extends JPanel {
 	 * Create the panel.
 	 */
 	public Refeicoes() {
-		
+
 		addAncestorListener(new AncestorListener() {
 			@Override
 			public void ancestorAdded(AncestorEvent arg0) {
 				List<Refeicao> elementos = filtraList();
 				Filtro.exibeFiltrado(tfBuscar.getText(), elementos, list);
-				
+
 				lbObs.setVisible(false);
 			}
 			@Override
@@ -87,7 +87,7 @@ public class Refeicoes extends JPanel {
 		gbl_panelSuperior.rowWeights = new double[]{1.0, 1.0, 1.0};
 		panelSuperior.setLayout(gbl_panelSuperior);
 
-		
+
 		tfBuscar = new SuperTextField() {
 			private static final long serialVersionUID = 1L;
 			@Override
@@ -131,13 +131,12 @@ public class Refeicoes extends JPanel {
 		gbc_lbRestaurante.gridx = 0;
 		gbc_lbRestaurante.gridy = 2;
 		panelSuperior.add(lbRestaurante, gbc_lbRestaurante);
-		
+
 		DefaultComboBoxModel<String> dcm = new DefaultComboBoxModel<>();
 		for (Restaurante r: Sistema.getHotel().getRestaurantes())
 			dcm.addElement(r.getNome());
 		cbRestaurantes.setModel(dcm);
 
-		cbRestaurantes.setSelectedIndex(0);
 		GridBagConstraints gbc_cbRestaurantes = new GridBagConstraints();
 		gbc_cbRestaurantes.fill = GridBagConstraints.HORIZONTAL;
 		gbc_cbRestaurantes.gridx = 1;
@@ -187,17 +186,17 @@ public class Refeicoes extends JPanel {
 					lbObs.setVisible(true);
 					return;
 				}
-				
+
 				String nomeRestaurante = (String) item;
 				for (Restaurante r : Sistema.getHotel().getRestaurantes())
 					if (r.getNome().equals(nomeRestaurante)){
 						r.getEstoque().remove(value);
 						break;
 					}
-				
+
 				List<Refeicao> elementos = filtraList();
 				Filtro.exibeFiltrado(tfBuscar.getText(), elementos, list);
-				
+
 				lbObs.setForeground(new Color(0, 180, 0));
 				lbObs.setText("Item removido com sucesso");
 				lbObs.setVisible(true);
@@ -299,12 +298,12 @@ public class Refeicoes extends JPanel {
 		Filtro.ordenaToString(elementos);
 		Filtro.preencheJList(elementos, list);
 	}
-	
+
 	private List<Refeicao> filtraList() {
 		String selecionado = (String) cbRestaurantes.getSelectedItem();
 		if (selecionado == null)
 			return new ArrayList<>();
-		
+
 		List<Refeicao> resultado = new ArrayList<>();
 		for (Restaurante r : Sistema.getHotel().getRestaurantes())
 			if (r.getNome().equals(selecionado))

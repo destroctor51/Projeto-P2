@@ -8,8 +8,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import core.hotel.Contrato;
-import core.hotel.EstadoDeContrato;
 import core.interfaces.Pagavel;
 import core.servicos.alugaveis.CamaExtra;
 import core.servicos.devolviveis.Quarto;
@@ -108,7 +106,7 @@ public class ContratoTest {
 		Assert.assertFalse(contrato.realizarCheckOut(null));
 		Assert.assertFalse(contrato.realizarCheckOut(cartao));
 
-		((Quarto) contrato.getServicos().get(1)).devolve();
+		((Quarto) contrato.getServicos().get(1)).devolve(new GregorianCalendar(2015, 0, 25));
 		Assert.assertTrue(contrato.realizarCheckOut(cartao));
 	}
 

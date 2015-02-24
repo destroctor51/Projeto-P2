@@ -1,5 +1,6 @@
 package core.servicos.devolviveis;
 
+import java.util.Calendar;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -24,6 +25,7 @@ public class Quarto implements Devolvivel {
 	private int numero;
 
 	private float preco = 0;
+	private float multa = 0;
 	private boolean devolvido = true;
 	private Periodo periodoAlugado;
 	private Set<Periodo> historico = new TreeSet<>();
@@ -46,12 +48,13 @@ public class Quarto implements Devolvivel {
 
 	@Override
 	public String getDescricao() {
-		return tipoQuarto + " alugado por "+getDiasAlugados()+" dias";
+		String multa = this.multa > 0? " e com multa de R$"+this.multa : "";
+		return tipoQuarto + " alugado por "+getDiasAlugados()+" dias"+multa;
 	}
 
 	@Override
 	public float getPreco() {
-		return preco;
+		return preco+multa;
 	}
 
 	/**
@@ -70,22 +73,34 @@ public class Quarto implements Devolvivel {
 		return tipoQuarto;
 	}
 
-	/**
-	 *
-	 * @return
-	 * 			Numero de dias alugados.
-	 */
-	public int getDiasAlugados() {
+	private long getDiasAlugados() {
 		if(periodoAlugado == null) return 0;
 		return periodoAlugado.getNumeroDias();
 	}
 
+	private float getMulta(Calendar data) {
+		Calendar limite = (Calendar) periodoAlugado.getFim().clone();
+		limite.add(Calendar.HOUR_OF_DAY, +12);
+
+		if(limite.after(data)) return 0;
+		return new Periodo(limite, data).getNumeroHoras() * tipoQuarto.getDiaria() / 12;
+	}
+
 	@Override
-	public void devolve() {
-		if (devolvido == false) {
-			preco = getDiasAlugados() * tipoQuarto.getDiaria();
-			devolvido = true;
-		}
+	public boolean devolve(Calendar data) {
+		if(devolvido == true) return false;
+		preco = getDiasAlugados() * tipoQuarto.getDiaria();
+		multa = getMulta(data);
+		return devolvido = true;
+	}
+
+	@Override
+	public boolean cancela() {
+		if (devolvido == true)
+			return false;
+		devolvido = true;
+		preco = 0; multa = 0;
+		return true;
 	}
 
 	@Override
@@ -141,6 +156,7 @@ public class Quarto implements Devolvivel {
 		periodoAlugado = periodo;
 		devolvido = false;
 		preco = 0;
+		multa = 0;
 		return true;
 	}
 

@@ -7,8 +7,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import core.servicos.devolviveis.Quarto;
-import core.servicos.devolviveis.TipoQuarto;
 import core.tempo.Periodo;
 
 public class QuartoTest {
@@ -59,7 +57,6 @@ public class QuartoTest {
 		} catch(IllegalArgumentException i){}
 
 		Assert.assertEquals(TipoQuarto.valueOf("PRESIDENCIAL"), quarto1.getTipo());
-		Assert.assertEquals(0, quarto1.getDiasAlugados());
 		Assert.assertEquals(4, quarto1.getTipo().getCapacidade());
 		Assert.assertEquals("Quarto presidencial", "Quarto equipado com TV LCD 42, split, frigobar, cofre,sala de jogos e home theater, ideal para familias em ferias",
 				quarto1.getTipo().getDescricao());
@@ -72,7 +69,7 @@ public class QuartoTest {
 			Assert.fail();
 		} catch(IllegalArgumentException i) {}
 
-		quarto1.devolve();
+		quarto1.devolve(c1);
 		Assert.assertTrue(quarto1.aluga(p1));
 		Assert.assertFalse(quarto1.aluga(p1));
 
@@ -80,7 +77,7 @@ public class QuartoTest {
 		Assert.assertEquals(100, quarto1.getNumero());
 		Assert.assertEquals(false, quarto1.isDevolvido());
 
-		quarto1.devolve();
+		quarto1.devolve(c1);
 		Assert.assertFalse(quarto1.aluga(p1));
 	}
 
@@ -89,37 +86,37 @@ public class QuartoTest {
 
 		Assert.assertTrue(quarto1.aluga(p1));
 		Assert.assertEquals(0, quarto1.getPreco(),0.001);
-		quarto1.devolve();
+		quarto1.devolve(c1);
 		Assert.assertEquals(2400.0, quarto1.getPreco(),0.001);
 
 		Assert.assertTrue(quarto2.aluga(p1));
 		Assert.assertEquals(0, quarto2.getPreco(),0.001);
-		quarto2.devolve();
+		quarto2.devolve(c1);
 		Assert.assertEquals(1040.0, quarto2.getPreco(),0.001);
 
 		Assert.assertTrue(quarto3.aluga(p1));
 		Assert.assertEquals(0, quarto3.getPreco(),0.001);
-		quarto3.devolve();
+		quarto3.devolve(c1);
 		Assert.assertEquals(1140.0, quarto3.getPreco(),0.001);
 
 		Assert.assertTrue(quarto4.aluga(p1));
 		Assert.assertEquals(0, quarto4.getPreco(),0.001);
-		quarto4.devolve();
+		quarto4.devolve(c1);
 		Assert.assertEquals(1240.0, quarto4.getPreco(),0.001);
 
 		Assert.assertTrue(quarto5.aluga(p1));
 		Assert.assertEquals(0, quarto5.getPreco(),0.001);
-		quarto5.devolve();
+		quarto5.devolve(c1);
 		Assert.assertEquals(720.0, quarto5.getPreco(),0.001);
 
 		Assert.assertTrue(quarto6.aluga(p1));
 		Assert.assertEquals(0, quarto6.getPreco(),0.001);
-		quarto6.devolve();
+		quarto6.devolve(c1);
 		Assert.assertEquals(770.0, quarto6.getPreco(),0.001);
 
 		Assert.assertTrue(quarto7.aluga(p1));
 		Assert.assertEquals(0, quarto7.getPreco(),0.001);
-		quarto7.devolve();
+		quarto7.devolve(c1);
 		Assert.assertEquals(880.0, quarto7.getPreco(),0.001);
 	}
 
@@ -128,21 +125,34 @@ public class QuartoTest {
 
 		Assert.assertTrue(quarto1.aluga(p1));
 		Assert.assertEquals(0, quarto1.getPreco(),0.001);
-		quarto1.devolve();
+		quarto1.devolve(c1);
 
 		Assert.assertEquals("Quarto presidencial de numero 100", quarto1.toString());
 
 		Assert.assertTrue(quarto2.aluga(p1));
 		Assert.assertEquals(0, quarto2.getPreco(),0.001);
-		quarto2.devolve();
+		quarto2.devolve(c1);
 
 		Assert.assertEquals("Quarto de luxo simples de numero 101", quarto2.toString());
 	}
 
 	@Test
 	public void getDescricaoTest() {
+		Calendar devolucao = null;
+
 		Assert.assertEquals("Quarto presidencial alugado por 0 dias" , quarto1.getDescricao());
-		Assert.assertEquals("Quarto de luxo simples alugado por 0 dias", quarto2.getDescricao());
+
+		Assert.assertTrue(quarto1.aluga(p1));
+		devolucao = (Calendar) c2.clone();
+		devolucao.add(Calendar.HOUR_OF_DAY, +12+2);
+		Assert.assertTrue(quarto1.devolve(devolucao));
+		Assert.assertEquals("Quarto presidencial alugado por 2 dias e com multa de R$200.0" , quarto1.getDescricao());
+
+		Assert.assertTrue(quarto2.aluga(p1));
+		devolucao = (Calendar) c2.clone();
+		devolucao.add(Calendar.HOUR_OF_DAY, +12+6);
+		Assert.assertTrue(quarto2.devolve(devolucao));
+		Assert.assertEquals("Quarto de luxo simples alugado por 2 dias e com multa de R$260.0", quarto2.getDescricao());
 	}
 
 	@Test
@@ -169,7 +179,7 @@ public class QuartoTest {
 		Assert.assertEquals(0, ((Quarto) quarto1.clone()).getPreco(), 0.01);
 
 		Assert.assertTrue(quarto1.aluga(p1));
-		quarto1.devolve();
+		quarto1.devolve(c1);
 		Assert.assertTrue(quarto1.aluga(p2));
 
 		quarto2 = (Quarto) quarto1.clone();
@@ -181,9 +191,9 @@ public class QuartoTest {
 		Assert.assertFalse(quarto2.getHistorico().contains(p1));
 		Assert.assertTrue(quarto2.getHistorico().contains(p2));
 
-		quarto1.devolve();
+		quarto1.devolve(c1);
 		Assert.assertTrue(quarto1.aluga(p3));
-		quarto1.devolve();
+		quarto1.devolve(c1);
 		Assert.assertNotEquals(quarto1.getPreco(), quarto2.getPreco(), 0.001);
 		Assert.assertTrue(quarto1.getHistorico().contains(p3));
 		Assert.assertFalse(quarto2.getHistorico().contains(p3));

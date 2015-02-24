@@ -7,8 +7,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import core.servicos.devolviveis.Carro;
-import core.servicos.devolviveis.TipoCarro;
 import core.tempo.Periodo;
 
 public class CarroTest {
@@ -56,7 +54,6 @@ public class CarroTest {
 		} catch(IllegalArgumentException i) {}
 
 		Assert.assertEquals(TipoCarro.valueOf("LUXO").ordinal(), carro1.getTipo().ordinal());
-		Assert.assertEquals(0, carro1.getNumeroDias());
 	}
 
 	@Test
@@ -66,7 +63,7 @@ public class CarroTest {
 			Assert.fail();
 		} catch(IllegalArgumentException i) {}
 
-		carro1.devolve();
+		carro1.devolve(c1);
 		carro1.aluga(p1, true, true);
 		Assert.assertFalse(carro1.aluga(p1, true, true));
 
@@ -74,7 +71,7 @@ public class CarroTest {
 		Assert.assertEquals("ABC-123", carro1.getPlaca());
 		Assert.assertEquals(false, carro1.isDevolvido());
 
-		carro1.devolve();
+		carro1.devolve(c1);
 		Assert.assertFalse(carro1.aluga(p1, true, true));
 	}
 
@@ -83,12 +80,12 @@ public class CarroTest {
 
 		carro1.aluga(p1, true, true);
 		Assert.assertEquals(0, carro1.getPreco(), 0.001);
-		carro1.devolve();
+		carro1.devolve(c1);
 		Assert.assertEquals(450, carro1.getPreco(), 0.001);
 
 		carro2.aluga(p2, true, false);
 		Assert.assertEquals(0, carro2.getPreco(), 0.001);
-		carro2.devolve();
+		carro2.devolve(c1);
 		Assert.assertEquals(1710, carro2.getPreco(), 0.001);
 	}
 
@@ -107,39 +104,31 @@ public class CarroTest {
 
 	@Test
 	public void toStringTest() {
-
-		Assert.assertTrue(carro1.aluga(p1, true, true));
-		Assert.assertEquals(0, carro1.getPreco(), 0.001);
-		carro1.devolve();
-
 		Assert.assertEquals("Carro de luxo de placa ABC-123", carro1.toString());
-
-		Assert.assertTrue(carro2.aluga(p1, true, false));
-		Assert.assertEquals(0, carro2.getPreco(), 0.001);
-		carro2.devolve();
-
 		Assert.assertEquals("Carro executivo de placa ABC-123", carro2.toString());
-
-		Assert.assertTrue(carro3.aluga(p2, false, true));
-		Assert.assertEquals(0, carro3.getPreco(), 0.001);
-		carro3.devolve();
-
 		Assert.assertEquals("Carro de luxo de placa ABCD-123", carro3.toString());
 	}
 
 	@Test
 	public void getDescricaoTest() {
+		Calendar devolucao = null;
 		Assert.assertEquals( "Carro de luxo alugado por 0 dias", carro1.getDescricao());
 		Assert.assertEquals( "Carro executivo alugado por 0 dias", carro2.getDescricao());
 
 		Assert.assertTrue(carro1.aluga(p1, true, false));
-		Assert.assertEquals( "Carro de luxo com tanque cheio alugado por 2 dias", carro1.getDescricao());
+		Assert.assertEquals( "Carro de luxo, com tanque cheio, alugado por 2 dias", carro1.getDescricao());
 
 		Assert.assertTrue(carro2.aluga(p2, false, true));
-		Assert.assertEquals( "Carro executivo com seguro alugado por 26 dias", carro2.getDescricao());
+		devolucao = (Calendar) c3.clone();
+		devolucao.add(Calendar.HOUR_OF_DAY, -10+3);
+		Assert.assertTrue(carro2.devolve(devolucao));
+		Assert.assertEquals( "Carro executivo, com seguro, alugado por 26 dias e com multa de R$15.0", carro2.getDescricao());
 
 		Assert.assertTrue(carro3.aluga(p3, true, true));
-		Assert.assertEquals( "Carro de luxo com tanque cheio e seguro alugado por 18 dias", carro3.getDescricao());
+		devolucao = (Calendar) c4.clone();
+		devolucao.add(Calendar.HOUR_OF_DAY, -10+6);
+		Assert.assertTrue(carro3.devolve(devolucao));
+		Assert.assertEquals( "Carro de luxo, com tanque cheio e seguro, alugado por 18 dias e com multa de R$50.0", carro3.getDescricao());
 	}
 
 
@@ -156,7 +145,7 @@ public class CarroTest {
 		Assert.assertEquals(0, ((Carro) carro1.clone()).getPreco(), 0.01);
 
 		Assert.assertTrue(carro1.aluga(p1));
-		carro1.devolve();
+		carro1.devolve(c1);
 		Assert.assertTrue(carro1.aluga(p3));
 
 		carro2 = (Carro) carro1.clone();
