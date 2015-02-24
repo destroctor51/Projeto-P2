@@ -1,6 +1,7 @@
 package core.tempo;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
@@ -102,8 +103,8 @@ public class Periodo implements Comparable<Periodo>, Cloneable, Serializable {
 		if(outroPeriodo == null)
 			return false;
 
-		return outroPeriodo.inicio.compareTo(fim) <= 0 &&
-				(outroPeriodo.fim.compareTo(inicio) >= 0 || outroPeriodo.inicio.compareTo(inicio) >= 0);
+		return outroPeriodo.inicio.compareTo(fim) < 0 &&
+				(outroPeriodo.fim.compareTo(inicio) > 0 || outroPeriodo.inicio.compareTo(inicio) >= 0);
 	}
 
 	/**
@@ -116,7 +117,7 @@ public class Periodo implements Comparable<Periodo>, Cloneable, Serializable {
 	 */
 	public boolean contem(Calendar data) {
 		if(data == null) return false;
-		return data.compareTo(inicio) >= 0 && data.compareTo(fim) <= 0;
+		return data.compareTo(inicio) >= 0 && data.compareTo(fim) < 0;
 	}
 
 	/**
@@ -149,10 +150,17 @@ public class Periodo implements Comparable<Periodo>, Cloneable, Serializable {
 	}
 
 	@Override
+	public String toString() {
+		String dataInicial = new SimpleDateFormat("d/M/yyyy").format(inicio.getTime());
+		String dataFinal = new SimpleDateFormat("d/M/yyyy").format(fim.getTime());
+		return dataInicial + " a " + dataFinal;
+	}
+
+	@Override
 	public int compareTo(Periodo p) {
-		if (this.equals(p))
+		if (equals(p))
 			return 0;
-		else if (this.getFim().before(p.getInicio()))
+		else if(inicio.before(p.inicio))
 			return -1;
 		else return 1;
 	}

@@ -10,7 +10,7 @@ import core.interfaces.Alugavel;
 import core.tempo.Periodo;
 
 /**
- * Um compontente Swing capaz mostrar interativamente os periodos em que e possivel realizar um alugel.
+ * Um compontente Swing capaz mostrar interativamente os periodos em que e possivel realizar um aluguel.
  *
  * @author Victor Andrade de Almeida
  */
@@ -27,7 +27,7 @@ public class CalendarioAlugavel extends Calendario {
 	}
 
 	/**
-	 * Cria uma categoria de alugaveis, determinando o numero minimo de elementos necessarios para realizar um alugel.
+	 * Cria uma categoria de alugaveis, determinando o numero minimo de elementos necessarios para realizar um aluguel.
 	 *
 	 * @param id  uma identificacao para a categoria
 	 * @param min  o numero minimo de alugaveis disponiveis necessario
@@ -52,7 +52,7 @@ public class CalendarioAlugavel extends Calendario {
 	}
 
 	/**
-	 * Define o numero minimo de elementos necessarios para realizar um alugel, para uma categoria.
+	 * Define o numero minimo de elementos necessarios para realizar um aluguel, para uma categoria.
 	 *
 	 * @param id  a identificacao da categoria em questao
 	 * @param min  o numero minimo de alugaveis disponiveis necessario

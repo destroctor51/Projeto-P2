@@ -31,7 +31,8 @@ public class Calendario extends JComponent {
 	private Color[][] cores;
 	private Calendar[][] dias;
 	private Calendar dataAtual;
-	protected Calendar dataInicio, dataFim;
+	private Periodo selecao;
+	//protected Calendar dataInicio, dataFim;
 
 	private int largura;
 	private int altura;
@@ -65,11 +66,7 @@ public class Calendario extends JComponent {
 	 * @return o periodo escolhido ou null caso nenhum periodo tenha sido marcado
 	 */
 	public Periodo getSelecao() {
-		if(dataInicio == null)
-			return null;
-		if(dataFim == null)
-			return new Periodo(dataInicio, dataInicio);
-		return new Periodo(dataInicio, dataFim);
+		return selecao;
 	}
 
 	@Override
@@ -121,6 +118,16 @@ public class Calendario extends JComponent {
 	private void alteraMes(int variacao) {
 		dataAtual.add(Calendar.MONTH, variacao);
 		atualizaDias();
+	}
+
+	private Calendar offset(Calendar data, int offset) {
+		Calendar copia = (Calendar) data.clone();
+		copia.add(Calendar.DATE, offset);
+		return copia;
+	}
+
+	protected void clearSelecao() {
+		selecao = null;
 	}
 
 	protected boolean isDiaIndisponivel(Calendar dia) {
@@ -232,44 +239,39 @@ public class Calendario extends JComponent {
 				}
 
 				if(isEnabled() && my > top && my <= bottom) {
-					Calendar backInicio = dataInicio;
-					Calendar backFim = dataFim;
+					Calendar backInicio = selecao == null? null : selecao.getInicio();
+					Calendar backFim = selecao == null? null : selecao.getFim();
 
 					int x = (mx-left) / dateWidth;
 					int y = (my-top) / dateHeight;
 
-					if(dataInicio == null)
-						dataInicio = dias[x][y];
+					if(selecao == null)
+						selecao = new Periodo(dias[x][y], offset(dias[x][y], +1));
 
 					else {
-						if(dias[x][y].equals(dataInicio)) {
-							dataInicio = dataFim;
-							dataFim = null;
-						}
+						if(selecao.getInicio().equals(dias[x][y]))
+							if(selecao.getNumeroDias() > 1)
+								selecao.setInicio(offset(selecao.getFim(), -1));
+							else selecao = null;
 
-						else if(dias[x][y].equals(dataFim))
-							dataFim = null;
+						else if(offset(selecao.getFim(), -1).equals(dias[x][y]))
+							selecao.setFim(offset(selecao.getInicio(), +1));
 
-						else if(dias[x][y].before(dataInicio)) {
-							if(dataFim == null)
-								dataFim = dataInicio;
-							dataInicio = dias[x][y];
-						}
+						else if(selecao.getInicio().after(dias[x][y]))
+							selecao.setInicio(dias[x][y]);
 
-						else dataFim = dias[x][y];
+						else selecao.setFim(offset(dias[x][y], +1));
 					}
 
 					if(isSelecaoInvalida()) {
-						dataInicio = backInicio;
-						dataFim = backFim;
+						selecao.setInicio(backInicio);
+						selecao.setFim(backFim);
 					}
 				}
 			}
 
-			if(e.getButton() == MouseEvent.BUTTON3) {
-				dataInicio = null;
-				dataFim = null;
-			}
+			if(e.getButton() == MouseEvent.BUTTON3)
+				clearSelecao();
 
 			atualizaDias();
 		}

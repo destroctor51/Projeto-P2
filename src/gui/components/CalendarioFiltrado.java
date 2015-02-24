@@ -39,8 +39,7 @@ public class CalendarioFiltrado extends Calendario {
 		boolean operacaoValida = periodos.add(periodo);
 
 		if(operacaoValida) {
-			dataInicio = null;
-			dataFim = null;
+			clearSelecao();
 			atualizaDias();
 		}
 

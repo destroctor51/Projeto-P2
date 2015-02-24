@@ -9,9 +9,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import core.tempo.Estacao;
-import core.tempo.Periodo;
-
 public class EstacaoTest {
 
 	private Calendar c1;
@@ -60,7 +57,7 @@ public class EstacaoTest {
 	public void addPeriodoTest() {
 
 		Assert.assertTrue(e1.addPeriodo(p1));
-		Assert.assertFalse(e1.addPeriodo(p2));
+		Assert.assertTrue(e1.addPeriodo(p2));
 		Assert.assertTrue(e1.addPeriodo(p3));
 	}
 
@@ -69,7 +66,7 @@ public class EstacaoTest {
 
 		Assert.assertFalse(e1.entraEmConflito(p1));
 		Assert.assertTrue(e1.addPeriodo(p2));
-		Assert.assertFalse(e1.addPeriodo(p3));
+		Assert.assertTrue(e1.addPeriodo(p3));
 	}
 
 	@Test

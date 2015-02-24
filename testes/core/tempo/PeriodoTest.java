@@ -45,6 +45,10 @@ public class PeriodoTest {
 			new Periodo(c2, c1);
 			Assert.fail();
 		} catch(IllegalArgumentException i) {}
+
+		Assert.assertEquals("28/2/2014 a 2/3/2014", p1.toString());
+		Assert.assertEquals("2/3/2014 a 28/3/2014", p2.toString());
+		Assert.assertEquals("28/2/2014 a 28/3/2014", p3.toString());
 	}
 
 	@Test
@@ -94,7 +98,7 @@ public class PeriodoTest {
 		Assert.assertTrue(p3.entraEmConflito(p2));
 		Assert.assertTrue(p3.entraEmConflito(p3));
 		Assert.assertTrue(p1.entraEmConflito(p3));
-		Assert.assertTrue(p1.entraEmConflito(p2));
+		Assert.assertFalse(p1.entraEmConflito(p2));
 
 		c1 = new GregorianCalendar(2016,1,1);
 		c2 = new GregorianCalendar(2017,1,1);
@@ -107,7 +111,7 @@ public class PeriodoTest {
 		Calendar dataNull = null;
 		Assert.assertFalse(p1.contem(dataNull));
 		Assert.assertTrue(p1.contem(c1));
-		Assert.assertTrue(p1.contem(c2));
+		Assert.assertFalse(p1.contem(c2));
 		Assert.assertTrue(p1.contem(new GregorianCalendar(2014,2,1)));
 		Assert.assertFalse(p1.contem(new GregorianCalendar(2014,1,1)));
 		Assert.assertFalse(p1.contem(new GregorianCalendar(2014,2,4)));
@@ -145,7 +149,7 @@ public class PeriodoTest {
 		Assert.assertTrue(p3.equals(p2));
 		Assert.assertTrue(p3.equals(p3));
 		Assert.assertTrue(p1.equals(p3));
-		Assert.assertTrue(p1.equals(p2));
+		Assert.assertFalse(p1.equals(p2));
 
 		c1 = new GregorianCalendar(2016,1,1);
 		c2 = new GregorianCalendar(2017,1,1);
