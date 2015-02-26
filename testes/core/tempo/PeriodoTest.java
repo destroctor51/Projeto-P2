@@ -46,6 +46,26 @@ public class PeriodoTest {
 			Assert.fail();
 		} catch(IllegalArgumentException i) {}
 
+		try {
+			p1.setInicio(null);
+			Assert.fail();
+		} catch(IllegalArgumentException i) {}
+
+		try {
+			p1.setFim(null);
+			Assert.fail();
+		} catch(IllegalArgumentException i) {}
+
+		try {
+			p1.setInicio(c3);
+			Assert.fail();
+		} catch(IllegalArgumentException i) {}
+
+		try {
+			p2.setFim(c1);
+			Assert.fail();
+		} catch(IllegalArgumentException i) {}
+
 		Assert.assertEquals("28/2/2014 a 2/3/2014", p1.toString());
 		Assert.assertEquals("2/3/2014 a 28/3/2014", p2.toString());
 		Assert.assertEquals("28/2/2014 a 28/3/2014", p3.toString());

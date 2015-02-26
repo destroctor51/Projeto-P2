@@ -40,38 +40,38 @@ public class Periodo implements Comparable<Periodo>, Cloneable, Serializable {
 	}
 
 	/**
-	 *
-	 * @return
-	 * 		Data de inicio do periodo.
+	 * @return data de inicio do periodo
 	 */
 	public Calendar getInicio() {
 		return inicio;
 	}
 
 	/**
+	 * Troca a data de inicio do periodo pela data recebida como parametro.
 	 *
 	 * @param inicio
-	 * 		Troca a data de inicio do periodo pela data recebida como parametro.
 	 */
 	public void setInicio(Calendar inicio) {
+		if(inicio == null || inicio.after(fim))
+			throw new IllegalArgumentException();
 		this.inicio = inicio;
 	}
 
 	/**
-	 *
-	 * @return
-	 * 		Data de fim do perido.
+	 * @return data de fim do perido.
 	 */
 	public Calendar getFim() {
 		return fim;
 	}
 
 	/**
+	 *Troca a data de fim do periodo pela data recebida como parametro.
 	 *
 	 * @param fim
-	 * 		Troca a data de fim do periodo pela data recebida como parametro.
 	 */
 	public void setFim(Calendar fim) {
+		if(fim == null || fim.before(inicio))
+			throw new IllegalArgumentException();
 		this.fim = fim;
 	}
 
@@ -134,12 +134,12 @@ public class Periodo implements Comparable<Periodo>, Cloneable, Serializable {
 				fim.compareTo(periodo.fim) >= 0;
 	}
 
-	@Override
 	/**
-	 * @return
-	 * 		Se dois periodos forem iguais retorna true, caso contrario retorna false. Dois periodos sao considerados iguais
-	 * 		se entrarem em conflito.
+	 * Dois periodos sao considerados iguais se entrarem em conflito.
+	 *
+	 * @return se dois periodos forem iguais retorna true, caso contrario retorna false
 	 */
+	@Override
 	public boolean equals(Object obj){
 
 		if (!(obj instanceof Periodo))

@@ -32,7 +32,7 @@ public class Calendario extends JComponent {
 	private Calendar[][] dias;
 	private Calendar dataAtual;
 	private Periodo selecao;
-	//protected Calendar dataInicio, dataFim;
+	private boolean multiplos = true;
 
 	private int largura;
 	private int altura;
@@ -66,7 +66,17 @@ public class Calendario extends JComponent {
 	 * @return o periodo escolhido ou null caso nenhum periodo tenha sido marcado
 	 */
 	public Periodo getSelecao() {
-		return selecao;
+		if(selecao == null) return null;
+		return (Periodo) selecao.clone();
+	}
+	
+	/**
+	 * Define se o calendario pode selecionar um periodo com varios dias.
+	 * 
+	 * @param modo  true se ele puder selecionar varios dias, false caso contrario
+	 */
+	public void setMultiplos(boolean modo) {
+		multiplos = modo;
 	}
 
 	@Override
@@ -118,16 +128,6 @@ public class Calendario extends JComponent {
 	private void alteraMes(int variacao) {
 		dataAtual.add(Calendar.MONTH, variacao);
 		atualizaDias();
-	}
-
-	private Calendar offset(Calendar data, int offset) {
-		Calendar copia = (Calendar) data.clone();
-		copia.add(Calendar.DATE, offset);
-		return copia;
-	}
-
-	protected void clearSelecao() {
-		selecao = null;
 	}
 
 	protected boolean isDiaIndisponivel(Calendar dia) {
@@ -190,6 +190,9 @@ public class Calendario extends JComponent {
 	}
 
 	protected final void atualizaDias() {
+		if(isSelecaoInvalida())
+			selecao = null;
+
 		int year = dataAtual.get(Calendar.YEAR);
 		int month = dataAtual.get(Calendar.MONTH);
 		Calendar base = new GregorianCalendar(year, month, 1);
@@ -217,6 +220,12 @@ public class Calendario extends JComponent {
 
 	private final class ControleCalendario extends MouseAdapter {
 
+		private Calendar offset(Calendar data, int offset) {
+			Calendar copia = (Calendar) data.clone();
+			copia.add(Calendar.DATE, offset);
+			return copia;
+		}
+
 		@Override
 		public void mousePressed(MouseEvent e) {
 			int left = getInsets().left-1;
@@ -239,14 +248,18 @@ public class Calendario extends JComponent {
 				}
 
 				if(isEnabled() && my > top && my <= bottom) {
-					Calendar backInicio = selecao == null? null : selecao.getInicio();
-					Calendar backFim = selecao == null? null : selecao.getFim();
+					Periodo backup = getSelecao();
 
 					int x = (mx-left) / dateWidth;
 					int y = (my-top) / dateHeight;
 
 					if(selecao == null)
 						selecao = new Periodo(dias[x][y], offset(dias[x][y], +1));
+
+					else if(!multiplos)
+						if(selecao.getInicio().equals(dias[x][y]))
+							selecao = null;
+						else selecao = new Periodo(dias[x][y], offset(dias[x][y], +1));
 
 					else {
 						if(selecao.getInicio().equals(dias[x][y]))
@@ -263,15 +276,13 @@ public class Calendario extends JComponent {
 						else selecao.setFim(offset(dias[x][y], +1));
 					}
 
-					if(isSelecaoInvalida()) {
-						selecao.setInicio(backInicio);
-						selecao.setFim(backFim);
-					}
+					if(isSelecaoInvalida())
+						selecao = backup;
 				}
 			}
 
 			if(e.getButton() == MouseEvent.BUTTON3)
-				clearSelecao();
+				selecao = null;
 
 			atualizaDias();
 		}

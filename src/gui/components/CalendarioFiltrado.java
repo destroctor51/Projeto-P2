@@ -1,6 +1,7 @@
 package gui.components;
 
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -21,7 +22,7 @@ public class CalendarioFiltrado extends Calendario {
 	 * Cria um novo CalendarioFiltrado default.
 	 */
 	public CalendarioFiltrado() {
-		periodos = new TreeSet<Periodo>();
+		periodos = new TreeSet<>();
 	}
 
 	/**
@@ -29,21 +30,66 @@ public class CalendarioFiltrado extends Calendario {
 	 * <p>
 	 * Periodos indisponiveis nao podem entrar em conflito uns com os outros e nao podem ser marcados pelo usuario.
 	 *
-	 * @param periodo  o periodo a ser adicionado, nao null
-	 * @return true se o periodo foi adicionado com sucesso, false caso contrario
+	 * @param periodo  o periodo a ser marcado
 	 */
-	public boolean adicionaPeriodoIndisponivel(Periodo periodo) {
+	public void marcaIndisponivel(Periodo periodo) {
 		if(periodo == null)
-			return false;
+			return;
+		
+		Set<Periodo> update = new TreeSet<>(periodos);
+		
+		for(Periodo p : periodos)
+			if(!periodo.entraEmConflito(p)) {
+				if(periodo.getInicio().equals(p.getFim()))
+					periodo.setInicio(p.getInicio());
+				if(periodo.getFim().equals(p.getInicio()))
+					periodo.setFim(p.getFim());
+			}
+			else if(periodo.contem(p))
+				continue;
+			else if(p.contem(periodo))
+				return;
+			else if(periodo.getInicio().before(p.getInicio()))
+				periodo.setFim(p.getFim());
+			else
+				periodo.setInicio(p.getInicio());
 
-		boolean operacaoValida = periodos.add(periodo);
+		while(update.remove(periodo));
+		update.add(periodo);
+		periodos = update;
+		atualizaDias();
+	}
 
-		if(operacaoValida) {
-			clearSelecao();
-			atualizaDias();
+	/**
+	 * Garante que um periodo estara disponivel para selecao no calendario
+	 *
+	 * @param periodo  o periodo a ser marcado
+	 */
+	public void marcaDisponivel(Periodo periodo) {
+		if(periodo == null)
+			return;
+		
+		Set<Periodo> update = new TreeSet<>();
+		
+		for(Periodo p : periodos) {
+			if(periodo.entraEmConflito(p))
+				if(periodo.contem(p))
+					continue;
+				else if(p.contem(periodo)) {
+					if(!p.getInicio().equals(periodo.getInicio()))
+						update.add(new Periodo(p.getInicio(), periodo.getInicio()));
+					if(!p.getFim().equals(periodo.getFim()))
+						update.add(new Periodo(periodo.getFim(), p.getFim()));
+				}
+				else if(periodo.getInicio().before(p.getInicio()))
+					update.add(new Periodo(periodo.getFim(), p.getFim()));
+				else
+					update.add(new Periodo(p.getInicio(), periodo.getInicio()));
+			else update.add(p);
 		}
 
-		return operacaoValida;
+		periodos = update;
+		atualizaDias();
 	}
 
 	@Override
@@ -58,6 +104,8 @@ public class CalendarioFiltrado extends Calendario {
 
 	@Override
 	protected boolean isSelecaoInvalida() {
+		if(periodos == null)
+			return false;
 		for(Periodo p : periodos)
 			if(p.entraEmConflito(getSelecao()))
 				return true;

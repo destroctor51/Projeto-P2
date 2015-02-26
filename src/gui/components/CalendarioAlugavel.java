@@ -89,6 +89,8 @@ public class CalendarioAlugavel extends Calendario {
 
 	@Override
 	protected boolean isSelecaoInvalida() {
+		if(categorias == null)
+			return false;
 		for(Requisito r : categorias.values())
 			if(!r.isDisponivel(getSelecao()))
 				return true;
