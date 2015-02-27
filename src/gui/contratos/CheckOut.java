@@ -9,7 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -42,7 +41,6 @@ public class CheckOut extends JPanel {
 	private SuperTextField NameField;
 	private JTextField cartaoField;
 	private JLabel ErrorLabel;
-	private DefaultListModel<Contrato> lista1 = new DefaultListModel<>();
 	private JList<Hospede> list;
 	private JList<Contrato> list_1;
 
@@ -52,7 +50,7 @@ public class CheckOut extends JPanel {
 	public CheckOut() {
 
 		this.setName("Realizar Check out");
-		
+
 		JPanel panel = new JPanel();
 
 		JPanel panel_1 = new JPanel();
@@ -110,52 +108,52 @@ public class CheckOut extends JPanel {
 		ErrorLabel.setIcon(new ImageIcon(CheckOut.class.getResource("/gui/images/error.png")));
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+				groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(scrollPane_1, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
-						.addComponent(scrollPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
-						.addComponent(panel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
-						.addComponent(panel_1, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addComponent(ErrorLabel, GroupLayout.PREFERRED_SIZE, 315, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, 170, Short.MAX_VALUE)
-							.addComponent(btnCancelar)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(btnConfirmar))
-						.addComponent(panel_2, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
-						.addComponent(label_2, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap())
-		);
+						.addContainerGap()
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(scrollPane_1, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
+								.addComponent(scrollPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
+								.addComponent(panel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
+								.addComponent(panel_1, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
+								.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+										.addComponent(ErrorLabel, GroupLayout.PREFERRED_SIZE, 315, GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(ComponentPlacement.RELATED, 170, Short.MAX_VALUE)
+										.addComponent(btnCancelar)
+										.addPreferredGap(ComponentPlacement.UNRELATED)
+										.addComponent(btnConfirmar))
+										.addComponent(panel_2, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
+										.addComponent(label_2, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
+										.addContainerGap())
+				);
 		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+				groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
-					.addGap(12)
-					.addComponent(label_2)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-							.addComponent(btnConfirmar)
-							.addComponent(btnCancelar))
-						.addComponent(ErrorLabel, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap())
-		);
+						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
+						.addGap(12)
+						.addComponent(label_2)
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+										.addComponent(btnConfirmar)
+										.addComponent(btnCancelar))
+										.addComponent(ErrorLabel, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
+										.addContainerGap())
+				);
 
 		list_1 = new JList<>();
 		list_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Contrato cont = (Contrato) list_1.getSelectedValue();
+				Contrato cont = list_1.getSelectedValue();
 				if (cont != null)
 					setContrato(cont);
 			}
@@ -166,7 +164,7 @@ public class CheckOut extends JPanel {
 		list.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Hospede hosp = (Hospede) list.getSelectedValue();
+				Hospede hosp = list.getSelectedValue();
 				if (hosp != null) {
 					setHospede(hosp);
 					preencheContratos(hosp);
@@ -234,21 +232,17 @@ public class CheckOut extends JPanel {
 		List<Hospede> elementos = new LinkedList<>();
 		for(Hospede hospede: Sistema.getHotel().getHospedes())
 			elementos.add(hospede);
-		
+
 		Filtro.ordenaToString(elementos);
-		Filtro.preencheJList(elementos, list);	
+		Filtro.preencheJList(elementos, list);
 	}
 
 	private void preencheContratos(Hospede hosp) {
-		lista1.clear();
-		Iterator<Contrato> contratos = hosp.getContratos();
+		DefaultListModel<Contrato> dml = new DefaultListModel<>();
 
-		while (contratos.hasNext()) {
-			Contrato contrato = contratos.next();
-
-			if (contrato.getEstado().equals(EstadoDeContrato.ABERTO))
-				lista1.addElement(contrato);
-		}
-		list_1.setModel(lista1);
+		for(Contrato c : hosp.getContratos())
+			if(c.getEstado().equals(EstadoDeContrato.ABERTO))
+				dml.addElement(c);
+		list_1.setModel(dml);
 	}
 }

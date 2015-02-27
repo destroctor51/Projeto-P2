@@ -2,9 +2,13 @@ package gui.contratos;
 
 import gui.Menu;
 import gui.Sistema;
+import gui.components.CalendarioAlugavel;
 import gui.components.SuperTextField;
 
 import java.awt.Color;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -19,9 +23,15 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.AncestorListener;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import utils.Filtro;
@@ -30,20 +40,6 @@ import core.hotel.Hospede;
 import core.servicos.devolviveis.Quarto;
 import core.tempo.Estacao;
 import core.tempo.Periodo;
-
-import javax.swing.event.AncestorListener;
-import javax.swing.event.AncestorEvent;
-
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-
-import gui.components.CalendarioAlugavel;
-
-import javax.swing.JSpinner;
-import javax.swing.SpinnerNumberModel;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.ChangeEvent;
 
 public class RealizaReserva extends JPanel {
 	private static final long serialVersionUID = 5463443942126778065L;
@@ -71,14 +67,17 @@ public class RealizaReserva extends JPanel {
 		this.setName("Realizar Reserva");
 
 		addAncestorListener(new AncestorListener() {
+			@Override
 			public void ancestorAdded(AncestorEvent arg0) {
 				Filtro.exibeFiltrado(NameField.getText(), Sistema.getHotel()
 						.getHospedes(), list_1);
 			}
 
+			@Override
 			public void ancestorMoved(AncestorEvent arg0) {
 			}
 
+			@Override
 			public void ancestorRemoved(AncestorEvent arg0) {
 			}
 		});
@@ -141,7 +140,7 @@ public class RealizaReserva extends JPanel {
 		list_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Hospede hosp = (Hospede) list_1.getSelectedValue();
+				Hospede hosp = list_1.getSelectedValue();
 				if (hosp != null)
 					setHospede(hosp);
 			}
@@ -253,6 +252,7 @@ public class RealizaReserva extends JPanel {
 
 		spinner = new JSpinner();
 		spinner.addChangeListener(new ChangeListener() {
+			@Override
 			public void stateChanged(ChangeEvent arg0) {
 				int num = (int) spinner.getValue();
 				calendarioAlugavel.setRequisito("quartop", num);
@@ -278,6 +278,7 @@ public class RealizaReserva extends JPanel {
 
 		spinner_1 = new JSpinner();
 		spinner_1.addChangeListener(new ChangeListener() {
+			@Override
 			public void stateChanged(ChangeEvent arg0) {
 				int num = (int) spinner_1.getValue();
 				calendarioAlugavel.setRequisito("quartols", num);
@@ -303,6 +304,7 @@ public class RealizaReserva extends JPanel {
 
 		spinner_2 = new JSpinner();
 		spinner_2.addChangeListener(new ChangeListener() {
+			@Override
 			public void stateChanged(ChangeEvent arg0) {
 				int num = (int) spinner_2.getValue();
 				calendarioAlugavel.setRequisito("quartold", num);
@@ -328,6 +330,7 @@ public class RealizaReserva extends JPanel {
 
 		spinner_3 = new JSpinner();
 		spinner_3.addChangeListener(new ChangeListener() {
+			@Override
 			public void stateChanged(ChangeEvent arg0) {
 				int num = (int) spinner_3.getValue();
 				calendarioAlugavel.setRequisito("quartolt", num);
@@ -354,6 +357,7 @@ public class RealizaReserva extends JPanel {
 
 		spinner_4 = new JSpinner();
 		spinner_4.addChangeListener(new ChangeListener() {
+			@Override
 			public void stateChanged(ChangeEvent arg0) {
 				int num = (int) spinner_4.getValue();
 				calendarioAlugavel.setRequisito("quartoes", num);
@@ -379,6 +383,7 @@ public class RealizaReserva extends JPanel {
 
 		spinner_5 = new JSpinner();
 		spinner_5.addChangeListener(new ChangeListener() {
+			@Override
 			public void stateChanged(ChangeEvent arg0) {
 				int num = (int) spinner_5.getValue();
 				calendarioAlugavel.setRequisito("quartoed", num);
@@ -405,6 +410,7 @@ public class RealizaReserva extends JPanel {
 
 		spinner_6 = new JSpinner();
 		spinner_6.addChangeListener(new ChangeListener() {
+			@Override
 			public void stateChanged(ChangeEvent arg0) {
 				int num = (int) spinner_6.getValue();
 				calendarioAlugavel.setRequisito("quartoet", num);
@@ -571,7 +577,7 @@ public class RealizaReserva extends JPanel {
 		}
 
 		Contrato contrato = null;
-		Iterator<Contrato> contratos = hospede.getContratos();
+		Iterator<Contrato> contratos = hospede.getContratos().iterator();
 
 		while (contratos.hasNext()) {
 			contrato = contratos.next();

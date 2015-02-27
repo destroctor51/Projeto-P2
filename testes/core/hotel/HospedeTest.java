@@ -4,8 +4,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import core.hotel.Hospede;
-
 public class HospedeTest {
 	private Hospede hospede;
 
@@ -49,7 +47,7 @@ public class HospedeTest {
 
 	@Test
 	public void testaSets() {
-		Assert.assertFalse(hospede.getContratos().hasNext());
+		Assert.assertFalse(hospede.getContratos().size() > 0);
 
 		Assert.assertEquals("99999999", hospede.getTelefone());
 		hospede.setTelefone("11111111");

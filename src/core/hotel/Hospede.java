@@ -3,7 +3,6 @@ package core.hotel;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -167,13 +166,12 @@ public class Hospede implements Serializable {
 	}
 
 	/**
-	 * Recupera um iterador dos contratos do hospede.
+	 * Recupera os contratos do hospede.
 	 *
-	 * @return
-	 * 			Iterador de contratos do hospede.
+	 * @return a lista de contratos do hospede.
 	 */
-	public Iterator<Contrato> getContratos() {
-		return contratos.iterator();
+	public List<Contrato> getContratos() {
+		return contratos;
 	}
 
 	/**
