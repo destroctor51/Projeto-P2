@@ -79,6 +79,16 @@ public class Estacao {
 	public boolean addPeriodo(Periodo novoPeriodo) {
 		return periodos.add(novoPeriodo);
 	}
+	
+	/**
+	 * 
+	 * @param periodo  periodo a ser removido.
+	 * @return se a acao foi realizada com sucesso ou nao.
+	 * 
+	 */
+	public boolean removePeriodo(Periodo periodo) {
+		return periodos.remove(periodo);
+	}
 
 	@Override
 	public String toString() {

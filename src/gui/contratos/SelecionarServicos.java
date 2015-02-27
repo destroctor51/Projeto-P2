@@ -99,7 +99,7 @@ public class SelecionarServicos extends JPanel {
 			}
 		});
 
-		JButton btnCancelar = new JButton("Retornar");
+		JButton btnCancelar = new JButton("Voltar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Sistema.setTela(tela);

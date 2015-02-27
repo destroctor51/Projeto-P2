@@ -39,7 +39,7 @@ public class PesquisaHospede extends JPanel {
 	private static JList<Hospede> list = new JList<>();
 	private JLabel errorLabel;
 	private JPanel tela = this;
-
+                    
 	private SuperTextField superTextField; 
 	/**
 	 * Create the panel.
@@ -211,9 +211,15 @@ public class PesquisaHospede extends JPanel {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			if (e.getClickCount() == 2) {
-				int index = list.locationToIndex(e.getPoint());
-				ListModel<Hospede> lm = list.getModel();
-				Object item = lm.getElementAt(index);
+				int index;
+				Object item;
+				try {
+					index = list.locationToIndex(e.getPoint());
+					ListModel<Hospede> lm = list.getModel();
+					item = lm.getElementAt(index);
+				} catch (ArrayIndexOutOfBoundsException ex) {
+					return;
+				}
 				list.ensureIndexIsVisible(index);
 				Sistema.setTela(new AtualizaHospede((Hospede) item,tela));
 			}

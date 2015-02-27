@@ -5,6 +5,7 @@ import gui.contratos.AtualizarContratos;
 import gui.contratos.CheckIn;
 import gui.contratos.CheckOut;
 import gui.contratos.RealizaReserva;
+import gui.estacoes.Estacoes;
 import gui.hospede.PesquisaHospede;
 import gui.opinioes.Opinioes;
 import gui.refeicoes.Refeicoes;
@@ -176,9 +177,13 @@ public class Menu extends JPanel {
 		mainPanel.add(btnNewButton_6, gbc_btnNewButton_6);
 
 		JButton btnNewButton_7 = new JButton("Esta\u00E7\u00F5es");
+		btnNewButton_7.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Sistema.setTela(new Estacoes());
+			}
+		});
 		btnNewButton_7.setMinimumSize(new Dimension(150, 150));
 		btnNewButton_7.setEnabled(Sistema.getUsuario().possuiPermissao(Permissao.ADMINISTRADOR));
-		btnNewButton_7.setEnabled(false); // OUT OF ORDER
 		btnNewButton_7.setFocusable(false);
 		btnNewButton_7.setFocusPainted(false);
 		btnNewButton_7.setPreferredSize(new Dimension(150, 150));

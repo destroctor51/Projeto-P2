@@ -351,9 +351,15 @@ public class Servicos extends JPanel {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			if (e.getClickCount() == 2) {
-				int index = list.locationToIndex(e.getPoint());
-				ListModel<Object> dlm = list.getModel();
-				Object item = dlm.getElementAt(index);
+				int index;
+				Object item;
+				try {
+					index = list.locationToIndex(e.getPoint());
+					ListModel<Object> dlm = list.getModel();
+					item = dlm.getElementAt(index);
+				} catch (ArrayIndexOutOfBoundsException ex) {
+					return;
+				}
 				list.ensureIndexIsVisible(index);
 				Sistema.setTela(new AtualizarServico(tela, item));
 			}

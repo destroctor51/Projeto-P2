@@ -322,9 +322,15 @@ public class Refeicoes extends JPanel {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			if (e.getClickCount() == 2) {
-				int index = list.locationToIndex(e.getPoint());
-				ListModel<Refeicao> dlm = list.getModel();
-				Object item = dlm.getElementAt(index);
+				int index;
+				Object item;
+				try {
+					index = list.locationToIndex(e.getPoint());
+					ListModel<Refeicao> dlm = list.getModel();
+					item = dlm.getElementAt(index);
+				} catch (ArrayIndexOutOfBoundsException ex) {
+					return;
+				}	
 				list.ensureIndexIsVisible(index);
 				String nome = (String) Refeicoes.cbRestaurantes.getSelectedItem();
 				Sistema.setTela(new AtualizarRefeicao(tela, nome,(Refeicao) item));

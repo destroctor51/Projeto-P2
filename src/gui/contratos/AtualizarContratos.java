@@ -102,7 +102,7 @@ public class AtualizarContratos extends JPanel {
 			}
 		});
 
-		JButton btnCancelar = new JButton("Cancelar");
+		JButton btnCancelar = new JButton("Voltar");
 		btnCancelar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
