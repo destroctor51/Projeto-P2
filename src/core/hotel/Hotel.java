@@ -143,7 +143,28 @@ public class Hotel implements Serializable {
 	public List<Babysitter> getBabas() {
 		return babas;
 	}
+	
 
+	/**
+	 * Recupera uma lista com os quartos disponiveis no hotel em um periodo.
+	 *
+	 * @param periodo
+	 * 			O periodo desejado para ver os quartos disponiveis.
+	 * @return
+	 * 			Lista de quartos disponiveis no periodo.
+	 */
+	public List<Babysitter> getBabasDisponiveis(Periodo periodo) {
+		List<Babysitter> BabysittersDisponiveis = new ArrayList<>();
+
+		for (Babysitter Babysitter : babas) {
+			boolean disponivel = true;
+			for(Periodo p : Babysitter.getHistorico())
+				disponivel &= !p.entraEmConflito(periodo);
+			if(disponivel) BabysittersDisponiveis.add(Babysitter);
+		}
+
+		return BabysittersDisponiveis;
+	}
 	/**
 	 * Registra uma nova baba contratada pelo hotel.
 	 *
@@ -447,4 +468,5 @@ public class Hotel implements Serializable {
 	public String toString() {
 		return nome;
 	}
+	
 }

@@ -3,12 +3,14 @@ package gui.contratos;
 import gui.Menu;
 import gui.Sistema;
 import gui.components.SuperTextField;
+import gui.relatorios.FaturamentoHospede;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -198,15 +200,15 @@ public class CheckOut extends JPanel {
 				return;
 			}
 
-			if (!(contrato.realizarCheckOut(cartao))) {
+			if (!(contrato.realizarCheckOut(cartao, new GregorianCalendar()))) {
 				ErrorLabel.setText("Pelo menos um serviço alugado ainda não foi devolvido.");
 				ErrorLabel.setVisible(true);
 				return;
 			}
 
-			contrato.realizarCheckOut(cartao);
+			contrato.realizarCheckOut(cartao, new GregorianCalendar());
 			ErrorLabel.setVisible(false);
-			Sistema.setTela(new Menu(true));
+			Sistema.setTela(new FaturamentoHospede(this,contrato,hospede));
 		} catch (IllegalArgumentException e) {
 			ErrorLabel.setText("Cartão inválido.");
 			ErrorLabel.setVisible(true);

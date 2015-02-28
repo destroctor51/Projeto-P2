@@ -56,6 +56,11 @@ public class ContratoTest {
 		Assert.assertTrue(contrato.removeServico(cama));
 		Assert.assertEquals(0, contrato.getServicos().size());
 		Assert.assertNotEquals(1, contrato.getServicos().size());
+		
+		Assert.assertTrue(contrato.realizarCheckIn(cartao));
+		Assert.assertTrue(contrato.realizarCheckOut(cartao, new GregorianCalendar()));
+		Assert.assertFalse(contrato.adicionaServico(cama));
+		Assert.assertFalse(contrato.removeServico(cama));
 	}
 
 	@Test
@@ -91,7 +96,7 @@ public class ContratoTest {
 	@Test
 	public void testaCheckInOut() {
 		Assert.assertEquals(contrato.getEstado(), EstadoDeContrato.PENDENTE);
-		Assert.assertFalse(contrato.realizarCheckOut(cartao));
+		Assert.assertFalse(contrato.realizarCheckOut(cartao, new GregorianCalendar()));
 
 		Assert.assertFalse(contrato.realizarCheckIn(null));
 		Assert.assertTrue(contrato.realizarCheckIn(cartao));
@@ -102,12 +107,25 @@ public class ContratoTest {
 		quarto.aluga(new Periodo(new GregorianCalendar(2015, 0, 15), new GregorianCalendar(2015, 0, 25)));
 		contrato.adicionaServico(new Refeicao("barata frita", 12.25f));
 		contrato.adicionaServico(quarto);
+		
+		try {
+			Assert.assertFalse(contrato.realizarCheckOut(null, new GregorianCalendar()));
+			Assert.fail();
+		} catch(IllegalArgumentException iae) {}
+		
+		try {
+			Assert.assertFalse(contrato.realizarCheckOut(cartao, null));
+			Assert.fail();
+		} catch(IllegalArgumentException iae) {}
 
-		Assert.assertFalse(contrato.realizarCheckOut(null));
-		Assert.assertFalse(contrato.realizarCheckOut(cartao));
-
+		Assert.assertEquals(null, contrato.getDataCheckOut());
+		Assert.assertFalse(contrato.realizarCheckOut(cartao, new GregorianCalendar(2015, 2, 23)));
+		
 		((Quarto) contrato.getServicos().get(1)).devolve(new GregorianCalendar(2015, 0, 25));
-		Assert.assertTrue(contrato.realizarCheckOut(cartao));
+		Assert.assertFalse(contrato.realizarCheckOut("salsa", new GregorianCalendar(2015, 2, 23)));
+		
+		Assert.assertTrue(contrato.realizarCheckOut(cartao, new GregorianCalendar(2015, 2, 23)));
+		Assert.assertEquals(new GregorianCalendar(2015, 2, 23), contrato.getDataCheckOut());
 	}
 
 	@Test

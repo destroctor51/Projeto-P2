@@ -1,5 +1,6 @@
 package core.tempo;
 
+import java.io.Serializable;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -14,8 +15,12 @@ import java.util.TreeSet;
  * @version 1.0
  */
 
-public class Estacao {
+public class Estacao implements Cloneable, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Set<Periodo> periodos = new TreeSet<>();
 	private double tarifa;
 	private String id;

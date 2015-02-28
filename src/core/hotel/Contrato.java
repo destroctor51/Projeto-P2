@@ -2,6 +2,7 @@ package core.hotel;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -22,6 +23,7 @@ public class Contrato implements Serializable {
 	private String cartao;
 	private double tarifa;
 	private List<Pagavel> servicos = new ArrayList<Pagavel>();
+	private Calendar dataCheckOut;
 
 	// construtor
 
@@ -41,6 +43,15 @@ public class Contrato implements Serializable {
 		this.cartao = cartao;
 		this.tarifa = tarifa;
 	}
+	
+	/**
+	 * Recupera a data do check out.
+	 *
+	 * @return data do check out, null se contrato nao estiver fechado
+	 */
+	public Calendar getDataCheckOut() {
+		return dataCheckOut;
+	}
 
 	// metodos
 
@@ -52,16 +63,6 @@ public class Contrato implements Serializable {
 	 */
 	public EstadoDeContrato getEstado() {
 		return estado;
-	}
-
-	/**
-	 * Seta o estado do contrato.
-	 *
-	 * @param estado
-	 * 			O estado a ser colocado no contrato.
-	 */
-	private void setEstado(EstadoDeContrato estado) {
-		this.estado = estado;
 	}
 
 	/**
@@ -78,7 +79,7 @@ public class Contrato implements Serializable {
 	 * Recupera a tarifa adicionada ao contrato.
 	 *
 	 * @return
-	 * 			A tarifa a que o contrato está sujeito.
+	 * 			A tarifa a que o contrato estÃ¡ sujeito.
 	 */
 	public double getTarifa() {
 		return tarifa;
@@ -163,7 +164,7 @@ public class Contrato implements Serializable {
 			return false;
 
 		if (getEstado().equals(EstadoDeContrato.PENDENTE)) {
-			setEstado(EstadoDeContrato.ABERTO);
+			estado = EstadoDeContrato.ABERTO;
 			return true;
 		}
 
@@ -176,7 +177,11 @@ public class Contrato implements Serializable {
 	 * @param cartao  o numero do cartao do contrato
 	 * @return boolean representando se a acao foi ou nao realizada
 	 */
-	public boolean realizarCheckOut(String cartao) {
+	public boolean realizarCheckOut(String cartao, Calendar data) {
+		
+		if (cartao == null || data == null)
+			throw new IllegalArgumentException();
+		
 		if (!(this.cartao.equals(cartao)))
 			return false;
 
@@ -185,7 +190,8 @@ public class Contrato implements Serializable {
 				return false;
 
 		if (getEstado().equals(EstadoDeContrato.ABERTO)) {
-			setEstado(EstadoDeContrato.FECHADO);
+			estado = EstadoDeContrato.FECHADO;
+			dataCheckOut = data;
 			return true;
 		}
 

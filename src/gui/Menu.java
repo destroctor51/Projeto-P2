@@ -9,6 +9,7 @@ import gui.estacoes.Estacoes;
 import gui.hospede.PesquisaHospede;
 import gui.opinioes.Opinioes;
 import gui.refeicoes.Refeicoes;
+import gui.relatorios.MenuRelatorios;
 import gui.servicos.Servicos;
 
 import java.awt.CardLayout;
@@ -143,19 +144,23 @@ public class Menu extends JPanel {
 		gbc_btnNewButton_4.gridy = 2;
 		mainPanel.add(btnNewButton_4, gbc_btnNewButton_4);
 
-		JButton btnNewButton_5 = new JButton("Relat\u00F3rios");
-		btnNewButton_5.setMinimumSize(new Dimension(150, 150));
-		btnNewButton_5.setEnabled(Sistema.getUsuario().possuiPermissao(Permissao.GERENTE));
-		btnNewButton_5.setEnabled(false); // OUT OF ORDER
-		btnNewButton_5.setFocusable(false);
-		btnNewButton_5.setFocusPainted(false);
-		btnNewButton_5.setPreferredSize(new Dimension(150, 150));
+		JButton btnRelatorios = new JButton("Relat\u00F3rios");
+		btnRelatorios.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Sistema.setTela(new MenuRelatorios());
+			}
+		});
+		btnRelatorios.setMinimumSize(new Dimension(150, 150));
+		btnRelatorios.setEnabled(Sistema.getUsuario().possuiPermissao(Permissao.GERENTE));
+		btnRelatorios.setFocusable(false);
+		btnRelatorios.setFocusPainted(false);
+		btnRelatorios.setPreferredSize(new Dimension(150, 150));
 		GridBagConstraints gbc_btnNewButton_5 = new GridBagConstraints();
 		gbc_btnNewButton_5.anchor = GridBagConstraints.NORTH;
 		gbc_btnNewButton_5.insets = new Insets(0, 0, 0, 5);
 		gbc_btnNewButton_5.gridx = 2;
 		gbc_btnNewButton_5.gridy = 2;
-		mainPanel.add(btnNewButton_5, gbc_btnNewButton_5);
+		mainPanel.add(btnRelatorios, gbc_btnNewButton_5);
 
 		JButton btnNewButton_6 = new JButton("Servi\u00E7os");
 		btnNewButton_6.setMinimumSize(new Dimension(150, 150));
