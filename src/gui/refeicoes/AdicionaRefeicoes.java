@@ -1,34 +1,32 @@
-package gui.contratos;
+package gui.refeicoes;
 
 import gui.Sistema;
 
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-
-import javax.swing.JLabel;
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JList;
-import javax.swing.ImageIcon;
-
+import java.awt.Color;
 import java.awt.Component;
-
-import javax.swing.ScrollPaneConstants;
-import javax.swing.JComboBox;
-
-import core.hotel.Contrato;
-import core.hotel.Hospede;
-import core.servicos.pagaveis.Refeicao;
-
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+
+import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
+
+import core.hotel.Contrato;
+import core.hotel.EstadoDeContrato;
+import core.hotel.Hospede;
+import core.servicos.pagaveis.Refeicao;
 
 public class AdicionaRefeicoes extends JPanel {
 	/**
@@ -37,13 +35,13 @@ public class AdicionaRefeicoes extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private Hospede hospede;
 	private DefaultListModel<Object> lista1 = new DefaultListModel<>();
-	private JComboBox<Contrato> comboBox;
-	private JLabel ErrorLabel;
-
+	private JComboBox<Contrato> cbContratos;
+	private JLabel errorLabel;
+	
 	/**
 	 * Create the panel.
 	 */
-	public AdicionaRefeicoes(final List<Refeicao> escolhidas) {
+	public AdicionaRefeicoes(final List<Refeicao> escolhidas, final JPanel tela) {
 		setName("Adiciona Refeição");
 		setVisible(false);
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -55,13 +53,13 @@ public class AdicionaRefeicoes extends JPanel {
 				Double.MIN_VALUE };
 		setLayout(gridBagLayout);
 
-		JLabel lblNewLabel_1 = new JLabel("Selecione o hospede:");
+		JLabel lblSelecionaHospede = new JLabel("Selecione o hospede:");
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
 		gbc_lblNewLabel_1.anchor = GridBagConstraints.SOUTHWEST;
 		gbc_lblNewLabel_1.insets = new Insets(0, 0, 10, 5);
 		gbc_lblNewLabel_1.gridx = 1;
 		gbc_lblNewLabel_1.gridy = 0;
-		add(lblNewLabel_1, gbc_lblNewLabel_1);
+		add(lblSelecionaHospede, gbc_lblNewLabel_1);
 
 		JPanel panel_1 = new JPanel();
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
@@ -95,7 +93,8 @@ public class AdicionaRefeicoes extends JPanel {
 				hospede = (Hospede) list.getSelectedValue();
 				if (hospede != null) {
 					for (Contrato c : hospede.getContratos()) {
-						comboBox.addItem(c);
+						if (c.getEstado() == EstadoDeContrato.ABERTO)
+							cbContratos.addItem(c);
 					}
 				}
 			}
@@ -108,13 +107,13 @@ public class AdicionaRefeicoes extends JPanel {
 		}
 		list.setModel(lista1);
 
-		JLabel lblNewLabel_2 = new JLabel("Selecione o contrato:");
+		JLabel lblSelecioneContrato = new JLabel("Selecione o contrato:");
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
 		gbc_lblNewLabel_2.anchor = GridBagConstraints.SOUTHWEST;
 		gbc_lblNewLabel_2.insets = new Insets(0, 0, 10, 5);
 		gbc_lblNewLabel_2.gridx = 1;
 		gbc_lblNewLabel_2.gridy = 2;
-		add(lblNewLabel_2, gbc_lblNewLabel_2);
+		add(lblSelecioneContrato, gbc_lblNewLabel_2);
 
 		JPanel panel_2 = new JPanel();
 		GridBagConstraints gbc_panel_2 = new GridBagConstraints();
@@ -131,12 +130,12 @@ public class AdicionaRefeicoes extends JPanel {
 		gbl_panel_2.rowWeights = new double[] { 1.0, Double.MIN_VALUE };
 		panel_2.setLayout(gbl_panel_2);
 
-		comboBox = new JComboBox<Contrato>();
+		cbContratos = new JComboBox<Contrato>();
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBox.gridx = 0;
 		gbc_comboBox.gridy = 0;
-		panel_2.add(comboBox, gbc_comboBox);
+		panel_2.add(cbContratos, gbc_comboBox);
 
 		JPanel panel = new JPanel();
 		GridBagConstraints gbc_panel = new GridBagConstraints();
@@ -153,57 +152,59 @@ public class AdicionaRefeicoes extends JPanel {
 		gbl_panel.rowWeights = new double[] { 0.0 };
 		panel.setLayout(gbl_panel);
 
-		ErrorLabel = new JLabel("");
+		errorLabel = new JLabel("");
+		errorLabel.setForeground(Color.red);
 		GridBagConstraints gbc_ErrorLabel = new GridBagConstraints();
 		gbc_ErrorLabel.anchor = GridBagConstraints.WEST;
 		gbc_ErrorLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_ErrorLabel.gridx = 0;
 		gbc_ErrorLabel.gridy = 0;
-		panel.add(ErrorLabel, gbc_ErrorLabel);
-		ErrorLabel.setVisible(false);
-		ErrorLabel.setIcon(new ImageIcon(AdicionaRefeicoes.class
+		panel.add(errorLabel, gbc_ErrorLabel);
+		errorLabel.setVisible(false);
+		errorLabel.setIcon(new ImageIcon(AdicionaRefeicoes.class
 				.getResource("/gui/images/error.png")));
 
-		JButton btnNewButton_1 = new JButton("Confirmar");
-		btnNewButton_1.addActionListener(new ActionListener() {
+		JButton btnConfirmar = new JButton("Confirmar");
+		btnConfirmar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Contrato contrato = (Contrato) comboBox.getSelectedItem();
+				Contrato contrato = (Contrato) cbContratos.getSelectedItem();
 				if (hospede == null) {
-					ErrorLabel.setText("Nenhum hospede foi selecionado.");
-					ErrorLabel.setVisible(true);
+					errorLabel.setText("Nenhum hospede foi selecionado.");
+					errorLabel.setVisible(true);
 					return;
 				}
-				if (contrato == null) {
-					ErrorLabel.setText("Nenhum contrato foi selecionado.");
-					ErrorLabel.setVisible(true);
+				else if (cbContratos.getSelectedIndex() == -1) {
+					errorLabel.setText("Nenhum contrato foi selecionado.");
+					errorLabel.setVisible(true);
 					return;
 				}
 				
-				ErrorLabel.setVisible(false);
+				errorLabel.setVisible(false);
 				for (Refeicao r : escolhidas){
 					contrato.adicionaServico(r);
+					Sistema.setTela(tela);
 				}
 			}
-			
 		});
+		
 		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
 		gbc_btnNewButton_1.anchor = GridBagConstraints.EAST;
 		gbc_btnNewButton_1.insets = new Insets(0, 0, 5, 10);
 		gbc_btnNewButton_1.gridx = 1;
 		gbc_btnNewButton_1.gridy = 0;
-		panel.add(btnNewButton_1, gbc_btnNewButton_1);
+		panel.add(btnConfirmar, gbc_btnNewButton_1);
 
-		JButton btnNewButton = new JButton("Retornar");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnRetornar = new JButton("Retornar");
+		btnRetornar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Sistema.setTela(new EscolheRefeicoes(escolhidas));
+				Sistema.setTela(tela);
 			}
 		});
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
 		gbc_btnNewButton.gridx = 2;
 		gbc_btnNewButton.gridy = 0;
-		panel.add(btnNewButton, gbc_btnNewButton);
+		panel.add(btnRetornar, gbc_btnNewButton);
 
 	}
 }

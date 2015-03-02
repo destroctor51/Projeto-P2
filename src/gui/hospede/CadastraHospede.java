@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import utils.Internet;
 import core.hotel.Hospede;
 
 public class CadastraHospede extends JPanel {
@@ -33,7 +34,7 @@ public class CadastraHospede extends JPanel {
 	 * Create the panel.
 	 */
 	public CadastraHospede(final JPanel tela) {
-		setName("Cadastra Hóspede\n");
+		setName("Cadastra H\u00F3spede\n");
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWeights = new double[] { 1.0 };
 		gridBagLayout.rowWeights = new double[] { 0.0, 1.0, 0.0 };
@@ -220,7 +221,7 @@ public class CadastraHospede extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 
 				try {
-					if(cadastra())
+					if (cadastra())
 						Sistema.setTela(tela);
 				} catch (Exception e1) {
 					errorLabel.setText(e1.getMessage());
@@ -240,26 +241,25 @@ public class CadastraHospede extends JPanel {
 			errorLabel.setVisible(true);
 			return false;
 		}
-		
-		String telefone = tfTelefone.getText();
 
-		if (telefone.equals("") || !checaValorString(telefone)) {
+		String telefone = tfTelefone.getText();
+		
+		if (!validaTelefone(telefone)) {
 			errorLabel.setText("Telefone invalido.");
 			errorLabel.setVisible(true);
 			return false;
 		}
-		
+
 		String cpf = tfCpf.getText();
 
-		if (cpf.equals("") || !checaValorString(cpf)|| !Hospede.verificaCpf(cpf)) {
+		if (cpf.equals("") || !checaValorString(cpf) || !Hospede.verificaCpf(cpf)) {
 			errorLabel.setText("Cpf invalido.");
 			errorLabel.setVisible(true);
 			return false;
 		}
 
 		String email = tfEmail.getText();
-
-		if (email.equals("") || email.length() < 3) {
+		if (!Internet.isEmailValido(email)) {
 			errorLabel.setText("Email invalido.");
 			errorLabel.setVisible(true);
 			return false;
@@ -280,7 +280,7 @@ public class CadastraHospede extends JPanel {
 			errorLabel.setVisible(true);
 			return false;
 		}
-		
+
 		Sistema.getHotel().adicionaHospede(nome, telefone, cpf, email, cidade,
 				endereco);
 		errorLabel.setVisible(false);
@@ -293,4 +293,12 @@ public class CadastraHospede extends JPanel {
 				return false;
 		return true;
 	}
+
+	private boolean validaTelefone(String phone) {
+		boolean retval = false;
+		String phoneNumberPattern = "\\d{3}-\\d{8}";
+		retval = phone.matches(phoneNumberPattern);
+		return retval;
+	}
+
 }

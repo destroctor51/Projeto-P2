@@ -3,7 +3,6 @@ package gui;
 import gui.contas.Contas;
 import gui.contratos.AtualizarContratos;
 import gui.contratos.CheckInOut;
-import gui.contratos.EscolheRefeicoes;
 import gui.contratos.RealizaReserva;
 import gui.estacoes.Estacoes;
 import gui.hospede.PesquisaHospede;
@@ -19,13 +18,11 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import core.login.Permissao;
-import core.servicos.pagaveis.Refeicao;
-
 /**
  * Essa tela conecta todas as outras do sistema.
  *
@@ -205,7 +202,7 @@ public class Menu extends JPanel {
 		GridBagLayout gbl_contractPanel = new GridBagLayout();
 		gbl_contractPanel.rowHeights = new int[] {0, 0, 0};
 		gbl_contractPanel.columnWidths = new int[] {0, 0, 0, 0, 0, 0};
-		gbl_contractPanel.columnWeights = new double[]{1.0, 0.3, 0.3, 0.3, 0.3, 1.0};
+		gbl_contractPanel.columnWeights = new double[]{1.0, 0.0, 0.3, 0.3, 0.3, 1.0};
 		gbl_contractPanel.rowWeights = new double[]{1.0, 0.0, 1.0};
 		contractPanel.setLayout(gbl_contractPanel);
 
@@ -222,7 +219,7 @@ public class Menu extends JPanel {
 		btnNewButton_8.setPreferredSize(new Dimension(150, 150));
 		GridBagConstraints gbc_btnNewButton_8 = new GridBagConstraints();
 		gbc_btnNewButton_8.insets = new Insets(0, 0, 5, 5);
-		gbc_btnNewButton_8.gridx = 1;
+		gbc_btnNewButton_8.gridx = 2;
 		gbc_btnNewButton_8.gridy = 1;
 		contractPanel.add(btnNewButton_8, gbc_btnNewButton_8);
 
@@ -239,7 +236,7 @@ public class Menu extends JPanel {
 		btnNewButton_9.setPreferredSize(new Dimension(150, 150));
 		GridBagConstraints gbc_btnNewButton_9 = new GridBagConstraints();
 		gbc_btnNewButton_9.insets = new Insets(0, 0, 5, 5);
-		gbc_btnNewButton_9.gridx = 2;
+		gbc_btnNewButton_9.gridx = 3;
 		gbc_btnNewButton_9.gridy = 1;
 		contractPanel.add(btnNewButton_9, gbc_btnNewButton_9);
 
@@ -256,59 +253,24 @@ public class Menu extends JPanel {
 		btnNewButton_10.setPreferredSize(new Dimension(150, 150));
 		GridBagConstraints gbc_btnNewButton_10 = new GridBagConstraints();
 		gbc_btnNewButton_10.insets = new Insets(0, 0, 5, 5);
-		gbc_btnNewButton_10.gridx = 3;
+		gbc_btnNewButton_10.gridx = 4;
 		gbc_btnNewButton_10.gridy = 1;
 		contractPanel.add(btnNewButton_10, gbc_btnNewButton_10);
-
-		JButton btnNewButton_11 = new JButton("Refeições");
-		btnNewButton_11.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Sistema.setTela(new EscolheRefeicoes(new ArrayList<Refeicao>()));
-			}
-		});
-		btnNewButton_11.setMinimumSize(new Dimension(150, 150));
-		btnNewButton_11.setFocusable(false);
-		btnNewButton_11.setFocusPainted(false);
-		btnNewButton_11.setPreferredSize(new Dimension(150, 150));
-		GridBagConstraints gbc_btnNewButton_11 = new GridBagConstraints();
-		gbc_btnNewButton_11.insets = new Insets(0, 0, 5, 5);
-		gbc_btnNewButton_11.gridx = 4;
-		gbc_btnNewButton_11.gridy = 1;
-		contractPanel.add(btnNewButton_11, gbc_btnNewButton_11);
-
-		JPanel panel = new JPanel();
-		panel.setMaximumSize(new Dimension(150, 32767));
-		panel.setPreferredSize(new Dimension(150, 10));
-		panel.setMinimumSize(new Dimension(150, 10));
-		GridBagConstraints gbc_panel = new GridBagConstraints();
-		gbc_panel.fill = GridBagConstraints.VERTICAL;
-		gbc_panel.insets = new Insets(0, 0, 0, 5);
-		gbc_panel.gridx = 4;
-		gbc_panel.gridy = 2;
-		contractPanel.add(panel, gbc_panel);
-		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[] {0};
-		gbl_panel.rowHeights = new int[] {0, 0};
-		gbl_panel.columnWeights = new double[]{1.0};
-		gbl_panel.rowWeights = new double[]{1.0, 1.0};
-		panel.setLayout(gbl_panel);
-
-		JButton btnNewButton_12 = new JButton("Voltar");
-		btnNewButton_12.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				setTela("main");
-			}
-		});
-		btnNewButton_12.setFocusable(false);
-		btnNewButton_12.setFocusPainted(false);
-		GridBagConstraints gbc_btnNewButton_12 = new GridBagConstraints();
-		gbc_btnNewButton_12.insets = new Insets(0, 0, 5, 0);
-		gbc_btnNewButton_12.anchor = GridBagConstraints.EAST;
-		gbc_btnNewButton_12.gridx = 0;
-		gbc_btnNewButton_12.gridy = 0;
-		panel.add(btnNewButton_12, gbc_btnNewButton_12);
+		
+				JButton btnNewButton_12 = new JButton("Voltar");
+				GridBagConstraints gbc_btnNewButton_12 = new GridBagConstraints();
+				gbc_btnNewButton_12.insets = new Insets(0, 0, 0, 5);
+				gbc_btnNewButton_12.gridx = 4;
+				gbc_btnNewButton_12.gridy = 2;
+				contractPanel.add(btnNewButton_12, gbc_btnNewButton_12);
+				btnNewButton_12.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						setTela("main");
+					}
+				});
+				btnNewButton_12.setFocusable(false);
+				btnNewButton_12.setFocusPainted(false);
 
 		if(skip) setTela("contracts");
 	}

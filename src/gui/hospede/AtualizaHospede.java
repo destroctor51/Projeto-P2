@@ -4,7 +4,6 @@ import gui.Sistema;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
@@ -14,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+import utils.Internet;
 import core.hotel.Hospede;
 
 public class AtualizaHospede extends JPanel {
@@ -320,7 +320,7 @@ public class AtualizaHospede extends JPanel {
 
 		String telefone = tfTelefone.getText();
 
-		if(telefone.equals("") || !checaValorString(telefone)){
+		if(!validaTelefone(telefone)){
 			ErrorLabel.setText("Telefone invalido.");
 			ErrorLabel.setVisible(true);
 			return false;
@@ -328,7 +328,7 @@ public class AtualizaHospede extends JPanel {
 		
 		String email = tfEmail.getText();
 
-		if (email.equals("")  || email.length() < 3) {
+		if (!Internet.isEmailValido(email)) {
 			ErrorLabel.setText("Email invalido.");
 			ErrorLabel.setVisible(true);
 			return false;
@@ -360,10 +360,10 @@ public class AtualizaHospede extends JPanel {
 		return true;
 	}
 	
-	private boolean checaValorString(String str){
-		for (int i = 0; i < str.length(); i++)
-			if ("0123456789".lastIndexOf(str.charAt(i)) == -1)
-				return false;
-		return true;
+	private boolean validaTelefone(String phone) {
+		boolean retval = false;
+		String phoneNumberPattern = "\\d{3}-\\d{8}";
+		retval = phone.matches(phoneNumberPattern);
+		return retval;
 	}
 }

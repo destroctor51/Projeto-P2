@@ -46,13 +46,15 @@ public class Refeicoes extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private SuperTextField tfBuscar;
-	final static JComboBox<String> cbRestaurantes = new JComboBox<>();
+	private static JComboBox<String> cbRestaurantes = new JComboBox<>();
 	private JButton btnAdicionar;
 	private JLabel  lblAtualizarServios, lblBuscar, lblTipoDeServio;
-	final JList<Refeicao> list = new JList<>();
+	private JList<Refeicao> list = new JList<>();
 	private JLabel lbObs = new JLabel("*Observa\u00E7\u00F5es");
 	private JPanel tela = this;
-
+	
+	private List<Refeicao> selecionadas = new ArrayList<>();
+	
 	/**
 	 * Create the panel.
 	 */
@@ -63,7 +65,7 @@ public class Refeicoes extends JPanel {
 			public void ancestorAdded(AncestorEvent arg0) {
 				List<Refeicao> elementos = filtraList();
 				Filtro.exibeFiltrado(tfBuscar.getText(), elementos, list);
-
+				selecionadas = new ArrayList<>();
 				lbObs.setVisible(false);
 			}
 			@Override
@@ -159,9 +161,9 @@ public class Refeicoes extends JPanel {
 		gbc_panel.gridy = 1;
 		add(panel, gbc_panel);
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[]{113, 115, 0};
+		gbl_panel.columnWidths = new int[]{113, 115, 0, 0};
 		gbl_panel.rowHeights = new int[]{0, 23, 0};
-		gbl_panel.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_panel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		JButton btnRemoverRefeicao = new JButton("Remover Refei\u00E7\u00E3o");
@@ -203,12 +205,24 @@ public class Refeicoes extends JPanel {
 			}
 		});
 
-		JButton btnAdicionar_1 = new JButton("Adicionar Refei\u00E7\u00E3o");
+		JButton btnAdicionar_1 = new JButton("Adicionar Nova Refeição");
 		GridBagConstraints gbc_btnAdicionar_1 = new GridBagConstraints();
+		gbc_btnAdicionar_1.insets = new Insets(0, 0, 0, 5);
 		gbc_btnAdicionar_1.anchor = GridBagConstraints.NORTHWEST;
 		gbc_btnAdicionar_1.gridx = 1;
 		gbc_btnAdicionar_1.gridy = 1;
 		panel.add(btnAdicionar_1, gbc_btnAdicionar_1);
+		
+		JButton btnAddContrato = new JButton("Add Contrato");
+		btnAddContrato.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (list.getSelectedIndex() != -1) selecionadas.add(list.getSelectedValue());
+			}
+		});
+		GridBagConstraints gbc_btnAddContrato = new GridBagConstraints();
+		gbc_btnAddContrato.gridx = 2;
+		gbc_btnAddContrato.gridy = 1;
+		panel.add(btnAddContrato, gbc_btnAddContrato);
 		btnAdicionar_1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -265,9 +279,9 @@ public class Refeicoes extends JPanel {
 		gbc_panel_1.gridy = 3;
 		add(panel_1, gbc_panel_1);
 		GridBagLayout gbl_panel_1 = new GridBagLayout();
-		gbl_panel_1.columnWidths = new int[] {0, 0};
+		gbl_panel_1.columnWidths = new int[] {0, 0, 0};
 		gbl_panel_1.rowHeights = new int[] {0};
-		gbl_panel_1.columnWeights = new double[]{1.0, 0.0};
+		gbl_panel_1.columnWeights = new double[]{1.0, 0.0, 0.0};
 		gbl_panel_1.rowWeights = new double[]{0.0};
 		panel_1.setLayout(gbl_panel_1);
 		GridBagConstraints gbc_lbObs = new GridBagConstraints();
@@ -284,8 +298,20 @@ public class Refeicoes extends JPanel {
 				Sistema.setTela(new Menu());
 			}
 		});
+		
+		JButton btnContrato = new JButton("Contrato");
+		btnContrato.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Sistema.setTela(new EscolheRefeicoes(selecionadas,tela));
+			}
+		});
+		GridBagConstraints gbc_btnContrato = new GridBagConstraints();
+		gbc_btnContrato.insets = new Insets(0, 0, 0, 5);
+		gbc_btnContrato.gridx = 1;
+		gbc_btnContrato.gridy = 0;
+		panel_1.add(btnContrato, gbc_btnContrato);
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		gbc_btnNewButton.gridx = 1;
+		gbc_btnNewButton.gridx = 2;
 		gbc_btnNewButton.gridy = 0;
 		panel_1.add(btnNewButton, gbc_btnNewButton);
 

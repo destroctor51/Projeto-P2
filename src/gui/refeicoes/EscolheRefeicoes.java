@@ -1,29 +1,25 @@
-package gui.contratos;
+package gui.refeicoes;
 
-import gui.Menu;
 import gui.Sistema;
 
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import java.awt.GridBagLayout;
+import java.awt.Color;
 import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Insets;
-
-import javax.swing.JLabel;
-
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JList;
-import javax.swing.ImageIcon;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
+import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
 import core.servicos.pagaveis.Refeicao;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class EscolheRefeicoes extends JPanel {
 
@@ -35,11 +31,12 @@ public class EscolheRefeicoes extends JPanel {
 	 * Create the panel.
 	 */
 	
-	private JLabel ErrorLabel;	
-	private DefaultListModel<Object> lista1 = new DefaultListModel<>();
-	private JList<Object> list_1;
+	private JLabel errorLabel = new JLabel();	
+	private DefaultListModel<Object> dlm = new DefaultListModel<>();
+	private JList<Object> list;
+	private JPanel tela = this;
 	
-	public EscolheRefeicoes(final List<Refeicao> escolhidas) {
+	public EscolheRefeicoes(final List<Refeicao> escolhidas, final JPanel telaAnterior) {
 		setName("Adiciona Refeição");
 		setVisible(false);
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -79,16 +76,16 @@ public class EscolheRefeicoes extends JPanel {
 		gbc_scrollPane_1.gridy = 0;
 		panel_2.add(scrollPane_1, gbc_scrollPane_1);
 		
-		list_1 = new JList<Object>();
-		list_1.setVisibleRowCount(-1);
-		list_1.setFixedCellWidth(100);
-		scrollPane_1.setViewportView(list_1);
+		list = new JList<Object>();
+		list.setVisibleRowCount(-1);
+		list.setFixedCellWidth(100);
+		scrollPane_1.setViewportView(list);
 		
 		for (Refeicao r : escolhidas) {
-			lista1.addElement(r);
+			dlm.addElement(r);
 		}
 		
-		list_1.setModel(lista1);
+		list.setModel(dlm);
 		
 		JPanel panel = new JPanel();
 		GridBagConstraints gbc_panel = new GridBagConstraints();
@@ -105,33 +102,34 @@ public class EscolheRefeicoes extends JPanel {
 		gbl_panel.rowWeights = new double[]{0.0};
 		panel.setLayout(gbl_panel);
 		
-		JLabel lblNewLabel_3 = new JLabel("");
+		errorLabel = new JLabel("");
+		errorLabel.setForeground(Color.red);
 		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
 		gbc_lblNewLabel_3.anchor = GridBagConstraints.WEST;
 		gbc_lblNewLabel_3.insets = new Insets(0, 0, 0, 5);
 		gbc_lblNewLabel_3.gridx = 0;
 		gbc_lblNewLabel_3.gridy = 0;
-		panel.add(lblNewLabel_3, gbc_lblNewLabel_3);
-		lblNewLabel_3.setVisible(false);
-		lblNewLabel_3.setIcon(new ImageIcon(EscolheRefeicoes.class.getResource("/gui/images/error.png")));
+		panel.add(errorLabel, gbc_lblNewLabel_3);
+		errorLabel.setVisible(false);
+		errorLabel.setIcon(new ImageIcon(EscolheRefeicoes.class.getResource("/gui/images/error.png")));
 		
-		JButton btnNewButton_1 = new JButton("Remover");
-		btnNewButton_1.addActionListener(new ActionListener() {
+		JButton btnRemover = new JButton("Remover");
+		btnRemover.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				removeRefeicao();
 			}
 		});
 		
-		JButton btnNewButton_2 = new JButton("Voltar");
+		JButton btnVoltar = new JButton("Voltar");
 		GridBagConstraints gbc_btnNewButton_2 = new GridBagConstraints();
 		gbc_btnNewButton_2.anchor = GridBagConstraints.EAST;
 		gbc_btnNewButton_2.insets = new Insets(0, 0, 0, 5);
 		gbc_btnNewButton_2.gridx = 1;
 		gbc_btnNewButton_2.gridy = 0;
-		panel.add(btnNewButton_2, gbc_btnNewButton_2);
-		btnNewButton_2.addActionListener(new ActionListener() {
+		panel.add(btnVoltar, gbc_btnNewButton_2);
+		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Sistema.setTela(new Menu(true));
+				Sistema.setTela(telaAnterior);
 			}
 		});
 		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
@@ -139,39 +137,34 @@ public class EscolheRefeicoes extends JPanel {
 		gbc_btnNewButton_1.insets = new Insets(0, 0, 0, 10);
 		gbc_btnNewButton_1.gridx = 2;
 		gbc_btnNewButton_1.gridy = 0;
-		panel.add(btnNewButton_1, gbc_btnNewButton_1);
+		panel.add(btnRemover, gbc_btnNewButton_1);
 		
-		JButton btnNewButton = new JButton("Prosseguir");
+		JButton btnProsseguir = new JButton("Prosseguir");
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.anchor = GridBagConstraints.EAST;
 		gbc_btnNewButton.gridx = 3;
 		gbc_btnNewButton.gridy = 0;
-		panel.add(btnNewButton, gbc_btnNewButton);
-		btnNewButton.addActionListener(new ActionListener() {
+		panel.add(btnProsseguir, gbc_btnNewButton);
+		btnProsseguir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (escolhidas.size() == 0) {
-					ErrorLabel.setText("Lista de refei��es vazias.");
-					ErrorLabel.setVisible(true);
+					errorLabel.setText("Lista de refeicoes vazias.");
+					errorLabel.setVisible(true);
 					return;
 				}
-				ErrorLabel.setVisible(false);
-				Sistema.setTela(new AdicionaRefeicoes(escolhidas));
+				errorLabel.setVisible(false);
+				Sistema.setTela(new AdicionaRefeicoes(escolhidas,tela));
 			}
 		});
-		
 	}
 	
 	private void removeRefeicao() {
-		Object item = list_1.getSelectedValue();
-
-		if (item == null) {
-			ErrorLabel.setText("Nenhum item foi selecionado.");
-			ErrorLabel.setVisible(true);
-			return;
-		}
 		
-		lista1.removeElement(item);
-		list_1.setModel(lista1);
-		ErrorLabel.setVisible(false);
+		Object item = list.getSelectedValue();
+
+		if (item != null) {		
+			dlm.removeElement(item);
+			list.setModel(dlm);
+		}
 	}
 }

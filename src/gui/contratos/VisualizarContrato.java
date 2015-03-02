@@ -39,7 +39,7 @@ public class VisualizarContrato extends JPanel {
 	private JTextField textField;
 	private JTextField textField_1;
 	private JButton btnDevolver;
-
+	private JButton btnDeletar;
 	private JPanel telaAtual = this;
 
 	/**
@@ -122,6 +122,7 @@ public class VisualizarContrato extends JPanel {
 				Pagavel selecao = list.getSelectedValue();
 				boolean ativado = selecao instanceof Devolvivel && !((Devolvivel) selecao).isDevolvido();
 				btnDevolver.setEnabled(ativado);
+				btnDeletar.setEnabled(true);
 			}
 		});
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -143,9 +144,9 @@ public class VisualizarContrato extends JPanel {
 		gbc_panel_1.gridy = 3;
 		add(panel_1, gbc_panel_1);
 		GridBagLayout gbl_panel_1 = new GridBagLayout();
-		gbl_panel_1.columnWidths = new int[] {200, 0, 0, 0, 0};
+		gbl_panel_1.columnWidths = new int[] {200, 0, 0, 0, 0, 0};
 		gbl_panel_1.rowHeights = new int[]{0, 0};
-		gbl_panel_1.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_1.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_panel_1.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_1.setLayout(gbl_panel_1);
 
@@ -184,11 +185,29 @@ public class VisualizarContrato extends JPanel {
 				Devolvivel selecionado = (Devolvivel) list.getSelectedValue();
 				selecionado.devolve(GregorianCalendar.getInstance());
 				btnDevolver.setEnabled(false);
+				
 			}
 		});
+		
+		btnDeletar = new JButton("Deletar Servi\u00E7o");
+		btnDeletar.setFocusable(false);
+		btnDeletar.setEnabled(false);
+		btnDeletar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Devolvivel selecionado = (Devolvivel) list.getSelectedValue();
+				contrato.removeServico(selecionado);
+				btnDeletar.setEnabled(false);
+				Filtro.preencheJList(contrato.getServicos(), list);
+			}
+		});
+		GridBagConstraints gbc_btnDeletarServico = new GridBagConstraints();
+		gbc_btnDeletarServico.insets = new Insets(0, 0, 0, 5);
+		gbc_btnDeletarServico.gridx = 2;
+		gbc_btnDeletarServico.gridy = 0;
+		panel_1.add(btnDeletar, gbc_btnDeletarServico);
 		GridBagConstraints gbc_btnDevolver = new GridBagConstraints();
 		gbc_btnDevolver.insets = new Insets(0, 0, 0, 10);
-		gbc_btnDevolver.gridx = 2;
+		gbc_btnDevolver.gridx = 3;
 		gbc_btnDevolver.gridy = 0;
 		panel_1.add(btnDevolver, gbc_btnDevolver);
 
@@ -201,7 +220,7 @@ public class VisualizarContrato extends JPanel {
 			}
 		});
 		GridBagConstraints gbc_btnContratar = new GridBagConstraints();
-		gbc_btnContratar.gridx = 3;
+		gbc_btnContratar.gridx = 4;
 		gbc_btnContratar.gridy = 0;
 		panel_1.add(btnContratar, gbc_btnContratar);
 
