@@ -2,8 +2,8 @@ package gui;
 
 import gui.contas.Contas;
 import gui.contratos.AtualizarContratos;
-import gui.contratos.CheckIn;
-import gui.contratos.CheckOut;
+import gui.contratos.CheckInOut;
+import gui.contratos.EscolheRefeicoes;
 import gui.contratos.RealizaReserva;
 import gui.estacoes.Estacoes;
 import gui.hospede.PesquisaHospede;
@@ -19,11 +19,12 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import core.login.Permissao;
+import core.servicos.pagaveis.Refeicao;
 
 /**
  * Essa tela conecta todas as outras do sistema.
@@ -242,11 +243,11 @@ public class Menu extends JPanel {
 		gbc_btnNewButton_9.gridy = 1;
 		contractPanel.add(btnNewButton_9, gbc_btnNewButton_9);
 
-		JButton btnNewButton_10 = new JButton("Check-in");
+		JButton btnNewButton_10 = new JButton("Check In / Out");
 		btnNewButton_10.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Sistema.setTela(new CheckIn());
+				Sistema.setTela(new CheckInOut());
 			}
 		});
 		btnNewButton_10.setMinimumSize(new Dimension(150, 150));
@@ -259,11 +260,11 @@ public class Menu extends JPanel {
 		gbc_btnNewButton_10.gridy = 1;
 		contractPanel.add(btnNewButton_10, gbc_btnNewButton_10);
 
-		JButton btnNewButton_11 = new JButton("Check-out");
+		JButton btnNewButton_11 = new JButton("Refeições");
 		btnNewButton_11.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Sistema.setTela(new CheckOut());
+				Sistema.setTela(new EscolheRefeicoes(new ArrayList<Refeicao>()));
 			}
 		});
 		btnNewButton_11.setMinimumSize(new Dimension(150, 150));

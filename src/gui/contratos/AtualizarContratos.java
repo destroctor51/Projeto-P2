@@ -159,8 +159,7 @@ public class AtualizarContratos extends JPanel {
 		errorLabel.setIcon(new ImageIcon(AtualizarContratos.class
 				.getResource("/gui/images/error.png")));
 
-		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setFocusable(false);
+		JButton btnCancelar = new JButton("Voltar");
 		GridBagConstraints gbc_btnCancelar = new GridBagConstraints();
 		gbc_btnCancelar.anchor = GridBagConstraints.EAST;
 		gbc_btnCancelar.insets = new Insets(0, 0, 0, 10);
@@ -175,7 +174,6 @@ public class AtualizarContratos extends JPanel {
 		});
 
 		JButton btnVisualizar = new JButton("Visualizar");
-		btnVisualizar.setFocusable(false);
 		GridBagConstraints gbc_btnVisualizar = new GridBagConstraints();
 		gbc_btnVisualizar.gridx = 2;
 		gbc_btnVisualizar.gridy = 0;
@@ -195,7 +193,7 @@ public class AtualizarContratos extends JPanel {
 		DefaultListModel<Contrato> dml = new DefaultListModel<>();
 
 		if(hospede != null) for(Contrato c : hospede.getContratos())
-			if(c.getEstado().equals(EstadoDeContrato.ABERTO))
+			if(!(c.getEstado().equals(EstadoDeContrato.FECHADO)))
 				dml.addElement(c);
 		listContratos.setModel(dml);
 	}

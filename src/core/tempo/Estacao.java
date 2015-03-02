@@ -94,6 +94,13 @@ public class Estacao implements Cloneable, Serializable {
 	public boolean removePeriodo(Periodo periodo) {
 		return periodos.remove(periodo);
 	}
+	
+	/**
+	 * Remove todos os periodos da estacao.
+	 */
+	public void clear() {
+		periodos.clear();
+	}
 
 	@Override
 	public String toString() {

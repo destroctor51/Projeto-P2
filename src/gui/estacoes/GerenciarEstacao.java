@@ -249,9 +249,7 @@ public class GerenciarEstacao extends JPanel {
 					}
 					est.setTarifa(tarifa/100);
 
-					for (Periodo p : est.getPeriodos()) {
-						est.removePeriodo(p);
-					}
+					est.clear();
 
 				}
 

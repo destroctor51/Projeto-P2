@@ -36,6 +36,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.ImageIcon;
 
 public class Estacoes extends JPanel {
     /**
@@ -141,10 +142,8 @@ public class Estacoes extends JPanel {
                                     lblobservaes.setVisible(true);
                                     return;
                             }
-
-                            lblobservaes.setForeground(new Color(0, 180, 0));
-                            lblobservaes.setText("Item removido com sucesso");
-                            lblobservaes.setVisible(true);
+                            
+                            lblobservaes.setVisible(false);
 
                             Sistema.getHotel().removeEstacao((Estacao) item);
 
@@ -224,6 +223,7 @@ public class Estacoes extends JPanel {
             panel_2.setLayout(gbl_panel_2);
 
             lblobservaes = new JLabel("*Observações");
+            lblobservaes.setIcon(new ImageIcon(Estacoes.class.getResource("/gui/images/error.png")));
             lblobservaes.setVisible(false);
             GridBagConstraints gbc_lblobservaes = new GridBagConstraints();
             gbc_lblobservaes.anchor = GridBagConstraints.NORTHWEST;
