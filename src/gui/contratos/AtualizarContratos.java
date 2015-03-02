@@ -160,6 +160,7 @@ public class AtualizarContratos extends JPanel {
 				.getResource("/gui/images/error.png")));
 
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setFocusable(false);
 		GridBagConstraints gbc_btnCancelar = new GridBagConstraints();
 		gbc_btnCancelar.anchor = GridBagConstraints.EAST;
 		gbc_btnCancelar.insets = new Insets(0, 0, 0, 10);
@@ -174,6 +175,7 @@ public class AtualizarContratos extends JPanel {
 		});
 
 		JButton btnVisualizar = new JButton("Visualizar");
+		btnVisualizar.setFocusable(false);
 		GridBagConstraints gbc_btnVisualizar = new GridBagConstraints();
 		gbc_btnVisualizar.gridx = 2;
 		gbc_btnVisualizar.gridy = 0;

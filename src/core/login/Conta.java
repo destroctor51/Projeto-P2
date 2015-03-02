@@ -14,7 +14,7 @@ public class Conta implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Permissao permissao;
-	private String nome, id, senha;
+	private String nome, id, senha, email;
 
 	/**
 	 * Cria uma conta com um id, uma senha e um nivel de acesso.
@@ -23,13 +23,15 @@ public class Conta implements Serializable {
 	 * @param senha  a senha usada para acessar a conta
 	 * @param permissao  o nivel de acesso que a conta possui
 	 */
-	public Conta(String id, String senha, Permissao permissao) {
-		if(id == null || senha == null || permissao == null)
+	public Conta(String id, Permissao permissao, String nome, String email, String senha) {
+		if(id == null || permissao == null || nome == null || email == null || senha == null)
 			throw new IllegalArgumentException();
 
 		this.id = id;
-		this.senha = senha;
 		this.permissao = permissao;
+		this.nome = nome;
+		this.email = email;
+		this.senha = senha;
 	}
 
 	/**
@@ -40,10 +42,31 @@ public class Conta implements Serializable {
 	}
 
 	/**
+	 * @return o nome do dono da conta
+	 */
+	public String getNome() {
+		return nome;
+	}
+
+	/**
+	 * @return o email atrelado a conta
+	 */
+	public String getEmail() {
+		return email;
+	}
+
+	/**
 	 * @return o nivel de permissao da conta
 	 */
 	public Permissao getPermissao() {
 		return permissao;
+	}
+
+	/**
+	 * @return a senha dessa conta
+	 */
+	public String getSenha() {
+		return senha;
 	}
 
 	/**
@@ -77,6 +100,15 @@ public class Conta implements Serializable {
 		if(nome == null)
 			throw new IllegalArgumentException();
 		this.nome = nome;
+	}
+
+	/**
+	 * @param email  o endereco de email a ser usado, nao null
+	 */
+	public void setEmail(String email) {
+		if(email == null)
+			throw new IllegalArgumentException();
+		this.email = email;
 	}
 
 	/**
@@ -139,6 +171,6 @@ public class Conta implements Serializable {
 
 	@Override
 	public String toString() {
-		return nome == null? id : nome;
+		return nome;
 	}
 }

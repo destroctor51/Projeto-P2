@@ -13,7 +13,7 @@ import javax.swing.JList;
  *
  * @author Victor Andrade de Almeida
  */
-public class Filtro {
+public final class Filtro {
 
 	private Filtro() {}
 

@@ -23,6 +23,7 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
+import utils.Internet;
 import core.login.Conta;
 import core.login.Permissao;
 
@@ -43,6 +44,8 @@ public class EditarConta extends JPanel {
 	private JPasswordField passwordField_1;
 	private JButton btnNewButton;
 	private JButton btnNewButton_1;
+	private JTextField textField_1;
+	private JTextField textField_2;
 
 	/**
 	 * Create the panel.
@@ -50,10 +53,10 @@ public class EditarConta extends JPanel {
 	public EditarConta(final Conta conta, final JPanel telaAnterior) {
 		setName("Editar Conta");
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{1.0, 0.25, 1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{1.0, 0.25, 1.0, Double.MIN_VALUE};
+		gridBagLayout.columnWidths = new int[]{0, 0, 0};
+		gridBagLayout.rowHeights = new int[]{0, 0, 0};
+		gridBagLayout.columnWeights = new double[]{1.0, 0.25, 1.0};
+		gridBagLayout.rowWeights = new double[]{1.0, 0.25, 1.0};
 		setLayout(gridBagLayout);
 
 		JPanel panel = new JPanel();
@@ -65,10 +68,10 @@ public class EditarConta extends JPanel {
 		gbc_panel.gridy = 1;
 		add(panel, gbc_panel);
 		GridBagLayout gbl_panel = new GridBagLayout();
+		gbl_panel.rowHeights = new int[] {0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_panel.columnWidths = new int[] {0, 0};
-		gbl_panel.rowHeights = new int[] {0, 0, 0, 0, 0, 0};
 		gbl_panel.columnWeights = new double[]{0.0, 1.0};
-		gbl_panel.rowWeights = new double[]{1.0, 0.5, 0.5, 0.5, 0.5, 1.0};
+		gbl_panel.rowWeights = new double[]{1.0, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 1.0};
 		panel.setLayout(gbl_panel);
 
 		JLabel lblNewLabel_1 = new JLabel("Nome de usuário:");
@@ -108,13 +111,49 @@ public class EditarConta extends JPanel {
 		gbc_comboBox.gridy = 2;
 		panel.add(comboBox, gbc_comboBox);
 
-		JLabel lblNewLabel_3 = new JLabel("Senha antiga:");
+		JLabel lblNewLabel_3 = new JLabel("Nome real:");
 		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
-		gbc_lblNewLabel_3.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel_3.insets = new Insets(0, 0, 10, 10);
+		gbc_lblNewLabel_3.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel_3.gridx = 0;
 		gbc_lblNewLabel_3.gridy = 3;
 		panel.add(lblNewLabel_3, gbc_lblNewLabel_3);
+
+		textField_1 = new JTextField(conta.getNome());
+		textField_1.setEditable(false);
+		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
+		gbc_textField_1.insets = new Insets(0, 0, 10, 0);
+		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_1.gridx = 1;
+		gbc_textField_1.gridy = 3;
+		panel.add(textField_1, gbc_textField_1);
+		textField_1.setColumns(10);
+
+		JLabel lblNewLabel_4 = new JLabel("E-mail:");
+		GridBagConstraints gbc_lblNewLabel_4 = new GridBagConstraints();
+		gbc_lblNewLabel_4.insets = new Insets(0, 0, 10, 10);
+		gbc_lblNewLabel_4.anchor = GridBagConstraints.EAST;
+		gbc_lblNewLabel_4.gridx = 0;
+		gbc_lblNewLabel_4.gridy = 4;
+		panel.add(lblNewLabel_4, gbc_lblNewLabel_4);
+
+		textField_2 = new JTextField(conta.getEmail());
+		textField_2.setEditable(false);
+		GridBagConstraints gbc_textField_2 = new GridBagConstraints();
+		gbc_textField_2.insets = new Insets(0, 0, 10, 0);
+		gbc_textField_2.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_2.gridx = 1;
+		gbc_textField_2.gridy = 4;
+		panel.add(textField_2, gbc_textField_2);
+		textField_2.setColumns(10);
+
+		JLabel lblNewLabel_5 = new JLabel("Senha antiga:");
+		GridBagConstraints gbc_lblNewLabel_5 = new GridBagConstraints();
+		gbc_lblNewLabel_5.anchor = GridBagConstraints.EAST;
+		gbc_lblNewLabel_5.insets = new Insets(0, 0, 10, 10);
+		gbc_lblNewLabel_5.gridx = 0;
+		gbc_lblNewLabel_5.gridy = 5;
+		panel.add(lblNewLabel_5, gbc_lblNewLabel_5);
 
 		passwordField = new JPasswordField(HIDDEN);
 		passwordField.setEditable(false);
@@ -122,23 +161,24 @@ public class EditarConta extends JPanel {
 		gbc_passwordField.insets = new Insets(0, 0, 10, 0);
 		gbc_passwordField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_passwordField.gridx = 1;
-		gbc_passwordField.gridy = 3;
+		gbc_passwordField.gridy = 5;
 		panel.add(passwordField, gbc_passwordField);
 
-		JLabel lblNewLabel_4 = new JLabel("Nova senha:");
-		GridBagConstraints gbc_lblNewLabel_4 = new GridBagConstraints();
-		gbc_lblNewLabel_4.anchor = GridBagConstraints.EAST;
-		gbc_lblNewLabel_4.insets = new Insets(0, 0, 0, 10);
-		gbc_lblNewLabel_4.gridx = 0;
-		gbc_lblNewLabel_4.gridy = 4;
-		panel.add(lblNewLabel_4, gbc_lblNewLabel_4);
+		JLabel lblNewLabel_6 = new JLabel("Nova senha:");
+		GridBagConstraints gbc_lblNewLabel_6 = new GridBagConstraints();
+		gbc_lblNewLabel_6.anchor = GridBagConstraints.EAST;
+		gbc_lblNewLabel_6.insets = new Insets(0, 0, 5, 10);
+		gbc_lblNewLabel_6.gridx = 0;
+		gbc_lblNewLabel_6.gridy = 6;
+		panel.add(lblNewLabel_6, gbc_lblNewLabel_6);
 
 		passwordField_1 = new JPasswordField(HIDDEN);
 		passwordField_1.setEditable(false);
 		GridBagConstraints gbc_passwordField_1 = new GridBagConstraints();
+		gbc_passwordField_1.insets = new Insets(0, 0, 5, 0);
 		gbc_passwordField_1.fill = GridBagConstraints.HORIZONTAL;
 		gbc_passwordField_1.gridx = 1;
-		gbc_passwordField_1.gridy = 4;
+		gbc_passwordField_1.gridy = 6;
 		panel.add(passwordField_1, gbc_passwordField_1);
 
 		JPanel panel_1 = new JPanel();
@@ -179,7 +219,13 @@ public class EditarConta extends JPanel {
 					Sistema.setTela(telaAnterior);
 
 				else if(btnNewButton_1.getText().equals("Cancelar")) {
+					comboBox.setSelectedItem(conta.getPermissao());
+					textField_1.setText(conta.getNome());
+					textField_2.setText(conta.getEmail());
+
 					comboBox.setEnabled(false);
+					textField_1.setEditable(false);
+					textField_2.setEditable(false);
 					passwordField.setEditable(false);
 					passwordField_1.setEditable(false);
 					passwordField.setText(HIDDEN);
@@ -203,6 +249,8 @@ public class EditarConta extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				if(btnNewButton.getText().equals("Editar")) {
 					comboBox.setEnabled(true);
+					textField_1.setEditable(true);
+					textField_2.setEditable(true);
 					passwordField.setEditable(true);
 					passwordField_1.setEditable(true);
 					btnNewButton.setText("Confirmar");
@@ -216,9 +264,19 @@ public class EditarConta extends JPanel {
 					char[] lastPassword = passwordField.getPassword();
 					char[] newPassword = passwordField_1.getPassword();
 
-					conta.setPermissao((Permissao) comboBox.getSelectedItem());
+					if(textField_1.getText().length() < 3) {
+						lblNewLabel.setText("Nome real menor que 3 caract\u00E9res");
+						lblNewLabel.setVisible(true);
+						success = false;
+					}
 
-					if(lastPassword.length > 0 || newPassword.length > 0) {
+					else if(!Internet.isEmailValido(textField_2.getText())) {
+						lblNewLabel.setText("Email inv\u00E1lido");
+						lblNewLabel.setVisible(true);
+						success = false;
+					}
+
+					else if(lastPassword.length > 0 || newPassword.length > 0) {
 						if(newPassword.length < 5) {
 							lblNewLabel.setText("Nova senha menor que 5 caract\u00E9res");
 							lblNewLabel.setVisible(true);
@@ -233,7 +291,16 @@ public class EditarConta extends JPanel {
 					}
 
 					if(success) {
+						conta.setPermissao((Permissao) comboBox.getSelectedItem());
+						conta.setNome(textField_1.getText());
+						conta.setEmail(textField_2.getText());
+
+						if(Sistema.getUsuario().equals(conta))
+							Sistema.fazLogin(conta);
+
 						comboBox.setEnabled(false);
+						textField_1.setEditable(false);
+						textField_2.setEditable(false);
 						passwordField.setEditable(false);
 						passwordField_1.setEditable(false);
 						passwordField.setText(HIDDEN);

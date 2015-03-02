@@ -99,6 +99,12 @@ public class HotelTest {
 			Assert.fail();
 		} catch(Exception e) {}
 
+		Periodo p = new Periodo(new GregorianCalendar(2014, 1, 2), new GregorianCalendar(2014, 1, 3));
+		Assert.assertEquals(2, hotel.getBabasDisponiveis(p).size());
+		Babysitter baba = hotel.getBabas().get(0);
+		baba.aluga(p);
+		Assert.assertEquals(1, hotel.getBabasDisponiveis(p).size());
+
 		// HOSPEDE
 
 		try {

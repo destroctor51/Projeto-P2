@@ -16,13 +16,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
 import org.jfree.chart.ChartFactory;
@@ -39,16 +40,14 @@ import org.jfree.ui.TextAnchor;
 
 import core.hotel.Opiniao;
 import core.tempo.Periodo;
-import javax.swing.border.LineBorder;
 
 public class OpinioesSobreHotel extends JPanel {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
-	private JLabel errorLabel = new JLabel("errorLabel");
-	private JPanel panel_2 = new JPanel();
+	private JLabel errorLabel = new JLabel("<erro>");
 
 	private JPanel panel = new JPanel();
 	private JTextArea relatorio = new JTextArea();
@@ -60,117 +59,139 @@ public class OpinioesSobreHotel extends JPanel {
 	private int otimo = 0;
 	private Double media = 0.0;
 	private final Calendario calendario = new Calendario();
+	private final JScrollPane scrollPane = new JScrollPane();
+	private final JPanel panel_2 = new JPanel();
+	private final JPanel panel_3 = new JPanel();
 	public OpinioesSobreHotel(final JPanel tela) {
 
-		setName("Relatorio de servicos disponiveis");
+		setName("Relat\u00F3rio de opini\u00F5es");
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[] { 97, 261, 156, 118, 0 };
-		gridBagLayout.rowHeights = new int[] { 305, 165, 56, 0 };
-		gridBagLayout.columnWeights = new double[] { 0.0, 1.0, 1.0, 1.0,
-				Double.MIN_VALUE };
-		gridBagLayout.rowWeights = new double[] { 1.0, 1.0, 0.0,
-				Double.MIN_VALUE };
+		gridBagLayout.columnWidths = new int[] {0, 0, 0};
+		gridBagLayout.rowHeights = new int[] {30, 0, 200, 0};
+		gridBagLayout.columnWeights = new double[] { 1.0, 1.0, 1.0 };
+		gridBagLayout.rowWeights = new double[] { 1.0, 0.0, 1.0, 1.0 };
 		setLayout(gridBagLayout);
+
+		GridBagConstraints gbc_panel_2 = new GridBagConstraints();
+		gbc_panel_2.insets = new Insets(0, 0, 10, 5);
+		gbc_panel_2.fill = GridBagConstraints.HORIZONTAL;
+		gbc_panel_2.gridx = 1;
+		gbc_panel_2.gridy = 1;
+		add(panel_2, gbc_panel_2);
+		GridBagLayout gbl_panel_2 = new GridBagLayout();
+		gbl_panel_2.columnWidths = new int[] {0, 200};
+		gbl_panel_2.rowHeights = new int[]{0, 0};
+		gbl_panel_2.columnWeights = new double[]{0.0, 1.0};
+		gbl_panel_2.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		panel_2.setLayout(gbl_panel_2);
 
 		JPanel panel_1 = new JPanel();
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
-		gbc_panel_1.insets = new Insets(0, 0, 5, 5);
-		gbc_panel_1.fill = GridBagConstraints.VERTICAL;
-		gbc_panel_1.gridx = 1;
+		gbc_panel_1.insets = new Insets(0, 0, 0, 10);
+		gbc_panel_1.gridx = 0;
 		gbc_panel_1.gridy = 0;
-		add(panel_1, gbc_panel_1);
+		panel_2.add(panel_1, gbc_panel_1);
 		GridBagLayout gbl_panel_1 = new GridBagLayout();
-		gbl_panel_1.columnWidths = new int[] { 0, 217, 0 };
-		gbl_panel_1.rowHeights = new int[] { 0, 0, 0, 0, 0, 0 };
-		gbl_panel_1.columnWeights = new double[] { 0.0, 0.0, Double.MIN_VALUE };
-		gbl_panel_1.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0,
-				Double.MIN_VALUE };
+		gbl_panel_1.columnWidths = new int[] {0};
+		gbl_panel_1.rowHeights = new int[] {0, 0, 0};
+		gbl_panel_1.columnWeights = new double[] { 0.0 };
+		gbl_panel_1.rowWeights = new double[] { 0.0, 0.0, 0.0 };
 		panel_1.setLayout(gbl_panel_1);
-		
-				JButton btnGerarRelatorio = new JButton("Gerar relatorio");
-				btnGerarRelatorio.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						if (calendario.getSelecao() != null) {
-							relatorio.setText(geraRelatorio(calendario.getSelecao()));
-							errorLabel.setVisible(false);
-							geraGrafico(calendario.getSelecao());
-						} else {
-							errorLabel.setForeground(Color.RED);
-							errorLabel.setVisible(true);
-							errorLabel.setText("Selecione um periodo.");
-						}
-					}
-				});
-						
-								JLabel lblPeriodo = new JLabel("Periodo:");
-								GridBagConstraints gbc_lblPeriodo = new GridBagConstraints();
-								gbc_lblPeriodo.insets = new Insets(0, 0, 5, 0);
-								gbc_lblPeriodo.gridx = 1;
-								gbc_lblPeriodo.gridy = 2;
-								panel_1.add(lblPeriodo, gbc_lblPeriodo);
-				
-						GridBagConstraints gbc_calendario = new GridBagConstraints();
-						gbc_calendario.insets = new Insets(0, 0, 5, 0);
-						gbc_calendario.gridx = 1;
-						gbc_calendario.gridy = 3;
-						panel_1.add(calendario, gbc_calendario);
-				GridBagConstraints gbc_btnGerarRelatorio = new GridBagConstraints();
-				gbc_btnGerarRelatorio.gridx = 1;
-				gbc_btnGerarRelatorio.gridy = 4;
-				panel_1.add(btnGerarRelatorio, gbc_btnGerarRelatorio);
 
-		panel_2.setBorder(new CompoundBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Relatorio", TitledBorder.LEADING, TitledBorder.TOP, null, null), new EmptyBorder(10, 10, 10, 10)));
-		GridBagConstraints gbc_panel_2 = new GridBagConstraints();
-		gbc_panel_2.insets = new Insets(0, 0, 5, 5);
-		gbc_panel_2.fill = GridBagConstraints.BOTH;
-		gbc_panel_2.gridx = 2;
-		gbc_panel_2.gridy = 0;
-		add(panel_2, gbc_panel_2);
-		GridBagLayout gbl_panel_2 = new GridBagLayout();
-		gbl_panel_2.columnWidths = new int[] { 212, 0 };
-		gbl_panel_2.rowHeights = new int[] { 15, 0 };
-		gbl_panel_2.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
-		gbl_panel_2.rowWeights = new double[] { 1.0, Double.MIN_VALUE };
-		panel_2.setLayout(gbl_panel_2);
+		JButton btnGerarRelatorio = new JButton("Gerar relatorio");
+		btnGerarRelatorio.setFocusable(false);
+		btnGerarRelatorio.setFocusPainted(false);
+		btnGerarRelatorio.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				if (calendario.getSelecao() != null) {
+					relatorio.setText(geraRelatorio(calendario.getSelecao()));
+					errorLabel.setVisible(false);
+					geraGrafico(calendario.getSelecao());
+				} else {
+					errorLabel.setForeground(Color.RED);
+					errorLabel.setVisible(true);
+					errorLabel.setText("Selecione um periodo.");
+				}
+			}
+		});
 
-		GridBagConstraints gbc_relatorio = new GridBagConstraints();
-		gbc_relatorio.fill = GridBagConstraints.BOTH;
-		gbc_relatorio.gridx = 0;
-		gbc_relatorio.gridy = 0;
+		JLabel lblPeriodo = new JLabel("Periodo:");
+		GridBagConstraints gbc_lblPeriodo = new GridBagConstraints();
+		gbc_lblPeriodo.anchor = GridBagConstraints.WEST;
+		gbc_lblPeriodo.gridx = 0;
+		gbc_lblPeriodo.gridy = 0;
+		panel_1.add(lblPeriodo, gbc_lblPeriodo);
+
+		GridBagConstraints gbc_calendario = new GridBagConstraints();
+		gbc_calendario.insets = new Insets(0, 0, 10, 0);
+		gbc_calendario.gridx = 0;
+		gbc_calendario.gridy = 1;
+		panel_1.add(calendario, gbc_calendario);
+		GridBagConstraints gbc_btnGerarRelatorio = new GridBagConstraints();
+		gbc_btnGerarRelatorio.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnGerarRelatorio.gridx = 0;
+		gbc_btnGerarRelatorio.gridy = 2;
+		panel_1.add(btnGerarRelatorio, gbc_btnGerarRelatorio);
+		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.gridx = 1;
+		gbc_scrollPane.gridy = 0;
+		panel_2.add(scrollPane, gbc_scrollPane);
+		scrollPane.setBorder(new TitledBorder(null, "Relat\u00F3rio", TitledBorder.LEADING, TitledBorder.ABOVE_TOP, null, null));
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		relatorio.setBackground(UIManager.getColor("Panel.background"));
+		scrollPane.setViewportView(relatorio);
 		relatorio.setEditable(false);
-		panel_2.add(relatorio, gbc_relatorio);
 
-		panel.setBorder(new CompoundBorder(new BevelBorder(BevelBorder.LOWERED,
-				null, null, null, null), new EmptyBorder(0, 0, 0, 0)));
+		panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.fill = GridBagConstraints.BOTH;
-		gbc_panel.gridwidth = 2;
-		gbc_panel.insets = new Insets(0, 0, 5, 5);
+		gbc_panel.insets = new Insets(0, 0, 10, 5);
 		gbc_panel.gridx = 1;
-		gbc_panel.gridy = 1;
+		gbc_panel.gridy = 2;
 		add(panel, gbc_panel);
 		panel.setLayout(new BorderLayout(0, 0));
-						GridBagConstraints gbc_errorLabel = new GridBagConstraints();
-						gbc_errorLabel.insets = new Insets(0, 0, 0, 5);
-						gbc_errorLabel.gridx = 1;
-						gbc_errorLabel.gridy = 2;
-						add(errorLabel, gbc_errorLabel);
-				
-						errorLabel.setVisible(false);
-		
-				JButton btnVoltar = new JButton("Voltar");
-				GridBagConstraints gbc_btnVoltar = new GridBagConstraints();
-				gbc_btnVoltar.anchor = GridBagConstraints.EAST;
-				gbc_btnVoltar.insets = new Insets(0, 0, 0, 5);
-				gbc_btnVoltar.gridx = 2;
-				gbc_btnVoltar.gridy = 2;
-				add(btnVoltar, gbc_btnVoltar);
-				btnVoltar.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						Sistema.setTela(tela);
-					}
-				});
+
+		GridBagConstraints gbc_panel_3 = new GridBagConstraints();
+		gbc_panel_3.anchor = GridBagConstraints.NORTH;
+		gbc_panel_3.insets = new Insets(0, 0, 0, 5);
+		gbc_panel_3.fill = GridBagConstraints.HORIZONTAL;
+		gbc_panel_3.gridx = 1;
+		gbc_panel_3.gridy = 3;
+		add(panel_3, gbc_panel_3);
+		GridBagLayout gbl_panel_3 = new GridBagLayout();
+		gbl_panel_3.columnWidths = new int[] {200, 0};
+		gbl_panel_3.rowHeights = new int[] {0};
+		gbl_panel_3.columnWeights = new double[]{0.0, 1.0};
+		gbl_panel_3.rowWeights = new double[]{0.0};
+		panel_3.setLayout(gbl_panel_3);
+		GridBagConstraints gbc_errorLabel = new GridBagConstraints();
+		gbc_errorLabel.anchor = GridBagConstraints.WEST;
+		gbc_errorLabel.insets = new Insets(0, 0, 0, 5);
+		gbc_errorLabel.gridx = 0;
+		gbc_errorLabel.gridy = 0;
+		panel_3.add(errorLabel, gbc_errorLabel);
+		errorLabel.setForeground(Color.RED);
+		errorLabel.setIcon(new ImageIcon(OpinioesSobreHotel.class.getResource("/gui/images/error.png")));
+
+		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.setFocusPainted(false);
+		btnVoltar.setFocusable(false);
+		GridBagConstraints gbc_btnVoltar = new GridBagConstraints();
+		gbc_btnVoltar.anchor = GridBagConstraints.EAST;
+		gbc_btnVoltar.gridx = 1;
+		gbc_btnVoltar.gridy = 0;
+		panel_3.add(btnVoltar, gbc_btnVoltar);
+		btnVoltar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Sistema.setTela(tela);
+			}
+		});
+
+		errorLabel.setVisible(false);
 	}
 
 	private String geraRelatorio(Periodo periodo) {
@@ -207,9 +228,9 @@ public class OpinioesSobreHotel extends JPanel {
 	}
 
 	private void calculaMedia() {
-			media = ((ruim) + (poderiaSerMelhor * 2) + (medio * 3) + (bom * 4) + (otimo * 5))/((ruim + poderiaSerMelhor + medio + bom + otimo) * 1.0);
-			if(media.equals(Double.NaN))
-				media = 0.0;
+		media = ((ruim) + (poderiaSerMelhor * 2) + (medio * 3) + (bom * 4) + (otimo * 5))/((ruim + poderiaSerMelhor + medio + bom + otimo) * 1.0);
+		if(media.equals(Double.NaN))
+			media = 0.0;
 	}
 
 	private void setNotas(Periodo periodo) {
@@ -219,19 +240,19 @@ public class OpinioesSobreHotel extends JPanel {
 			switch (opiniao.getNota()) {
 			case (1):
 				ruim++;
-				break;
+			break;
 			case (2):
 				poderiaSerMelhor++;
-				break;
+			break;
 			case (3):
 				medio++;
-				break;
+			break;
 			case (4):
 				bom++;
-				break;
+			break;
 			case (5):
 				otimo++;
-				break;
+			break;
 			}
 		}
 
@@ -269,30 +290,32 @@ public class OpinioesSobreHotel extends JPanel {
 		panel.validate();
 
 		final CategoryPlot plot = chart.getCategoryPlot();
-		
+
 		class CustomRenderer extends BarRenderer {
+			private static final long serialVersionUID = 1L;
 
-		        private Paint[] colors;
+			private Paint[] colors;
 
-		        public CustomRenderer(final Paint[] colors) {
-		            this.colors = colors;
-		        }
+			public CustomRenderer(final Paint[] colors) {
+				this.colors = colors;
+			}
 
-		        public Paint getItemPaint(final int row, final int column) {
-		            return this.colors[column % this.colors.length];
-		        }
-		    }
-		
-	    final CategoryItemRenderer renderer = new CustomRenderer(
-	            new Paint[] {Color.red, Color.orange,
-	                Color.yellow,Color.blue,Color.green}
-	        );
-	    renderer.setItemLabelsVisible(true);
-        final ItemLabelPosition p = new ItemLabelPosition(
-            ItemLabelAnchor.CENTER, TextAnchor.CENTER, TextAnchor.CENTER, 45.0
-        );
-        renderer.setPositiveItemLabelPosition(p);
-        plot.setRenderer(renderer);
+			@Override
+			public Paint getItemPaint(final int row, final int column) {
+				return this.colors[column % this.colors.length];
+			}
+		}
+
+		final CategoryItemRenderer renderer = new CustomRenderer(
+				new Paint[] {Color.red, Color.orange,
+						Color.yellow,Color.blue,Color.green}
+				);
+		renderer.setItemLabelsVisible(true);
+		final ItemLabelPosition p = new ItemLabelPosition(
+				ItemLabelAnchor.CENTER, TextAnchor.CENTER, TextAnchor.CENTER, 45.0
+				);
+		renderer.setPositiveItemLabelPosition(p);
+		plot.setRenderer(renderer);
 	}
 
 }

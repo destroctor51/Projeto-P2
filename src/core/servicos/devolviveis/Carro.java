@@ -3,6 +3,7 @@ package core.servicos.devolviveis;
 import java.util.Calendar;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.regex.Pattern;
 
 import core.interfaces.Devolvivel;
 import core.tempo.Periodo;
@@ -30,8 +31,6 @@ public class Carro implements Devolvivel{
 	 * Valor pago se o seguro do carro for solicitado.
 	 */
 	public final static float VALOR_SEGURO = 100.0f;
-
-	private final static int LENGTH_PLACA = 7;
 
 	private TipoCarro tipoCarro;
 	private String placa;
@@ -164,21 +163,7 @@ public class Carro implements Devolvivel{
 	 *
 	 */
 	public static boolean verificaPlaca(String placa) {
-		if (placa.length() != LENGTH_PLACA)
-			return false;
-
-		String letras = placa.substring(0, 3);
-		String numeros = placa.substring(3);
-
-		for (int i = 0; i < letras.length(); i++)
-			if (!Character.isLetter(letras.charAt(i))||
-					!Character.isUpperCase(letras.charAt(i)))
-				return false;
-		for (int i = 0; i < numeros.length(); i++)
-			if (!Character.isDigit(numeros.charAt(i)))
-				return false;
-
-		return true;
+		return Pattern.matches("^[A-Z]{3}[0-9]{4}$", placa);
 	}
 
 	@Override

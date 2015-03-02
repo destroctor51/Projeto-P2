@@ -38,17 +38,32 @@ public class GerenciadorDeContas implements Serializable, Iterable<Conta> {
 	}
 
 	/**
+	 * Recupera a conta de um usuario em especifico.
+	 *
+	 * @param usuario  o nome de usuario
+	 * @return a conta do usuario dado, ou null caso o usuario nao exista
+	 */
+	public Conta getConta(String usuario) {
+		for(Conta c : contas)
+			if(c.getID().equals(usuario))
+				return c;
+		return null;
+	}
+
+	/**
 	 * Cadastra uma nova conta no sitema.
 	 * <p>
 	 * Caso ja haja uma conta com a mesma identificacao, a operacao nao sera realizada.
 	 *
 	 * @param id  a identificacao da conta
-	 * @param senha  a senha usada para o acesso da conta
 	 * @param permissao  o nivel de acesso que a conta possui
+	 * @param nome  o nome real do usuario
+	 * @param email  o e-mail do usuario
+	 * @param senha  a senha usada para o acesso da conta
 	 * @return a nova conta se a operacao foi realizada com sucesso, null caso contrario
 	 */
-	public Conta cadastra(String id, String senha, Permissao permissao) {
-		Conta novaConta = new Conta(id, senha, permissao);
+	public Conta cadastra(String id, Permissao permissao, String nome, String email, String senha) {
+		Conta novaConta = new Conta(id, permissao, nome, email, senha);
 		return contas.add(novaConta)? novaConta : null;
 	}
 

@@ -15,20 +15,23 @@ public class GerenciadorDeContasTest {
 
 	GerenciadorDeContas gdc;
 
+	private final String emailDefault = "email@mail.com";
+	private final String nomeDefault = "maria jose";
+
 	@Before
 	public void setUp() {
 		gdc = new GerenciadorDeContas();
 
-		gdc.cadastra("Roberto", "afewgs", FUNCIONARIO);
-		gdc.cadastra("Paulo", "grhtrd", FUNCIONARIO);
-		gdc.cadastra("Mateus", "aofnhsue", FUNCIONARIO);
-		gdc.cadastra("Rodrigo", "asdpi", FUNCIONARIO);
-		gdc.cadastra("Rafaela", "eqrete", FUNCIONARIO);
-		gdc.cadastra("Nara", "htrthr", ADMINISTRADOR);
-		gdc.cadastra("Ingrid", "asdfe", ADMINISTRADOR);
-		gdc.cadastra("Maria", "ththuy", ADMINISTRADOR);
-		gdc.cadastra("Safire", "ahybnui", ADMINISTRADOR);
-		gdc.cadastra("Victor", "oemugnu", GERENTE);
+		gdc.cadastra("Roberto", FUNCIONARIO, nomeDefault, emailDefault, "afewgs");
+		gdc.cadastra("Paulo", FUNCIONARIO, nomeDefault, emailDefault, "grhtrd");
+		gdc.cadastra("Mateus", FUNCIONARIO, nomeDefault, emailDefault, "aofnhsue");
+		gdc.cadastra("Rodrigo", FUNCIONARIO, nomeDefault, emailDefault, "asdpi");
+		gdc.cadastra("Rafaela", FUNCIONARIO, nomeDefault, emailDefault, "eqrete");
+		gdc.cadastra("Nara", ADMINISTRADOR, nomeDefault, emailDefault, "htrthr");
+		gdc.cadastra("Ingrid", ADMINISTRADOR, nomeDefault, emailDefault, "asdfe");
+		gdc.cadastra("Maria", ADMINISTRADOR, nomeDefault, emailDefault, "ththuy");
+		gdc.cadastra("Safire", ADMINISTRADOR, nomeDefault, emailDefault, "ahybnui");
+		gdc.cadastra("Victor", GERENTE, nomeDefault, emailDefault, "oemugnu");
 	}
 
 	@Test
@@ -36,27 +39,27 @@ public class GerenciadorDeContasTest {
 		gdc = new GerenciadorDeContas();
 		assertTrue(gdc.vazio());
 
-		assertNotEquals(null, gdc.cadastra("Roberto", "afewgs", FUNCIONARIO));
-		assertNotEquals(null, gdc.cadastra("Paulo", "grhtrd", FUNCIONARIO));
-		assertNotEquals(null, gdc.cadastra("Mateus", "aofnhsue", FUNCIONARIO));
-		assertNotEquals(null, gdc.cadastra("Rodrigo", "asdpi", FUNCIONARIO));
-		assertNotEquals(null, gdc.cadastra("Rafaela", "eqrete", FUNCIONARIO));
-		assertNotEquals(null, gdc.cadastra("Nara", "htrthr", ADMINISTRADOR));
-		assertNotEquals(null, gdc.cadastra("Ingrid", "asdfe", ADMINISTRADOR));
-		assertNotEquals(null, gdc.cadastra("Maria", "ththuy", ADMINISTRADOR));
-		assertNotEquals(null, gdc.cadastra("Safire", "ahybnui", ADMINISTRADOR));
-		assertNotEquals(null, gdc.cadastra("Victor", "oemugnu", GERENTE));
+		assertNotEquals(null, gdc.cadastra("Roberto", FUNCIONARIO, nomeDefault, emailDefault, "afewgs"));
+		assertNotEquals(null, gdc.cadastra("Paulo", FUNCIONARIO, nomeDefault, emailDefault, "grhtrd"));
+		assertNotEquals(null, gdc.cadastra("Mateus", FUNCIONARIO, nomeDefault, emailDefault, "aofnhsue"));
+		assertNotEquals(null, gdc.cadastra("Rodrigo", FUNCIONARIO, nomeDefault, emailDefault, "asdpi"));
+		assertNotEquals(null, gdc.cadastra("Rafaela", FUNCIONARIO, nomeDefault, emailDefault, "eqrete"));
+		assertNotEquals(null, gdc.cadastra("Nara", ADMINISTRADOR, nomeDefault, emailDefault, "htrthr"));
+		assertNotEquals(null, gdc.cadastra("Ingrid", ADMINISTRADOR, nomeDefault, emailDefault, "asdfe"));
+		assertNotEquals(null, gdc.cadastra("Maria", ADMINISTRADOR, nomeDefault, emailDefault, "ththuy"));
+		assertNotEquals(null, gdc.cadastra("Safire", ADMINISTRADOR, nomeDefault, emailDefault, "ahybnui"));
+		assertNotEquals(null, gdc.cadastra("Victor", GERENTE, nomeDefault, emailDefault, "oemugnu"));
 
-		assertEquals(null, gdc.cadastra("Nara", "afewgs", FUNCIONARIO));
-		assertEquals(null, gdc.cadastra("Ingrid", "grhtrd", FUNCIONARIO));
-		assertEquals(null, gdc.cadastra("Maria", "aofnhsue", FUNCIONARIO));
-		assertEquals(null, gdc.cadastra("Safire", "asdpi", FUNCIONARIO));
-		assertEquals(null, gdc.cadastra("Victor", "eqrete", FUNCIONARIO));
-		assertEquals(null, gdc.cadastra("Roberto", "htrthr", ADMINISTRADOR));
-		assertEquals(null, gdc.cadastra("Paulo", "asdfe", ADMINISTRADOR));
-		assertEquals(null, gdc.cadastra("Mateus", "ththuy", ADMINISTRADOR));
-		assertEquals(null, gdc.cadastra("Rodrigo", "ahybnui", ADMINISTRADOR));
-		assertEquals(null, gdc.cadastra("Rafaela", "oemugnu", GERENTE));
+		assertEquals(null, gdc.cadastra("Nara", FUNCIONARIO, nomeDefault, emailDefault, "afewgs"));
+		assertEquals(null, gdc.cadastra("Ingrid", FUNCIONARIO, nomeDefault, emailDefault, "grhtrd"));
+		assertEquals(null, gdc.cadastra("Maria", FUNCIONARIO, nomeDefault, emailDefault, "aofnhsue"));
+		assertEquals(null, gdc.cadastra("Safire", FUNCIONARIO, nomeDefault, emailDefault, "asdpi"));
+		assertEquals(null, gdc.cadastra("Victor", FUNCIONARIO, nomeDefault, emailDefault, "eqrete"));
+		assertEquals(null, gdc.cadastra("Roberto", ADMINISTRADOR, nomeDefault, emailDefault, "htrthr"));
+		assertEquals(null, gdc.cadastra("Paulo", ADMINISTRADOR, nomeDefault, emailDefault, "asdfe"));
+		assertEquals(null, gdc.cadastra("Mateus", ADMINISTRADOR, nomeDefault, emailDefault, "ththuy"));
+		assertEquals(null, gdc.cadastra("Rodrigo", ADMINISTRADOR, nomeDefault, emailDefault, "ahybnui"));
+		assertEquals(null, gdc.cadastra("Rafaela", GERENTE, nomeDefault, emailDefault, "oemugnu"));
 
 		assertFalse(gdc.vazio());
 	}
@@ -80,9 +83,9 @@ public class GerenciadorDeContasTest {
 		assertEquals("Rafaela".hashCode(), gdc.login("Rafaela", "eqrete").hashCode());
 		assertEquals("Maria".hashCode(), gdc.login("Maria", "ththuy").hashCode());
 
-		Conta emanuell = new Conta("Emanuell", "sdfji", FUNCIONARIO);
-		Conta jacob = new Conta("Jacob", "feafe", GERENTE);
-		Conta abigail = new Conta("Abigail", "gweagg", ADMINISTRADOR);
+		Conta emanuell = new Conta("Emanuell", FUNCIONARIO, nomeDefault, emailDefault, "sdfji");
+		Conta jacob = new Conta("Jacob", GERENTE, nomeDefault, emailDefault, "feafe");
+		Conta abigail = new Conta("Abigail", ADMINISTRADOR, nomeDefault, emailDefault, "gweagg");
 
 		assertFalse(gdc.remove(emanuell));
 		assertFalse(gdc.remove(jacob));

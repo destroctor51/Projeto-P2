@@ -37,6 +37,12 @@ public class OpiniaoTest {
 		} catch (IllegalArgumentException e) {}
 
 		Assert.assertEquals(data, opiniao.getData());
+
+		opiniao = new Opiniao("", 9, "Hotel otimo e atendimento rapido, recomendo.", data);
+		Assert.assertEquals("An\00F4nimo", opiniao.getAutor());
+
+		opiniao = new Opiniao(null, 9, "Hotel otimo e atendimento rapido, recomendo.", data);
+		Assert.assertEquals("An\00F4nimo", opiniao.getAutor());
 	}
 
 	@Test

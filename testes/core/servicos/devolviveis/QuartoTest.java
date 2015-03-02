@@ -43,10 +43,13 @@ public class QuartoTest {
 		quarto6 = new Quarto(TipoQuarto.EXECUTIVO_DUPLO,105);
 		quarto7 = new Quarto(TipoQuarto.EXECUTIVO_TRIPLO,106);
 
-		c1 = new GregorianCalendar(2014,1,28);
-		c2 = new GregorianCalendar(2014,1,30);
+		c1 = new GregorianCalendar(2014, 1, 28);
+		c2 = new GregorianCalendar(2014, 1, 30);
+		c3 = new GregorianCalendar(2018, 5, 2);
+		c4 = new GregorianCalendar(2019, 7, 3);
 
-		p1 = new Periodo(c1,c2);
+		p1 = new Periodo(c1, c2);
+		p2 = new Periodo(c3, c4);
 	}
 
 	@Test
@@ -86,38 +89,44 @@ public class QuartoTest {
 
 		Assert.assertTrue(quarto1.aluga(p1));
 		Assert.assertEquals(0, quarto1.getPreco(),0.001);
-		quarto1.devolve(c1);
+		Assert.assertTrue(quarto1.devolve(c1));
 		Assert.assertEquals(2400.0, quarto1.getPreco(),0.001);
 
 		Assert.assertTrue(quarto2.aluga(p1));
 		Assert.assertEquals(0, quarto2.getPreco(),0.001);
-		quarto2.devolve(c1);
+		Assert.assertTrue(quarto2.devolve(c1));
 		Assert.assertEquals(1040.0, quarto2.getPreco(),0.001);
 
 		Assert.assertTrue(quarto3.aluga(p1));
 		Assert.assertEquals(0, quarto3.getPreco(),0.001);
-		quarto3.devolve(c1);
+		Assert.assertTrue(quarto3.devolve(c1));
 		Assert.assertEquals(1140.0, quarto3.getPreco(),0.001);
 
 		Assert.assertTrue(quarto4.aluga(p1));
 		Assert.assertEquals(0, quarto4.getPreco(),0.001);
-		quarto4.devolve(c1);
+		Assert.assertTrue(quarto4.devolve(c1));
 		Assert.assertEquals(1240.0, quarto4.getPreco(),0.001);
 
 		Assert.assertTrue(quarto5.aluga(p1));
 		Assert.assertEquals(0, quarto5.getPreco(),0.001);
-		quarto5.devolve(c1);
+		Assert.assertTrue(quarto5.devolve(c1));
 		Assert.assertEquals(720.0, quarto5.getPreco(),0.001);
 
 		Assert.assertTrue(quarto6.aluga(p1));
 		Assert.assertEquals(0, quarto6.getPreco(),0.001);
-		quarto6.devolve(c1);
+		Assert.assertTrue(quarto6.devolve(c1));
 		Assert.assertEquals(770.0, quarto6.getPreco(),0.001);
 
 		Assert.assertTrue(quarto7.aluga(p1));
 		Assert.assertEquals(0, quarto7.getPreco(),0.001);
-		quarto7.devolve(c1);
+		Assert.assertTrue(quarto7.devolve(c1));
 		Assert.assertEquals(880.0, quarto7.getPreco(),0.001);
+
+		Assert.assertFalse(quarto7.cancela());
+		Assert.assertTrue(quarto7.aluga(p2));
+		Assert.assertEquals(0, quarto7.getPreco(),0.001);
+		Assert.assertTrue(quarto7.cancela());
+		Assert.assertEquals(0, quarto7.getPreco(),0.001);
 	}
 
 	@Test

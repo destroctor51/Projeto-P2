@@ -67,6 +67,13 @@ public class EstacaoTest {
 		Assert.assertFalse(e1.entraEmConflito(p1));
 		Assert.assertTrue(e1.addPeriodo(p2));
 		Assert.assertTrue(e1.addPeriodo(p3));
+
+		Assert.assertFalse(e1.entraEmConflito(p1));
+		Assert.assertTrue(e1.entraEmConflito(p2));
+		Assert.assertTrue(e1.entraEmConflito(p3));
+
+		Assert.assertTrue(e1.removePeriodo(p2));
+		Assert.assertFalse(e1.entraEmConflito(p2));
 	}
 
 	@Test

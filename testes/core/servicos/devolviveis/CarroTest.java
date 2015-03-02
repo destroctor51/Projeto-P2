@@ -78,14 +78,20 @@ public class CarroTest {
 	@Test
 	public void getPrecoTest() {
 
-		carro1.aluga(p1, true, true);
+		Assert.assertTrue(carro1.aluga(p1, true, true));
 		Assert.assertEquals(0, carro1.getPreco(), 0.001);
-		carro1.devolve(c1);
+		Assert.assertTrue(carro1.devolve(c1));
 		Assert.assertEquals(450, carro1.getPreco(), 0.001);
 
-		carro2.aluga(p2, true, false);
+		Assert.assertFalse(carro1.cancela());
+		Assert.assertTrue(carro1.aluga(p2, true, true));
+		Assert.assertEquals(0, carro1.getPreco(), 0.001);
+		Assert.assertTrue(carro1.cancela());
+		Assert.assertEquals(0, carro1.getPreco(), 0.001);
+
+		Assert.assertTrue((carro2.aluga(p2, true, false)));
 		Assert.assertEquals(0, carro2.getPreco(), 0.001);
-		carro2.devolve(c1);
+		Assert.assertTrue(carro2.devolve(c1));
 		Assert.assertEquals(1710, carro2.getPreco(), 0.001);
 	}
 

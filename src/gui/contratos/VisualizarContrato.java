@@ -161,7 +161,7 @@ public class VisualizarContrato extends JPanel {
 		panel_1.add(lblNewLabel, gbc_lblNewLabel);
 
 		JButton btnVoltar = new JButton("Voltar");
-		btnVoltar.setFocusPainted(false);
+		btnVoltar.setFocusable(false);
 		GridBagConstraints gbc_btnVoltar = new GridBagConstraints();
 		gbc_btnVoltar.insets = new Insets(0, 0, 0, 10);
 		gbc_btnVoltar.anchor = GridBagConstraints.EAST;
@@ -176,8 +176,8 @@ public class VisualizarContrato extends JPanel {
 		});
 
 		btnDevolver = new JButton("Devolver Servi\u00E7o");
+		btnDevolver.setFocusable(false);
 		btnDevolver.setEnabled(false);
-		btnDevolver.setFocusPainted(false);
 		btnDevolver.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -193,7 +193,7 @@ public class VisualizarContrato extends JPanel {
 		panel_1.add(btnDevolver, gbc_btnDevolver);
 
 		JButton btnContratar = new JButton("Contratar Servi\u00E7o");
-		btnContratar.setFocusPainted(false);
+		btnContratar.setFocusable(false);
 		btnContratar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
