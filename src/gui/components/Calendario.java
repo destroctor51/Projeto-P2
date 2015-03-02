@@ -189,7 +189,7 @@ public class Calendario extends JComponent {
 		}
 	}
 
-	protected final void atualizaDias() {
+	public final void atualizaDias() {
 		if(isSelecaoInvalida())
 			selecao = null;
 

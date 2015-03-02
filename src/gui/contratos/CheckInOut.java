@@ -165,9 +165,9 @@ public class CheckInOut extends JPanel {
 		gbc_panel_2.gridy = 6;
 		add(panel_2, gbc_panel_2);
 		GridBagLayout gbl_panel_2 = new GridBagLayout();
-		gbl_panel_2.columnWidths = new int[]{369, 0, 0, 106, 0};
-		gbl_panel_2.rowHeights = new int[]{25, 0};
-		gbl_panel_2.columnWeights = new double[]{1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_2.columnWidths = new int[] {0, 0, 0, 0};
+		gbl_panel_2.rowHeights = new int[] {0};
+		gbl_panel_2.columnWeights = new double[]{1.0, 0.0, 0.0, 0.0};
 		gbl_panel_2.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_2.setLayout(gbl_panel_2);
 		
