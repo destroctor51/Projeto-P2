@@ -56,7 +56,7 @@ public class Opinioes extends JPanel {
 			@Override
 			public void ancestorRemoved(AncestorEvent arg0) {}
 		});
-		setName("Opiniões");
+		setName("Opini\u00F5es");
 		setMinimumSize(new Dimension(0, 0));
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -89,7 +89,7 @@ public class Opinioes extends JPanel {
 		gbc_lblAno.gridy = 0;
 		panel.add(lblAno, gbc_lblAno);
 
-		JLabel lblMs = new JLabel("Mes:");
+		JLabel lblMs = new JLabel("M\u00EAs:");
 		GridBagConstraints gbc_lblMs = new GridBagConstraints();
 		gbc_lblMs.anchor = GridBagConstraints.WEST;
 		gbc_lblMs.insets = new Insets(0, 0, 5, 0);
@@ -130,7 +130,7 @@ public class Opinioes extends JPanel {
 		});
 		panel.add(cbMes, gbc_cbMes);
 
-		String[] e = {"Janeiro","Fevereiro","Marco","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"};
+		String[] e = {"Janeiro","Fevereiro","Mar\u00E7o","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"};
 		DefaultComboBoxModel<Object> meses = new DefaultComboBoxModel<Object>(e);
 		cbMes.setModel(meses);
 
@@ -185,7 +185,7 @@ public class Opinioes extends JPanel {
 		});
 		panel_1.add(btVoltar);
 
-		JButton btnAdicionar_1 = new JButton("Adicionar Opiniao");
+		JButton btnAdicionar_1 = new JButton("Adicionar Opini\u00E3o");
 		panel_1.add(btnAdicionar_1);
 		btnAdicionar_1.addActionListener(new ActionListener() {
 			@Override
@@ -195,7 +195,7 @@ public class Opinioes extends JPanel {
 		});
 
 	}
-	
+
 	private void atualizaJList() {
 		List<Opiniao> lista = filtraOpinioes();
 		Filtro.ordenaToString(lista);
@@ -218,5 +218,5 @@ public class Opinioes extends JPanel {
 		}
 		return resultado;
 	}
-	
+
 }

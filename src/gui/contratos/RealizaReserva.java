@@ -100,7 +100,7 @@ public class RealizaReserva extends JPanel {
 		gbl_panel_1.rowWeights = new double[] { 0.0 };
 		panel_1.setLayout(gbl_panel_1);
 
-		JLabel lblProcurarHspede = new JLabel("Procurar Hóspede :");
+		JLabel lblProcurarHspede = new JLabel("Procurar H\u00F3spede:");
 		lblProcurarHspede.setHorizontalAlignment(SwingConstants.LEFT);
 		GridBagConstraints gbc_lblProcurarHspede = new GridBagConstraints();
 		gbc_lblProcurarHspede.anchor = GridBagConstraints.EAST;
@@ -161,7 +161,7 @@ public class RealizaReserva extends JPanel {
 		gbl_panel_2.rowWeights = new double[] { 0.0 };
 		panel_2.setLayout(gbl_panel_2);
 
-		JLabel lblCartoDeCrdito = new JLabel("Cartão de crédito :");
+		JLabel lblCartoDeCrdito = new JLabel("Cart\u00E3o de cr\u00E9dito:");
 		GridBagConstraints gbc_lblCartoDeCrdito = new GridBagConstraints();
 		gbc_lblCartoDeCrdito.anchor = GridBagConstraints.EAST;
 		gbc_lblCartoDeCrdito.insets = new Insets(0, 0, 10, 10);
@@ -347,7 +347,7 @@ public class RealizaReserva extends JPanel {
 		panel_3.add(spinner_3, gbc_spinner_3);
 
 		JLabel lblQuartosExecutivoSimples = new JLabel(
-				"Quartos Executivo Simples: ");
+				"Quartos Executivo Simples:");
 		GridBagConstraints gbc_lblQuartosExecutivoSimples = new GridBagConstraints();
 		gbc_lblQuartosExecutivoSimples.anchor = GridBagConstraints.WEST;
 		gbc_lblQuartosExecutivoSimples.insets = new Insets(0, 0, 5, 5);
@@ -426,7 +426,7 @@ public class RealizaReserva extends JPanel {
 		gbc_spinner_6.gridy = 6;
 		panel_3.add(spinner_6, gbc_spinner_6);
 
-		JLabel lblPeriodoDeEstadia = new JLabel("Periodo de estadia: ");
+		JLabel lblPeriodoDeEstadia = new JLabel("Per\u00EDodo de estadia:");
 		GridBagConstraints gbc_lblPeriodoDeEstadia = new GridBagConstraints();
 		gbc_lblPeriodoDeEstadia.insets = new Insets(0, 0, 0, 5);
 		gbc_lblPeriodoDeEstadia.gridx = 1;
@@ -544,15 +544,15 @@ public class RealizaReserva extends JPanel {
 		String cartao = cardField.getText();
 
 		if (hospede == null) {
-			ErrorLabel.setText("Hóspede ainda não escolhido.");
+			ErrorLabel.setText("H\u00F3spede ainda n\u00E3o escolhido");
 			ErrorLabel.setVisible(true);
 			return;
 		} else if (!(Hospede.verificaCartao(cartao)) || cartao.equals("")) {
-			ErrorLabel.setText("Cartão invalido.");
+			ErrorLabel.setText("Cart\u00E3o inv\u00E1lido");
 			ErrorLabel.setVisible(true);
 			return;
 		} else if (estadia == null) {
-			ErrorLabel.setText("Estadia não foi selecionada.");
+			ErrorLabel.setText("Estadia n\u00E3o foi selecionada");
 			ErrorLabel.setVisible(true);
 			return;
 		}
@@ -589,7 +589,7 @@ public class RealizaReserva extends JPanel {
 				.getValue();
 
 		if (p + ls + ld + lt + es + ed + et == 0) {
-			ErrorLabel.setText("Nenhum quarto foi escolhido.");
+			ErrorLabel.setText("Nenhum quarto foi escolhido");
 			ErrorLabel.setVisible(true);
 			return;
 		}

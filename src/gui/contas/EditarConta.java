@@ -74,7 +74,7 @@ public class EditarConta extends JPanel {
 		gbl_panel.rowWeights = new double[]{1.0, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 1.0};
 		panel.setLayout(gbl_panel);
 
-		JLabel lblNewLabel_1 = new JLabel("Nome de usuário:");
+		JLabel lblNewLabel_1 = new JLabel("Nome de usu\u00ED�rio:");
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
 		gbc_lblNewLabel_1.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel_1.insets = new Insets(0, 0, 10, 10);
@@ -92,7 +92,7 @@ public class EditarConta extends JPanel {
 		panel.add(textField, gbc_textField);
 		textField.setColumns(10);
 
-		JLabel lblNewLabel_2 = new JLabel("Permissão:");
+		JLabel lblNewLabel_2 = new JLabel("Permiss\u00E3o:");
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
 		gbc_lblNewLabel_2.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel_2.insets = new Insets(0, 0, 10, 10);

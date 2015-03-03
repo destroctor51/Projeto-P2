@@ -51,7 +51,7 @@ public class Menu extends JPanel {
 		gbl_mainPanel.rowWeights = new double[]{1.0, 0.3, 1.0};
 		mainPanel.setLayout(gbl_mainPanel);
 
-		JButton btnNewButton = new JButton("Hospedes");
+		JButton btnNewButton = new JButton("H\u00F3spedes");
 		btnNewButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -144,6 +144,7 @@ public class Menu extends JPanel {
 
 		JButton btnRelatorios = new JButton("Relat\u00F3rios");
 		btnRelatorios.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				Sistema.setTela(new MenuRelatorios());
 			}
@@ -181,6 +182,7 @@ public class Menu extends JPanel {
 
 		JButton btnNewButton_7 = new JButton("Esta\u00E7\u00F5es");
 		btnNewButton_7.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				Sistema.setTela(new Estacoes());
 			}
@@ -256,21 +258,21 @@ public class Menu extends JPanel {
 		gbc_btnNewButton_10.gridx = 4;
 		gbc_btnNewButton_10.gridy = 1;
 		contractPanel.add(btnNewButton_10, gbc_btnNewButton_10);
-		
-				JButton btnNewButton_12 = new JButton("Voltar");
-				GridBagConstraints gbc_btnNewButton_12 = new GridBagConstraints();
-				gbc_btnNewButton_12.insets = new Insets(0, 0, 0, 5);
-				gbc_btnNewButton_12.gridx = 4;
-				gbc_btnNewButton_12.gridy = 2;
-				contractPanel.add(btnNewButton_12, gbc_btnNewButton_12);
-				btnNewButton_12.addActionListener(new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						setTela("main");
-					}
-				});
-				btnNewButton_12.setFocusable(false);
-				btnNewButton_12.setFocusPainted(false);
+
+		JButton btnNewButton_12 = new JButton("Voltar");
+		GridBagConstraints gbc_btnNewButton_12 = new GridBagConstraints();
+		gbc_btnNewButton_12.insets = new Insets(0, 0, 0, 5);
+		gbc_btnNewButton_12.gridx = 4;
+		gbc_btnNewButton_12.gridy = 2;
+		contractPanel.add(btnNewButton_12, gbc_btnNewButton_12);
+		btnNewButton_12.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setTela("main");
+			}
+		});
+		btnNewButton_12.setFocusable(false);
+		btnNewButton_12.setFocusPainted(false);
 
 		if(skip) setTela("contracts");
 	}

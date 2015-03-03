@@ -35,7 +35,7 @@ public class MenuRelatorios extends JPanel {
 		gridBagLayout.rowWeights = new double[]{1.0, 0.1, 0.1, 0.1, 0.1, 1.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 
-		JButton btnServicosDisponiveis = new JButton("Servicos disponiveis");
+		JButton btnServicosDisponiveis = new JButton("Servicos dispon\u00EDveis");
 		GridBagConstraints gbc_btnServicosDisponiveis = new GridBagConstraints();
 		gbc_btnServicosDisponiveis.fill = GridBagConstraints.BOTH;
 		gbc_btnServicosDisponiveis.insets = new Insets(0, 0, 10, 5);
@@ -51,7 +51,7 @@ public class MenuRelatorios extends JPanel {
 		gbc_btnContratosEmAberto.gridy = 2;
 		add(btnContratosEmAberto, gbc_btnContratosEmAberto);
 
-		JButton btnFaturamento = new JButton("Faturamento e Servicos");
+		JButton btnFaturamento = new JButton("Faturamento e Servi\u00E7os");
 		GridBagConstraints gbc_btnFaturamentoPorMs = new GridBagConstraints();
 		gbc_btnFaturamentoPorMs.fill = GridBagConstraints.BOTH;
 		gbc_btnFaturamentoPorMs.insets = new Insets(0, 0, 10, 5);
@@ -59,7 +59,7 @@ public class MenuRelatorios extends JPanel {
 		gbc_btnFaturamentoPorMs.gridy = 3;
 		add(btnFaturamento, gbc_btnFaturamentoPorMs);
 
-		JButton btnOpinioes = new JButton("Opinioes sobre hotel");
+		JButton btnOpinioes = new JButton("Opini\u00F5es sobre hotel");
 		GridBagConstraints gbc_btnOpinioes = new GridBagConstraints();
 		gbc_btnOpinioes.fill = GridBagConstraints.BOTH;
 		gbc_btnOpinioes.insets = new Insets(0, 0, 10, 5);

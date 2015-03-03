@@ -205,7 +205,7 @@ public class Refeicoes extends JPanel {
 			}
 		});
 
-		JButton btnAdicionar_1 = new JButton("Adicionar Nova Refeição");
+		JButton btnAdicionar_1 = new JButton("Adicionar Nova Refei\u00E7\u00E3o");
 		GridBagConstraints gbc_btnAdicionar_1 = new GridBagConstraints();
 		gbc_btnAdicionar_1.insets = new Insets(0, 0, 0, 5);
 		gbc_btnAdicionar_1.anchor = GridBagConstraints.NORTHWEST;

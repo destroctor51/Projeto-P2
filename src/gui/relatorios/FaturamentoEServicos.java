@@ -191,7 +191,7 @@ public class FaturamentoEServicos extends JPanel {
 		}
 
 		// set cbFaturaMensal
-		String[] e = { "Janeiro", "Fevereiro", "Marco", "Abril", "Maio",
+		String[] e = { "Janeiro", "Fevereiro", "Mar\u00E7o", "Abril", "Maio",
 				"Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro",
 		"Dezembro" };
 		ComboBoxModel<String> meses = new DefaultComboBoxModel<>(e);
@@ -214,7 +214,7 @@ public class FaturamentoEServicos extends JPanel {
 				} else {
 					errorLabel.setForeground(Color.RED);
 					errorLabel.setVisible(true);
-					errorLabel.setText("Selecione uma estacao");
+					errorLabel.setText("Selecione uma esta\u00E7\u00E3o");
 				}
 			}
 		});
@@ -324,8 +324,8 @@ public class FaturamentoEServicos extends JPanel {
 
 		this.estrategia = estrategia;
 		if (estrategia instanceof Servicos)
-			setName("Relatorio de servicos disponiveis");
+			setName("Relat\u00F3rio de servicos dispon\u00EDveis");
 		else if(estrategia instanceof Faturamento)
-			setName("Relatorio de Faturamento");
+			setName("Relat\u00F3rio de Faturamento");
 	}
 }

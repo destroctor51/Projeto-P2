@@ -2,6 +2,7 @@ package gui.opinioes;
 
 import gui.Sistema;
 import gui.components.NotaPorEstrelas;
+import gui.components.SuperTextField;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -21,7 +22,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import gui.components.SuperTextField;
 
 public class AdicionarOpiniao extends JPanel {
 
@@ -34,7 +34,7 @@ public class AdicionarOpiniao extends JPanel {
 	 */
 	public AdicionarOpiniao(final JPanel tela) {
 
-		setName("Adicionar Opiniao");
+		setName("Adicionar Opini\u00E3o");
 		setMinimumSize(new Dimension(0, 0));
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -67,7 +67,7 @@ public class AdicionarOpiniao extends JPanel {
 		gbc_lblAno.gridy = 0;
 		panel.add(lblAno, gbc_lblAno);
 
-		JLabel lblMs = new JLabel("*Nota:");
+		JLabel lblMs = new JLabel("Nota:");
 		GridBagConstraints gbc_lblMs = new GridBagConstraints();
 		gbc_lblMs.insets = new Insets(0, 0, 5, 5);
 		gbc_lblMs.gridx = 1;
@@ -76,9 +76,9 @@ public class AdicionarOpiniao extends JPanel {
 
 		final JLabel lblAvaliacao = new JLabel("Avaliacao");
 		lblAvaliacao.setVisible(false);
-		
+
 		final SuperTextField tfNome = new SuperTextField();
-		tfNome.setHint("Anonimo");
+		tfNome.setHint("An\u00F4nimo");
 		GridBagConstraints gbc_superTextField = new GridBagConstraints();
 		gbc_superTextField.insets = new Insets(0, 0, 0, 5);
 		gbc_superTextField.fill = GridBagConstraints.HORIZONTAL;
@@ -126,7 +126,7 @@ public class AdicionarOpiniao extends JPanel {
 		gbl_panelLista.rowWeights = new double[]{0.0, 1.0};
 		panelLista.setLayout(gbl_panelLista);
 
-		JLabel lblComentrio = new JLabel("*Comentário:");
+		JLabel lblComentrio = new JLabel("Coment\u00E1rio:");
 		GridBagConstraints gbc_lblComentrio = new GridBagConstraints();
 		gbc_lblComentrio.anchor = GridBagConstraints.NORTHWEST;
 		gbc_lblComentrio.insets = new Insets(0, 0, 5, 0);
@@ -174,7 +174,7 @@ public class AdicionarOpiniao extends JPanel {
 		});
 		panel_1.add(btnNewButton);
 
-		JButton btnAdicionar_1 = new JButton("Adicionar Opiniao");
+		JButton btnAdicionar_1 = new JButton("Adicionar Opini\u00E3o");
 		panel_1.add(btnAdicionar_1);
 		btnAdicionar_1.addActionListener(new ActionListener() {
 			@Override
@@ -196,17 +196,17 @@ public class AdicionarOpiniao extends JPanel {
 							throw new IllegalArgumentException();
 						Sistema.getHotel().adicionaOpiniao(nome, nota, comentario, dataAtual);
 					}
-					
+
 					Sistema.setTela(tela);
 
 				} catch (NumberFormatException nfe) {
 					lblobs.setVisible(true);
 					lblobs.setForeground(Color.RED);
-					lblobs.setText("Deve ser dada uma nota!");
+					lblobs.setText("Deve ser dada uma nota");
 				} catch (IllegalArgumentException iae) {
 					lblobs.setVisible(true);
 					lblobs.setForeground(Color.RED);
-					lblobs.setText("Comentario e nome(se for preenchido) devem ter no minimo 3 caracteres!");
+					lblobs.setText("Coment\u00E1rio e nome (se for preenchido) devem ter no m\u00EDnimo 3 caract\u00E9res");
 				}
 			}
 		});
@@ -231,17 +231,17 @@ public class AdicionarOpiniao extends JPanel {
 		case 3:
 			lblAvaliacao.setForeground(new Color(0,0,255));
 			lblAvaliacao.setVisible(true);
-			lblAvaliacao.setText("Medio");
+			lblAvaliacao.setText("M\u00E9dio");
 			break;
 		case 4:
 			lblAvaliacao.setForeground(new Color(10,140,60));
 			lblAvaliacao.setVisible(true);
-			lblAvaliacao.setText("Bom!");
+			lblAvaliacao.setText("Bom");
 			break;
 		case 5:
 			lblAvaliacao.setForeground(new Color(10,180,40));
 			lblAvaliacao.setVisible(true);
-			lblAvaliacao.setText("Excelente!");
+			lblAvaliacao.setText("\u00D3timo");
 			break;
 		}
 	}

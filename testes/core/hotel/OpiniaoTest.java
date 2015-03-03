@@ -23,17 +23,17 @@ public class OpiniaoTest {
 	public void testaCriaOpiniao() {
 		try {
 			new Opiniao(9, null, new GregorianCalendar());
-			Assert.fail("Esperava excecao, pois o comentario esta null.");
+			Assert.fail();
 		} catch (IllegalArgumentException e) {}
 
 		try {
 			new Opiniao("Arthur", 9, null, new GregorianCalendar());
-			Assert.fail("Esperava excecao, pois o comentario esta null.");
+			Assert.fail();
 		} catch (IllegalArgumentException e) {}
 
 		try {
 			new Opiniao("Arthur", 9, "alo", null);
-			Assert.fail("Esperava excecao, pois a data esta null.");
+			Assert.fail();
 		} catch (IllegalArgumentException e) {}
 
 		Assert.assertEquals(data, opiniao.getData());

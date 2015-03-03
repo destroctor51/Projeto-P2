@@ -39,7 +39,7 @@ import core.tempo.Periodo;
 
 public class SelecionarServicos extends JPanel {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 	private Contrato contrato;
@@ -75,9 +75,9 @@ public class SelecionarServicos extends JPanel {
 	 * Create the panel.
 	 */
 	public SelecionarServicos(Contrato contrato, final JPanel tela) {
-		
-		this.setName("Selecionar Servicos");
-		
+
+		this.setName("Selecionar Servi\u00E7os");
+
 		setForeground(Color.BLACK);
 		this.contrato = contrato;
 
@@ -91,6 +91,7 @@ public class SelecionarServicos extends JPanel {
 
 		JButton btnConfirmar = new JButton("Confirmar");
 		btnConfirmar.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				concluir(tela);
 			}
@@ -98,6 +99,7 @@ public class SelecionarServicos extends JPanel {
 
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				Sistema.setTela(tela);
 			}
@@ -105,6 +107,7 @@ public class SelecionarServicos extends JPanel {
 
 		comboBox_1 = new JComboBox<Object>();
 		comboBox_1.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				atualizaCalendar();
 			}
@@ -112,24 +115,26 @@ public class SelecionarServicos extends JPanel {
 		comboBox_1.setModel(new DefaultComboBoxModel<Object>(new String[] {
 				"Babysitter", "Carro", "CamaExtra" }));
 
-		JLabel lblServioDesejado = new JLabel("Serviço desejado :");
+		JLabel lblServioDesejado = new JLabel("Servi\u00E7o desejado :");
 
 		calendario = new CalendarioAlugavel();
 
-		JLabel lblPeriodoDesejado = new JLabel("Periodo desejado :");
+		JLabel lblPeriodoDesejado = new JLabel("Per\u00EDodo desejado :");
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 
-		JButton btnRemoverServio = new JButton("Remover serviço");
+		JButton btnRemoverServio = new JButton("Remover servi\u00E7o");
 		btnRemoverServio.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				removerServico();
 			}
 		});
 
-		JButton btnSelecionarServio = new JButton("Selecionar serviço");
+		JButton btnSelecionarServio = new JButton("Selecionar servi\u00E7o");
 		btnSelecionarServio.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				selecionarServico();
 			}
@@ -139,75 +144,75 @@ public class SelecionarServicos extends JPanel {
 
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+				groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
-							.addContainerGap())
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(panel, GroupLayout.DEFAULT_SIZE, 699, Short.MAX_VALUE)
+						.addContainerGap()
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(lblPeriodoDesejado)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(calendario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-									.addComponent(btnRemoverServio)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(btnSelecionarServio)
-									.addPreferredGap(ComponentPlacement.RELATED)))
-							.addGap(9))
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addComponent(lblServioDesejado)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, 201, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(layeredPane, GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
-							.addContainerGap())
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addComponent(ErrorLabel, GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(btnCancelar)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(btnConfirmar)
-							.addContainerGap())))
-		);
+										.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
+										.addContainerGap())
+										.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+												.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+														.addComponent(panel, GroupLayout.DEFAULT_SIZE, 699, Short.MAX_VALUE)
+														.addGroup(groupLayout.createSequentialGroup()
+																.addComponent(lblPeriodoDesejado)
+																.addPreferredGap(ComponentPlacement.RELATED)
+																.addComponent(calendario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+																.addPreferredGap(ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+																.addComponent(btnRemoverServio)
+																.addPreferredGap(ComponentPlacement.UNRELATED)
+																.addComponent(btnSelecionarServio)
+																.addPreferredGap(ComponentPlacement.RELATED)))
+																.addGap(9))
+																.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+																		.addComponent(lblServioDesejado)
+																		.addPreferredGap(ComponentPlacement.RELATED)
+																		.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, 201, GroupLayout.PREFERRED_SIZE)
+																		.addGap(18)
+																		.addComponent(layeredPane, GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
+																		.addContainerGap())
+																		.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+																				.addComponent(ErrorLabel, GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
+																				.addPreferredGap(ComponentPlacement.UNRELATED)
+																				.addComponent(btnCancelar)
+																				.addPreferredGap(ComponentPlacement.UNRELATED)
+																				.addComponent(btnConfirmar)
+																				.addContainerGap())))
+				);
 		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
+				groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(1)
-							.addComponent(layeredPane, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblServioDesejado)
-								.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addGroup(groupLayout.createSequentialGroup()
-									.addGap(93)
-									.addComponent(lblPeriodoDesejado))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGap(12)
-									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-										.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-											.addComponent(btnSelecionarServio)
-											.addComponent(btnRemoverServio))
-										.addComponent(calendario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))))
-					.addGap(19)
-					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
-					.addGap(18)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-							.addComponent(btnConfirmar)
-							.addComponent(btnCancelar))
-						.addComponent(ErrorLabel, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap())
-		);
+										.addGap(1)
+										.addComponent(layeredPane, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE))
+										.addGroup(groupLayout.createSequentialGroup()
+												.addPreferredGap(ComponentPlacement.UNRELATED)
+												.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+														.addComponent(lblServioDesejado)
+														.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+														.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+																.addGroup(groupLayout.createSequentialGroup()
+																		.addGap(93)
+																		.addComponent(lblPeriodoDesejado))
+																		.addGroup(groupLayout.createSequentialGroup()
+																				.addGap(12)
+																				.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+																						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+																								.addComponent(btnSelecionarServio)
+																								.addComponent(btnRemoverServio))
+																								.addComponent(calendario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))))
+																								.addGap(19)
+																								.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+																								.addGap(18)
+																								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+																										.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+																												.addComponent(btnConfirmar)
+																												.addComponent(btnCancelar))
+																												.addComponent(ErrorLabel, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
+																												.addContainerGap())
+				);
 
 		chckbxNewCheckBox_1 = new JCheckBox("Seguro");
 		chckbxNewCheckBox_1.setBounds(122, 61, 76, 23);
@@ -221,12 +226,13 @@ public class SelecionarServicos extends JPanel {
 		chckbxNewCheckBox.setVisible(false);
 		layeredPane.setLayer(chckbxNewCheckBox, 0);
 
-		lblTipoDeCarro = new JLabel("Tipo de carro :");
+		lblTipoDeCarro = new JLabel("Tipo de carro:");
 		lblTipoDeCarro.setBounds(12, 17, 102, 15);
 		layeredPane.add(lblTipoDeCarro);
 
 		comboBox = new JComboBox<Object>();
 		comboBox.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if (comboBox.getSelectedItem().equals(TipoCarro.EXECUTIVO)) {
 					calendario.setRequisito("carroe", 1);
@@ -261,8 +267,8 @@ public class SelecionarServicos extends JPanel {
 			if (servico instanceof Quarto
 					&& (!((Quarto) servico).getTipo().equals(
 							TipoQuarto.EXECUTIVO_TRIPLO))
-					&& (!((Quarto) servico).getTipo().equals(
-							TipoQuarto.PRESIDENCIAL)))
+							&& (!((Quarto) servico).getTipo().equals(
+									TipoQuarto.PRESIDENCIAL)))
 				quartos.add((Quarto) servico);
 		}
 
@@ -272,7 +278,7 @@ public class SelecionarServicos extends JPanel {
 
 		list_1.setModel(lista2);
 
-		lblHoraDeIncio = new JLabel("Hora de início :");
+		lblHoraDeIncio = new JLabel("Hora de in\u00EDcio:");
 		layeredPane.setLayer(lblHoraDeIncio, 2);
 		lblHoraDeIncio.setBounds(12, 17, 113, 15);
 		layeredPane.add(lblHoraDeIncio);
@@ -295,14 +301,14 @@ public class SelecionarServicos extends JPanel {
 		comboBox_3.setBounds(132, 56, 76, 24);
 		layeredPane.add(comboBox_3);
 
-		lblHoraDeSada = new JLabel("Hora de saída :");
+		lblHoraDeSada = new JLabel("Hora de sa\u00EDda:");
 		lblHoraDeSada.setBounds(12, 61, 113, 15);
 		layeredPane.add(lblHoraDeSada);
 
 		list = new JList<Object>();
 		scrollPane.setViewportView(list);
 		setLayout(groupLayout);
-		
+
 		calendario.initCategoria("babysitter", 1);
 		for (Babysitter b : Sistema.getHotel().getBabas()) {
 			Alugavel a = (Alugavel) b.clone();
@@ -360,7 +366,7 @@ public class SelecionarServicos extends JPanel {
 		Periodo periodo = calendario.getSelecao();
 
 		if (periodo == null) {
-			ErrorLabel.setText("Periodo ainda não escolhido.");
+			ErrorLabel.setText("Per\u00EDodo ainda n\u00E3o escolhido");
 			ErrorLabel.setVisible(true);
 			return;
 		}
@@ -370,37 +376,37 @@ public class SelecionarServicos extends JPanel {
 			for (Carro c : Sistema.getHotel().getCarrosDisponiveis(periodo)) {
 				disp = true;
 				if ((comboBox.getSelectedItem().equals(TipoCarro.EXECUTIVO) &&
-					c.getTipo().equals(TipoCarro.EXECUTIVO)) || 
-					(comboBox.getSelectedItem().equals(TipoCarro.LUXO) &&
-					c.getTipo().equals(TipoCarro.LUXO))) {
-					
+						c.getTipo().equals(TipoCarro.EXECUTIVO)) ||
+						(comboBox.getSelectedItem().equals(TipoCarro.LUXO) &&
+								c.getTipo().equals(TipoCarro.LUXO))) {
+
 					for (int i = 0; i < carrosAlugados.size(); i++) {
- 						if (carrosAlugados.get(i).equals(c) && pcarrosAlugados.get(i).entraEmConflito(periodo)) {
- 							disp = false;
- 							break;
- 						}
- 					}
- 
- 					if (disp) {
- 						pagavel = c;
- 						break;
- 					}
+						if (carrosAlugados.get(i).equals(c) && pcarrosAlugados.get(i).entraEmConflito(periodo)) {
+							disp = false;
+							break;
+						}
+					}
+
+					if (disp) {
+						pagavel = c;
+						break;
+					}
 				}
 			}
 		}
 		else if (comboBox_1.getSelectedItem().equals("CamaExtra")) {
 			boolean disp;
 			for (CamaExtra cama : Sistema.getHotel().getCamasDisponiveis(
-						periodo)) {
+					periodo)) {
 				disp = true;
-					
+
 				for (int i = 0; i < camasAlugadas.size(); i++) {
 					if (camasAlugadas.get(i).equals(cama) && pcamasAlugadas.get(i).entraEmConflito(periodo)) {
 						disp = false;
 						break;
 					}
 				}
-					
+
 				if (disp) {
 					pagavel = cama;
 					break;
@@ -415,9 +421,9 @@ public class SelecionarServicos extends JPanel {
 				for (Periodo p : b.getHistorico()) {
 					if (p.entraEmConflito(periodo))
 						disp = false;
-						break;
+					break;
 				}
-				
+
 				for (int i = 0; i < babasAlugadas.size(); i++) {
 					if (babasAlugadas.get(i).equals(b) && pbabasAlugadas.get(i).entraEmConflito(periodo)) {
 						disp = false;
@@ -431,20 +437,20 @@ public class SelecionarServicos extends JPanel {
 				}
 			}
 		}
-		
+
 		if (pagavel instanceof Carro) {
 			carrosAlugados.add((Carro) pagavel);
 			pcarrosAlugados.add(periodo);
 			tanque.add(chckbxNewCheckBox.isSelected());
 			seguro.add(chckbxNewCheckBox_1.isSelected());
-			
+
 		} else if (pagavel instanceof CamaExtra) {
 			camasAlugadas.add((CamaExtra) pagavel);
 			pcamasAlugadas.add(periodo);
 			Quarto quartosel = (Quarto) list_1.getSelectedValue();
 
 			if (quartosel == null) {
-				ErrorLabel.setText("Nenhum quarto foi selecionado.");
+				ErrorLabel.setText("Nenhum quarto foi selecionado");
 				ErrorLabel.setVisible(true);
 				return;
 			}
@@ -457,17 +463,17 @@ public class SelecionarServicos extends JPanel {
 
 			if (inicio == saida) {
 				ErrorLabel
-						.setText("Hora de início e de saída não podem ser iguais.");
+				.setText("Hora de in\u00ED�cio e de sa\u00ED�da n\u00E3o podem ser iguais");
 				ErrorLabel.setVisible(true);
 				return;
 			} else if (inicio > saida) {
 				ErrorLabel
-						.setText("Hora de início deve ser menor que a de saída.");
+				.setText("Hora de in\u00ED�cio deve ser menor que a de sa\u00ED�da");
 				ErrorLabel.setVisible(true);
 				return;
 			} else if (saida - inicio > 8) {
 				ErrorLabel
-						.setText("Mesma babá não pode ser contratada por mais de 8 horas no mesmo dia.");
+				.setText("Mesma bab\u00ED� n\u00E3o pode ser contratada por mais de 8 horas no mesmo dia");
 				ErrorLabel.setVisible(true);
 				return;
 			}
@@ -475,11 +481,11 @@ public class SelecionarServicos extends JPanel {
 			periodo.getFim().set(Calendar.DAY_OF_MONTH, periodo.getFim().get(Calendar.DAY_OF_MONTH) - 1);
 			periodo.getInicio().set(Calendar.HOUR_OF_DAY, inicio);
 			periodo.getFim().set(Calendar.HOUR_OF_DAY, saida);
-			
+
 			babasAlugadas.add((Babysitter) pagavel);
 			pbabasAlugadas.add(periodo);
 		}
-		
+
 		for (Alugavel a : clones) {
 			if (a.equals(pagavel)) {
 				a.aluga(periodo);
@@ -492,7 +498,7 @@ public class SelecionarServicos extends JPanel {
 		lista1.addElement(pagavel);
 		list.setModel(lista1);
 		ErrorLabel.setVisible(false);
-		
+
 		calendario.atualizaDias();
 	}
 
@@ -504,7 +510,7 @@ public class SelecionarServicos extends JPanel {
 				pcarrosAlugados.remove(index);
 				tanque.remove(index);
 				seguro.remove(index);
-				
+
 				Alugavel remov = null;
 				for (Alugavel a : clones) {
 					if (a.equals(list.getSelectedValue())) {
@@ -512,7 +518,7 @@ public class SelecionarServicos extends JPanel {
 						break;
 					}
 				}
-				
+
 				clones.remove(remov);
 				Alugavel clone = (Alugavel) ((Alugavel) list.getSelectedValue()).clone();
 				for (int i = 0; i < carrosAlugados.size(); i++) {
@@ -522,8 +528,8 @@ public class SelecionarServicos extends JPanel {
 					}
 				}
 				clones.add(clone);
-				
-				if (((Carro) clone).getTipo().equals(TipoCarro.EXECUTIVO)) {						
+
+				if (((Carro) clone).getTipo().equals(TipoCarro.EXECUTIVO)) {
 					calendario.removeCategoria("carroe");
 					calendario.initCategoria("carroe", 1);
 					for (Alugavel a : clones) {
@@ -540,12 +546,12 @@ public class SelecionarServicos extends JPanel {
 							calendario.adicionaElemento("carrol", a);
 					}
 				}
-				
+
 			} else if (list.getSelectedValue() instanceof CamaExtra) {
 				int index = camasAlugadas.indexOf(list.getSelectedValue());
 				camasAlugadas.remove(list.getSelectedValue());
 				pcamasAlugadas.remove(index);
-				
+
 				Alugavel remov = null;
 				for (Alugavel a : clones) {
 					if (a.equals(list.getSelectedValue())) {
@@ -553,7 +559,7 @@ public class SelecionarServicos extends JPanel {
 						break;
 					}
 				}
-				
+
 				clones.remove(remov);
 				Alugavel clone = (Alugavel) ((Alugavel) list.getSelectedValue()).clone();
 				for (int i = 0; i < camasAlugadas.size(); i++) {
@@ -562,7 +568,7 @@ public class SelecionarServicos extends JPanel {
 					}
 				}
 				clones.add(clone);
-				
+
 				calendario.removeCategoria("cama");
 				calendario.initCategoria("cama", 1);
 				atualizaCalendar();
@@ -570,12 +576,12 @@ public class SelecionarServicos extends JPanel {
 					if (a instanceof CamaExtra)
 						calendario.adicionaElemento("cama", a);
 				}
-				
+
 			} else {
 				int index = babasAlugadas.indexOf(list.getSelectedValue());
 				babasAlugadas.remove(list.getSelectedValue());
 				pbabasAlugadas.remove(index);
-				
+
 				Alugavel remov = null;
 				for (Alugavel a : clones) {
 					if (a.equals(list.getSelectedValue())) {
@@ -583,7 +589,7 @@ public class SelecionarServicos extends JPanel {
 						break;
 					}
 				}
-				
+
 				clones.remove(remov);
 				Alugavel clone = (Alugavel) ((Alugavel) list.getSelectedValue()).clone();
 				for (int i = 0; i < babasAlugadas.size(); i++) {
@@ -592,7 +598,7 @@ public class SelecionarServicos extends JPanel {
 					}
 				}
 				clones.add(clone);
-				
+
 				calendario.removeCategoria("babysitter");
 				calendario.initCategoria("babysitter", 1);
 				atualizaCalendar();
@@ -600,23 +606,23 @@ public class SelecionarServicos extends JPanel {
 					if (a instanceof Babysitter)
 						calendario.adicionaElemento("babysitter", a);
 				}
-				
+
 			}
 
 			lista1.removeElement(list.getSelectedValue());
 			ErrorLabel.setVisible(false);
 		} else {
-			ErrorLabel.setText("Nenhum serviço foi escolhido.");
+			ErrorLabel.setText("Nenhum servi\u00E7o foi escolhido");
 			ErrorLabel.setVisible(true);
 			return;
 		}
-		
+
 		calendario.atualizaDias();
 	}
 
 	private void concluir(JPanel tela) {
 		if (lista1.isEmpty()) {
-			ErrorLabel.setText("Nenhum serviço foi escolhido.");
+			ErrorLabel.setText("Nenhum servi\u00E7o foi escolhido");
 			ErrorLabel.setVisible(true);
 			return;
 		}
@@ -643,7 +649,7 @@ public class SelecionarServicos extends JPanel {
 		Sistema.setTela(tela);
 		ErrorLabel.setVisible(false);
 	}
-	
+
 	private void atualizaCalendar() {
 		if (comboBox_1.getSelectedItem().equals("Carro")) {
 			lblHoraDeIncio.setVisible(false);
@@ -653,7 +659,7 @@ public class SelecionarServicos extends JPanel {
 			calendario.setRequisito("babysitter", 0);
 			calendario.setRequisito("cama", 0);
 			calendario.setMultiplos(true);
-			
+
 			if (comboBox.getSelectedItem().equals(TipoCarro.EXECUTIVO)) {
 				calendario.setRequisito("carroe", 1);
 				calendario.setRequisito("carrol", 0);

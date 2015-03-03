@@ -35,12 +35,12 @@ public class Servicos extends Estrategia {
 
 		calculaRelatorioAnual(cb);
 
-		texto += "Faturamento anual\n";
+		texto += "Servi\u00E7os anuais\n";
 		texto += "Ano: " + cb.getSelectedItem() + "\n\n";
 
 		texto += "Janeiro: " + meses[0] + "\n";
 		texto += "Fevereiro: " + meses[1] + "\n";
-		texto += "Marco: " + meses[2] + "\n";
+		texto += "Mar\u00E7o: " + meses[2] + "\n";
 		texto += "Abril: " + meses[3] + "\n";
 		texto += "Maio: " + meses[4] + "\n";
 		texto += "Junho: " + meses[5] + "\n";
@@ -51,7 +51,7 @@ public class Servicos extends Estrategia {
 		texto += "Novembro: " + meses[10] + "\n";
 		texto += "Dezembro: " + meses[11] + "\n\n";
 
-		texto += "Servicos anuais: " + ano + "\n";
+		texto += "Servi\u00E7os anuais: " + ano + "\n";
 
 		return texto;
 	}
@@ -66,18 +66,18 @@ public class Servicos extends Estrategia {
 		String texto = "";
 
 		texto += "Data: " + dataAtual + "\n";
-		texto += "Servicos mensais\n\n";
-		texto += "Mes: " + cb.getSelectedItem() + "\n\n";
+		texto += "Servi\u00E7os mensais\n\n";
+		texto += "M\u00EAs: " + cb.getSelectedItem() + "\n\n";
 
 		calculaRelatorioMensal(texto, cb.getSelectedIndex(), anoRelatorio);
 
-		texto += "Babas: " + baba + "\n";
+		texto += "Bab\u00E1s: " + baba + "\n";
 		texto += "Camas Extras: " + cama + "\n";
 		texto += "Carros: " + carro + "\n";
 		texto += "Quartos: " + quarto + "\n";
 		texto += "Restaurantes: " + restaurante + "\n\n";
 
-		texto += "Servicos mensais: " + mes + "\n";
+		texto += "Servi\u00E7os mensais: " + mes + "\n";
 
 		return texto;
 	}
@@ -94,7 +94,7 @@ public class Servicos extends Estrategia {
 		texto += "Data: " + dataAtual + "\n";
 		calculaRelatorioEstacao(estacao1, anoRelatorio);
 
-		texto += "Servicos na estacao\n";
+		texto += "Servi\u00E7os na esta\u00E7\u00E3o\n";
 		texto += "Estacao: " + estacao1 + "\n\n";
 
 		texto += "Babas: " + baba + "\n";
@@ -103,7 +103,7 @@ public class Servicos extends Estrategia {
 		texto += "Quartos: " + quarto + "\n";
 		texto += "Restaurantes: " + restaurante + "\n\n";
 
-		texto += "Servicos da estacao: " + estacao + "\n";
+		texto += "Servi\u00E7os da esta\u00E7\u00E3o: " + estacao + "\n";
 		return texto;
 	}
 
@@ -167,16 +167,16 @@ public class Servicos extends Estrategia {
 
 	@Override
 	public void geraGraficoAnual(JPanel panel, JComboBox<?> cb) {
-		geraGraficoLinhaPadrao(panel, cb, "Servicos mais utilizados no ano de " , "Servicos");
+		geraGraficoLinhaPadrao(panel, cb, "Servi\u00E7os mais utilizados no ano de " , "Servicos");
 	}
 
 	@Override
 	public void geraGraficoMensal(JPanel panel, JComboBox<?> cb) {
-		geraGraficoPizzaPadrao(panel, cb, "Servicos mais utilizados mes de ", mes);
+		geraGraficoPizzaPadrao(panel, cb, "Servi\u00E7os mais utilizados m\u00EAs de ", mes);
 	}
 
 	@Override
 	public void geraGraficoEstacao(JPanel panel, JComboBox<?> cb) {
-		geraGraficoPizzaPadrao(panel, cb, "Servicos mais utilizados na estacao ", estacao);
+		geraGraficoPizzaPadrao(panel, cb, "Servi\u00E7os mais utilizados na esta\u00E7\u00E3o ", estacao);
 	}
 }

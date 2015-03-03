@@ -275,7 +275,7 @@ public class AdicionarServico extends JPanel {
 								invalido = true;
 
 						if (invalido || tfNomeBs.getText().length() < 3)
-							throw new IllegalArgumentException("Nome deve ter no m\u00EDnimo 3 caracteres (apenas letras)");
+							throw new IllegalArgumentException("Nome deve ter no m\u00EDnimo 3 caract\u00E9res (apenas letras)");
 
 						Sistema.getHotel().adicionaBaba(tfNomeBs.getText());
 						Sistema.setTela(telaAnterior);
@@ -356,7 +356,7 @@ public class AdicionarServico extends JPanel {
 								invalido = true;
 
 						if (invalido || tfNomeR.getText().length() < 3)
-							throw new IllegalArgumentException("Nome deve ter no m\u00EDnimo 3 caracteres (apenas letras)");
+							throw new IllegalArgumentException("Nome deve ter no m\u00EDnimo 3 caract\u00E9res (apenas letras)");
 
 						Sistema.getHotel().adicionaRestaurante(tfNomeR.getText());
 						Sistema.setTela(telaAnterior);

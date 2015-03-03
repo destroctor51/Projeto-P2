@@ -24,20 +24,20 @@ import core.servicos.pagaveis.Refeicao;
 public class EscolheRefeicoes extends JPanel {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 7742580850552900249L;
 	/**
 	 * Create the panel.
 	 */
-	
-	private JLabel errorLabel = new JLabel();	
+
+	private JLabel errorLabel = new JLabel();
 	private DefaultListModel<Object> dlm = new DefaultListModel<>();
 	private JList<Object> list;
 	private JPanel tela = this;
-	
+
 	public EscolheRefeicoes(final List<Refeicao> escolhidas, final JPanel telaAnterior) {
-		setName("Adiciona Refeição");
+		setName("Adiciona Refei\u00E7\u00E3o");
 		setVisible(false);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0};
@@ -45,15 +45,15 @@ public class EscolheRefeicoes extends JPanel {
 		gridBagLayout.columnWeights = new double[]{1.0, 0.5, 1.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{1.0, 0.25, 1.0, 1.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
-		
-		JLabel lblNewLabel_2 = new JLabel("Selecione a refeicao:");
+
+		JLabel lblNewLabel_2 = new JLabel("Selecione a refei\u00E7\u00E3o:");
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
 		gbc_lblNewLabel_2.anchor = GridBagConstraints.SOUTHWEST;
 		gbc_lblNewLabel_2.insets = new Insets(0, 0, 10, 5);
 		gbc_lblNewLabel_2.gridx = 1;
 		gbc_lblNewLabel_2.gridy = 1;
 		add(lblNewLabel_2, gbc_lblNewLabel_2);
-		
+
 		JPanel panel_2 = new JPanel();
 		GridBagConstraints gbc_panel_2 = new GridBagConstraints();
 		gbc_panel_2.insets = new Insets(0, 0, 5, 5);
@@ -67,7 +67,7 @@ public class EscolheRefeicoes extends JPanel {
 		gbl_panel_2.columnWeights = new double[]{1.0, Double.MIN_VALUE};
 		gbl_panel_2.rowWeights = new double[]{1.0, Double.MIN_VALUE};
 		panel_2.setLayout(gbl_panel_2);
-		
+
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		GridBagConstraints gbc_scrollPane_1 = new GridBagConstraints();
@@ -75,18 +75,18 @@ public class EscolheRefeicoes extends JPanel {
 		gbc_scrollPane_1.gridx = 0;
 		gbc_scrollPane_1.gridy = 0;
 		panel_2.add(scrollPane_1, gbc_scrollPane_1);
-		
+
 		list = new JList<Object>();
 		list.setVisibleRowCount(-1);
 		list.setFixedCellWidth(100);
 		scrollPane_1.setViewportView(list);
-		
+
 		for (Refeicao r : escolhidas) {
 			dlm.addElement(r);
 		}
-		
+
 		list.setModel(dlm);
-		
+
 		JPanel panel = new JPanel();
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.insets = new Insets(0, 0, 0, 5);
@@ -101,7 +101,7 @@ public class EscolheRefeicoes extends JPanel {
 		gbl_panel.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0};
 		gbl_panel.rowWeights = new double[]{0.0};
 		panel.setLayout(gbl_panel);
-		
+
 		errorLabel = new JLabel("");
 		errorLabel.setForeground(Color.red);
 		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
@@ -112,14 +112,15 @@ public class EscolheRefeicoes extends JPanel {
 		panel.add(errorLabel, gbc_lblNewLabel_3);
 		errorLabel.setVisible(false);
 		errorLabel.setIcon(new ImageIcon(EscolheRefeicoes.class.getResource("/gui/images/error.png")));
-		
+
 		JButton btnRemover = new JButton("Remover");
 		btnRemover.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				removeRefeicao();
 			}
 		});
-		
+
 		JButton btnVoltar = new JButton("Voltar");
 		GridBagConstraints gbc_btnNewButton_2 = new GridBagConstraints();
 		gbc_btnNewButton_2.anchor = GridBagConstraints.EAST;
@@ -128,6 +129,7 @@ public class EscolheRefeicoes extends JPanel {
 		gbc_btnNewButton_2.gridy = 0;
 		panel.add(btnVoltar, gbc_btnNewButton_2);
 		btnVoltar.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				Sistema.setTela(telaAnterior);
 			}
@@ -138,7 +140,7 @@ public class EscolheRefeicoes extends JPanel {
 		gbc_btnNewButton_1.gridx = 2;
 		gbc_btnNewButton_1.gridy = 0;
 		panel.add(btnRemover, gbc_btnNewButton_1);
-		
+
 		JButton btnProsseguir = new JButton("Prosseguir");
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.anchor = GridBagConstraints.EAST;
@@ -146,9 +148,10 @@ public class EscolheRefeicoes extends JPanel {
 		gbc_btnNewButton.gridy = 0;
 		panel.add(btnProsseguir, gbc_btnNewButton);
 		btnProsseguir.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (escolhidas.size() == 0) {
-					errorLabel.setText("Lista de refeicoes vazias.");
+					errorLabel.setText("Lista de refei\u00E7\u00F5es vazias");
 					errorLabel.setVisible(true);
 					return;
 				}
@@ -157,12 +160,12 @@ public class EscolheRefeicoes extends JPanel {
 			}
 		});
 	}
-	
+
 	private void removeRefeicao() {
-		
+
 		Object item = list.getSelectedValue();
 
-		if (item != null) {		
+		if (item != null) {
 			dlm.removeElement(item);
 			list.setModel(dlm);
 		}

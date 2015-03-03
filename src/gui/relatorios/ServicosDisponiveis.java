@@ -49,7 +49,7 @@ public class ServicosDisponiveis extends JPanel {
 	private final JPanel panel_3 = new JPanel();
 	public ServicosDisponiveis(final JPanel tela) {
 
-		setName("Relatorio de servicos disponiveis");
+		setName("Relat\u00F3rio de servi\u00E7os dispon\u00EDveis");
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] {0, 0, 0};
@@ -84,7 +84,7 @@ public class ServicosDisponiveis extends JPanel {
 		gbl_panel_1.rowWeights = new double[] { 0.0, 0.0, 0.0 };
 		panel_1.setLayout(gbl_panel_1);
 
-		JButton btnGerarRelatorio = new JButton("Gerar relatorio");
+		JButton btnGerarRelatorio = new JButton("Gerar relat\u00F3rio");
 		btnGerarRelatorio.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -95,12 +95,12 @@ public class ServicosDisponiveis extends JPanel {
 				} else {
 					errorLabel.setForeground(Color.RED);
 					errorLabel.setVisible(true);
-					errorLabel.setText("Selecione um periodo.");
+					errorLabel.setText("Selecione um per\u00EDodo");
 				}
 			}
 		});
 
-		JLabel lblPeriodo = new JLabel("Periodo:");
+		JLabel lblPeriodo = new JLabel("Per\u00EDodo:");
 		GridBagConstraints gbc_lblPeriodo = new GridBagConstraints();
 		gbc_lblPeriodo.anchor = GridBagConstraints.WEST;
 		gbc_lblPeriodo.gridx = 0;
@@ -184,36 +184,36 @@ public class ServicosDisponiveis extends JPanel {
 		String texto = "";
 
 		texto += "Data: " + dataAtual + "\n";
-		texto += "Relatorio sobre servicos disponiveis\n";
-		texto += "Periodo: " + data + "\n\n";
+		texto += "Relat\u00F3rio sobre servi\u00E7os dispon\u00EDveis\n";
+		texto += "Per\u00EDodo: " + data + "\n\n";
 
 		int babasTotal = Sistema.getHotel().getBabas().size();
 		int babasDisponiveis = Sistema.getHotel().getBabasDisponiveis(periodo)
 				.size();
-		texto += "Babysitters disponiveis: " + babasDisponiveis + "\n";
+		texto += "Babysitters dispon\u00EDveis: " + babasDisponiveis + "\n";
 
 		int carrosTotal = Sistema.getHotel().getCarros().size();
 		int carrosDisponiveis = Sistema.getHotel()
 				.getCarrosDisponiveis(periodo).size();
-		texto += "Carros disponiveis: " + carrosDisponiveis + "\n";
+		texto += "Carros dispon\u00EDveis: " + carrosDisponiveis + "\n";
 
 		int quartosTotal = Sistema.getHotel().getQuartos().size();
 		int quartosDisponiveis = Sistema.getHotel()
 				.getQuartosDisponiveis(periodo).size();
-		texto += "Quartos disponiveis: " + quartosDisponiveis + "\n";
+		texto += "Quartos dispon\u00EDveis: " + quartosDisponiveis + "\n";
 
 		int camasTotal = Sistema.getHotel().getCamas().size();
 		int camasDisponiveis = Sistema.getHotel().getCamasDisponiveis(periodo)
 				.size();
-		texto += "Camas Extras disponiveis: " + camasDisponiveis + "\n\n";
+		texto += "Camas Extras dispon\u00EDveis: " + camasDisponiveis + "\n\n";
 
 		int servicosTotal = babasTotal + carrosTotal + quartosTotal
 				+ camasTotal;
 		int servicosDisponiveis = babasDisponiveis + carrosDisponiveis
 				+ quartosDisponiveis + camasDisponiveis;
 
-		texto += "Numero total de servicos: " + servicosTotal + "\n";
-		texto += "Servicos disponiveis: " + servicosDisponiveis + "\n";
+		texto += "N\u00FAmero total de servi\u00E7os: " + servicosTotal + "\n";
+		texto += "Servi\u00E7os dispon\u00EDveis: " + servicosDisponiveis + "\n";
 
 		porcentagemDisponivel = geraPorcentagem(servicosTotal,
 				servicosDisponiveis);
@@ -233,11 +233,11 @@ public class ServicosDisponiveis extends JPanel {
 
 		DefaultPieDataset pieDataset = new DefaultPieDataset();
 
-		pieDataset.setValue("Indisponiveis", 100.0 - porcentagemDisponivel);
-		pieDataset.setValue("Disponiveis", porcentagemDisponivel);
+		pieDataset.setValue("Indispon\u00EDveis", 100.0 - porcentagemDisponivel);
+		pieDataset.setValue("Dispon\u00EDveis", porcentagemDisponivel);
 
 		JFreeChart chart = ChartFactory.createPieChart3D(
-				"Servicos Disponiveis", // Title
+				"Servicos Dispon\u00EDveis", // Title
 				pieDataset, // Dataset
 				true, // Show legend
 				true, // Use tooltips

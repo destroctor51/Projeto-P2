@@ -122,12 +122,12 @@ public class FaturamentoHospede extends JPanel {
 		int total = 0;
 		for(Pagavel p: contrato.getServicos())
 		{
-			texto += p + " : " + p.getPreco() + "\n";
+			texto += p + " : R$ " + p.getPreco() + "\n";
 			total += p.getPreco();
 		}
 
 		texto += "\n";
-		texto += "Preco total: " + total + "\n";
+		texto += "Preco total: R$ " + total + "\n";
 
 		return texto;
 	}

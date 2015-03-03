@@ -79,7 +79,7 @@ public class ContratosEmAberto extends JPanel {
 		String texto = "";
 
 		texto += "Data: " + dataAtual + "\n";
-		texto += "Relatorio sobre contratos em aberto\n\n";
+		texto += "Relat\u00F3rio sobre contratos em aberto\n\n";
 
 		int contratosAbertos = 0;
 		int hospedes = 0;
@@ -94,7 +94,7 @@ public class ContratosEmAberto extends JPanel {
 				hospedes++;
 		}
 
-		texto += "Hospedes no hotel: " + hospedes + "\n";
+		texto += "H\u00F3spedes no hotel: " + hospedes + "\n";
 		texto += "Contratos abertos: " + contratosAbertos + "\n";
 
 		return texto;

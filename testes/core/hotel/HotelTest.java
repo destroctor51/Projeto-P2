@@ -42,12 +42,12 @@ public class HotelTest {
 	public void testaCriaHotel() {
 		try {
 			new Hotel(null);
-			Assert.fail("Esperava excecao, pois o nome esta null");
+			Assert.fail();
 		} catch (IllegalArgumentException e) {}
 
 		try {
 			new Hotel("");
-			Assert.fail("Esperava excecao, pois o nome esta vazio");
+			Assert.fail();
 		} catch (IllegalArgumentException e) {}
 
 		Assert.assertEquals(0, hotel.getCamas().size());
@@ -109,7 +109,7 @@ public class HotelTest {
 
 		try {
 			hotel.adicionaHospede("Arthur", "99999999", "12241315311", "email@gmail.com", "Campina Grande", "Rua Qualquer, 10");
-			Assert.fail("Esperava Excecao, pois o cpf e invalido");
+			Assert.fail();
 		} catch (Exception e) {
 			Assert.assertEquals("Mensagem Errada", "CPF inv\u00E1lido", e.getMessage());
 		}

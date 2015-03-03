@@ -1,35 +1,31 @@
 package gui.estacoes;
 
-import javax.swing.JPanel;
-
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-
 import gui.Sistema;
 import gui.components.CalendarioFiltrado;
 
+import java.awt.Color;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JScrollPane;
+import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 
 import core.tempo.Estacao;
 import core.tempo.Periodo;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.Color;
-
-import javax.swing.ImageIcon;
-
 public class GerenciarEstacao extends JPanel {
 	/**
-     * 
-     */
+	 *
+	 */
 	private static final long serialVersionUID = 1L;
 	private JTextField textField;
 	private JTextField textField_1;
@@ -45,10 +41,10 @@ public class GerenciarEstacao extends JPanel {
 	public GerenciarEstacao(Estacao estac) {
 		est = estac;
 		if (est == null)
-			this.setName("Adicionar Estação");
+			this.setName("Adicionar esta\u00E7\u00E3o");
 		else
-			this.setName("Gerenciar Estação");
-		
+			this.setName("Gerenciar esta\u00E7\u00E3o");
+
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 0, 0, 0 };
 		gridBagLayout.rowHeights = new int[] { 0, 0, 0, 0 };
@@ -71,7 +67,7 @@ public class GerenciarEstacao extends JPanel {
 		gbl_panel_1.rowWeights = new double[] { 0.0, 0.0, Double.MIN_VALUE };
 		panel_1.setLayout(gbl_panel_1);
 
-		JLabel lblNomeDaEstao = new JLabel("Nome da Estação:");
+		JLabel lblNomeDaEstao = new JLabel("Nome da esta\u00E7\u00E3o:");
 		GridBagConstraints gbc_lblNomeDaEstao = new GridBagConstraints();
 		gbc_lblNomeDaEstao.anchor = GridBagConstraints.EAST;
 		gbc_lblNomeDaEstao.insets = new Insets(0, 0, 10, 10);
@@ -88,7 +84,7 @@ public class GerenciarEstacao extends JPanel {
 		panel_1.add(textField, gbc_textField);
 		textField.setColumns(10);
 
-		JLabel lblTarifaDaEstao = new JLabel("Tarifa da Estação (%):");
+		JLabel lblTarifaDaEstao = new JLabel("Tarifa da esta\u00E7\u00E3o (%):");
 		GridBagConstraints gbc_lblTarifaDaEstao = new GridBagConstraints();
 		gbc_lblTarifaDaEstao.anchor = GridBagConstraints.EAST;
 		gbc_lblTarifaDaEstao.insets = new Insets(0, 0, 0, 10);
@@ -126,13 +122,14 @@ public class GerenciarEstacao extends JPanel {
 		gbc_calendario.gridy = 0;
 		panel.add(calendario, gbc_calendario);
 
-		JButton btnAdicionarPeriodio = new JButton("Adicionar periodo");
+		JButton btnAdicionarPeriodio = new JButton("Adicionar per\u00EDodo");
 		btnAdicionarPeriodio.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				Periodo periodo = calendario.getSelecao();
 
 				if (periodo == null) {
-					ErrorLabel.setText("Periodo não foi selecionado.");
+					ErrorLabel.setText("Per\u00EDodo n\u00E3o foi selecionado");
 					ErrorLabel.setVisible(true);
 					return;
 				}
@@ -150,10 +147,11 @@ public class GerenciarEstacao extends JPanel {
 		gbc_btnAdicionarPeriodio.gridy = 0;
 		panel.add(btnAdicionarPeriodio, gbc_btnAdicionarPeriodio);
 
-		JButton btnRemoverPeriodo = new JButton("Remover periodo");
+		JButton btnRemoverPeriodo = new JButton("Remover per\u00EDodo");
 		btnRemoverPeriodo.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
-				Periodo p = (Periodo) list.getSelectedValue();
+				Periodo p = list.getSelectedValue();
 				lista.remove(list.getSelectedIndex());
 				calendario.marcaDisponivel(p);
 			}
@@ -190,7 +188,7 @@ public class GerenciarEstacao extends JPanel {
 		gbl_panel_2.rowWeights = new double[] { 0.0 };
 		panel_2.setLayout(gbl_panel_2);
 
-		ErrorLabel = new JLabel("*Observações");
+		ErrorLabel = new JLabel("*Observa\u00E7\u00D5es");
 		ErrorLabel.setIcon(new ImageIcon(GerenciarEstacao.class
 				.getResource("/gui/images/error.png")));
 		ErrorLabel.setForeground(Color.RED);
@@ -204,6 +202,7 @@ public class GerenciarEstacao extends JPanel {
 
 		JButton btnCancelar = new JButton("Voltar");
 		btnCancelar.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				Sistema.setTela(new Estacoes());
 			}
@@ -217,12 +216,13 @@ public class GerenciarEstacao extends JPanel {
 
 		JButton btnConfirmar = new JButton("Confirmar");
 		btnConfirmar.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				double tarifa;
 				if (est == null) {
 					String nome = textField.getText();
 					if (nome == null || nome.equals("")) {
-						ErrorLabel.setText("Nome inválido.");
+						ErrorLabel.setText("Nome inv\u00EDlido");
 						ErrorLabel.setVisible(true);
 						return;
 					}
@@ -230,7 +230,7 @@ public class GerenciarEstacao extends JPanel {
 					try {
 						tarifa = Double.parseDouble(textField_1.getText());
 					} catch (NumberFormatException ex) {
-						ErrorLabel.setText("Valor de tarifa inválido.");
+						ErrorLabel.setText("Valor de tarifa inv\u00EDlido");
 						ErrorLabel.setVisible(true);
 						return;
 					}
@@ -243,7 +243,7 @@ public class GerenciarEstacao extends JPanel {
 					try {
 						tarifa = Double.parseDouble(textField_1.getText());
 					} catch (NumberFormatException ex) {
-						ErrorLabel.setText("Valor de tarifa inválido.");
+						ErrorLabel.setText("Valor de tarifa inv\u00EDlido");
 						ErrorLabel.setVisible(true);
 						return;
 					}
@@ -254,7 +254,7 @@ public class GerenciarEstacao extends JPanel {
 				}
 
 				for (int i = 0; i < lista.getSize(); i++) {
-					est.addPeriodo((Periodo) lista.get(i));
+					est.addPeriodo(lista.get(i));
 				}
 
 				Sistema.setTela(new Estacoes());
@@ -270,7 +270,7 @@ public class GerenciarEstacao extends JPanel {
 			textField.setText(estac.getId());
 			textField.setEditable(false);
 			textField_1
-					.setText(String.valueOf((int) (estac.getTarifa() * 100)));
+			.setText(String.valueOf((int) (estac.getTarifa() * 100)));
 
 			for (Periodo p : estac.getPeriodos()) {
 				lista.addElement(p);

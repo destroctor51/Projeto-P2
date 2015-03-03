@@ -52,7 +52,7 @@ public class Contas extends JPanel {
 	 * Create the panel.
 	 */
 	public Contas() {
-		setName("Contas de usuário");
+		setName("Contas de usu\u00E1rio");
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{30, 400, 30};
 		gridBagLayout.rowHeights = new int[]{0, 0, 90, 0};

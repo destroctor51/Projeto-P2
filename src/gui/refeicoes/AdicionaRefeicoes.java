@@ -30,19 +30,19 @@ import core.servicos.pagaveis.Refeicao;
 
 public class AdicionaRefeicoes extends JPanel {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 	private Hospede hospede;
 	private DefaultListModel<Object> lista1 = new DefaultListModel<>();
 	private JComboBox<Contrato> cbContratos;
 	private JLabel errorLabel;
-	
+
 	/**
 	 * Create the panel.
 	 */
 	public AdicionaRefeicoes(final List<Refeicao> escolhidas, final JPanel tela) {
-		setName("Adiciona Refeição");
+		setName("Adiciona Refei\u00E7\u00E3o");
 		setVisible(false);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 0, 0, 0, 0 };
@@ -53,7 +53,7 @@ public class AdicionaRefeicoes extends JPanel {
 				Double.MIN_VALUE };
 		setLayout(gridBagLayout);
 
-		JLabel lblSelecionaHospede = new JLabel("Selecione o hospede:");
+		JLabel lblSelecionaHospede = new JLabel("Selecione o h\u00F3spede:");
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
 		gbc_lblNewLabel_1.anchor = GridBagConstraints.SOUTHWEST;
 		gbc_lblNewLabel_1.insets = new Insets(0, 0, 10, 5);
@@ -77,7 +77,7 @@ public class AdicionaRefeicoes extends JPanel {
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane
-				.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane.gridx = 0;
@@ -166,19 +166,20 @@ public class AdicionaRefeicoes extends JPanel {
 
 		JButton btnConfirmar = new JButton("Confirmar");
 		btnConfirmar.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				Contrato contrato = (Contrato) cbContratos.getSelectedItem();
 				if (hospede == null) {
-					errorLabel.setText("Nenhum hospede foi selecionado.");
+					errorLabel.setText("Nenhum h\u00F3spede foi selecionado");
 					errorLabel.setVisible(true);
 					return;
 				}
 				else if (cbContratos.getSelectedIndex() == -1) {
-					errorLabel.setText("Nenhum contrato foi selecionado.");
+					errorLabel.setText("Nenhum contrato foi selecionado");
 					errorLabel.setVisible(true);
 					return;
 				}
-				
+
 				errorLabel.setVisible(false);
 				for (Refeicao r : escolhidas){
 					contrato.adicionaServico(r);
@@ -186,7 +187,7 @@ public class AdicionaRefeicoes extends JPanel {
 				}
 			}
 		});
-		
+
 		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
 		gbc_btnNewButton_1.anchor = GridBagConstraints.EAST;
 		gbc_btnNewButton_1.insets = new Insets(0, 0, 5, 10);
@@ -196,6 +197,7 @@ public class AdicionaRefeicoes extends JPanel {
 
 		JButton btnRetornar = new JButton("Retornar");
 		btnRetornar.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				Sistema.setTela(tela);
 			}

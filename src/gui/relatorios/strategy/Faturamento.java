@@ -33,17 +33,17 @@ public class Faturamento extends Estrategia {
 
 		texto += "Data: " + dataAtual + "\n";
 		texto += "Faturamento mensal\n";
-		texto += "Mes: " + cb.getSelectedItem() + "\n\n";
+		texto += "M\u00EAs: " + cb.getSelectedItem() + "\n\n";
 
 		calculaRelatorioMensal(texto, cb.getSelectedIndex(), anoRelatorio);
 
-		texto += "Babas: " + baba + "\n";
-		texto += "Camas Extras: " + cama + "\n";
-		texto += "Carros: " + carro + "\n";
-		texto += "Quartos: " + quarto + "\n";
-		texto += "Restaurantes: " + restaurante + "\n\n";
+		texto += "Bab\u00E1s: R$ " + baba + "\n";
+		texto += "Camas Extras: R$ " + cama + "\n";
+		texto += "Carros: R$ " + carro + "\n";
+		texto += "Quartos: R$ " + quarto + "\n";
+		texto += "Restaurantes: R$ " + restaurante + "\n\n";
 
-		texto += "Fatuamento mensal: " + mes + "\n";
+		texto += "Faturamento mensal: R$ " + mes + "\n";
 
 		return texto;
 	}
@@ -64,20 +64,20 @@ public class Faturamento extends Estrategia {
 		texto += "Faturamento anual\n";
 		texto += "Ano: " + cb.getSelectedItem() + "\n\n";
 
-		texto += "Janeiro: " + meses[0] + "\n";
-		texto += "Fevereiro: " + meses[1] + "\n";
-		texto += "Marco: " + meses[2] + "\n";
-		texto += "Abril: " + meses[3] + "\n";
-		texto += "Maio: " + meses[4] + "\n";
-		texto += "Junho: " + meses[5] + "\n";
-		texto += "Julho: " + meses[6] + "\n";
-		texto += "Agosto: " + meses[7] + "\n";
-		texto += "Setembro: " + meses[8] + "\n";
-		texto += "Outubro: " + meses[9] + "\n";
-		texto += "Novembro: " + meses[10] + "\n";
-		texto += "Dezembro: " + meses[11] + "\n\n";
+		texto += "Janeiro: R$ " + meses[0] + "\n";
+		texto += "Fevereiro: R$ " + meses[1] + "\n";
+		texto += "Mar\u00E7o: R$ " + meses[2] + "\n";
+		texto += "Abril: R$ " + meses[3] + "\n";
+		texto += "Maio: R$ " + meses[4] + "\n";
+		texto += "Junho: R$ " + meses[5] + "\n";
+		texto += "Julho: R$ " + meses[6] + "\n";
+		texto += "Agosto: R$ " + meses[7] + "\n";
+		texto += "Setembro: R$ " + meses[8] + "\n";
+		texto += "Outubro: R$ " + meses[9] + "\n";
+		texto += "Novembro: R$ " + meses[10] + "\n";
+		texto += "Dezembro: R$ " + meses[11] + "\n\n";
 
-		texto += "Faturamento anuais: " + ano + "\n";
+		texto += "Faturamento anual: R$ " + ano + "\n";
 
 		return texto;
 	}
@@ -94,17 +94,17 @@ public class Faturamento extends Estrategia {
 		texto += "Data: " + dataAtual + "\n";
 		calculaRelatorioEstacao(estacao1, anoRelatorio);
 
-		texto += "Faturamento de estacao\n";
+		texto += "Faturamento de esta\u00E7\u00E3o\n";
 		texto += "Estacao: " + estacao1 + "\n\n";
 
-		texto += "Babas: " + baba + "\n";
-		texto += "Camas Extras: " + cama + "\n";
-		texto += "Carros: " + carro + "\n";
-		texto += "Quartos: " + quarto + "\n";
-		texto += "Restaurantes: " + restaurante + "\n";
+		texto += "Bab\u00E1s: R$ " + baba + "\n";
+		texto += "Camas Extras: R$ " + cama + "\n";
+		texto += "Carros: R$ " + carro + "\n";
+		texto += "Quartos: R$ " + quarto + "\n";
+		texto += "Restaurantes: R$ " + restaurante + "\n";
 
 		texto += "\n";
-		texto += "Fatuamento da estacao: " + estacao + "\n";
+		texto += "Faturamento da esta\u00E7\u00E3o: R$ " + estacao + "\n";
 		return texto;
 	}
 
@@ -129,15 +129,15 @@ public class Faturamento extends Estrategia {
 			for (Contrato contrato : hospede.getContratos()) {
 				if (contrato.getEstado() == EstadoDeContrato.FECHADO
 						&& estacao1
-								.entraEmConflito(new Periodo(contrato
-										.getDataCheckOut(), contrato
-										.getDataCheckOut())) && contrato.getDataCheckOut().get(Calendar.YEAR)== anoRelatorio) {
+						.entraEmConflito(new Periodo(contrato
+								.getDataCheckOut(), contrato
+								.getDataCheckOut())) && contrato.getDataCheckOut().get(Calendar.YEAR)== anoRelatorio) {
 					estacao += calculaValor(contrato);
 				}
 			}
 		}
 	}
-	
+
 	private void calculaRelatorioMensal(String texto, int mesRelatorio, int anoRelatorio) {
 		for (Hospede hospede : Sistema.getHotel().getHospedes()) {
 			for (Contrato contrato : hospede.getContratos()) {
@@ -176,12 +176,12 @@ public class Faturamento extends Estrategia {
 
 	@Override
 	public void geraGraficoMensal(JPanel panel, JComboBox<?> cb) {
-		geraGraficoPizzaPadrao(panel, cb, "Faturamento do mes de ", mes);
+		geraGraficoPizzaPadrao(panel, cb, "Faturamento do m\u00EAs de ", mes);
 	}
 
 	@Override
 	public void geraGraficoEstacao(JPanel panel, JComboBox<?> cb) {
-		geraGraficoPizzaPadrao(panel, cb, "Faturamento da estacao ", estacao);
+		geraGraficoPizzaPadrao(panel, cb, "Faturamento da esta\u00E7\u00E3o ", estacao);
 	}
 
 }

@@ -47,7 +47,7 @@ public class Contrato implements Serializable {
 		this.cartao = cartao;
 		this.tarifa = tarifa;
 	}
-	
+
 	/**
 	 * Recupera a data do check out.
 	 *
@@ -83,7 +83,7 @@ public class Contrato implements Serializable {
 	 * Recupera a tarifa adicionada ao contrato.
 	 *
 	 * @return
-	 * 			A tarifa a que o contrato estÃ¡ sujeito.
+	 * 			A tarifa a que o contrato esta sujeito.
 	 */
 	public double getTarifa() {
 		return tarifa;
@@ -182,10 +182,10 @@ public class Contrato implements Serializable {
 	 * @return boolean representando se a acao foi ou nao realizada
 	 */
 	public boolean realizarCheckOut(String cartao, Calendar data) {
-		
+
 		if (cartao == null || data == null)
 			throw new IllegalArgumentException();
-		
+
 		if (!(this.cartao.equals(cartao)))
 			return false;
 
@@ -217,7 +217,7 @@ public class Contrato implements Serializable {
 				quartosl.add((Quarto) p);
 			}
 		}
-		
+
 		for (int i = 0; i < quartosl.size(); i++) {
 			if (i < quartosl.size() - 2)
 				quartos += Integer.toString(quartosl.get(i).getNumero()) + ", ";
@@ -226,8 +226,8 @@ public class Contrato implements Serializable {
 			else
 				quartos += Integer.toString(quartosl.get(i).getNumero());
 		}
-		
+
 		Date d = data.getTime();
-		return "Contrato " + estado + ", com inicio em " + sdf.format(d) + " e de quartos " + quartos + ".";
+		return "Contrato " + estado + ", com inicio em " + sdf.format(d) + " e de quartos " + quartos;
 	}
 }

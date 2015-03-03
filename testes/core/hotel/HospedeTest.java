@@ -16,32 +16,32 @@ public class HospedeTest {
 	public void testaCriaHospede() {
 		try {
 			new Hospede(null, "99999999", "01234567890", "email@gmail.com", "Campina Grande", "Rua Qualquer, 10");
-			Assert.fail("Esperava excecao, pois o nome esta null.");
+			Assert.fail();
 		} catch (IllegalArgumentException e) {}
 
 		try {
 			new Hospede("Arthur", null, "01234567890", "email@gmail.com", "Campina Grande", "Rua Qualquer, 10");
-			Assert.fail("Esperava excecao, pois o telefone esta null.");
+			Assert.fail();
 		} catch (IllegalArgumentException e) {}
 
 		try {
 			new Hospede("Arthur", "99999999", null, "email@gmail.com", "Campina Grande", "Rua Qualquer, 10");
-			Assert.fail("Esperava excecao, pois o cpf esta null.");
+			Assert.fail();
 		} catch (IllegalArgumentException e) {}
 
 		try {
 			new Hospede("Arthur", "99999999", "01234567890", null, "Campina Grande", "Rua Qualquer, 10");
-			Assert.fail("Esperava excecao, pois o email esta null.");
+			Assert.fail();
 		} catch (IllegalArgumentException e) {}
 
 		try {
 			new Hospede("Arthur", "99999999", "01234567890", "email@gmail.com", null, "Rua Qualquer, 10");
-			Assert.fail("Esperava excecao, pois a cidade esta null.");
+			Assert.fail();
 		} catch (IllegalArgumentException e) {}
 
 		try {
 			new Hospede("Arthur", "99999999", "01234567890", "email@gmail.com", "Campina Grande", null);
-			Assert.fail("Esperava excecao, pois o endereco esta null.");
+			Assert.fail();
 		} catch (IllegalArgumentException e) {}
 	}
 
@@ -115,12 +115,12 @@ public class HospedeTest {
 		try {
 			hospede.realizarReserva(cartao1, 100);
 		} catch (Exception e) {
-			Assert.fail("Nao esperava excecao, pois o numero de cartao e valido.");
+			Assert.fail();
 		}
 
 		try {
 			hospede.realizarReserva(cartao2, 100);
-			Assert.fail("Esperava excecao, pois o numero de cartao e invalido.");
+			Assert.fail();
 		} catch (Exception e) {}
 	}
 

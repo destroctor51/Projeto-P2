@@ -186,7 +186,7 @@ public class Hospede implements Serializable {
 			throw new IllegalArgumentException();
 
 		if (!(verificaCartao(cartao)))
-			throw new Exception("Cartao invalido");
+			throw new Exception("Cartao inv\u00E1lido");
 
 		Contrato contrato = new Contrato(cartao, tarifa);
 		contratos.add(contrato);

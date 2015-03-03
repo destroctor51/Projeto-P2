@@ -39,7 +39,7 @@ public class CadastraHospede extends JPanel {
 	 * Create the panel.
 	 */
 	public CadastraHospede(final JPanel tela) {
-		setName("Cadastra H\u00F3spede\n");
+		setName("Cadastra H\u00F3spede");
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWeights = new double[] { 1.0 };
 		gridBagLayout.rowWeights = new double[] { 0.0, 1.0, 0.0 };
@@ -77,7 +77,7 @@ public class CadastraHospede extends JPanel {
 				0.0, 0.0, Double.MIN_VALUE };
 		panel_1.setLayout(gbl_panel_1);
 
-		JLabel label_1 = new JLabel("Nome :");
+		JLabel label_1 = new JLabel("Nome:");
 		GridBagConstraints gbc_label_1 = new GridBagConstraints();
 		gbc_label_1.anchor = GridBagConstraints.EAST;
 		gbc_label_1.insets = new Insets(0, 0, 5, 5);
@@ -94,18 +94,18 @@ public class CadastraHospede extends JPanel {
 		gbc_textField.gridy = 0;
 		panel_1.add(tfNome, gbc_textField);
 
-		JLabel label_2 = new JLabel("Telefone :");
+		JLabel label_2 = new JLabel("Telefone:");
 		GridBagConstraints gbc_label_2 = new GridBagConstraints();
 		gbc_label_2.anchor = GridBagConstraints.EAST;
 		gbc_label_2.insets = new Insets(0, 0, 5, 5);
 		gbc_label_2.gridx = 0;
 		gbc_label_2.gridy = 1;
 		panel_1.add(label_2, gbc_label_2);
-		
+
 		try {
 			ftmTelefone = new MaskFormatter("(##) ####-####");
 		} catch (ParseException e2) {
-			errorLabel.setText("Telefone invalido.");
+			errorLabel.setText("Telefone inv\u00E1lido");
 			errorLabel.setVisible(true);
 		}
 
@@ -119,8 +119,8 @@ public class CadastraHospede extends JPanel {
 		panel_1.add(tfTelefone, gbc_textField_1);
 
 		ftmTelefone.setValidCharacters("0123456789");
-		
-		JLabel label_3 = new JLabel("CPF :");
+
+		JLabel label_3 = new JLabel("CPF:");
 		GridBagConstraints gbc_label_3 = new GridBagConstraints();
 		gbc_label_3.anchor = GridBagConstraints.EAST;
 		gbc_label_3.insets = new Insets(0, 0, 5, 5);
@@ -131,10 +131,10 @@ public class CadastraHospede extends JPanel {
 		try {
 			ftmCpf = new MaskFormatter("###.###.###-##");
 		} catch (ParseException e2) {
-			errorLabel.setText("Cpf invalido.");
+			errorLabel.setText("CPF inv\u00E1lido");
 			errorLabel.setVisible(true);
 		}
-		
+
 		tfCpf = new JFormattedTextField(ftmCpf);
 		tfCpf.setColumns(10);
 		GridBagConstraints gbc_textField_2 = new GridBagConstraints();
@@ -143,10 +143,10 @@ public class CadastraHospede extends JPanel {
 		gbc_textField_2.gridx = 1;
 		gbc_textField_2.gridy = 2;
 		panel_1.add(tfCpf, gbc_textField_2);
-		
+
 		ftmCpf.setValidCharacters("0123456789");
 
-		JLabel label_4 = new JLabel("Email :");
+		JLabel label_4 = new JLabel("E-mail:");
 		GridBagConstraints gbc_label_4 = new GridBagConstraints();
 		gbc_label_4.anchor = GridBagConstraints.EAST;
 		gbc_label_4.insets = new Insets(0, 0, 5, 5);
@@ -163,7 +163,7 @@ public class CadastraHospede extends JPanel {
 		gbc_textField_3.gridy = 3;
 		panel_1.add(tfEmail, gbc_textField_3);
 
-		JLabel label_5 = new JLabel("Cidade :");
+		JLabel label_5 = new JLabel("Cidade:");
 		GridBagConstraints gbc_label_5 = new GridBagConstraints();
 		gbc_label_5.anchor = GridBagConstraints.EAST;
 		gbc_label_5.insets = new Insets(0, 0, 5, 5);
@@ -180,7 +180,7 @@ public class CadastraHospede extends JPanel {
 		gbc_textField_4.gridy = 4;
 		panel_1.add(tfCidade, gbc_textField_4);
 
-		JLabel label_6 = new JLabel("Endere\u00E7o :");
+		JLabel label_6 = new JLabel("Endere\u00E7o:");
 		GridBagConstraints gbc_label_6 = new GridBagConstraints();
 		gbc_label_6.anchor = GridBagConstraints.EAST;
 		gbc_label_6.insets = new Insets(0, 0, 5, 5);
@@ -230,6 +230,7 @@ public class CadastraHospede extends JPanel {
 		gbc_btnCancela.gridy = 0;
 		panel_2.add(btnCancela, gbc_btnCancela);
 		btnCancela.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				Sistema.setTela(tela);
 			}
@@ -241,6 +242,7 @@ public class CadastraHospede extends JPanel {
 		gbc_btnConfirma.gridy = 0;
 		panel_2.add(btnConfirma, gbc_btnConfirma);
 		btnConfirma.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 
 				try {
@@ -260,26 +262,26 @@ public class CadastraHospede extends JPanel {
 
 		String nome = tfNome.getText();
 		if (nome.equals("") || nome.length() < 3) {
-			errorLabel.setText("Nome invalido.");
+			errorLabel.setText("Nome inv\u00E1lido");
 			errorLabel.setVisible(true);
 			return false;
 		}
 
 		String telefone = tfTelefone.getText();
-		
+
 		String cpf = tfCpf.getText();
 		String cpf1 = cpf.replace("-", "");
 		String cpf2 = cpf1.replace(".", "");
 
 		if (cpf2.equals("") || !checaValorString(cpf2) || !Hospede.verificaCpf(cpf2)) {
-			errorLabel.setText("Cpf invalido.");
+			errorLabel.setText("CPF inv\u00E1lido");
 			errorLabel.setVisible(true);
 			return false;
 		}
 
 		String email = tfEmail.getText();
 		if (!Internet.isEmailValido(email)) {
-			errorLabel.setText("Email invalido.");
+			errorLabel.setText("E-mail inv\u00E1lido");
 			errorLabel.setVisible(true);
 			return false;
 		}
@@ -287,7 +289,7 @@ public class CadastraHospede extends JPanel {
 		String cidade = tfCidade.getText();
 
 		if (cidade.equals("") || cidade.length() < 3) {
-			errorLabel.setText("Cidade invalida.");
+			errorLabel.setText("Cidade inv\u00E1lida");
 			errorLabel.setVisible(true);
 			return false;
 		}
@@ -295,7 +297,7 @@ public class CadastraHospede extends JPanel {
 		String endereco = tfEndereco.getText();
 
 		if (endereco.equals("") || endereco.length() < 3) {
-			errorLabel.setText("Endereco invalido.");
+			errorLabel.setText("Endereco inv\u00E1lido");
 			errorLabel.setVisible(true);
 			return false;
 		}

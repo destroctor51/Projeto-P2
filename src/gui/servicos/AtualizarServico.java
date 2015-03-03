@@ -287,7 +287,7 @@ public class AtualizarServico extends JPanel {
 						Sistema.setTela(telaAnterior);
 
 					} catch(IllegalArgumentException iae){
-						lbObs.setText("Nome deve ter no m\u00EDnimo 3 caracteres(apenas letras)");
+						lbObs.setText("Nome deve ter no m\u00EDnimo 3 caract\u00E9res(apenas letras)");
 						lbObs.setForeground(Color.RED);
 						lbObs.setVisible(true);
 					} catch(Exception exc){
@@ -392,7 +392,7 @@ public class AtualizarServico extends JPanel {
 
 					}
 					catch(IllegalArgumentException iae){
-						lbObs.setText("Nome deve ter no m\u00EDnimo 3 caracteres(apenas letras)");
+						lbObs.setText("Nome deve ter no m\u00EDnimo 3 caract\u00E9res(apenas letras)");
 						lbObs.setForeground(Color.RED);
 						lbObs.setVisible(true);
 					}

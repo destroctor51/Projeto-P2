@@ -28,12 +28,12 @@ public class ContratoTest {
 	public void testaCriaContrato() {
 		try {
 			new Contrato(null, 100);
-			Assert.fail("Esperava excecao, pois o cartao esta null.");
+			Assert.fail();
 		} catch (IllegalArgumentException e) {}
 
 		try {
 			new Contrato(cartao, -1);
-			Assert.fail("Esperava excecao, pois a tarifa e menor ou igual a 0.");
+			Assert.fail();
 		} catch (IllegalArgumentException e) {}
 
 		Assert.assertEquals(cartao, contrato.getCartao());
@@ -56,7 +56,7 @@ public class ContratoTest {
 		Assert.assertTrue(contrato.removeServico(cama));
 		Assert.assertEquals(0, contrato.getServicos().size());
 		Assert.assertNotEquals(1, contrato.getServicos().size());
-		
+
 		Assert.assertTrue(contrato.realizarCheckIn(cartao));
 		Assert.assertTrue(contrato.realizarCheckOut(cartao, new GregorianCalendar()));
 		Assert.assertFalse(contrato.adicionaServico(cama));
@@ -107,12 +107,12 @@ public class ContratoTest {
 		quarto.aluga(new Periodo(new GregorianCalendar(2015, 0, 15), new GregorianCalendar(2015, 0, 25)));
 		contrato.adicionaServico(new Refeicao("barata frita", 12.25f));
 		contrato.adicionaServico(quarto);
-		
+
 		try {
 			Assert.assertFalse(contrato.realizarCheckOut(null, new GregorianCalendar()));
 			Assert.fail();
 		} catch(IllegalArgumentException iae) {}
-		
+
 		try {
 			Assert.assertFalse(contrato.realizarCheckOut(cartao, null));
 			Assert.fail();
@@ -120,10 +120,10 @@ public class ContratoTest {
 
 		Assert.assertEquals(null, contrato.getDataCheckOut());
 		Assert.assertFalse(contrato.realizarCheckOut(cartao, new GregorianCalendar(2015, 2, 23)));
-		
+
 		((Quarto) contrato.getServicos().get(1)).devolve(new GregorianCalendar(2015, 0, 25));
 		Assert.assertFalse(contrato.realizarCheckOut("salsa", new GregorianCalendar(2015, 2, 23)));
-		
+
 		Assert.assertTrue(contrato.realizarCheckOut(cartao, new GregorianCalendar(2015, 2, 23)));
 		Assert.assertEquals(new GregorianCalendar(2015, 2, 23), contrato.getDataCheckOut());
 	}

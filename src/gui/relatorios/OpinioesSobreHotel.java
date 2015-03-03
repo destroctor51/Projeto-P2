@@ -99,7 +99,7 @@ public class OpinioesSobreHotel extends JPanel {
 		gbl_panel_1.rowWeights = new double[] { 0.0, 0.0, 0.0 };
 		panel_1.setLayout(gbl_panel_1);
 
-		JButton btnGerarRelatorio = new JButton("Gerar relatorio");
+		JButton btnGerarRelatorio = new JButton("Gerar relat\u00F3rio");
 		btnGerarRelatorio.setFocusable(false);
 		btnGerarRelatorio.setFocusPainted(false);
 		btnGerarRelatorio.addActionListener(new ActionListener() {
@@ -112,7 +112,7 @@ public class OpinioesSobreHotel extends JPanel {
 				} else {
 					errorLabel.setForeground(Color.RED);
 					errorLabel.setVisible(true);
-					errorLabel.setText("Selecione um periodo.");
+					errorLabel.setText("Selecione um per\u00EDodo");
 				}
 			}
 		});
@@ -205,16 +205,16 @@ public class OpinioesSobreHotel extends JPanel {
 		String texto = "";
 
 		texto += "Data: " + dataAtual + "\n";
-		texto += "Relatorio de opinioes sobre o hotel\n";
+		texto += "Relat\u00F3rio de opini\u00F5es sobre o hotel\n";
 		texto += "Periodo: " + data + "\n\n";
 
 		setNotas(periodo);
 
 		texto += "Nota 1 - ruim: " + ruim + "\n";
 		texto += "Nota 2 - pode melhorar: " + poderiaSerMelhor + "\n";
-		texto += "Nota 3 - medio: " + medio + "\n";
+		texto += "Nota 3 - m\u00E9dio: " + medio + "\n";
 		texto += "Nota 4 - bom: " + bom + "\n";
-		texto += "Nota 5 - otimo: " + otimo + "\n\n";
+		texto += "Nota 5 - \u00F3timo: " + otimo + "\n\n";
 
 		calculaMedia();
 		texto += "Media: " + media;
@@ -275,9 +275,9 @@ public class OpinioesSobreHotel extends JPanel {
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 		dataset.setValue(ruim, "Quantidade", "Ruim(1)");
 		dataset.setValue(poderiaSerMelhor, "Quantidade", "Pode melhorar(2)");
-		dataset.setValue(medio, "Quantidade", "Medio(3)");
+		dataset.setValue(medio, "Quantidade", "M\u00E9dio(3)");
 		dataset.setValue(bom, "Quantidade", "Bom(4)");
-		dataset.setValue(otimo, "Quantidade", "Otimo(5)");
+		dataset.setValue(otimo, "Quantidade", "\u00D3timo(5)");
 
 		JFreeChart chart = ChartFactory.createBarChart(
 				"Opinioes a respeito do hotel: " + periodo, "Nota",
