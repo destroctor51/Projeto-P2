@@ -290,22 +290,30 @@ public class Login extends JPanel implements FullscreenListener {
 		loginRecuperacao.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				Conta conta = gdc.getConta(loginUserField.getText());
+				final Conta conta = gdc.getConta(loginUserField.getText());
+				loginRecuperacao.setForeground(new Color(100, 0, 155));
 
-				if(conta == null) {
-					loginErrorLabel.setText("Usu\u00E1rio n\u00E3o existente");
-					loginErrorLabel.setVisible(true);
-				}
+				if(conta == null)
+					printMensagem("Usu\u00E1rio n\u00E3o existente", true, loginErrorLabel);
 
 				else {
-					Internet.enviaEmail(conta.getEmail(), "Recupera\u00E7\u00E3o de conta",
-							"<html>Olá "+conta.getNome()+",<br><br>"+
-									"Aqui está sua senha: <strong>"+conta.getSenha()+"</strong><br><br>"+
-									"Cuidado para não perdê-la novamente!<br>"+
-									"Caso você não tenha pedido esse e-mail, fale com seu gerente,<br>"+
-									"pois a segurança de sua conta pode estar em risco!<br><br>"+
-									"Atenciosamente,<br>"+
-							"O time do Riviera Hotel</html>");
+					new Thread() {
+						@Override
+						public void run() {
+							Internet.enviaEmail(conta.getEmail(), "Recupera\u00E7\u00E3o de conta",
+									"<html>Ol\u00E1 "+conta.getNome()+",<br><br>"+
+											"Aqui est\u00E1 sua senha: <strong>"+conta.getSenha()+"</strong><br><br>"+
+											"Cuidado para n\u00E3o perd\u00EA-la novamente!<br>"+
+											"Caso voc\u00EA n\u00E3o tenha pedido esse e-mail, fale com seu gerente,<br>"+
+											"pois a seguran\u00E7a de sua conta pode estar em risco!<br><br>"+
+											"Atenciosamente,<br>"+
+									"O time do Riviera Hotel</html>");
+						}
+					}.start();
+
+					loginRecuperacao.setVisible(false);
+					loginRecuperacao.setForeground(new Color(0, 0, 255));
+					printMensagem("E-mail enviado", false, loginErrorLabel);
 				}
 			}
 		});
@@ -389,6 +397,14 @@ public class Login extends JPanel implements FullscreenListener {
 		cardLayout.show(this, "login");
 	}
 
+	private void printMensagem(String mensagem, boolean isErro, JLabel alvo) {
+		String icone = isErro? "/gui/images/error.png" : "/gui/images/success.png";
+		alvo.setForeground(isErro? Color.RED : new Color(0, 150, 0));
+		alvo.setIcon(new ImageIcon(Login.class.getResource(icone)));
+		alvo.setText(mensagem);
+		alvo.setVisible(true);
+	}
+
 	private class RegisterAction extends AbstractAction {
 		private static final long serialVersionUID = 1L;
 
@@ -404,30 +420,20 @@ public class Login extends JPanel implements FullscreenListener {
 			char[] senha = registerPasswordField.getPassword();
 			char[] confereSenha = registerConfirmPasswordField.getPassword();
 
-			if(registerUserField.getText().length() < 3 ) {
-				registerErrorLabel.setText("Nome menor que 3 caract\u00E9res");
-				registerErrorLabel.setVisible(true);
-			}
+			if(registerUserField.getText().length() < 3 )
+				printMensagem("Nome menor que 3 caract\u00E9res", true, registerErrorLabel);
 
-			else if(nome.length() < 3) {
-				registerErrorLabel.setText("Nome real menor que 3 caract\u00E9res");
-				registerErrorLabel.setVisible(true);
-			}
+			else if(nome.length() < 3)
+				printMensagem("Nome real menor que 3 caract\u00E9res", true, registerErrorLabel);
 
-			else if(!Internet.isEmailValido(email)) {
-				registerErrorLabel.setText("Email inv\u00E1lido");
-				registerErrorLabel.setVisible(true);
-			}
+			else if(!Internet.isEmailValido(email))
+				printMensagem("Email inv\u00E1lido", true, registerErrorLabel);
 
-			else if(!Arrays.equals(senha, confereSenha)) {
-				registerErrorLabel.setText("Senha n\u00E3o confere");
-				registerErrorLabel.setVisible(true);
-			}
+			else if(!Arrays.equals(senha, confereSenha))
+				printMensagem("Senha n\u00E3o confere", true, registerErrorLabel);
 
-			else if(registerPasswordField.getPassword().length < 5) {
-				registerErrorLabel.setText("Senha menor que 5 caract\u00E9res");
-				registerErrorLabel.setVisible(true);
-			}
+			else if(registerPasswordField.getPassword().length < 5)
+				printMensagem("Senha menor que 5 caract\u00E9res", true, registerErrorLabel);
 
 			else {
 				Conta usuario = gdc.cadastra(id, Permissao.GERENTE, nome, email, new String(senha));
@@ -459,8 +465,7 @@ public class Login extends JPanel implements FullscreenListener {
 			Conta usuario = gdc.login(id, new String(senha));
 
 			if(usuario == null) {
-				loginErrorLabel.setText("Login inv\u00E1lido");
-				loginErrorLabel.setVisible(true);
+				printMensagem("Login inv\u00E1lido", true, loginErrorLabel);
 				loginRecuperacao.setVisible(true);
 			}
 
@@ -477,14 +482,7 @@ public class Login extends JPanel implements FullscreenListener {
 
 	@Override
 	public void fullscreenChanged(FullscreenEvent e) {
-		if(e.isFullscreen()) {
-			loginFrame.setClosable(true);
-			registerFrame.setClosable(true);
-		}
-
-		else {
-			loginFrame.setClosable(false);
-			registerFrame.setClosable(false);
-		}
+		loginFrame.setClosable(e.isFullscreen());
+		registerFrame.setClosable(e.isFullscreen());
 	}
 }

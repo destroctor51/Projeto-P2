@@ -9,6 +9,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import utils.Tempo;
+
 public class EstacaoTest {
 
 	private Calendar c1;
@@ -24,7 +26,6 @@ public class EstacaoTest {
 
 	@Before
 	public void before(){
-
 		c1 = new GregorianCalendar(2014,1,28);
 		c2 = new GregorianCalendar(2014,1,30);
 		c3 = new GregorianCalendar(2014,2,28);
@@ -55,38 +56,51 @@ public class EstacaoTest {
 
 	@Test
 	public void addPeriodoTest() {
+		Assert.assertFalse(e1.entraEmConflito(p1));
+		e1.addPeriodo(p1);
+		Assert.assertTrue(e1.entraEmConflito(p1));
 
-		Assert.assertTrue(e1.addPeriodo(p1));
-		Assert.assertTrue(e1.addPeriodo(p2));
-		Assert.assertTrue(e1.addPeriodo(p3));
+		Assert.assertFalse(e1.entraEmConflito(p2));
+		e1.addPeriodo(p2);
+		Assert.assertTrue(e1.entraEmConflito(p2));
+
+		Assert.assertFalse(e1.entraEmConflito(p3));
+		e1.addPeriodo(p3);
+		Assert.assertTrue(e1.entraEmConflito(p3));
 	}
 
 	@Test
 	public void entraEmConflitoTest() {
-
 		Assert.assertFalse(e1.entraEmConflito(p1));
-		Assert.assertTrue(e1.addPeriodo(p2));
-		Assert.assertTrue(e1.addPeriodo(p3));
+		e1.addPeriodo(p2);
+		e1.addPeriodo(p3);
 
 		Assert.assertFalse(e1.entraEmConflito(p1));
 		Assert.assertTrue(e1.entraEmConflito(p2));
 		Assert.assertTrue(e1.entraEmConflito(p3));
 
-		Assert.assertTrue(e1.removePeriodo(p2));
+		e1.removePeriodo(p2);
 		Assert.assertFalse(e1.entraEmConflito(p2));
+
+		Assert.assertFalse(e1.contem(c1));
+		Assert.assertFalse(e1.contem(c2));
+		Assert.assertTrue(e1.contem(c3));
+		Assert.assertFalse(e1.contem(c4));
 	}
 
 	@Test
 	public void getPeriodoTest() {
-
 		e1.addPeriodo(p1);
 		e1.addPeriodo(p3);
 
 		Set<Periodo> p = new TreeSet<>();
 
-		p.add(p1);
-		p.add(p3);
+		p.addAll(Tempo.freeze(p1));
+		p.addAll(Tempo.freeze(p3));
 
-		Assert.assertTrue(p.equals(e1.getPeriodos()));
+		Assert.assertEquals(p, e1.getPeriodos());
+
+		e1.clear();
+		Assert.assertEquals(0, e1.getPeriodos().size());
 	}
 }

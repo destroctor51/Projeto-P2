@@ -208,8 +208,8 @@ public class HotelTest {
 
 		Calendar c3 = new GregorianCalendar(2014,2,1);
 		Calendar c4 = new GregorianCalendar(2014,2,15);
-		Periodo periodo2 = new Periodo(c3, c4);
-		Assert.assertEquals(estacao, hotel.procuraEstacao(periodo2));
+		Periodo periodo3 = new Periodo(c3, c4);
+		Assert.assertEquals(estacao, hotel.procuraEstacao(periodo3));
 
 		hotel.removeEstacao(estacao);
 		hotel.removeEstacao(estacao2);
@@ -220,7 +220,7 @@ public class HotelTest {
 			Assert.fail();
 		} catch(IllegalArgumentException e) {}
 
-		Assert.assertEquals(null, hotel.procuraEstacao(periodo2));
+		Assert.assertEquals(null, hotel.procuraEstacao(periodo3));
 
 		// OPINIAO
 

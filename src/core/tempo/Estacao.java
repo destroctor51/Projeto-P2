@@ -1,8 +1,11 @@
 package core.tempo;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Set;
 import java.util.TreeSet;
+
+import utils.Tempo;
 
 /**
  * Classe que representa uma Estacao. Uma estacao nada mais e do que um conjunto de datas
@@ -17,10 +20,8 @@ import java.util.TreeSet;
 
 public class Estacao implements Cloneable, Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+
 	private Set<Periodo> periodos = new TreeSet<>();
 	private double tarifa;
 	private String id;
@@ -71,8 +72,23 @@ public class Estacao implements Cloneable, Serializable {
 	 * @param novoPeriodo  periodo a ser comparado
 	 * @return se entra em conflito ou nao
 	 */
-	public boolean entraEmConflito(Periodo novoPeriodo) {
-		return periodos.contains(novoPeriodo);
+	public boolean entraEmConflito(Periodo periodo) {
+		for(Periodo p : Tempo.freeze(periodo))
+			if(periodos.contains(p)) return true;
+		return false;
+	}
+
+	/**
+	 * Confere se uma data e englobada pela estacao
+	 *
+	 * @param data  a data a ser conferida
+	 * @return true se for englobada, false caso contrario
+	 */
+	public boolean contem(Calendar data) {
+		Calendar clone = Tempo.freeze(data);
+		for(Periodo p : periodos)
+			if(p.contem(clone)) return true;
+		return false;
 	}
 
 	/**
@@ -81,20 +97,22 @@ public class Estacao implements Cloneable, Serializable {
 	 * @return se acao foi realizada com sucesso ou nao.
 	 *
 	 */
-	public boolean addPeriodo(Periodo novoPeriodo) {
-		return periodos.add(novoPeriodo);
+	public void addPeriodo(Periodo novoPeriodo) {
+		for(Periodo p : Tempo.freeze(novoPeriodo))
+			Tempo.merge(p, periodos);
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param periodo  periodo a ser removido.
 	 * @return se a acao foi realizada com sucesso ou nao.
-	 * 
+	 *
 	 */
-	public boolean removePeriodo(Periodo periodo) {
-		return periodos.remove(periodo);
+	public void removePeriodo(Periodo periodo) {
+		for(Periodo p : Tempo.freeze(periodo))
+			Tempo.cut(p, periodos);
 	}
-	
+
 	/**
 	 * Remove todos os periodos da estacao.
 	 */

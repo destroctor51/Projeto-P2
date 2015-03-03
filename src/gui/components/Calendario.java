@@ -25,8 +25,8 @@ public class Calendario extends JComponent {
 
 	private static final long serialVersionUID = 1L;
 
-	protected static final Color corIndisponivel = new Color(255, 120, 120);
-	protected static final Color corSelecinado = new Color(120, 255, 120);
+	private static final Color corIndisponivel = new Color(255, 120, 120);
+	private static final Color corSelecinado = new Color(120, 255, 120);
 
 	private Color[][] cores;
 	private Calendar[][] dias;
@@ -69,10 +69,10 @@ public class Calendario extends JComponent {
 		if(selecao == null) return null;
 		return (Periodo) selecao.clone();
 	}
-	
+
 	/**
 	 * Define se o calendario pode selecionar um periodo com varios dias.
-	 * 
+	 *
 	 * @param modo  true se ele puder selecionar varios dias, false caso contrario
 	 */
 	public void setMultiplos(boolean modo) {

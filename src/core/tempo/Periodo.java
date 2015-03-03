@@ -30,8 +30,7 @@ public class Periodo implements Comparable<Periodo>, Cloneable, Serializable {
 	 * @param inicio  data de inicio do periodo.
 	 * @param fim  data de fim do periodo.
 	 */
-	public Periodo(Calendar inicio, Calendar fim){
-
+	public Periodo(Calendar inicio, Calendar fim) {
 		if(inicio == null || fim == null || fim.before(inicio))
 			throw new IllegalArgumentException();
 

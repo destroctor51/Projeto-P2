@@ -418,11 +418,17 @@ public class Hotel implements Serializable {
 	 * 			A estacao, caso exista.
 	 */
 	public Estacao procuraEstacao(Periodo periodo) {
-		for (Estacao estacao : tarifas)
-			if (estacao.getPeriodos().contains(periodo))
-				return estacao;
+		List<Estacao> candidatos = new ArrayList<>();
 
-		return null;
+		for (Estacao estacao : tarifas)
+			if (estacao.entraEmConflito(periodo))
+				candidatos.add(estacao);
+
+		Estacao max = null;
+		for(Estacao estacao : candidatos)
+			if(max == null || max.getTarifa() < estacao.getTarifa())
+				max = estacao;
+		return max;
 	}
 
 	/**

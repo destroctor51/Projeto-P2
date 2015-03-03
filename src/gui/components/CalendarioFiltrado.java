@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.Set;
 import java.util.TreeSet;
 
+import utils.Tempo;
 import core.tempo.Periodo;
 
 /**
@@ -32,30 +33,7 @@ public class CalendarioFiltrado extends Calendario {
 	 * @param periodo  o periodo a ser marcado
 	 */
 	public void marcaIndisponivel(Periodo periodo) {
-		if(periodo == null)
-			return;
-		
-		Set<Periodo> update = new TreeSet<>(periodos);
-		
-		for(Periodo p : periodos)
-			if(!periodo.entraEmConflito(p)) {
-				if(periodo.getInicio().equals(p.getFim()))
-					periodo.setInicio(p.getInicio());
-				if(periodo.getFim().equals(p.getInicio()))
-					periodo.setFim(p.getFim());
-			}
-			else if(periodo.contem(p))
-				continue;
-			else if(p.contem(periodo))
-				return;
-			else if(periodo.getInicio().before(p.getInicio()))
-				periodo.setFim(p.getFim());
-			else
-				periodo.setInicio(p.getInicio());
-
-		while(update.remove(periodo));
-		update.add(periodo);
-		periodos = update;
+		Tempo.merge(periodo, periodos);
 		atualizaDias();
 	}
 
@@ -65,29 +43,7 @@ public class CalendarioFiltrado extends Calendario {
 	 * @param periodo  o periodo a ser marcado
 	 */
 	public void marcaDisponivel(Periodo periodo) {
-		if(periodo == null)
-			return;
-		
-		Set<Periodo> update = new TreeSet<>();
-		
-		for(Periodo p : periodos) {
-			if(periodo.entraEmConflito(p))
-				if(periodo.contem(p))
-					continue;
-				else if(p.contem(periodo)) {
-					if(!p.getInicio().equals(periodo.getInicio()))
-						update.add(new Periodo(p.getInicio(), periodo.getInicio()));
-					if(!p.getFim().equals(periodo.getFim()))
-						update.add(new Periodo(periodo.getFim(), p.getFim()));
-				}
-				else if(periodo.getInicio().before(p.getInicio()))
-					update.add(new Periodo(periodo.getFim(), p.getFim()));
-				else
-					update.add(new Periodo(p.getInicio(), periodo.getInicio()));
-			else update.add(p);
-		}
-
-		periodos = update;
+		Tempo.cut(periodo, periodos);
 		atualizaDias();
 	}
 
@@ -103,11 +59,6 @@ public class CalendarioFiltrado extends Calendario {
 
 	@Override
 	protected boolean isSelecaoInvalida() {
-		if(periodos == null)
-			return false;
-		for(Periodo p : periodos)
-			if(p.entraEmConflito(getSelecao()))
-				return true;
-		return false;
+		return periodos.contains(getSelecao());
 	}
 }
