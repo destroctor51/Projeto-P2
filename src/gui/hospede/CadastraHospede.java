@@ -9,6 +9,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
+import java.util.regex.Pattern;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -268,6 +269,12 @@ public class CadastraHospede extends JPanel {
 		}
 
 		String telefone = tfTelefone.getText();
+		String phone = "\\(\\d{2}\\) \\d{4}-\\d{4}";
+		if (!Pattern.matches(phone,telefone)){
+			errorLabel.setText("Telefone inv\u00E1lido");
+			errorLabel.setVisible(true);
+			return false;
+		}
 
 		String cpf = tfCpf.getText();
 		String cpf1 = cpf.replace("-", "");
@@ -314,5 +321,5 @@ public class CadastraHospede extends JPanel {
 				return false;
 		return true;
 	}
-
+	
 }

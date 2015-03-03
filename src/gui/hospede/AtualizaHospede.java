@@ -5,6 +5,7 @@ import gui.Sistema;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
+import java.util.regex.Pattern;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -33,7 +34,7 @@ public class AtualizaHospede extends JPanel {
 	private JTextField tfEmail;
 	private Hospede hospede;
 	private JTextField tfNome;
-	private JLabel ErrorLabel;
+	private JLabel errorLabel;
 
 	private boolean editavel;
 	JButton btnAtualizar = new JButton("Editar");
@@ -67,9 +68,9 @@ public class AtualizaHospede extends JPanel {
 			}
 		});
 
-		ErrorLabel = new JLabel("");
-		ErrorLabel.setVisible(false);
-		ErrorLabel.setIcon(new ImageIcon(AtualizaHospede.class
+		errorLabel = new JLabel("");
+		errorLabel.setVisible(false);
+		errorLabel.setIcon(new ImageIcon(AtualizaHospede.class
 				.getResource("/gui/images/error.png")));
 
 		JPanel panel_1 = new JPanel();
@@ -172,7 +173,7 @@ public class AtualizaHospede extends JPanel {
 																																										.createSequentialGroup()
 																																										.addContainerGap()
 																																										.addComponent(
-																																												ErrorLabel,
+																																												errorLabel,
 																																												GroupLayout.PREFERRED_SIZE,
 																																												321,
 																																												GroupLayout.PREFERRED_SIZE)
@@ -232,7 +233,7 @@ public class AtualizaHospede extends JPanel {
 																																.createParallelGroup(
 																																		Alignment.LEADING)
 																																		.addComponent(
-																																				ErrorLabel,
+																																				errorLabel,
 																																				GroupLayout.PREFERRED_SIZE,
 																																				26,
 																																				GroupLayout.PREFERRED_SIZE)
@@ -278,8 +279,8 @@ public class AtualizaHospede extends JPanel {
 		try {
 			ftmTelefone = new MaskFormatter("(##) ####-####");
 		} catch (ParseException e2) {
-			ErrorLabel.setText("Telefone inv\u00E1lido");
-			ErrorLabel.setVisible(true);
+			errorLabel.setText("Telefone inv\u00E1lido");
+			errorLabel.setVisible(true);
 		}
 
 		tfTelefone = new JFormattedTextField(ftmTelefone);
@@ -295,8 +296,8 @@ public class AtualizaHospede extends JPanel {
 		try {
 			ftmCpf = new MaskFormatter("###.###.###-##");
 		} catch (ParseException e2) {
-			ErrorLabel.setText("CPF inv\u00E1lido");
-			ErrorLabel.setVisible(true);
+			errorLabel.setText("CPF inv\u00E1lido");
+			errorLabel.setVisible(true);
 		}
 
 		tfCpf = new JFormattedTextField(ftmCpf);
@@ -345,31 +346,37 @@ public class AtualizaHospede extends JPanel {
 
 	private boolean atualizarHospede() throws Exception {
 
-		String telefone = tfTelefone.getText();
 
+		String telefone = tfTelefone.getText();
+		String phone = "\\(\\d{2}\\) \\d{4}-\\d{4}";
+		if (!Pattern.matches(phone,telefone)){
+			errorLabel.setText("Telefone inv\u00E1lido");
+			errorLabel.setVisible(true);
+			return false;
+		}
 		String email = tfEmail.getText();
 
 		if (!Internet.isEmailValido(email)) {
-			ErrorLabel.setText("E-mail inv\u00E1lido");
-			ErrorLabel.setVisible(true);
+			errorLabel.setText("E-mail inv\u00E1lido");
+			errorLabel.setVisible(true);
 			return false;
 		}
 
-		ErrorLabel.setVisible(false);
+		errorLabel.setVisible(false);
 
 		String cidade = tfCidade.getText();
 
 		if (cidade.equals("") || cidade.length() < 3) {
-			ErrorLabel.setText("Cidade inv\u00E1lida");
-			ErrorLabel.setVisible(true);
+			errorLabel.setText("Cidade inv\u00E1lida");
+			errorLabel.setVisible(true);
 			return false;
 		}
 
 		String endereco = tfEndereco.getText();
 
 		if (endereco.equals("") || endereco.length() < 3) {
-			ErrorLabel.setText("Endere\u00E7o inv\u00E1lido");
-			ErrorLabel.setVisible(true);
+			errorLabel.setText("Endere\u00E7o inv\u00E1lido");
+			errorLabel.setVisible(true);
 			return false;
 		}
 
@@ -377,7 +384,7 @@ public class AtualizaHospede extends JPanel {
 		hospede.setEndereco(endereco);
 		hospede.setCidade(cidade);
 		hospede.setTelefone(telefone);
-		ErrorLabel.setVisible(false);
+		errorLabel.setVisible(false);
 		return true;
 	}
 }

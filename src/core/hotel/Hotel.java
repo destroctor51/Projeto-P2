@@ -324,7 +324,7 @@ public class Hotel implements Serializable {
 	 */
 	public void adicionaCarro(TipoCarro tipo, String placa) throws Exception {
 		if (!(Carro.verificaPlaca(placa)))
-			throw new Exception("Placa inv\u00E1lida (ex: ABC1234)");
+			throw new Exception("Placa inv\u00E1lida (ex: ABC-1234)");
 
 		for (Carro carro : carros)
 			if (carro.getPlaca().equals(placa))

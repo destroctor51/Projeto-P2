@@ -10,10 +10,12 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -21,6 +23,7 @@ import javax.swing.UIManager;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.text.MaskFormatter;
 
 import core.servicos.devolviveis.TipoCarro;
 import core.servicos.devolviveis.TipoQuarto;
@@ -31,7 +34,8 @@ public class AdicionarServico extends JPanel {
 
 	private JTextField tfNomeBs;
 	private JTextField tfCodigo;
-	private JTextField tfPlaca;
+	private JFormattedTextField tfPlaca;
+	private MaskFormatter ftmPlaca;	
 	private JTextField tfNumero;
 	private JTextField tfNomeR;
 	private final JLabel lbObs = new JLabel("*Observa\u00E7\u00F5es");
@@ -42,32 +46,35 @@ public class AdicionarServico extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public AdicionarServico(final String cbSelecionado, final JPanel telaAnterior) {
+	public AdicionarServico(final String cbSelecionado,
+			final JPanel telaAnterior) {
 		setName("Adicionar Servi\u00E7o");
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[] {0, 0, 0};
-		gridBagLayout.rowHeights = new int[] {0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{1.0, 0.25, 1.0};
-		gridBagLayout.rowWeights = new double[]{1.0, 0.25, 1.0};
+		gridBagLayout.columnWidths = new int[] { 0, 0, 0 };
+		gridBagLayout.rowHeights = new int[] { 0, 0, 0 };
+		gridBagLayout.columnWeights = new double[] { 1.0, 0.25, 1.0 };
+		gridBagLayout.rowWeights = new double[] { 1.0, 0.25, 1.0 };
 		setLayout(gridBagLayout);
 		GridBagConstraints gbc_panel_card = new GridBagConstraints();
 		gbc_panel_card.fill = GridBagConstraints.BOTH;
 		gbc_panel_card.insets = new Insets(0, 0, 10, 5);
 		gbc_panel_card.gridx = 1;
 		gbc_panel_card.gridy = 1;
-		panel_card.setBorder(new CompoundBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), cbSelecionado, TitledBorder.LEADING, TitledBorder.ABOVE_TOP, null, new Color(0, 0, 0)), new EmptyBorder(0, 10, 0, 10)));
+		panel_card.setBorder(new CompoundBorder(new TitledBorder(UIManager
+				.getBorder("TitledBorder.border"), cbSelecionado,
+				TitledBorder.LEADING, TitledBorder.ABOVE_TOP, null, new Color(
+						0, 0, 0)), new EmptyBorder(0, 10, 0, 10)));
 		add(panel_card, gbc_panel_card);
 		panel_card.setLayout(new CardLayout(0, 0));
-
 
 		JPanel panel_bs = new JPanel();
 		panel_card.add(panel_bs, "Babysitter");
 		GridBagLayout gbl_panel_bs = new GridBagLayout();
-		gbl_panel_bs.columnWidths = new int[] {85, 0};
-		gbl_panel_bs.rowHeights = new int[] {0, 0, 0};
-		gbl_panel_bs.columnWeights = new double[]{0.0, 1.0};
-		gbl_panel_bs.rowWeights = new double[]{1.0, 0.5, 1.0};
+		gbl_panel_bs.columnWidths = new int[] { 85, 0 };
+		gbl_panel_bs.rowHeights = new int[] { 0, 0, 0 };
+		gbl_panel_bs.columnWeights = new double[] { 0.0, 1.0 };
+		gbl_panel_bs.rowWeights = new double[] { 1.0, 0.5, 1.0 };
 		panel_bs.setLayout(gbl_panel_bs);
 
 		JLabel lblNome = new JLabel("Nome:");
@@ -89,10 +96,10 @@ public class AdicionarServico extends JPanel {
 		JPanel panel_ce = new JPanel();
 		panel_card.add(panel_ce, "Cama Extra");
 		GridBagLayout gbl_panel_ce = new GridBagLayout();
-		gbl_panel_ce.columnWidths = new int[] {85, 0};
-		gbl_panel_ce.rowHeights = new int[] {0, 0, 0};
-		gbl_panel_ce.columnWeights = new double[]{0.0, 1.0};
-		gbl_panel_ce.rowWeights = new double[]{1.0, 0.5, 1.0};
+		gbl_panel_ce.columnWidths = new int[] { 85, 0 };
+		gbl_panel_ce.rowHeights = new int[] { 0, 0, 0 };
+		gbl_panel_ce.columnWeights = new double[] { 0.0, 1.0 };
+		gbl_panel_ce.rowWeights = new double[] { 1.0, 0.5, 1.0 };
 		panel_ce.setLayout(gbl_panel_ce);
 
 		JLabel lblCodigo = new JLabel("C\u00F3digo:");
@@ -114,10 +121,10 @@ public class AdicionarServico extends JPanel {
 		JPanel panel_c = new JPanel();
 		panel_card.add(panel_c, "Carro");
 		GridBagLayout gbl_panel_c = new GridBagLayout();
-		gbl_panel_c.columnWidths = new int[] {85, 0};
-		gbl_panel_c.rowHeights = new int[] {0, 0, 0, 0};
-		gbl_panel_c.columnWeights = new double[]{0.0, 1.0};
-		gbl_panel_c.rowWeights = new double[]{1.0, 0.5, 0.5, 1.0};
+		gbl_panel_c.columnWidths = new int[] { 85, 0 };
+		gbl_panel_c.rowHeights = new int[] { 0, 0, 0, 0 };
+		gbl_panel_c.columnWeights = new double[] { 0.0, 1.0 };
+		gbl_panel_c.rowWeights = new double[] { 1.0, 0.5, 0.5, 1.0 };
 		panel_c.setLayout(gbl_panel_c);
 
 		JLabel lblPlaca = new JLabel("Placa:");
@@ -128,7 +135,14 @@ public class AdicionarServico extends JPanel {
 		gbc_lblPlaca.gridy = 1;
 		panel_c.add(lblPlaca, gbc_lblPlaca);
 
-		tfPlaca = new JTextField();
+		try {
+			ftmPlaca = new MaskFormatter("UUU-####");
+		} catch (ParseException e2) {
+			lbObs.setText("Placa inv\u00E1lida");
+			lbObs.setVisible(true);
+		}
+
+		tfPlaca = new JFormattedTextField(ftmPlaca);
 		tfPlaca.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		tfPlaca.setColumns(10);
 		GridBagConstraints gbc_tfPlaca = new GridBagConstraints();
@@ -157,10 +171,10 @@ public class AdicionarServico extends JPanel {
 		JPanel panel_q = new JPanel();
 		panel_card.add(panel_q, "Quarto");
 		GridBagLayout gbl_panel_q = new GridBagLayout();
-		gbl_panel_q.columnWidths = new int[] {85, 0};
-		gbl_panel_q.rowHeights = new int[] {0, 0, 0, 0};
-		gbl_panel_q.columnWeights = new double[]{0.0, 1.0};
-		gbl_panel_q.rowWeights = new double[]{1.0, 0.5, 0.5, 1.0};
+		gbl_panel_q.columnWidths = new int[] { 85, 0 };
+		gbl_panel_q.rowHeights = new int[] { 0, 0, 0, 0 };
+		gbl_panel_q.columnWeights = new double[] { 0.0, 1.0 };
+		gbl_panel_q.rowWeights = new double[] { 1.0, 0.5, 0.5, 1.0 };
 		panel_q.setLayout(gbl_panel_q);
 
 		tfNumero = new JTextField();
@@ -197,10 +211,10 @@ public class AdicionarServico extends JPanel {
 		JPanel panel_r = new JPanel();
 		panel_card.add(panel_r, "Restaurante");
 		GridBagLayout gbl_panel_r = new GridBagLayout();
-		gbl_panel_r.columnWidths = new int[] {85, 0};
-		gbl_panel_r.rowHeights = new int[] {0, 0, 0};
-		gbl_panel_r.columnWeights = new double[]{0.0, 1.0};
-		gbl_panel_r.rowWeights = new double[]{1.0, 0.5, 1.0};
+		gbl_panel_r.columnWidths = new int[] { 85, 0 };
+		gbl_panel_r.rowHeights = new int[] { 0, 0, 0 };
+		gbl_panel_r.columnWeights = new double[] { 0.0, 1.0 };
+		gbl_panel_r.rowWeights = new double[] { 1.0, 0.5, 1.0 };
 		panel_r.setLayout(gbl_panel_r);
 
 		JLabel Nome = new JLabel("Nome:");
@@ -228,10 +242,10 @@ public class AdicionarServico extends JPanel {
 		gbc_panel_1.gridy = 2;
 		add(panel_1, gbc_panel_1);
 		GridBagLayout gbl_panel_1 = new GridBagLayout();
-		gbl_panel_1.columnWidths = new int[] {0, 0, 0};
-		gbl_panel_1.rowHeights = new int[] {0};
-		gbl_panel_1.columnWeights = new double[]{1.0, 0.0, 0.0};
-		gbl_panel_1.rowWeights = new double[]{0.0};
+		gbl_panel_1.columnWidths = new int[] { 0, 0, 0 };
+		gbl_panel_1.rowHeights = new int[] { 0 };
+		gbl_panel_1.columnWeights = new double[] { 1.0, 0.0, 0.0 };
+		gbl_panel_1.rowWeights = new double[] { 0.0 };
 		panel_1.setLayout(gbl_panel_1);
 		GridBagConstraints gbc_lbObs = new GridBagConstraints();
 		gbc_lbObs.fill = GridBagConstraints.BOTH;
@@ -264,18 +278,20 @@ public class AdicionarServico extends JPanel {
 		btnAdicionar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				switch(cbSelecionado) {
+				switch (cbSelecionado) {
 				case "Babysitter":
 					try {
 						// verifica se eh valido
 						boolean invalido = false;
 						for (int i = 0; i < tfNomeBs.getText().length(); i++)
-							if (!Character.isAlphabetic(tfNomeBs.getText().charAt(i))
+							if (!Character.isAlphabetic(tfNomeBs.getText()
+									.charAt(i))
 									&& tfNomeBs.getText().charAt(i) != ' ')
 								invalido = true;
 
 						if (invalido || tfNomeBs.getText().length() < 3)
-							throw new IllegalArgumentException("Nome deve ter no m\u00EDnimo 3 caract\u00E9res (apenas letras)");
+							throw new IllegalArgumentException(
+									"Nome deve ter no m\u00EDnimo 3 caract\u00E9res (apenas letras)");
 
 						Sistema.getHotel().adicionaBaba(tfNomeBs.getText());
 						Sistema.setTela(telaAnterior);
@@ -284,11 +300,13 @@ public class AdicionarServico extends JPanel {
 						lbObs.setText(exc.getMessage());
 						lbObs.setForeground(Color.RED);
 						lbObs.setVisible(true);
-					} break;
+					}
+					break;
 
 				case "Cama Extra":
 					try {
-						if(tfCodigo.getText() == null || Integer.parseInt(tfCodigo.getText()) < 0)
+						if (tfCodigo.getText() == null
+								|| Integer.parseInt(tfCodigo.getText()) < 0)
 							throw new IllegalArgumentException();
 						int codigo = Integer.parseInt(tfCodigo.getText());
 
@@ -304,7 +322,8 @@ public class AdicionarServico extends JPanel {
 						lbObs.setText(exc.getMessage());
 						lbObs.setForeground(Color.RED);
 						lbObs.setVisible(true);
-					} break;
+					}
+					break;
 
 				case "Carro":
 					try {
@@ -313,18 +332,21 @@ public class AdicionarServico extends JPanel {
 						if (cbTipoCarro.getSelectedIndex() == -1)
 							throw new Exception("Escolha um tipo de carro");
 
-						Sistema.getHotel().adicionaCarro((TipoCarro) cbTipoCarro.getSelectedItem(), placa);
+						Sistema.getHotel().adicionaCarro(
+								(TipoCarro) cbTipoCarro.getSelectedItem(),
+								placa);
 						Sistema.setTela(telaAnterior);
 
 					} catch (Exception exc) {
 						lbObs.setText(exc.getMessage());
 						lbObs.setForeground(Color.RED);
 						lbObs.setVisible(true);
-					} break;
+					}
+					break;
 
 				case "Quarto":
 					try {
-						if(tfNumero.getText() == null)
+						if (tfNumero.getText() == null)
 							throw new IllegalArgumentException();
 
 						int numero = Integer.parseInt(tfNumero.getText());
@@ -332,7 +354,9 @@ public class AdicionarServico extends JPanel {
 						if (cbTipoQuarto.getSelectedIndex() == -1)
 							throw new Exception("Escolha um tipo de quarto");
 
-						Sistema.getHotel().adicionaQuarto((TipoQuarto) cbTipoQuarto.getSelectedItem(), numero);
+						Sistema.getHotel().adicionaQuarto(
+								(TipoQuarto) cbTipoQuarto.getSelectedItem(),
+								numero);
 						Sistema.setTela(telaAnterior);
 
 					} catch (IllegalArgumentException nfe) {
@@ -344,28 +368,33 @@ public class AdicionarServico extends JPanel {
 						lbObs.setText(exc.getMessage());
 						lbObs.setForeground(Color.RED);
 						lbObs.setVisible(true);
-					} break;
+					}
+					break;
 
 				case "Restaurante":
 					try {
 						// verifica se eh valido
 						boolean invalido = false;
 						for (int i = 0; i < tfNomeR.getText().length(); i++)
-							if (!Character.isAlphabetic(tfNomeR.getText().charAt(i))
+							if (!Character.isAlphabetic(tfNomeR.getText()
+									.charAt(i))
 									&& tfNomeR.getText().charAt(i) != ' ')
 								invalido = true;
 
 						if (invalido || tfNomeR.getText().length() < 3)
-							throw new IllegalArgumentException("Nome deve ter no m\u00EDnimo 3 caract\u00E9res (apenas letras)");
+							throw new IllegalArgumentException(
+									"Nome deve ter no m\u00EDnimo 3 caract\u00E9res (apenas letras)");
 
-						Sistema.getHotel().adicionaRestaurante(tfNomeR.getText());
+						Sistema.getHotel().adicionaRestaurante(
+								tfNomeR.getText());
 						Sistema.setTela(telaAnterior);
 
 					} catch (Exception exc) {
 						lbObs.setText(exc.getMessage());
 						lbObs.setForeground(Color.RED);
 						lbObs.setVisible(true);
-					} break;
+					}
+					break;
 				}
 			}
 		});

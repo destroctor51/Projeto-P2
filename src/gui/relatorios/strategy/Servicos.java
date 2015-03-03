@@ -66,7 +66,7 @@ public class Servicos extends Estrategia {
 		String texto = "";
 
 		texto += "Data: " + dataAtual + "\n";
-		texto += "Servi\u00E7os mensais\n\n";
+		texto += "Servi\u00E7os mensais\n";
 		texto += "M\u00EAs: " + cb.getSelectedItem() + "\n\n";
 
 		calculaRelatorioMensal(texto, cb.getSelectedIndex(), anoRelatorio);

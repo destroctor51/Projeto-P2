@@ -117,7 +117,7 @@ public class OpinioesSobreHotel extends JPanel {
 			}
 		});
 
-		JLabel lblPeriodo = new JLabel("Periodo:");
+		JLabel lblPeriodo = new JLabel("Per\u00EDodo:");
 		GridBagConstraints gbc_lblPeriodo = new GridBagConstraints();
 		gbc_lblPeriodo.anchor = GridBagConstraints.WEST;
 		gbc_lblPeriodo.gridx = 0;
@@ -206,7 +206,7 @@ public class OpinioesSobreHotel extends JPanel {
 
 		texto += "Data: " + dataAtual + "\n";
 		texto += "Relat\u00F3rio de opini\u00F5es sobre o hotel\n";
-		texto += "Periodo: " + data + "\n\n";
+		texto += "Per\u00EDodo: " + data + "\n\n";
 
 		setNotas(periodo);
 
@@ -217,7 +217,7 @@ public class OpinioesSobreHotel extends JPanel {
 		texto += "Nota 5 - \u00F3timo: " + otimo + "\n\n";
 
 		calculaMedia();
-		texto += "Media: " + media;
+		texto += "M\u00E9dia: " + media;
 
 		return texto;
 	}
@@ -280,7 +280,7 @@ public class OpinioesSobreHotel extends JPanel {
 		dataset.setValue(otimo, "Quantidade", "\u00D3timo(5)");
 
 		JFreeChart chart = ChartFactory.createBarChart(
-				"Opinioes a respeito do hotel: " + periodo, "Nota",
+				"Opini\u00F5es a respeito do hotel: " + periodo, "Nota",
 				"Quantidade", dataset, PlotOrientation.VERTICAL, false, true,
 				false);
 

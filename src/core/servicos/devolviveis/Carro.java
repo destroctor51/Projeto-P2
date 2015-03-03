@@ -163,7 +163,7 @@ public class Carro implements Devolvivel{
 	 *
 	 */
 	public static boolean verificaPlaca(String placa) {
-		return Pattern.matches("^[A-Z]{3}[0-9]{4}$", placa);
+		return Pattern.matches("^[A-Z]{3}-[0-9]{4}$", placa);
 	}
 
 	@Override

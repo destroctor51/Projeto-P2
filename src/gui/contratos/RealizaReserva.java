@@ -543,7 +543,7 @@ public class RealizaReserva extends JPanel {
 		estadia = calendarioAlugavel.getSelecao();
 		String cartao = cardField.getText();
 
-		if (hospede == null) {
+		if (list_1.getSelectedIndex() == -1) {
 			ErrorLabel.setText("H\u00F3spede ainda n\u00E3o escolhido");
 			ErrorLabel.setVisible(true);
 			return;

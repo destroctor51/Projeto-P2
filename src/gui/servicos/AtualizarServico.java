@@ -9,10 +9,12 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -21,6 +23,7 @@ import javax.swing.UIManager;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.text.MaskFormatter;
 
 import core.hotel.Restaurante;
 import core.servicos.alugaveis.Babysitter;
@@ -36,7 +39,8 @@ public class AtualizarServico extends JPanel {
 
 	private JTextField tfNomeBs = new JTextField();
 	private JTextField tfCodigo = new JTextField();
-	private JTextField tfPlaca = new JTextField();
+	private JFormattedTextField tfPlaca;
+	private MaskFormatter ftmPlaca;
 	private JTextField tfNumero = new JTextField();
 	private JTextField tfNomeR = new JTextField();
 	private final JLabel lbObs = new JLabel("*Observa\u00E7\u00F5es");
@@ -197,6 +201,14 @@ public class AtualizarServico extends JPanel {
 		gbc_label_2.gridy = 1;
 		panel_c.add(label_2, gbc_label_2);
 
+		try {
+			ftmPlaca = new MaskFormatter("UUU-####");
+		} catch (ParseException e2) {
+			lbObs.setText("Placa inv\u00E1lida");
+			lbObs.setVisible(true);
+		}
+		
+		tfPlaca = new JFormattedTextField(ftmPlaca);
 		tfPlaca.setColumns(10);
 		GridBagConstraints gbc_tfPlaca = new GridBagConstraints();
 		gbc_tfPlaca.fill = GridBagConstraints.HORIZONTAL;
