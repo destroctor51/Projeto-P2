@@ -100,12 +100,13 @@ public class CarroTest {
 
 		Assert.assertFalse(Carro.verificaPlaca("123"));
 		Assert.assertFalse(Carro.verificaPlaca("ABC"));
-		Assert.assertFalse(Carro.verificaPlaca("ABC123"));
-		Assert.assertFalse(Carro.verificaPlaca("ABCD4123"));
-		Assert.assertFalse(Carro.verificaPlaca("A2C4123"));
-		Assert.assertFalse(Carro.verificaPlaca("ABC41D3"));
-		Assert.assertFalse(Carro.verificaPlaca("abc4123"));
-		Assert.assertTrue(Carro.verificaPlaca("ABC4123"));
+		Assert.assertFalse(Carro.verificaPlaca("ABC-123"));
+		Assert.assertFalse(Carro.verificaPlaca("ABCD-4123"));
+		Assert.assertFalse(Carro.verificaPlaca("A2C-4123"));
+		Assert.assertFalse(Carro.verificaPlaca("ABC-41D3"));
+		Assert.assertFalse(Carro.verificaPlaca("abc-4123"));
+		
+		Assert.assertTrue(Carro.verificaPlaca("ABC-4123"));
 	}
 
 	@Test

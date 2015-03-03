@@ -96,7 +96,7 @@ public class Opiniao implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Autor: " + getAutor() + ", nota: " + Integer.toString(getNota()) + ", coment\u00E1rio: " + getComentario();
+		return "Autor: " + getAutor() + ", nota: " + getNota() + ", coment\u00E1rio: " + getComentario();
 	}
 
 	@Override

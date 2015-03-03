@@ -155,16 +155,16 @@ public class HotelTest {
 
 		// CARRO
 
-		hotel.adicionaCarro(TipoCarro.LUXO, "ABC4123");
+		hotel.adicionaCarro(TipoCarro.LUXO, "ABC-1234");
 		Assert.assertEquals(1, hotel.getCarros().size());
-		hotel.adicionaCarro(TipoCarro.EXECUTIVO, "MOR2933");
+		hotel.adicionaCarro(TipoCarro.EXECUTIVO, "MOR-2933");
 
 		hotel.getCarros().get(0).aluga(p1);
 		hotel.getCarros().get(1).aluga(p2);
 		Assert.assertEquals(1, hotel.getCarrosDisponiveis(p3).size());
-		Assert.assertEquals("ABC4123", hotel.getCarrosDisponiveis(p3).get(0).getPlaca());
+		Assert.assertEquals("ABC-1234", hotel.getCarrosDisponiveis(p3).get(0).getPlaca());
 
-		Assert.assertTrue(hotel.removeCarro(new Carro(TipoCarro.LUXO, "ABC4123")));
+		Assert.assertTrue(hotel.removeCarro(new Carro(TipoCarro.LUXO, "ABC-1234")));
 		Assert.assertEquals(1, hotel.getCarros().size());
 
 		try {

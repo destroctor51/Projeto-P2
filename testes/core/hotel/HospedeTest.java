@@ -123,6 +123,14 @@ public class HospedeTest {
 			Assert.fail();
 		} catch (Exception e) {}
 	}
+	
+	@Test
+	public void testaVerificaCpf(){
+		Assert.assertFalse(hospede.verificaCpf("11111111111111111111"));
+		Assert.assertFalse(hospede.verificaCpf("234871982364918623746"));
+		Assert.assertFalse(hospede.verificaCpf("11111472374"));
+		Assert.assertTrue(hospede.verificaCpf("08766599466"));
+	}
 
 	@Test
 	public void testaToString() {
