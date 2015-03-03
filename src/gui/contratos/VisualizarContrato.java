@@ -11,6 +11,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 import javax.swing.ImageIcon;
@@ -29,8 +32,10 @@ import javax.swing.event.AncestorListener;
 
 import utils.Filtro;
 import core.hotel.Contrato;
+import core.interfaces.Alugavel;
 import core.interfaces.Devolvivel;
 import core.interfaces.Pagavel;
+import core.servicos.devolviveis.Quarto;
 
 public class VisualizarContrato extends JPanel {
 
@@ -46,7 +51,7 @@ public class VisualizarContrato extends JPanel {
 	 * Create the panel.
 	 */
 	public VisualizarContrato(final Contrato contrato, final JPanel tela) {
-		this.setName("Visuzalizar Contrato");
+		this.setName("Visualizar Contrato");
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.rowHeights = new int[] {0, 0, 0, 0};
@@ -103,6 +108,16 @@ public class VisualizarContrato extends JPanel {
 		panel.add(textField_1, gbc_textField_1);
 		textField_1.setEditable(false);
 		textField_1.setColumns(10);
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		Calendar data = null;
+		for (Pagavel p : contrato.getServicos()) {
+			if (p instanceof Quarto)
+				data = ((Quarto) p).getHistorico().iterator().next().getInicio();
+				break;
+		}
+		Date d = data.getTime();
+		textField_1.setText(sdf.format(d));
 
 		JLabel label_3 = new JLabel("Servi\u00E7os contratados:");
 		GridBagConstraints gbc_label_3 = new GridBagConstraints();
@@ -194,8 +209,8 @@ public class VisualizarContrato extends JPanel {
 		btnDeletar.setEnabled(false);
 		btnDeletar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Devolvivel selecionado = (Devolvivel) list.getSelectedValue();
-				contrato.removeServico(selecionado);
+				Alugavel selecionado = (Alugavel) list.getSelectedValue();
+				contrato.removeServico(selecionado);	
 				btnDeletar.setEnabled(false);
 				Filtro.preencheJList(contrato.getServicos(), list);
 			}

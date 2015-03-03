@@ -96,7 +96,7 @@ public class SelecionarServicos extends JPanel {
 			}
 		});
 
-		JButton btnCancelar = new JButton("Voltar");
+		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Sistema.setTela(tela);
@@ -106,74 +106,7 @@ public class SelecionarServicos extends JPanel {
 		comboBox_1 = new JComboBox<Object>();
 		comboBox_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (comboBox_1.getSelectedItem().equals("Carro")) {
-					lblHoraDeIncio.setVisible(false);
-					lblHoraDeSada.setVisible(false);
-					comboBox_2.setVisible(false);
-					comboBox_3.setVisible(false);
-					calendario.setRequisito("babysitter", 0);
-					calendario.setRequisito("cama", 0);
-					calendario.setMultiplos(true);
-					
-					if (comboBox.getSelectedItem().equals(TipoCarro.EXECUTIVO)) {
-						calendario.setRequisito("carroe", 1);
-						calendario.setRequisito("carrol", 0);
-					}
-					else {
-						calendario.setRequisito("carrol", 1);
-						calendario.setRequisito("carroe", 0);
-					}
-
-					layeredPane.setLayer(scrollPane_1, -1);
-					layeredPane.setLayer(list_1, -1);
-					scrollPane_1.setVisible(false);
-					list_1.setVisible(false);
-
-					lblTipoDeCarro.setVisible(true);
-					comboBox.setVisible(true);
-					chckbxNewCheckBox.setVisible(true);
-					chckbxNewCheckBox_1.setVisible(true);
-				} else if (comboBox_1.getSelectedItem().equals("CamaExtra")) {
-					lblHoraDeIncio.setVisible(false);
-					lblHoraDeSada.setVisible(false);
-					comboBox_2.setVisible(false);
-					comboBox_3.setVisible(false);
-					calendario.setRequisito("babysitter", 0);
-					calendario.setRequisito("carroe", 0);
-					calendario.setRequisito("carrol", 0);
-					calendario.setRequisito("cama", 1);
-					calendario.setMultiplos(true);
-
-					layeredPane.setLayer(scrollPane_1, 1);
-					layeredPane.setLayer(list_1, 1);
-					scrollPane_1.setVisible(true);
-					list_1.setVisible(true);
-
-					lblTipoDeCarro.setVisible(false);
-					comboBox.setVisible(false);
-					chckbxNewCheckBox.setVisible(false);
-					chckbxNewCheckBox_1.setVisible(false);
-				} else {
-					lblHoraDeIncio.setVisible(true);
-					lblHoraDeSada.setVisible(true);
-					comboBox_2.setVisible(true);
-					comboBox_3.setVisible(true);
-					calendario.setRequisito("babysitter", 1);
-					calendario.setRequisito("carroe", 0);
-					calendario.setRequisito("carrol", 0);
-					calendario.setRequisito("cama", 0);
-					calendario.setMultiplos(false);
-
-					layeredPane.setLayer(scrollPane_1, -1);
-					layeredPane.setLayer(list_1, -1);
-					scrollPane_1.setVisible(false);
-					list_1.setVisible(false);
-
-					lblTipoDeCarro.setVisible(false);
-					comboBox.setVisible(false);
-					chckbxNewCheckBox.setVisible(false);
-					chckbxNewCheckBox_1.setVisible(false);
-				}
+				atualizaCalendar();
 			}
 		});
 		comboBox_1.setModel(new DefaultComboBoxModel<Object>(new String[] {
@@ -373,6 +306,11 @@ public class SelecionarServicos extends JPanel {
 		calendario.initCategoria("babysitter", 1);
 		for (Babysitter b : Sistema.getHotel().getBabas()) {
 			Alugavel a = (Alugavel) b.clone();
+			for (Periodo p : b.getHistorico()) {
+				if (!(a.getHistorico().contains(p))) {
+					a.aluga(p);
+				}
+			}
 			clones.add(a);
 			calendario.adicionaElemento("babysitter", a);
 		}
@@ -382,11 +320,23 @@ public class SelecionarServicos extends JPanel {
 			switch (c.getTipo()) {
 			case EXECUTIVO:
 				Alugavel a = (Alugavel) c.clone();
+				for (Periodo p : c.getHistorico()) {
+					if (!(a.getHistorico().contains(p))) {
+						a.aluga(p);
+						((Carro) a).cancela();
+					}
+				}
 				clones.add(a);
 				calendario.adicionaElemento("carroe", a);
 				break;
 			case LUXO:
 				Alugavel a1 = (Alugavel) c.clone();
+				for (Periodo p : c.getHistorico()) {
+					if (!(a1.getHistorico().contains(p))) {
+						a1.aluga(p);
+						((Carro) a1).cancela();
+					}
+				}
 				clones.add(a1);
 				calendario.adicionaElemento("carrol", a1);
 				break;
@@ -395,6 +345,10 @@ public class SelecionarServicos extends JPanel {
 		calendario.initCategoria("cama", 0);
 		for (CamaExtra ce : Sistema.getHotel().getCamas()) {
 			Alugavel a = (Alugavel) ce.clone();
+			for (Periodo p : ce.getHistorico()) {
+				if (!(a.getHistorico().contains(p)))
+					a.aluga(p);
+			}
 			clones.add(a);
 			calendario.adicionaElemento("cama", a);
 		}
@@ -580,6 +534,7 @@ public class SelecionarServicos extends JPanel {
 				else {
 					calendario.removeCategoria("carrol");
 					calendario.initCategoria("carrol", 1);
+					atualizaCalendar();
 					for (Alugavel a : clones) {
 						if (a instanceof Carro && ((Carro) a).getTipo().equals(TipoCarro.LUXO))
 							calendario.adicionaElemento("carrol", a);
@@ -610,6 +565,7 @@ public class SelecionarServicos extends JPanel {
 				
 				calendario.removeCategoria("cama");
 				calendario.initCategoria("cama", 1);
+				atualizaCalendar();
 				for (Alugavel a : clones) {
 					if (a instanceof CamaExtra)
 						calendario.adicionaElemento("cama", a);
@@ -639,6 +595,7 @@ public class SelecionarServicos extends JPanel {
 				
 				calendario.removeCategoria("babysitter");
 				calendario.initCategoria("babysitter", 1);
+				atualizaCalendar();
 				for (Alugavel a : clones) {
 					if (a instanceof Babysitter)
 						calendario.adicionaElemento("babysitter", a);
@@ -664,11 +621,10 @@ public class SelecionarServicos extends JPanel {
 			return;
 		}
 
-		for (Babysitter b : babasAlugadas) {
-			int index = babasAlugadas.indexOf(b);
-			Periodo periodo = pbabasAlugadas.get(index);
-			b.aluga(periodo);
-			contrato.adicionaServico(b);
+		for (int i = 0; i < babasAlugadas.size(); i++) {
+			Periodo periodo = pbabasAlugadas.get(i);
+			babasAlugadas.get(i).aluga(periodo);
+			contrato.adicionaServico(babasAlugadas.get(i));
 		}
 
 		for (int i = 0; i < carrosAlugados.size(); i++) {
@@ -678,14 +634,84 @@ public class SelecionarServicos extends JPanel {
 			carrosAlugados.get(i).cancela();
 		}
 
-		for (CamaExtra c : camasAlugadas) {
-			int index = camasAlugadas.indexOf(c);
-			Periodo periodo = pcamasAlugadas.get(index);
-			c.aluga(periodo);
-			contrato.adicionaServico(c);
+		for (int i = 0; i < camasAlugadas.size(); i++) {
+			Periodo periodo = pcamasAlugadas.get(i);
+			camasAlugadas.get(i).aluga(periodo);
+			contrato.adicionaServico(camasAlugadas.get(i));
 		}
 
 		Sistema.setTela(tela);
 		ErrorLabel.setVisible(false);
+	}
+	
+	private void atualizaCalendar() {
+		if (comboBox_1.getSelectedItem().equals("Carro")) {
+			lblHoraDeIncio.setVisible(false);
+			lblHoraDeSada.setVisible(false);
+			comboBox_2.setVisible(false);
+			comboBox_3.setVisible(false);
+			calendario.setRequisito("babysitter", 0);
+			calendario.setRequisito("cama", 0);
+			calendario.setMultiplos(true);
+			
+			if (comboBox.getSelectedItem().equals(TipoCarro.EXECUTIVO)) {
+				calendario.setRequisito("carroe", 1);
+				calendario.setRequisito("carrol", 0);
+			}
+			else {
+				calendario.setRequisito("carrol", 1);
+				calendario.setRequisito("carroe", 0);
+			}
+
+			layeredPane.setLayer(scrollPane_1, -1);
+			layeredPane.setLayer(list_1, -1);
+			scrollPane_1.setVisible(false);
+			list_1.setVisible(false);
+
+			lblTipoDeCarro.setVisible(true);
+			comboBox.setVisible(true);
+			chckbxNewCheckBox.setVisible(true);
+			chckbxNewCheckBox_1.setVisible(true);
+		} else if (comboBox_1.getSelectedItem().equals("CamaExtra")) {
+			lblHoraDeIncio.setVisible(false);
+			lblHoraDeSada.setVisible(false);
+			comboBox_2.setVisible(false);
+			comboBox_3.setVisible(false);
+			calendario.setRequisito("babysitter", 0);
+			calendario.setRequisito("carroe", 0);
+			calendario.setRequisito("carrol", 0);
+			calendario.setRequisito("cama", 1);
+			calendario.setMultiplos(true);
+
+			layeredPane.setLayer(scrollPane_1, 1);
+			layeredPane.setLayer(list_1, 1);
+			scrollPane_1.setVisible(true);
+			list_1.setVisible(true);
+
+			lblTipoDeCarro.setVisible(false);
+			comboBox.setVisible(false);
+			chckbxNewCheckBox.setVisible(false);
+			chckbxNewCheckBox_1.setVisible(false);
+		} else {
+			lblHoraDeIncio.setVisible(true);
+			lblHoraDeSada.setVisible(true);
+			comboBox_2.setVisible(true);
+			comboBox_3.setVisible(true);
+			calendario.setRequisito("babysitter", 1);
+			calendario.setRequisito("carroe", 0);
+			calendario.setRequisito("carrol", 0);
+			calendario.setRequisito("cama", 0);
+			calendario.setMultiplos(false);
+
+			layeredPane.setLayer(scrollPane_1, -1);
+			layeredPane.setLayer(list_1, -1);
+			scrollPane_1.setVisible(false);
+			list_1.setVisible(false);
+
+			lblTipoDeCarro.setVisible(false);
+			comboBox.setVisible(false);
+			chckbxNewCheckBox.setVisible(false);
+			chckbxNewCheckBox_1.setVisible(false);
+		}
 	}
 }

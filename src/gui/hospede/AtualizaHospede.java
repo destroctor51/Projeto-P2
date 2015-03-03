@@ -4,14 +4,18 @@ import gui.Sistema;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.text.MaskFormatter;
 
 import utils.Internet;
 import core.hotel.Hospede;
@@ -21,10 +25,12 @@ public class AtualizaHospede extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JTextField tfCidade;
 	private JTextField tfEndereco;
-	private JTextField tfTelefone;
+	private JFormattedTextField tfTelefone;
+	private MaskFormatter ftmTelefone;
+	private JFormattedTextField tfCpf;
+	private MaskFormatter ftmCpf;
 	private JTextField tfEmail;
 	private Hospede hospede;
-	private JTextField tfCpf;
 	private JTextField tfNome;
 	private JLabel ErrorLabel;
 
@@ -266,20 +272,38 @@ public class AtualizaHospede extends JPanel {
 		JLabel lblNewLabel = new JLabel("Telefone :");
 		panel_3.add(lblNewLabel);
 
-		tfTelefone = new JTextField();
+		try {
+			ftmTelefone = new MaskFormatter("(##) ####-####");
+		} catch (ParseException e2) {
+			ErrorLabel.setText("Telefone invalido.");
+			ErrorLabel.setVisible(true);
+		}
+		
+		tfTelefone = new JFormattedTextField(ftmTelefone);
 		panel_3.add(tfTelefone);
 		tfTelefone.setColumns(40);
 		tfTelefone.setText(hospede.getTelefone());
 
+		ftmTelefone.setValidCharacters("0123456789");
+		
 		JLabel lblCpf = new JLabel("Cpf :          ");
 		panel_2.add(lblCpf);
+		
+		try {
+			ftmCpf = new MaskFormatter("###.###.###-##");
+		} catch (ParseException e2) {
+			ErrorLabel.setText("Cpf invalido.");
+			ErrorLabel.setVisible(true);
+		}
 
-		tfCpf = new JTextField();
+		tfCpf = new JFormattedTextField(ftmCpf);
 		panel_2.add(tfCpf);
 		tfCpf.setColumns(40);
 		tfCpf.setText(hospede.getCpf());
 		tfCpf.setEditable(false);
 
+		ftmCpf.setValidCharacters("0123456789");
+		
 		JLabel lblNome = new JLabel("Nome :      ");
 		panel_1.add(lblNome);
 
@@ -319,12 +343,6 @@ public class AtualizaHospede extends JPanel {
 	private boolean atualizarHospede() throws Exception {
 
 		String telefone = tfTelefone.getText();
-
-		if(!validaTelefone(telefone)){
-			ErrorLabel.setText("Telefone invalido.");
-			ErrorLabel.setVisible(true);
-			return false;
-		}
 		
 		String email = tfEmail.getText();
 
@@ -358,12 +376,5 @@ public class AtualizaHospede extends JPanel {
 		hospede.setTelefone(telefone);
 		ErrorLabel.setVisible(false);
 		return true;
-	}
-	
-	private boolean validaTelefone(String phone) {
-		boolean retval = false;
-		String phoneNumberPattern = "\\d{3}-\\d{8}";
-		retval = phone.matches(phoneNumberPattern);
-		return retval;
 	}
 }

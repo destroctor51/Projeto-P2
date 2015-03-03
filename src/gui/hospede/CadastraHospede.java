@@ -8,13 +8,16 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.MaskFormatter;
 
 import utils.Internet;
 import core.hotel.Hospede;
@@ -23,8 +26,10 @@ public class CadastraHospede extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private JTextField tfNome;
-	private JTextField tfTelefone;
-	private JTextField tfCpf;
+	private JFormattedTextField tfTelefone;
+	private MaskFormatter ftmTelefone;
+	private JFormattedTextField tfCpf;
+	private MaskFormatter ftmCpf;
 	private JTextField tfEmail;
 	private JTextField tfCidade;
 	private JTextField tfEndereco;
@@ -96,8 +101,15 @@ public class CadastraHospede extends JPanel {
 		gbc_label_2.gridx = 0;
 		gbc_label_2.gridy = 1;
 		panel_1.add(label_2, gbc_label_2);
+		
+		try {
+			ftmTelefone = new MaskFormatter("(##) ####-####");
+		} catch (ParseException e2) {
+			errorLabel.setText("Telefone invalido.");
+			errorLabel.setVisible(true);
+		}
 
-		tfTelefone = new JTextField();
+		tfTelefone = new JFormattedTextField(ftmTelefone);
 		tfTelefone.setColumns(10);
 		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
 		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
@@ -106,6 +118,8 @@ public class CadastraHospede extends JPanel {
 		gbc_textField_1.gridy = 1;
 		panel_1.add(tfTelefone, gbc_textField_1);
 
+		ftmTelefone.setValidCharacters("0123456789");
+		
 		JLabel label_3 = new JLabel("CPF :");
 		GridBagConstraints gbc_label_3 = new GridBagConstraints();
 		gbc_label_3.anchor = GridBagConstraints.EAST;
@@ -114,7 +128,14 @@ public class CadastraHospede extends JPanel {
 		gbc_label_3.gridy = 2;
 		panel_1.add(label_3, gbc_label_3);
 
-		tfCpf = new JTextField();
+		try {
+			ftmCpf = new MaskFormatter("###.###.###-##");
+		} catch (ParseException e2) {
+			errorLabel.setText("Cpf invalido.");
+			errorLabel.setVisible(true);
+		}
+		
+		tfCpf = new JFormattedTextField(ftmCpf);
 		tfCpf.setColumns(10);
 		GridBagConstraints gbc_textField_2 = new GridBagConstraints();
 		gbc_textField_2.fill = GridBagConstraints.HORIZONTAL;
@@ -122,6 +143,8 @@ public class CadastraHospede extends JPanel {
 		gbc_textField_2.gridx = 1;
 		gbc_textField_2.gridy = 2;
 		panel_1.add(tfCpf, gbc_textField_2);
+		
+		ftmCpf.setValidCharacters("0123456789");
 
 		JLabel label_4 = new JLabel("Email :");
 		GridBagConstraints gbc_label_4 = new GridBagConstraints();
@@ -244,15 +267,11 @@ public class CadastraHospede extends JPanel {
 
 		String telefone = tfTelefone.getText();
 		
-		if (!validaTelefone(telefone)) {
-			errorLabel.setText("Telefone invalido.");
-			errorLabel.setVisible(true);
-			return false;
-		}
-
 		String cpf = tfCpf.getText();
+		String cpf1 = cpf.replace("-", "");
+		String cpf2 = cpf1.replace(".", "");
 
-		if (cpf.equals("") || !checaValorString(cpf) || !Hospede.verificaCpf(cpf)) {
+		if (cpf2.equals("") || !checaValorString(cpf2) || !Hospede.verificaCpf(cpf2)) {
 			errorLabel.setText("Cpf invalido.");
 			errorLabel.setVisible(true);
 			return false;
@@ -281,7 +300,7 @@ public class CadastraHospede extends JPanel {
 			return false;
 		}
 
-		Sistema.getHotel().adicionaHospede(nome, telefone, cpf, email, cidade,
+		Sistema.getHotel().adicionaHospede(nome, telefone, cpf2, email, cidade,
 				endereco);
 		errorLabel.setVisible(false);
 		return true;
@@ -292,13 +311,6 @@ public class CadastraHospede extends JPanel {
 			if ("0123456789".lastIndexOf(str.charAt(i)) == -1)
 				return false;
 		return true;
-	}
-
-	private boolean validaTelefone(String phone) {
-		boolean retval = false;
-		String phoneNumberPattern = "\\d{3}-\\d{8}";
-		retval = phone.matches(phoneNumberPattern);
-		return retval;
 	}
 
 }

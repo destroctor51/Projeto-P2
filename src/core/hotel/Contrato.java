@@ -1,14 +1,18 @@
 package core.hotel;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
 import core.interfaces.Devolvivel;
 import core.interfaces.Pagavel;
+import core.servicos.devolviveis.Quarto;
+import core.tempo.Periodo;
 
 /**
  * Uma classe que cria contratos.
@@ -200,7 +204,30 @@ public class Contrato implements Serializable {
 
 	@Override
 	public String toString() {
-		// TODO colocar periodo em contrato
-		return "Contrato [Estado = " + estado + "]";
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		Calendar data = null;
+		String quartos = "";
+		List<Quarto> quartosl = new ArrayList<>();
+		for(Pagavel p : servicos) {
+			if (p instanceof Quarto) {
+				for (Periodo p1 : ((Quarto) p).getHistorico()) {
+					if (data == null)
+						data = p1.getInicio();
+				}
+				quartosl.add((Quarto) p);
+			}
+		}
+		
+		for (int i = 0; i < quartosl.size(); i++) {
+			if (i < quartosl.size() - 2)
+				quartos += Integer.toString(quartosl.get(i).getNumero()) + ", ";
+			else if (i < quartosl.size() - 1)
+				quartos += Integer.toString(quartosl.get(i).getNumero()) + " e ";
+			else
+				quartos += Integer.toString(quartosl.get(i).getNumero());
+		}
+		
+		Date d = data.getTime();
+		return "Contrato " + estado + ", com inicio em " + sdf.format(d) + " e de quartos " + quartos + ".";
 	}
 }
