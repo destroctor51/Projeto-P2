@@ -124,4 +124,17 @@ public class Estacao implements Cloneable, Serializable {
 	public String toString() {
 		return id;
 	}
+	
+	@Override
+	public Object clone() {
+		try {
+			Estacao clone = (Estacao) super.clone();
+			clone.periodos = new TreeSet<>();
+			for(Periodo p : periodos)
+				clone.periodos.add((Periodo) p.clone());
+			return clone;
+		} catch (CloneNotSupportedException e) {
+			throw new RuntimeException();
+		}
+	}
 }

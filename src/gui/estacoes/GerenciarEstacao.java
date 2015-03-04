@@ -1,8 +1,7 @@
 package gui.estacoes;
 
 import gui.Sistema;
-import gui.components.CalendarioFiltrado;
-
+import gui.components.CalendarioEstacao;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -29,10 +28,11 @@ public class GerenciarEstacao extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JTextField textField;
 	private JTextField textField_1;
-	private CalendarioFiltrado calendario;
+	private CalendarioEstacao calendario;
 	private DefaultListModel<Periodo> lista = new DefaultListModel<>();
 	private JLabel ErrorLabel;
 	private Estacao est;
+	private Estacao estacao;
 	private JList<Periodo> list;
 
 	/**
@@ -40,10 +40,14 @@ public class GerenciarEstacao extends JPanel {
 	 */
 	public GerenciarEstacao(Estacao estac) {
 		est = estac;
-		if (est == null)
+		if (est == null) {
 			this.setName("Adicionar esta\u00E7\u00E3o");
-		else
+			estacao = new Estacao("", 1);
+		}
+		else {
 			this.setName("Gerenciar esta\u00E7\u00E3o");
+			estacao = (Estacao) est.clone();
+		}
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 0, 0, 0 };
@@ -114,7 +118,7 @@ public class GerenciarEstacao extends JPanel {
 		gbl_panel.rowWeights = new double[] { 0.0 };
 		panel.setLayout(gbl_panel);
 
-		calendario = new CalendarioFiltrado();
+		calendario = new CalendarioEstacao(estacao);
 		GridBagConstraints gbc_calendario = new GridBagConstraints();
 		gbc_calendario.insets = new Insets(0, 0, 0, 5);
 		gbc_calendario.anchor = GridBagConstraints.NORTHWEST;
@@ -136,7 +140,8 @@ public class GerenciarEstacao extends JPanel {
 
 				ErrorLabel.setVisible(false);
 				lista.addElement(periodo);
-				calendario.marcaIndisponivel(periodo);
+				estacao.addPeriodo(periodo);
+				calendario.atualizaDias();
 				list.setModel(lista);
 			}
 		});
@@ -151,9 +156,17 @@ public class GerenciarEstacao extends JPanel {
 		btnRemoverPeriodo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Periodo p = list.getSelectedValue();
-				lista.remove(list.getSelectedIndex());
-				calendario.marcaDisponivel(p);
+				try {
+					Periodo p = (Periodo) list.getSelectedValue();
+					estacao.removePeriodo(p);
+					calendario.atualizaDias();
+					lista.remove(list.getSelectedIndex());
+					} catch(ArrayIndexOutOfBoundsException ex) {
+						ErrorLabel.setText("Nenhum per\u00EDodo foi selecionado");
+						ErrorLabel.setVisible(true);
+						return;
+					}
+					ErrorLabel.setVisible(false);
 			}
 		});
 		GridBagConstraints gbc_btnRemoverPeriodo = new GridBagConstraints();
@@ -219,7 +232,7 @@ public class GerenciarEstacao extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				double tarifa;
-				if (est == null) {
+				if (estacao.getId().equals("")) {
 					String nome = textField.getText();
 					if (nome == null || nome.equals("")) {
 						ErrorLabel.setText("Nome inv\u00EDlido");
@@ -237,8 +250,13 @@ public class GerenciarEstacao extends JPanel {
 
 					ErrorLabel.setVisible(false);
 
-					est = new Estacao(nome, tarifa / 100);
-					Sistema.getHotel().adicionaEstacao(est);
+					estacao = new Estacao(nome, tarifa / 100);
+					
+					for (int i = 0; i < lista.size(); i++) {
+						estacao.addPeriodo(lista.get(i));
+					}
+					
+					Sistema.getHotel().adicionaEstacao(estacao);
 				} else {
 					try {
 						tarifa = Double.parseDouble(textField_1.getText());
@@ -247,14 +265,11 @@ public class GerenciarEstacao extends JPanel {
 						ErrorLabel.setVisible(true);
 						return;
 					}
-					est.setTarifa(tarifa/100);
+					estacao.setTarifa(tarifa/100);
 
-					est.clear();
+					Sistema.getHotel().removeEstacao(est);
+					Sistema.getHotel().adicionaEstacao(estacao);
 
-				}
-
-				for (int i = 0; i < lista.getSize(); i++) {
-					est.addPeriodo(lista.get(i));
 				}
 
 				Sistema.setTela(new Estacoes());
@@ -274,10 +289,11 @@ public class GerenciarEstacao extends JPanel {
 
 			for (Periodo p : estac.getPeriodos()) {
 				lista.addElement(p);
-				calendario.marcaIndisponivel(p);
 				list.setModel(lista);
 			}
 		}
+		
+		calendario.atualizaDias();
 	}
 
 }

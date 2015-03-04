@@ -205,9 +205,11 @@ public class Contrato implements Serializable {
 	@Override
 	public String toString() {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		String datai = "'indispon\u00EDvel'";
 		Calendar data = null;
-		String quartos = "";
+		String quartos = " e de quartos ";
 		List<Quarto> quartosl = new ArrayList<>();
+		
 		for(Pagavel p : servicos) {
 			if (p instanceof Quarto) {
 				for (Periodo p1 : ((Quarto) p).getHistorico()) {
@@ -226,8 +228,13 @@ public class Contrato implements Serializable {
 			else
 				quartos += Integer.toString(quartosl.get(i).getNumero());
 		}
-
+		
+		if (data != null) {
 		Date d = data.getTime();
-		return "Contrato " + estado + ", com inicio em " + sdf.format(d) + " e de quartos " + quartos;
+		datai = sdf.format(d);
+		} else
+			quartos = " e sem quartos";
+		
+		return "Contrato " + estado + ", com inicio em " + datai + quartos;
 	}
 }

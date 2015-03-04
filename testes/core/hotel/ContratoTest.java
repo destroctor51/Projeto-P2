@@ -8,6 +8,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import core.hotel.Contrato;
+import core.hotel.EstadoDeContrato;
 import core.interfaces.Pagavel;
 import core.servicos.alugaveis.CamaExtra;
 import core.servicos.devolviveis.Quarto;
@@ -130,7 +132,7 @@ public class ContratoTest {
 
 	@Test
 	public void testaToString() {
-		Assert.assertEquals("Contrato [Estado = PENDENTE]", contrato.toString());
+		Assert.assertEquals("Contrato PENDENTE, com inicio em 'indisponível' e sem quartos", contrato.toString());
 	}
 
 }

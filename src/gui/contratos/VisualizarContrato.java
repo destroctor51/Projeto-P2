@@ -116,9 +116,13 @@ public class VisualizarContrato extends JPanel {
 				data = ((Quarto) p).getHistorico().iterator().next().getInicio();
 				break;
 		}
-		Date d = data.getTime();
-		textField_1.setText(sdf.format(d));
-
+		if (data == null)
+			textField_1.setText("Indispon\u00EDvel");
+		else {
+			Date d = data.getTime();
+			textField_1.setText(sdf.format(d));
+		}
+			
 		JLabel label_3 = new JLabel("Servi\u00E7os contratados:");
 		GridBagConstraints gbc_label_3 = new GridBagConstraints();
 		gbc_label_3.anchor = GridBagConstraints.SOUTHWEST;
