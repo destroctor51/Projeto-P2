@@ -6,5 +6,16 @@ package core.hotel;
  * @author Arthur Vinicius Tome Rodrigues
  */
 public enum EstadoDeContrato {
-	PENDENTE, ABERTO, FECHADO;
+	PENDENTE("Pendente"), ABERTO("Aberto"), FECHADO("Fechado");
+	
+	private String nome;
+	
+	private EstadoDeContrato(String nome) {
+		this.nome = nome;
+	}
+	
+	@Override
+	public String toString() {
+		return nome;
+	};
 }

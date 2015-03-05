@@ -4,6 +4,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import core.tempo.Estacao;
+
 public class HospedeTest {
 	private Hospede hospede;
 
@@ -98,28 +100,28 @@ public class HospedeTest {
 		String cartao2 = "1234567890123456";
 
 		try {
-			hospede.realizarReserva(null, 100);
+			hospede.realizarReserva(null, new Estacao("amor",2));
 			Assert.fail();
 		} catch (IllegalArgumentException e) {}
 
 		try {
-			hospede.realizarReserva("", 100);
+			hospede.realizarReserva("", new Estacao("amor",2));
 			Assert.fail();
 		} catch (IllegalArgumentException e) {}
 
 		try {
-			hospede.realizarReserva(cartao1, -100);
+			hospede.realizarReserva(cartao1, null);
 			Assert.fail();
 		} catch (IllegalArgumentException e) {}
 
 		try {
-			hospede.realizarReserva(cartao1, 100);
+			hospede.realizarReserva(cartao1, new Estacao("amor",2));
 		} catch (Exception e) {
 			Assert.fail();
 		}
 
 		try {
-			hospede.realizarReserva(cartao2, 100);
+			hospede.realizarReserva(cartao2, new Estacao("amor",2));
 			Assert.fail();
 		} catch (Exception e) {}
 	}

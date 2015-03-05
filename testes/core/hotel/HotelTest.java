@@ -218,9 +218,9 @@ public class HotelTest {
 		try {
 			hotel.adicionaEstacao(null);
 			Assert.fail();
-		} catch(IllegalArgumentException e) {}
+			} catch(IllegalArgumentException e) {}
 
-		Assert.assertEquals(null, hotel.procuraEstacao(periodo3));
+		Assert.assertEquals(Estacao.NENHUMA, hotel.procuraEstacao(periodo3));
 
 		// OPINIAO
 

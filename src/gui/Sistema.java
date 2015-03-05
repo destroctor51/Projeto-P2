@@ -103,10 +103,10 @@ public class Sistema extends JFrame implements ActionListener, FullscreenListene
 		toolBar.setLayout(gbl_toolBar);
 
 		logoutButton = new JButton("");
+		logoutButton.setFocusable(false);
 		logoutButton.setRolloverIcon(new ImageIcon(Sistema.class.getResource("/gui/images/power_hover.png")));
 		logoutButton.setBorderPainted(false);
 		logoutButton.setIcon(new ImageIcon(Sistema.class.getResource("/gui/images/power.png")));
-		logoutButton.setFocusPainted(false);
 		logoutButton.setContentAreaFilled(false);
 		logoutButton.setPreferredSize(new Dimension(15, 15));
 		logoutButton.setMargin(new Insets(0, 0, 0, 0));

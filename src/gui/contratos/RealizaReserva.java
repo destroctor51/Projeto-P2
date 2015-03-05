@@ -558,21 +558,10 @@ public class RealizaReserva extends JPanel {
 		}
 		ErrorLabel.setVisible(false);
 
-		double tarifa = 1;
-
-		Iterator<Estacao> estacoes = Sistema.getHotel().getTarifas();
-
-		while (estacoes.hasNext()) {
-			Estacao est = estacoes.next();
-
-			if (est.entraEmConflito(estadia)) {
-				tarifa = est.getTarifa();
-				break;
-			}
-		}
+		Estacao estacao = Sistema.getHotel().procuraEstacao(estadia);
 
 		try {
-			hospede.realizarReserva(cartao, tarifa);
+			hospede.realizarReserva(cartao, estacao);
 		} catch (Exception e) {
 		}
 

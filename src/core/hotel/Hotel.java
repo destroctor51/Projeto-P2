@@ -428,6 +428,8 @@ public class Hotel implements Serializable {
 		for(Estacao estacao : candidatos)
 			if(max == null || max.getTarifa() < estacao.getTarifa())
 				max = estacao;
+		if(max == null)
+			return Estacao.NENHUMA;
 		return max;
 	}
 

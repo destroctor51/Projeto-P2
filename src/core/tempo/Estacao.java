@@ -19,7 +19,9 @@ import utils.Tempo;
  */
 
 public class Estacao implements Cloneable, Serializable {
-
+	
+	public static final Estacao NENHUMA = new Estacao("Nenhuma",1);
+	
 	private static final long serialVersionUID = 1L;
 
 	private Set<Periodo> periodos = new TreeSet<>();

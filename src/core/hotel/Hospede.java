@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 
+import core.tempo.Estacao;
+
 /**
  * Uma classe que cria hospedes.
  *
@@ -181,14 +183,14 @@ public class Hospede implements Serializable {
 	 * @param tarifa  a tarifa a ser cobrada sobre o preco do contrato
 	 * @throws Exception caso o formato do cartao seja invalido
 	 */
-	public void realizarReserva(String cartao, double tarifa) throws Exception {
-		if (cartao == null || cartao.equals("") || tarifa < 0)
+	public void realizarReserva(String cartao, Estacao estacao) throws Exception {
+		if (cartao == null || cartao.equals("") || estacao == null)
 			throw new IllegalArgumentException();
 
 		if (!(verificaCartao(cartao)))
 			throw new Exception("Cartao inv\u00E1lido");
 
-		Contrato contrato = new Contrato(cartao, tarifa);
+		Contrato contrato = new Contrato(cartao, estacao);
 		contratos.add(contrato);
 	}
 

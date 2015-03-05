@@ -8,39 +8,40 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import core.hotel.Contrato;
-import core.hotel.EstadoDeContrato;
 import core.interfaces.Pagavel;
 import core.servicos.alugaveis.CamaExtra;
 import core.servicos.devolviveis.Quarto;
 import core.servicos.devolviveis.TipoQuarto;
 import core.servicos.pagaveis.Refeicao;
+import core.tempo.Estacao;
 import core.tempo.Periodo;
 
 public class ContratoTest {
 	private String cartao = "5555666677778884";
+	private Estacao estacao;
 	private Contrato contrato;
 
 	@Before
 	public void setUp() {
-		contrato = new Contrato(cartao, 100);
+		estacao = new Estacao("amor", 2);
+		contrato = new Contrato(cartao, estacao);
 	}
 
 	@Test
 	public void testaCriaContrato() {
 		try {
-			new Contrato(null, 100);
+			new Contrato(null, estacao);
 			Assert.fail();
 		} catch (IllegalArgumentException e) {}
 
 		try {
-			new Contrato(cartao, -1);
+			new Contrato(cartao, null);
 			Assert.fail();
 		} catch (IllegalArgumentException e) {}
 
 		Assert.assertEquals(cartao, contrato.getCartao());
-		Assert.assertEquals(100, contrato.getTarifa(), 0.01);
 		Assert.assertEquals(EstadoDeContrato.valueOf("PENDENTE"), contrato.getEstado());
+		Assert.assertEquals(estacao, contrato.getEstacao());
 	}
 
 	@Test
@@ -132,7 +133,7 @@ public class ContratoTest {
 
 	@Test
 	public void testaToString() {
-		Assert.assertEquals("Contrato PENDENTE, com inicio em 'indisponível' e sem quartos", contrato.toString());
+		Assert.assertEquals("Contrato Pendente, protocolo: " + contrato.getProtocolo(), contrato.toString());
 	}
 
 }

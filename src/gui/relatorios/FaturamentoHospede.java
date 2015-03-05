@@ -112,22 +112,26 @@ public class FaturamentoHospede extends JPanel {
 	}
 
 	private String geraRelatorio() {
-		String dataAtual = new SimpleDateFormat("dd/MM/yyyy").format(Calendar
-				.getInstance().getTime());
+		String dataAtual = new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime());
+		String dataCheckout = new SimpleDateFormat("dd/MM/yyyy").format(contrato.getDataCheckOut().getTime());
+		double tarifa = contrato.getEstacao().getTarifa();
+		
 		String texto = "";
 
-		texto += "Data: " + dataAtual + "\n";
-		texto += "Fatura do Hospede " + hospede.getNome() + ". CPF: " + hospede.getCpf() + "\n\n";
+		texto += "Esta\u00E7\u00E3o: " + contrato.getEstacao() + "    ";
+		texto += "Data: " + dataAtual + "    Data de check out: " + dataCheckout + "\n";
+		texto += "Fatura do h\u00F3spede " + hospede.getNome() + "    CPF: " + hospede.getCpf() + "\n\n";
 
-		int total = 0;
-		for(Pagavel p: contrato.getServicos())
-		{
-			texto += p + " : R$ " + p.getPreco() + "\n";
+		double total = 0;
+		for(Pagavel p: contrato.getServicos()) {
+			texto += p + " : R$ " + p.getPreco() +  "\n";
 			total += p.getPreco();
 		}
 
 		texto += "\n";
-		texto += "Preco total: R$ " + total + "\n";
+		texto += "Soma: R$ " + total + "\n";
+		texto += "Tarifa: " + tarifa * 100 + "%\n"; 
+		texto += "Pre\u00E7o total: R$ " + total * tarifa + "\n";
 
 		return texto;
 	}

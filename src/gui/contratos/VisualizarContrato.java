@@ -42,10 +42,10 @@ public class VisualizarContrato extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	private JTextField textField;
-	private JTextField textField_1;
 	private JButton btnDevolver;
 	private JButton btnDeletar;
 	private JPanel telaAtual = this;
+	private JTextField textField_1;
 
 	/**
 	 * Create the panel.
@@ -82,7 +82,7 @@ public class VisualizarContrato extends JPanel {
 		gbc_label.gridy = 0;
 		panel.add(label, gbc_label);
 
-		textField = new JTextField();
+		textField = new JTextField(contrato.getEstado().toString());
 		GridBagConstraints gbc_textField = new GridBagConstraints();
 		gbc_textField.insets = new Insets(0, 0, 0, 20);
 		gbc_textField.gridx = 1;
@@ -90,23 +90,21 @@ public class VisualizarContrato extends JPanel {
 		panel.add(textField, gbc_textField);
 		textField.setEditable(false);
 		textField.setColumns(10);
-
-		textField.setText(contrato.getEstado().toString());
-
-		JLabel label_1 = new JLabel("Data de entrada:");
+		
+		JLabel label_1 = new JLabel("Esta\u00E7\u00E3o");
 		GridBagConstraints gbc_label_1 = new GridBagConstraints();
-		gbc_label_1.fill = GridBagConstraints.HORIZONTAL;
+		gbc_label_1.anchor = GridBagConstraints.EAST;
 		gbc_label_1.insets = new Insets(0, 0, 0, 10);
 		gbc_label_1.gridx = 2;
 		gbc_label_1.gridy = 0;
 		panel.add(label_1, gbc_label_1);
-
-		textField_1 = new JTextField();
+		
+		textField_1 = new JTextField(contrato.getEstacao().toString());
+		textField_1.setEditable(false);
 		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
 		gbc_textField_1.gridx = 3;
 		gbc_textField_1.gridy = 0;
 		panel.add(textField_1, gbc_textField_1);
-		textField_1.setEditable(false);
 		textField_1.setColumns(10);
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -123,13 +121,13 @@ public class VisualizarContrato extends JPanel {
 			textField_1.setText(sdf.format(d));
 		}
 			
-		JLabel label_3 = new JLabel("Servi\u00E7os contratados:");
-		GridBagConstraints gbc_label_3 = new GridBagConstraints();
-		gbc_label_3.anchor = GridBagConstraints.SOUTHWEST;
-		gbc_label_3.insets = new Insets(0, 0, 5, 5);
-		gbc_label_3.gridx = 1;
-		gbc_label_3.gridy = 1;
-		add(label_3, gbc_label_3);
+		JLabel label_2 = new JLabel("Servi\u00E7os contratados:");
+		GridBagConstraints gbc_label_2 = new GridBagConstraints();
+		gbc_label_2.anchor = GridBagConstraints.SOUTHWEST;
+		gbc_label_2.insets = new Insets(0, 0, 5, 5);
+		gbc_label_2.gridx = 1;
+		gbc_label_2.gridy = 1;
+		add(label_2, gbc_label_2);
 
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);

@@ -3,6 +3,7 @@ package gui.contratos;
 import gui.Menu;
 import gui.Sistema;
 import gui.components.SuperTextField;
+import gui.relatorios.FaturamentoHospede;
 
 import java.awt.Color;
 import java.awt.GridBagConstraints;
@@ -187,7 +188,6 @@ public class AtualizarContratos extends JPanel {
 			}
 		});
 
-
 		Filtro.exibeFiltrado("", Sistema.getHotel().getHospedes(), listHospedes);
 	}
 
@@ -195,7 +195,7 @@ public class AtualizarContratos extends JPanel {
 		DefaultListModel<Contrato> dml = new DefaultListModel<>();
 
 		if(hospede != null) for(Contrato c : hospede.getContratos())
-			if(c.getEstado().equals(EstadoDeContrato.ABERTO))
+			if(!c.getEstado().equals(EstadoDeContrato.PENDENTE))
 				dml.addElement(c);
 		listContratos.setModel(dml);
 	}
@@ -212,8 +212,16 @@ public class AtualizarContratos extends JPanel {
 			errorLabel.setVisible(true);
 			return;
 		}
-
+		
 		errorLabel.setVisible(false);
-		Sistema.setTela(new VisualizarContrato(listContratos.getSelectedValue(), tela));
+		
+		Hospede hospede = listHospedes.getSelectedValue();
+		Contrato contrato = listContratos.getSelectedValue();
+		EstadoDeContrato estado = contrato.getEstado();
+		
+		if(estado == EstadoDeContrato.ABERTO)
+			Sistema.setTela(new VisualizarContrato(contrato, tela));
+		else if (estado == EstadoDeContrato.FECHADO)
+			Sistema.setTela(new FaturamentoHospede(tela, contrato, hospede));
 	}
 }

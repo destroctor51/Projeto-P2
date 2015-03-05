@@ -1,18 +1,16 @@
 package core.hotel;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
-import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
 
 import core.interfaces.Devolvivel;
 import core.interfaces.Pagavel;
-import core.servicos.devolviveis.Quarto;
-import core.tempo.Periodo;
+import core.tempo.Estacao;
 
 /**
  * Uma classe que cria contratos.
@@ -25,9 +23,10 @@ public class Contrato implements Serializable {
 
 	private EstadoDeContrato estado;
 	private String cartao;
-	private double tarifa;
-	private List<Pagavel> servicos = new ArrayList<Pagavel>();
+	private Estacao estacao;
+	private List<Pagavel> servicos;
 	private Calendar dataCheckOut;
+	private int protocolo;
 
 	// construtor
 
@@ -36,16 +35,18 @@ public class Contrato implements Serializable {
 	 *
 	 * @param cartao
 	 * 			O numero do cartao do hospede.
-	 * @param tarifa
-	 * 			A tarifa atual do hotel.
+	 * @param estacao
+	 * 			A estacao atual do hotel.
 	 */
-	public Contrato(String cartao, double tarifa) {
+	public Contrato(String cartao, Estacao estacao) {
 		estado = EstadoDeContrato.PENDENTE;
-		if (cartao == null || tarifa <= 0)
+		if (cartao == null || estacao == null)
 			throw new IllegalArgumentException();
 
 		this.cartao = cartao;
-		this.tarifa = tarifa;
+		this.estacao = estacao;
+		protocolo = GregorianCalendar.getInstance().hashCode();
+		servicos = new ArrayList<>();
 	}
 
 	/**
@@ -80,13 +81,23 @@ public class Contrato implements Serializable {
 	}
 
 	/**
-	 * Recupera a tarifa adicionada ao contrato.
+	 * Recupera a estacao do contrato.
 	 *
 	 * @return
-	 * 			A tarifa a que o contrato esta sujeito.
+	 * 			A estacao do contrato.
 	 */
-	public double getTarifa() {
-		return tarifa;
+	public Estacao getEstacao() {
+		return estacao;
+	}
+	
+	/**
+	 * Recupera protocolo do contrato.
+	 * 
+	 * @return
+	 * 		   O protocolo do contrato.
+	 */
+	public int getProtocolo() {
+		return protocolo;
 	}
 
 	/**
@@ -204,37 +215,6 @@ public class Contrato implements Serializable {
 
 	@Override
 	public String toString() {
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		String datai = "'indispon\u00EDvel'";
-		Calendar data = null;
-		String quartos = " e de quartos ";
-		List<Quarto> quartosl = new ArrayList<>();
-		
-		for(Pagavel p : servicos) {
-			if (p instanceof Quarto) {
-				for (Periodo p1 : ((Quarto) p).getHistorico()) {
-					if (data == null)
-						data = p1.getInicio();
-				}
-				quartosl.add((Quarto) p);
-			}
-		}
-
-		for (int i = 0; i < quartosl.size(); i++) {
-			if (i < quartosl.size() - 2)
-				quartos += Integer.toString(quartosl.get(i).getNumero()) + ", ";
-			else if (i < quartosl.size() - 1)
-				quartos += Integer.toString(quartosl.get(i).getNumero()) + " e ";
-			else
-				quartos += Integer.toString(quartosl.get(i).getNumero());
-		}
-		
-		if (data != null) {
-		Date d = data.getTime();
-		datai = sdf.format(d);
-		} else
-			quartos = " e sem quartos";
-		
-		return "Contrato " + estado + ", com inicio em " + datai + quartos;
+		return "Contrato " + estado + ", protocolo: " + protocolo;
 	}
 }
