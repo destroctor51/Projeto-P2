@@ -28,8 +28,7 @@ public class Estacao implements Cloneable, Serializable {
 
 	/**
 	 * Construtor da Estacao.
-	 * @param tarifa
-	 * 			Tarifa da estacao.
+	 * @param tarifa  tarifa da estacao.
 	 */
 	public Estacao(String id, double tarifa){
 		if(id == null)
@@ -51,6 +50,15 @@ public class Estacao implements Cloneable, Serializable {
 	 */
 	public String getId() {
 		return id;
+	}
+
+	/**
+	 * @param id  o novo id da estacao
+	 */
+	public void setId(String id) {
+		if(id == null)
+			throw new IllegalArgumentException();
+		this.id = id;
 	}
 
 	/**
@@ -124,7 +132,7 @@ public class Estacao implements Cloneable, Serializable {
 	public String toString() {
 		return id;
 	}
-	
+
 	@Override
 	public Object clone() {
 		try {

@@ -2,6 +2,7 @@ package gui.estacoes;
 
 import gui.Sistema;
 import gui.components.CalendarioEstacao;
+
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -22,32 +23,29 @@ import core.tempo.Estacao;
 import core.tempo.Periodo;
 
 public class GerenciarEstacao extends JPanel {
-	/**
-	 *
-	 */
+
 	private static final long serialVersionUID = 1L;
+
 	private JTextField textField;
 	private JTextField textField_1;
 	private CalendarioEstacao calendario;
 	private DefaultListModel<Periodo> lista = new DefaultListModel<>();
 	private JLabel ErrorLabel;
-	private Estacao est;
-	private Estacao estacao;
 	private JList<Periodo> list;
 
-	/**
-	 * Create the panel.
-	 */
-	public GerenciarEstacao(Estacao estac) {
-		est = estac;
-		if (est == null) {
-			this.setName("Adicionar esta\u00E7\u00E3o");
-			estacao = new Estacao("", 1);
-		}
-		else {
-			this.setName("Gerenciar esta\u00E7\u00E3o");
-			estacao = (Estacao) est.clone();
-		}
+	private Estacao backup;
+
+	public GerenciarEstacao() {
+		init(new Estacao("", 1), "Adicionar esta\u00E7\u00E3o");
+	}
+
+	public GerenciarEstacao(Estacao estacao) {
+		backup = estacao;
+		init((Estacao) estacao.clone(), "Gerenciar esta\u00E7\u00E3o");
+	}
+
+	private void init(final Estacao estacao, String titulo) {
+		setName(titulo);
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 0, 0, 0 };
@@ -71,7 +69,7 @@ public class GerenciarEstacao extends JPanel {
 		gbl_panel_1.rowWeights = new double[] { 0.0, 0.0, Double.MIN_VALUE };
 		panel_1.setLayout(gbl_panel_1);
 
-		JLabel lblNomeDaEstao = new JLabel("Nome da esta\u00E7\u00E3o:");
+		JLabel lblNomeDaEstao = new JLabel("Nome:");
 		GridBagConstraints gbc_lblNomeDaEstao = new GridBagConstraints();
 		gbc_lblNomeDaEstao.anchor = GridBagConstraints.EAST;
 		gbc_lblNomeDaEstao.insets = new Insets(0, 0, 10, 10);
@@ -88,7 +86,7 @@ public class GerenciarEstacao extends JPanel {
 		panel_1.add(textField, gbc_textField);
 		textField.setColumns(10);
 
-		JLabel lblTarifaDaEstao = new JLabel("Tarifa da esta\u00E7\u00E3o (%):");
+		JLabel lblTarifaDaEstao = new JLabel("Tarifa (%):");
 		GridBagConstraints gbc_lblTarifaDaEstao = new GridBagConstraints();
 		gbc_lblTarifaDaEstao.anchor = GridBagConstraints.EAST;
 		gbc_lblTarifaDaEstao.insets = new Insets(0, 0, 0, 10);
@@ -140,9 +138,9 @@ public class GerenciarEstacao extends JPanel {
 
 				ErrorLabel.setVisible(false);
 				lista.addElement(periodo);
+				list.setModel(lista);
 				estacao.addPeriodo(periodo);
 				calendario.atualizaDias();
-				list.setModel(lista);
 			}
 		});
 		GridBagConstraints gbc_btnAdicionarPeriodio = new GridBagConstraints();
@@ -157,16 +155,16 @@ public class GerenciarEstacao extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					Periodo p = (Periodo) list.getSelectedValue();
+					Periodo p = list.getSelectedValue();
 					estacao.removePeriodo(p);
 					calendario.atualizaDias();
 					lista.remove(list.getSelectedIndex());
-					} catch(ArrayIndexOutOfBoundsException ex) {
-						ErrorLabel.setText("Nenhum per\u00EDodo foi selecionado");
-						ErrorLabel.setVisible(true);
-						return;
-					}
-					ErrorLabel.setVisible(false);
+				} catch(ArrayIndexOutOfBoundsException ex) {
+					ErrorLabel.setText("Nenhum per\u00EDodo foi selecionado");
+					ErrorLabel.setVisible(true);
+					return;
+				}
+				ErrorLabel.setVisible(false);
 			}
 		});
 		GridBagConstraints gbc_btnRemoverPeriodo = new GridBagConstraints();
@@ -201,7 +199,7 @@ public class GerenciarEstacao extends JPanel {
 		gbl_panel_2.rowWeights = new double[] { 0.0 };
 		panel_2.setLayout(gbl_panel_2);
 
-		ErrorLabel = new JLabel("*Observa\u00E7\u00D5es");
+		ErrorLabel = new JLabel("<erro>");
 		ErrorLabel.setIcon(new ImageIcon(GerenciarEstacao.class
 				.getResource("/gui/images/error.png")));
 		ErrorLabel.setForeground(Color.RED);
@@ -213,7 +211,7 @@ public class GerenciarEstacao extends JPanel {
 		gbc_lblobservaes.gridy = 0;
 		panel_2.add(ErrorLabel, gbc_lblobservaes);
 
-		JButton btnCancelar = new JButton("Voltar");
+		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -230,48 +228,29 @@ public class GerenciarEstacao extends JPanel {
 		JButton btnConfirmar = new JButton("Confirmar");
 		btnConfirmar.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent ev) {
 				double tarifa;
-				if (estacao.getId().equals("")) {
-					String nome = textField.getText();
-					if (nome == null || nome.equals("")) {
-						ErrorLabel.setText("Nome inv\u00EDlido");
-						ErrorLabel.setVisible(true);
-						return;
-					}
+				String nome = textField.getText();
 
-					try {
-						tarifa = Double.parseDouble(textField_1.getText());
-					} catch (NumberFormatException ex) {
-						ErrorLabel.setText("Valor de tarifa inv\u00EDlido");
-						ErrorLabel.setVisible(true);
-						return;
-					}
-
-					ErrorLabel.setVisible(false);
-
-					estacao = new Estacao(nome, tarifa / 100);
-					
-					for (int i = 0; i < lista.size(); i++) {
-						estacao.addPeriodo(lista.get(i));
-					}
-					
-					Sistema.getHotel().adicionaEstacao(estacao);
-				} else {
-					try {
-						tarifa = Double.parseDouble(textField_1.getText());
-					} catch (NumberFormatException ex) {
-						ErrorLabel.setText("Valor de tarifa inv\u00EDlido");
-						ErrorLabel.setVisible(true);
-						return;
-					}
-					estacao.setTarifa(tarifa/100);
-
-					Sistema.getHotel().removeEstacao(est);
-					Sistema.getHotel().adicionaEstacao(estacao);
-
+				if (nome.isEmpty()) {
+					ErrorLabel.setText("Nome inv\u00EDlido");
+					ErrorLabel.setVisible(true);
+					return;
 				}
 
+				try {
+					tarifa = Double.parseDouble(textField_1.getText()) / 100;
+				} catch (NumberFormatException ex) {
+					ErrorLabel.setText("Valor de tarifa inv\u00EDlido");
+					ErrorLabel.setVisible(true);
+					return;
+				}
+
+				estacao.setId(nome);
+				estacao.setTarifa(tarifa);
+
+				Sistema.getHotel().removeEstacao(backup);
+				Sistema.getHotel().adicionaEstacao(estacao);
 				Sistema.setTela(new Estacoes());
 			}
 		});
@@ -281,18 +260,14 @@ public class GerenciarEstacao extends JPanel {
 		gbc_btnConfirmar.gridy = 0;
 		panel_2.add(btnConfirmar, gbc_btnConfirmar);
 
-		if (estac != null) {
-			textField.setText(estac.getId());
-			textField.setEditable(false);
-			textField_1
-			.setText(String.valueOf((int) (estac.getTarifa() * 100)));
+		textField.setText(estacao.getId());
+		textField_1.setText(String.valueOf(estacao.getTarifa() * 100));
 
-			for (Periodo p : estac.getPeriodos()) {
-				lista.addElement(p);
-				list.setModel(lista);
-			}
+		for(Periodo p : estacao.getPeriodos()) {
+			lista.addElement(p);
+			list.setModel(lista);
 		}
-		
+
 		calendario.atualizaDias();
 	}
 

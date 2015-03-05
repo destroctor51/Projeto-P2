@@ -32,6 +32,7 @@ public class Calendario extends JComponent {
 	private Calendar[][] dias;
 	private Calendar dataAtual;
 	private Periodo selecao;
+
 	private boolean multiplos = true;
 
 	private int largura;
@@ -138,6 +139,10 @@ public class Calendario extends JComponent {
 		return false;
 	}
 
+	protected String getHeader(Calendar dataAtual) {
+		return dataAtual.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH) + " / "+dataAtual.get(Calendar.YEAR);
+	}
+
 	@Override
 	protected void paintComponent(Graphics g) {
 		int left = getInsets().left-1;
@@ -167,7 +172,7 @@ public class Calendario extends JComponent {
 
 
 		{ // paint header
-			String header = dataAtual.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH)+" / "+dataAtual.get(Calendar.YEAR);
+			String header = getHeader(dataAtual);
 			int drawingHeight = top/2 + g.getFont().getSize()/2;
 
 			g.setColor(Color.BLACK);

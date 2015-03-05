@@ -160,7 +160,7 @@ public class Estacoes extends JPanel {
 		btnAdicionar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Sistema.setTela(new GerenciarEstacao(null));
+				Sistema.setTela(new GerenciarEstacao());
 			}
 		});
 		GridBagConstraints gbc_btnAdicionarEstao = new GridBagConstraints();

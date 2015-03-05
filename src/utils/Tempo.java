@@ -15,7 +15,7 @@ public final class Tempo {
 
 	public static Calendar freeze(Calendar data) {
 		Calendar clone = (Calendar) data.clone();
-		clone.set(Calendar.YEAR, 0);
+		clone.set(Calendar.YEAR, 1);
 		return clone;
 	}
 
@@ -25,16 +25,16 @@ public final class Tempo {
 
 		Calendar inicio = (Calendar) periodo.getInicio().clone();
 		Calendar fim = (Calendar) periodo.getFim().clone();
-		Calendar marcoInicial = new GregorianCalendar(0, 0, 1);
-		Calendar marcoFinal = new GregorianCalendar(1, 0, 1);
+		Calendar marcoInicial = new GregorianCalendar(1, 0, 1);
+		Calendar marcoFinal = new GregorianCalendar(2, 0, 1);
 
-		fim.add(Calendar.YEAR, -inicio.get(Calendar.YEAR));
-		inicio.set(Calendar.YEAR, 0);
+		fim.add(Calendar.YEAR, 1-inicio.get(Calendar.YEAR));
+		inicio.set(Calendar.YEAR, 1);
 		int diff = fim.get(Calendar.YEAR);
 
 		if(marcoFinal.before(fim)) {
-			fim.set(Calendar.YEAR, 0);
-			if(fim.before(inicio) && diff < 2) {
+			fim.set(Calendar.YEAR, 1);
+			if(fim.before(inicio) && diff <= 2) {
 				resultado.add(new Periodo(inicio, marcoFinal));
 				resultado.add(new Periodo(marcoInicial, fim));
 			} else resultado.add(new Periodo(marcoInicial, marcoFinal));

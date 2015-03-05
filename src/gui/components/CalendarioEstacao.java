@@ -1,6 +1,7 @@
 package gui.components;
 
 import java.util.Calendar;
+import java.util.Locale;
 
 import core.tempo.Estacao;
 
@@ -33,5 +34,10 @@ public class CalendarioEstacao extends Calendario {
 	protected boolean isSelecaoInvalida() {
 		if(estacao == null) return false;
 		return estacao.entraEmConflito(getSelecao());
+	}
+
+	@Override
+	protected String getHeader(Calendar dataAtual) {
+		return dataAtual.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
 	}
 }
