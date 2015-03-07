@@ -446,12 +446,10 @@ public class Hotel implements Serializable {
 	/**
 	 * Adiciona uma opiniao sobre o hotel.
 	 *
-	 * @param autor
-	 * 			O nome do autor da opiniao.
-	 * @param nota
-	 * 			A nota dada ao hotel.
-	 * @param comentario
-	 * 			O comentario sobre o hotel.
+	 * @param autor  o nome do autor da opiniao
+	 * @param nota  a nota dada ao hotel
+	 * @param comentario  o comentario sobre o hotel
+	 * @param data  a data de criacao da opiniao
 	 */
 	public void adicionaOpiniao(String autor, int nota, String comentario, Calendar data) {
 		Opiniao opiniao = new Opiniao(autor, nota, comentario, data);
@@ -461,10 +459,9 @@ public class Hotel implements Serializable {
 	/**
 	 * Adiciona uma opiniao sobre o hotel.
 	 *
-	 * @param nota
-	 * 			A nota dada ao hotel.
-	 * @param comentario
-	 * 			O comentario sobre o hotel.
+	 * @param nota  a nota dada ao hotel
+	 * @param comentario  o comentario sobre o hotel
+	 * @param data  a data de criacao da opiniao
 	 */
 	public void adicionaOpiniao(int nota, String comentario, Calendar data) {
 		adicionaOpiniao("An\u00F4nimo", nota, comentario, data);

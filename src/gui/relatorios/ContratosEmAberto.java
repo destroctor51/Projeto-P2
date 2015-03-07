@@ -26,14 +26,8 @@ import core.tempo.Periodo;
 
 public class ContratosEmAberto extends JPanel {
 
-	/**
-	 *
-	 */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Create the panel.
-	 */
 	public ContratosEmAberto(final JPanel tela) {
 		setName("Relat\u00F3rio de contratos");
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -44,6 +38,7 @@ public class ContratosEmAberto extends JPanel {
 		setLayout(gridBagLayout);
 
 		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.setFocusable(false);
 		btnVoltar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

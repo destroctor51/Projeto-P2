@@ -48,7 +48,7 @@ public class Periodo implements Comparable<Periodo>, Cloneable, Serializable {
 	/**
 	 * Troca a data de inicio do periodo pela data recebida como parametro.
 	 *
-	 * @param inicio
+	 * @param inicio  a nova data de inicio, nao null
 	 */
 	public void setInicio(Calendar inicio) {
 		if(inicio == null || inicio.after(fim))
@@ -66,7 +66,7 @@ public class Periodo implements Comparable<Periodo>, Cloneable, Serializable {
 	/**
 	 *Troca a data de fim do periodo pela data recebida como parametro.
 	 *
-	 * @param fim
+	 * @param fim  a nova data de fim, nao null
 	 */
 	public void setFim(Calendar fim) {
 		if(fim == null || fim.before(inicio))

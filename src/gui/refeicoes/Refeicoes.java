@@ -11,7 +11,6 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -20,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -29,6 +29,7 @@ import javax.swing.JScrollPane;
 import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.AncestorEvent;
 import javax.swing.event.AncestorListener;
@@ -41,46 +42,29 @@ import core.servicos.pagaveis.Refeicao;
 
 public class Refeicoes extends JPanel {
 
-	/**
-	 *
-	 */
 	private static final long serialVersionUID = 1L;
+
 	private SuperTextField tfBuscar;
 	private static JComboBox<String> cbRestaurantes = new JComboBox<>();
-	private JButton btnAdicionar;
 	private JLabel  lblAtualizarServios, lblBuscar, lblTipoDeServio;
 	private JList<Refeicao> list = new JList<>();
-	private JLabel lbObs = new JLabel("*Observa\u00E7\u00F5es");
+	private JLabel lbObs = new JLabel("<erro>");
 	private JPanel tela = this;
-	
+
 	private List<Refeicao> selecionadas = new ArrayList<>();
-	
+
 	/**
 	 * Create the panel.
 	 */
 	public Refeicoes() {
 
-		addAncestorListener(new AncestorListener() {
-			@Override
-			public void ancestorAdded(AncestorEvent arg0) {
-				List<Refeicao> elementos = filtraList();
-				Filtro.exibeFiltrado(tfBuscar.getText(), elementos, list);
-				selecionadas = new ArrayList<>();
-				lbObs.setVisible(false);
-			}
-			@Override
-			public void ancestorMoved(AncestorEvent arg0) {}
-			@Override
-			public void ancestorRemoved(AncestorEvent arg0) {}
-		});
-
 		setName("Refei\u00E7\u00F5es");
 		setMinimumSize(new Dimension(0, 0));
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.rowHeights = new int[] {0, 0, 90, 0};
+		gridBagLayout.rowHeights = new int[] {0, 0, 120, 0};
 		gridBagLayout.columnWidths = new int[] {0, 400, 0};
-		gridBagLayout.columnWeights = new double[]{1.0, 1.0, 1.0};
-		gridBagLayout.rowWeights = new double[]{0.75, 0.5, 1.0, 1.0};
+		gridBagLayout.columnWeights = new double[]{1.0, 0.25, 1.0};
+		gridBagLayout.rowWeights = new double[]{1.0, 0.25, 0.5, 1.0};
 		setLayout(gridBagLayout);
 
 		JPanel panelSuperior = new JPanel();
@@ -88,7 +72,6 @@ public class Refeicoes extends JPanel {
 		gbl_panelSuperior.columnWeights = new double[]{0.0, 1.0};
 		gbl_panelSuperior.rowWeights = new double[]{1.0, 1.0, 1.0};
 		panelSuperior.setLayout(gbl_panelSuperior);
-
 
 		tfBuscar = new SuperTextField() {
 			private static final long serialVersionUID = 1L;
@@ -99,8 +82,7 @@ public class Refeicoes extends JPanel {
 			}
 		};
 		tfBuscar.setMaximumSize(new Dimension(100, 100));
-		panelSuperior.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{tfBuscar, cbRestaurantes, btnAdicionar, lblAtualizarServios, lblBuscar, lblTipoDeServio}));
-
+		panelSuperior.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{tfBuscar, cbRestaurantes, lblAtualizarServios, lblBuscar, lblTipoDeServio}));
 
 		JLabel lblBuscar_1 = new JLabel("Buscar:");
 		GridBagConstraints gbc_lblBuscar_1 = new GridBagConstraints();
@@ -115,6 +97,7 @@ public class Refeicoes extends JPanel {
 		gbc_tfBuscar.gridx = 1;
 		gbc_tfBuscar.gridy = 1;
 		panelSuperior.add(tfBuscar, gbc_tfBuscar);
+		cbRestaurantes.setFocusable(false);
 
 		cbRestaurantes.setAlignmentX(Component.LEFT_ALIGNMENT);
 
@@ -161,20 +144,20 @@ public class Refeicoes extends JPanel {
 		gbc_panel.gridy = 1;
 		add(panel, gbc_panel);
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[]{113, 115, 0, 0};
-		gbl_panel.rowHeights = new int[]{0, 23, 0};
-		gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.columnWidths = new int[]{113, 115, 0};
+		gbl_panel.rowHeights = new int[]{23, 0};
+		gbl_panel.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		JButton btnRemoverRefeicao = new JButton("Remover Refei\u00E7\u00E3o");
+		btnRemoverRefeicao.setFocusable(false);
 		GridBagConstraints gbc_btnRemoverRefeicao = new GridBagConstraints();
 		gbc_btnRemoverRefeicao.anchor = GridBagConstraints.NORTHWEST;
-		gbc_btnRemoverRefeicao.insets = new Insets(0, 0, 0, 5);
+		gbc_btnRemoverRefeicao.insets = new Insets(0, 0, 0, 10);
 		gbc_btnRemoverRefeicao.gridx = 0;
-		gbc_btnRemoverRefeicao.gridy = 1;
+		gbc_btnRemoverRefeicao.gridy = 0;
 		panel.add(btnRemoverRefeicao, gbc_btnRemoverRefeicao);
 		btnRemoverRefeicao.setMaximumSize(new Dimension(150, 100));
-		btnRemoverRefeicao.setBounds(new Rectangle(100, 0, 100, 50));
 		btnRemoverRefeicao.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -184,6 +167,7 @@ public class Refeicoes extends JPanel {
 
 				if (value == null) {
 					lbObs.setText("Nenhum item foi selecionado");
+					lbObs.setIcon(new ImageIcon(Refeicoes.class.getResource("/gui/images/error.png")));
 					lbObs.setForeground(Color.RED);
 					lbObs.setVisible(true);
 					return;
@@ -199,35 +183,26 @@ public class Refeicoes extends JPanel {
 				List<Refeicao> elementos = filtraList();
 				Filtro.exibeFiltrado(tfBuscar.getText(), elementos, list);
 
-				lbObs.setForeground(new Color(0, 180, 0));
+				lbObs.setIcon(new ImageIcon(Refeicoes.class.getResource("/gui/images/success.png")));
+				lbObs.setForeground(new Color(0, 150, 0));
 				lbObs.setText("Item removido com sucesso");
 				lbObs.setVisible(true);
 			}
 		});
 
-		JButton btnAdicionar_1 = new JButton("Adicionar Nova Refei\u00E7\u00E3o");
+		JButton btnAdicionar_1 = new JButton("Adicionar nova Refei\u00E7\u00E3o");
+		btnAdicionar_1.setFocusable(false);
 		GridBagConstraints gbc_btnAdicionar_1 = new GridBagConstraints();
-		gbc_btnAdicionar_1.insets = new Insets(0, 0, 0, 5);
 		gbc_btnAdicionar_1.anchor = GridBagConstraints.NORTHWEST;
 		gbc_btnAdicionar_1.gridx = 1;
-		gbc_btnAdicionar_1.gridy = 1;
+		gbc_btnAdicionar_1.gridy = 0;
 		panel.add(btnAdicionar_1, gbc_btnAdicionar_1);
-		
-		JButton btnAddContrato = new JButton("Add Contrato");
-		btnAddContrato.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (list.getSelectedIndex() != -1) selecionadas.add(list.getSelectedValue());
-			}
-		});
-		GridBagConstraints gbc_btnAddContrato = new GridBagConstraints();
-		gbc_btnAddContrato.gridx = 2;
-		gbc_btnAddContrato.gridy = 1;
-		panel.add(btnAddContrato, gbc_btnAddContrato);
 		btnAdicionar_1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if (cbRestaurantes.getSelectedItem() == null) {
 					lbObs.setText("Nao h\u00E1 um restaurante selecionado");
+					lbObs.setIcon(new ImageIcon(Refeicoes.class.getResource("/gui/images/error.png")));
 					lbObs.setForeground(Color.RED);
 					lbObs.setVisible(true);
 				} else {
@@ -260,6 +235,7 @@ public class Refeicoes extends JPanel {
 		gbc_scrollPane.gridx = 0;
 		gbc_scrollPane.gridy = 0;
 		panelLista.add(scrollPane, gbc_scrollPane);
+		list.setFocusable(false);
 
 		list.setVisibleRowCount(-1); //controla crescimento vertical
 		list.setFixedCellWidth(100);//controla crescimento horizontal
@@ -279,9 +255,9 @@ public class Refeicoes extends JPanel {
 		gbc_panel_1.gridy = 3;
 		add(panel_1, gbc_panel_1);
 		GridBagLayout gbl_panel_1 = new GridBagLayout();
-		gbl_panel_1.columnWidths = new int[] {0, 0, 0};
+		gbl_panel_1.columnWidths = new int[] {200, 0, 0, 0};
 		gbl_panel_1.rowHeights = new int[] {0};
-		gbl_panel_1.columnWeights = new double[]{1.0, 0.0, 0.0};
+		gbl_panel_1.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0};
 		gbl_panel_1.rowWeights = new double[]{0.0};
 		panel_1.setLayout(gbl_panel_1);
 		GridBagConstraints gbc_lbObs = new GridBagConstraints();
@@ -289,33 +265,69 @@ public class Refeicoes extends JPanel {
 		gbc_lbObs.insets = new Insets(0, 0, 0, 5);
 		gbc_lbObs.gridx = 0;
 		gbc_lbObs.gridy = 0;
+		lbObs.setIcon(new ImageIcon(Refeicoes.class.getResource("/gui/images/error.png")));
+		lbObs.setForeground(Color.RED);
 		panel_1.add(lbObs, gbc_lbObs);
 
+		final JButton btnContrato = new JButton("Carrinho (0)");
+		btnContrato.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnContrato.setMaximumSize(new Dimension(97, 23));
+		btnContrato.setMinimumSize(new Dimension(97, 23));
+		btnContrato.setPreferredSize(new Dimension(97, 23));
+		btnContrato.setFocusable(false);
+		btnContrato.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Sistema.setTela(new CarrinhoRefeicoes(selecionadas, tela));
+			}
+		});
+
 		JButton btnNewButton = new JButton("Voltar");
+		btnNewButton.setFocusable(false);
 		btnNewButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Sistema.setTela(new Menu());
 			}
 		});
-		
-		JButton btnContrato = new JButton("Contrato");
-		btnContrato.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Sistema.setTela(new EscolheRefeicoes(selecionadas,tela));
-			}
-		});
-		GridBagConstraints gbc_btnContrato = new GridBagConstraints();
-		gbc_btnContrato.insets = new Insets(0, 0, 0, 5);
-		gbc_btnContrato.gridx = 1;
-		gbc_btnContrato.gridy = 0;
-		panel_1.add(btnContrato, gbc_btnContrato);
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		gbc_btnNewButton.gridx = 2;
+		gbc_btnNewButton.anchor = GridBagConstraints.EAST;
+		gbc_btnNewButton.insets = new Insets(0, 0, 0, 10);
+		gbc_btnNewButton.gridx = 1;
 		gbc_btnNewButton.gridy = 0;
 		panel_1.add(btnNewButton, gbc_btnNewButton);
 
-		lbObs.setVisible(false);
+		JButton btnAddContrato = new JButton("Comprar");
+		GridBagConstraints gbc_btnAddContrato = new GridBagConstraints();
+		gbc_btnAddContrato.insets = new Insets(0, 0, 0, 10);
+		gbc_btnAddContrato.gridx = 2;
+		gbc_btnAddContrato.gridy = 0;
+		panel_1.add(btnAddContrato, gbc_btnAddContrato);
+		btnAddContrato.setFocusable(false);
+		btnAddContrato.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (list.getSelectedIndex() != -1) selecionadas.add(list.getSelectedValue());
+				btnContrato.setText("Carrinho ("+selecionadas.size()+")");
+			}
+		});
+		GridBagConstraints gbc_btnContrato = new GridBagConstraints();
+		gbc_btnContrato.gridx = 3;
+		gbc_btnContrato.gridy = 0;
+		panel_1.add(btnContrato, gbc_btnContrato);
+
+		addAncestorListener(new AncestorListener() {
+			@Override
+			public void ancestorAdded(AncestorEvent arg0) {
+				btnContrato.setText("Carrinho ("+selecionadas.size()+")");
+				lbObs.setVisible(false);
+			}
+			@Override
+			public void ancestorMoved(AncestorEvent arg0) {}
+			@Override
+			public void ancestorRemoved(AncestorEvent arg0) {}
+		});
+
 		atualizaJList();
 	}
 
@@ -356,7 +368,7 @@ public class Refeicoes extends JPanel {
 					item = dlm.getElementAt(index);
 				} catch (ArrayIndexOutOfBoundsException ex) {
 					return;
-				}	
+				}
 				list.ensureIndexIsVisible(index);
 				String nome = (String) Refeicoes.cbRestaurantes.getSelectedItem();
 				Sistema.setTela(new AtualizarRefeicao(tela, nome,(Refeicao) item));

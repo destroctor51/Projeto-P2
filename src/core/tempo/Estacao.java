@@ -19,9 +19,9 @@ import utils.Tempo;
  */
 
 public class Estacao implements Cloneable, Serializable {
-	
+
 	public static final Estacao NENHUMA = new Estacao("Nenhuma",1);
-	
+
 	private static final long serialVersionUID = 1L;
 
 	private Set<Periodo> periodos = new TreeSet<>();
@@ -30,7 +30,9 @@ public class Estacao implements Cloneable, Serializable {
 
 	/**
 	 * Construtor da Estacao.
-	 * @param tarifa  tarifa da estacao.
+	 *
+	 * @param id  o identificador da estacao
+	 * @param tarifa  tarifa da estacao
 	 */
 	public Estacao(String id, double tarifa){
 		if(id == null)
@@ -79,7 +81,7 @@ public class Estacao implements Cloneable, Serializable {
 
 	/**
 	 *
-	 * @param novoPeriodo  periodo a ser comparado
+	 * @param periodo  periodo a ser comparado
 	 * @return se entra em conflito ou nao
 	 */
 	public boolean entraEmConflito(Periodo periodo) {
@@ -102,10 +104,7 @@ public class Estacao implements Cloneable, Serializable {
 	}
 
 	/**
-	 *
-	 * @param novoPeriodo  periodo a ser adicionado.
-	 * @return se acao foi realizada com sucesso ou nao.
-	 *
+	 * @param novoPeriodo  periodo a ser adicionado
 	 */
 	public void addPeriodo(Periodo novoPeriodo) {
 		for(Periodo p : Tempo.freeze(novoPeriodo))
@@ -113,10 +112,7 @@ public class Estacao implements Cloneable, Serializable {
 	}
 
 	/**
-	 *
-	 * @param periodo  periodo a ser removido.
-	 * @return se a acao foi realizada com sucesso ou nao.
-	 *
+	 * @param periodo  periodo a ser removido
 	 */
 	public void removePeriodo(Periodo periodo) {
 		for(Periodo p : Tempo.freeze(periodo))

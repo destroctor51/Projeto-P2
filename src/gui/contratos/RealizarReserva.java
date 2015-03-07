@@ -25,9 +25,14 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
-import javax.swing.border.LineBorder;
+import javax.swing.UIManager;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
 import javax.swing.event.AncestorEvent;
 import javax.swing.event.AncestorListener;
 import javax.swing.event.ChangeEvent;
@@ -41,8 +46,8 @@ import core.servicos.devolviveis.Quarto;
 import core.tempo.Estacao;
 import core.tempo.Periodo;
 
-public class RealizaReserva extends JPanel {
-	private static final long serialVersionUID = 5463443942126778065L;
+public class RealizarReserva extends JPanel {
+	private static final long serialVersionUID = 1L;
 	private SuperTextField NameField;
 	private JTextField cardField;
 	private Hospede hospede;
@@ -62,7 +67,7 @@ public class RealizaReserva extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public RealizaReserva() {
+	public RealizarReserva() {
 
 		this.setName("Realizar Reserva");
 
@@ -86,10 +91,10 @@ public class RealizaReserva extends JPanel {
 		centerRenderer.setHorizontalAlignment(JLabel.CENTER);
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[] { 0, 0, 0 };
-		gridBagLayout.rowHeights = new int[] { 57, 0, 32, 149, 77 };
-		gridBagLayout.columnWeights = new double[] { 1.0, 1.0, 1.0 };
-		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0 };
+		gridBagLayout.columnWidths = new int[] {30, 400, 30};
+		gridBagLayout.rowHeights = new int[] {0, 120, 0, 0, 0};
+		gridBagLayout.columnWeights = new double[] { 1.0, 0.25, 1.0 };
+		gridBagLayout.rowWeights = new double[] { 1.0, 0.25, 0.1, 0.0, 1.0 };
 		setLayout(gridBagLayout);
 
 		JPanel panel_1 = new JPanel();
@@ -104,7 +109,7 @@ public class RealizaReserva extends JPanel {
 		lblProcurarHspede.setHorizontalAlignment(SwingConstants.LEFT);
 		GridBagConstraints gbc_lblProcurarHspede = new GridBagConstraints();
 		gbc_lblProcurarHspede.anchor = GridBagConstraints.EAST;
-		gbc_lblProcurarHspede.insets = new Insets(0, 0, 10, 10);
+		gbc_lblProcurarHspede.insets = new Insets(0, 0, 0, 10);
 		gbc_lblProcurarHspede.gridx = 0;
 		gbc_lblProcurarHspede.gridy = 0;
 		panel_1.add(lblProcurarHspede, gbc_lblProcurarHspede);
@@ -119,7 +124,6 @@ public class RealizaReserva extends JPanel {
 			}
 		};
 		GridBagConstraints gbc_NameField = new GridBagConstraints();
-		gbc_NameField.insets = new Insets(0, 0, 10, 0);
 		gbc_NameField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_NameField.anchor = GridBagConstraints.NORTH;
 		gbc_NameField.gridx = 1;
@@ -128,15 +132,19 @@ public class RealizaReserva extends JPanel {
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
 		gbc_panel_1.anchor = GridBagConstraints.SOUTH;
 		gbc_panel_1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_panel_1.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_1.insets = new Insets(0, 0, 10, 5);
 		gbc_panel_1.gridx = 1;
 		gbc_panel_1.gridy = 0;
 		add(panel_1, gbc_panel_1);
 
 		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
+		scrollPane_1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
 		list_1 = new JList<>();
+		list_1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		list_1.setVisibleRowCount(-1);
+		list_1.setFixedCellWidth(100);
+		list_1.setFocusable(false);
 		list_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -153,37 +161,6 @@ public class RealizaReserva extends JPanel {
 		gbc_scrollPane_1.gridy = 1;
 		add(scrollPane_1, gbc_scrollPane_1);
 
-		JPanel panel_2 = new JPanel();
-		GridBagLayout gbl_panel_2 = new GridBagLayout();
-		gbl_panel_2.columnWidths = new int[] { 0, 0 };
-		gbl_panel_2.rowHeights = new int[] { 0 };
-		gbl_panel_2.columnWeights = new double[] { 0.0, 1.0 };
-		gbl_panel_2.rowWeights = new double[] { 0.0 };
-		panel_2.setLayout(gbl_panel_2);
-
-		JLabel lblCartoDeCrdito = new JLabel("Cart\u00E3o de cr\u00E9dito:");
-		GridBagConstraints gbc_lblCartoDeCrdito = new GridBagConstraints();
-		gbc_lblCartoDeCrdito.anchor = GridBagConstraints.EAST;
-		gbc_lblCartoDeCrdito.insets = new Insets(0, 0, 10, 10);
-		gbc_lblCartoDeCrdito.gridx = 0;
-		gbc_lblCartoDeCrdito.gridy = 0;
-		panel_2.add(lblCartoDeCrdito, gbc_lblCartoDeCrdito);
-
-		cardField = new JTextField();
-		GridBagConstraints gbc_cardField = new GridBagConstraints();
-		gbc_cardField.insets = new Insets(0, 0, 10, 0);
-		gbc_cardField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_cardField.gridx = 1;
-		gbc_cardField.gridy = 0;
-		panel_2.add(cardField, gbc_cardField);
-		GridBagConstraints gbc_panel_2 = new GridBagConstraints();
-		gbc_panel_2.anchor = GridBagConstraints.NORTH;
-		gbc_panel_2.fill = GridBagConstraints.HORIZONTAL;
-		gbc_panel_2.insets = new Insets(0, 0, 5, 5);
-		gbc_panel_2.gridx = 1;
-		gbc_panel_2.gridy = 2;
-		add(panel_2, gbc_panel_2);
-
 		JPanel panel_5 = new JPanel();
 		GridBagLayout gbl_panel_5 = new GridBagLayout();
 		gbl_panel_5.columnWidths = new int[] { 200, 0, 0 };
@@ -192,7 +169,8 @@ public class RealizaReserva extends JPanel {
 		gbl_panel_5.rowWeights = new double[] { 0.0 };
 		panel_5.setLayout(gbl_panel_5);
 
-		JButton btnCancelar = new JButton("Voltar");
+		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setFocusable(false);
 		btnCancelar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -200,7 +178,7 @@ public class RealizaReserva extends JPanel {
 			}
 		});
 
-		ErrorLabel = new JLabel("");
+		ErrorLabel = new JLabel("<erro>");
 		GridBagConstraints gbc_ErrorLabel = new GridBagConstraints();
 		gbc_ErrorLabel.anchor = GridBagConstraints.WEST;
 		gbc_ErrorLabel.insets = new Insets(0, 0, 0, 5);
@@ -211,46 +189,99 @@ public class RealizaReserva extends JPanel {
 		ErrorLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		ErrorLabel.setVisible(false);
 
+		JPanel panel_2 = new JPanel();
+		GridBagConstraints gbc_panel_2 = new GridBagConstraints();
+		gbc_panel_2.anchor = GridBagConstraints.SOUTH;
+		gbc_panel_2.fill = GridBagConstraints.HORIZONTAL;
+		gbc_panel_2.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_2.gridx = 1;
+		gbc_panel_2.gridy = 2;
+		add(panel_2, gbc_panel_2);
+		GridBagLayout gbl_panel_2 = new GridBagLayout();
+		gbl_panel_2.columnWidths = new int[] { 0, 0, 0 };
+		gbl_panel_2.rowHeights = new int[] { 0 };
+		gbl_panel_2.columnWeights = new double[] { 0.0, 1.0, 0.0 };
+		gbl_panel_2.rowWeights = new double[] { 0.0 };
+		panel_2.setLayout(gbl_panel_2);
+
+		JLabel lblNewLabel_1 = new JLabel("Reserva dos quartos:");
+		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
+		gbc_lblNewLabel_1.insets = new Insets(0, 0, 0, 5);
+		gbc_lblNewLabel_1.gridx = 0;
+		gbc_lblNewLabel_1.gridy = 0;
+		panel_2.add(lblNewLabel_1, gbc_lblNewLabel_1);
+
+		JLabel lblCartoDeCrdito = new JLabel("Cart\u00E3o de cr\u00E9dito:");
+		GridBagConstraints gbc_lblCartoDeCrdito = new GridBagConstraints();
+		gbc_lblCartoDeCrdito.anchor = GridBagConstraints.EAST;
+		gbc_lblCartoDeCrdito.insets = new Insets(0, 0, 0, 10);
+		gbc_lblCartoDeCrdito.gridx = 1;
+		gbc_lblCartoDeCrdito.gridy = 0;
+		panel_2.add(lblCartoDeCrdito, gbc_lblCartoDeCrdito);
+
+		cardField = new JTextField();
+		cardField.setColumns(20);
+		GridBagConstraints gbc_cardField = new GridBagConstraints();
+		gbc_cardField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_cardField.gridx = 2;
+		gbc_cardField.gridy = 0;
+		panel_2.add(cardField, gbc_cardField);
+
 		JPanel panel = new JPanel();
+		panel.setBorder(new CompoundBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)), new EmptyBorder(5, 5, 5, 5)));
 		GridBagConstraints gbc_panel = new GridBagConstraints();
-		gbc_panel.insets = new Insets(0, 0, 5, 5);
-		gbc_panel.fill = GridBagConstraints.BOTH;
+		gbc_panel.insets = new Insets(0, 0, 10, 5);
+		gbc_panel.fill = GridBagConstraints.HORIZONTAL;
 		gbc_panel.gridx = 1;
 		gbc_panel.gridy = 3;
 		add(panel, gbc_panel);
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[] { 353, 0, 197, 0 };
-		gbl_panel.rowHeights = new int[] { 189, 0 };
-		gbl_panel.columnWeights = new double[] { 1.0, 0.0, 0.0,
-				Double.MIN_VALUE };
-		gbl_panel.rowWeights = new double[] { 1.0, Double.MIN_VALUE };
+		gbl_panel.columnWidths = new int[] {0, 0, 200};
+		gbl_panel.rowHeights = new int[] {0};
+		gbl_panel.columnWeights = new double[] { 0.0, 1.0, 0.0 };
+		gbl_panel.rowWeights = new double[] { 1.0 };
 		panel.setLayout(gbl_panel);
+
+		calendarioAlugavel = new CalendarioAlugavel();
+		GridBagConstraints gbc_calendarioAlugavel = new GridBagConstraints();
+		gbc_calendarioAlugavel.insets = new Insets(0, 0, 0, 5);
+		gbc_calendarioAlugavel.anchor = GridBagConstraints.EAST;
+		gbc_calendarioAlugavel.gridx = 0;
+		gbc_calendarioAlugavel.gridy = 0;
+		panel.add(calendarioAlugavel, gbc_calendarioAlugavel);
+
+		calendarioAlugavel.initCategoria("quartop", 0);
+		calendarioAlugavel.initCategoria("quartoes", 0);
+		calendarioAlugavel.initCategoria("quartoed", 0);
+		calendarioAlugavel.initCategoria("quartoet", 0);
+		calendarioAlugavel.initCategoria("quartols", 0);
+		calendarioAlugavel.initCategoria("quartold", 0);
+		calendarioAlugavel.initCategoria("quartolt", 0);
 
 		JPanel panel_3 = new JPanel();
 		GridBagConstraints gbc_panel_3 = new GridBagConstraints();
-		gbc_panel_3.insets = new Insets(0, 0, 0, 5);
 		gbc_panel_3.fill = GridBagConstraints.BOTH;
-		gbc_panel_3.gridx = 0;
+		gbc_panel_3.gridx = 2;
 		gbc_panel_3.gridy = 0;
 		panel.add(panel_3, gbc_panel_3);
 		GridBagLayout gbl_panel_3 = new GridBagLayout();
-		gbl_panel_3.columnWidths = new int[] { 0, 74, 0, 0, 0 };
-		gbl_panel_3.rowHeights = new int[] { 28, 28, 28, 28, 28, 28, 28, 0 };
-		gbl_panel_3.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0,
-				Double.MIN_VALUE };
-		gbl_panel_3.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-				0.0, Double.MIN_VALUE };
+		gbl_panel_3.columnWidths = new int[] {0, 50};
+		gbl_panel_3.rowHeights = new int[] {0, 0, 0, 0, 0, 0, 0};
+		gbl_panel_3.columnWeights = new double[] { 1.0, 0.0 };
+		gbl_panel_3.rowWeights = new double[] { 1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
+				1.0 };
 		panel_3.setLayout(gbl_panel_3);
 
-		JLabel lblNewLabel = new JLabel("Quartos Presidenciais:");
+		JLabel lblNewLabel = new JLabel("Presidenciais:");
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.anchor = GridBagConstraints.WEST;
-		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 10);
 		gbc_lblNewLabel.gridx = 0;
 		gbc_lblNewLabel.gridy = 0;
 		panel_3.add(lblNewLabel, gbc_lblNewLabel);
 
 		spinner = new JSpinner();
+		spinner.setFocusable(false);
 		spinner.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent arg0) {
@@ -263,20 +294,21 @@ public class RealizaReserva extends JPanel {
 		spinner.setEditor(new JSpinner.DefaultEditor(spinner));
 		GridBagConstraints gbc_spinner = new GridBagConstraints();
 		gbc_spinner.fill = GridBagConstraints.HORIZONTAL;
-		gbc_spinner.insets = new Insets(0, 0, 5, 5);
+		gbc_spinner.insets = new Insets(0, 0, 5, 0);
 		gbc_spinner.gridx = 1;
 		gbc_spinner.gridy = 0;
 		panel_3.add(spinner, gbc_spinner);
 
-		JLabel lblQuartosLuxoSimples = new JLabel("Quartos Luxo Simples:");
+		JLabel lblQuartosLuxoSimples = new JLabel("Luxo Simples:");
 		GridBagConstraints gbc_lblQuartosLuxoSimples = new GridBagConstraints();
 		gbc_lblQuartosLuxoSimples.anchor = GridBagConstraints.WEST;
-		gbc_lblQuartosLuxoSimples.insets = new Insets(0, 0, 5, 5);
+		gbc_lblQuartosLuxoSimples.insets = new Insets(0, 0, 5, 10);
 		gbc_lblQuartosLuxoSimples.gridx = 0;
 		gbc_lblQuartosLuxoSimples.gridy = 1;
 		panel_3.add(lblQuartosLuxoSimples, gbc_lblQuartosLuxoSimples);
 
 		spinner_1 = new JSpinner();
+		spinner_1.setFocusable(false);
 		spinner_1.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent arg0) {
@@ -289,15 +321,15 @@ public class RealizaReserva extends JPanel {
 		spinner_1.setEditor(new JSpinner.DefaultEditor(spinner_1));
 		GridBagConstraints gbc_spinner_1 = new GridBagConstraints();
 		gbc_spinner_1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_spinner_1.insets = new Insets(0, 0, 5, 5);
+		gbc_spinner_1.insets = new Insets(0, 0, 5, 0);
 		gbc_spinner_1.gridx = 1;
 		gbc_spinner_1.gridy = 1;
 		panel_3.add(spinner_1, gbc_spinner_1);
 
-		JLabel lblQuartosLuxoDuplo = new JLabel("Quartos Luxo Duplo:");
+		JLabel lblQuartosLuxoDuplo = new JLabel("Luxo Duplo:");
 		GridBagConstraints gbc_lblQuartosLuxoDuplo = new GridBagConstraints();
 		gbc_lblQuartosLuxoDuplo.anchor = GridBagConstraints.WEST;
-		gbc_lblQuartosLuxoDuplo.insets = new Insets(0, 0, 5, 5);
+		gbc_lblQuartosLuxoDuplo.insets = new Insets(0, 0, 5, 10);
 		gbc_lblQuartosLuxoDuplo.gridx = 0;
 		gbc_lblQuartosLuxoDuplo.gridy = 2;
 		panel_3.add(lblQuartosLuxoDuplo, gbc_lblQuartosLuxoDuplo);
@@ -315,20 +347,21 @@ public class RealizaReserva extends JPanel {
 		spinner_2.setEditor(new JSpinner.DefaultEditor(spinner_2));
 		GridBagConstraints gbc_spinner_2 = new GridBagConstraints();
 		gbc_spinner_2.fill = GridBagConstraints.HORIZONTAL;
-		gbc_spinner_2.insets = new Insets(0, 0, 5, 5);
+		gbc_spinner_2.insets = new Insets(0, 0, 5, 0);
 		gbc_spinner_2.gridx = 1;
 		gbc_spinner_2.gridy = 2;
 		panel_3.add(spinner_2, gbc_spinner_2);
 
-		JLabel lblQuartosLuxoTriplo = new JLabel("Quartos Luxo Triplo:");
+		JLabel lblQuartosLuxoTriplo = new JLabel("Luxo Triplo:");
 		GridBagConstraints gbc_lblQuartosLuxoTriplo = new GridBagConstraints();
 		gbc_lblQuartosLuxoTriplo.anchor = GridBagConstraints.WEST;
-		gbc_lblQuartosLuxoTriplo.insets = new Insets(0, 0, 5, 5);
+		gbc_lblQuartosLuxoTriplo.insets = new Insets(0, 0, 5, 10);
 		gbc_lblQuartosLuxoTriplo.gridx = 0;
 		gbc_lblQuartosLuxoTriplo.gridy = 3;
 		panel_3.add(lblQuartosLuxoTriplo, gbc_lblQuartosLuxoTriplo);
 
 		spinner_3 = new JSpinner();
+		spinner_3.setFocusable(false);
 		spinner_3.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent arg0) {
@@ -341,21 +374,22 @@ public class RealizaReserva extends JPanel {
 		spinner_3.setEditor(new JSpinner.DefaultEditor(spinner_3));
 		GridBagConstraints gbc_spinner_3 = new GridBagConstraints();
 		gbc_spinner_3.fill = GridBagConstraints.HORIZONTAL;
-		gbc_spinner_3.insets = new Insets(0, 0, 5, 5);
+		gbc_spinner_3.insets = new Insets(0, 0, 5, 0);
 		gbc_spinner_3.gridx = 1;
 		gbc_spinner_3.gridy = 3;
 		panel_3.add(spinner_3, gbc_spinner_3);
 
 		JLabel lblQuartosExecutivoSimples = new JLabel(
-				"Quartos Executivo Simples:");
+				"Executivo Simples:");
 		GridBagConstraints gbc_lblQuartosExecutivoSimples = new GridBagConstraints();
 		gbc_lblQuartosExecutivoSimples.anchor = GridBagConstraints.WEST;
-		gbc_lblQuartosExecutivoSimples.insets = new Insets(0, 0, 5, 5);
+		gbc_lblQuartosExecutivoSimples.insets = new Insets(0, 0, 5, 10);
 		gbc_lblQuartosExecutivoSimples.gridx = 0;
 		gbc_lblQuartosExecutivoSimples.gridy = 4;
 		panel_3.add(lblQuartosExecutivoSimples, gbc_lblQuartosExecutivoSimples);
 
 		spinner_4 = new JSpinner();
+		spinner_4.setFocusable(false);
 		spinner_4.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent arg0) {
@@ -368,20 +402,21 @@ public class RealizaReserva extends JPanel {
 		spinner_4.setEditor(new JSpinner.DefaultEditor(spinner_4));
 		GridBagConstraints gbc_spinner_4 = new GridBagConstraints();
 		gbc_spinner_4.fill = GridBagConstraints.HORIZONTAL;
-		gbc_spinner_4.insets = new Insets(0, 0, 5, 5);
+		gbc_spinner_4.insets = new Insets(0, 0, 5, 0);
 		gbc_spinner_4.gridx = 1;
 		gbc_spinner_4.gridy = 4;
 		panel_3.add(spinner_4, gbc_spinner_4);
 
-		JLabel lblQuartosExecutivoDuplo = new JLabel("Quartos Executivo Duplo:");
+		JLabel lblQuartosExecutivoDuplo = new JLabel("Executivo Duplo:");
 		GridBagConstraints gbc_lblQuartosExecutivoDuplo = new GridBagConstraints();
 		gbc_lblQuartosExecutivoDuplo.anchor = GridBagConstraints.WEST;
-		gbc_lblQuartosExecutivoDuplo.insets = new Insets(0, 0, 5, 5);
+		gbc_lblQuartosExecutivoDuplo.insets = new Insets(0, 0, 5, 10);
 		gbc_lblQuartosExecutivoDuplo.gridx = 0;
 		gbc_lblQuartosExecutivoDuplo.gridy = 5;
 		panel_3.add(lblQuartosExecutivoDuplo, gbc_lblQuartosExecutivoDuplo);
 
 		spinner_5 = new JSpinner();
+		spinner_5.setFocusable(false);
 		spinner_5.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent arg0) {
@@ -394,21 +429,22 @@ public class RealizaReserva extends JPanel {
 		spinner_5.setEditor(new JSpinner.DefaultEditor(spinner_5));
 		GridBagConstraints gbc_spinner_5 = new GridBagConstraints();
 		gbc_spinner_5.fill = GridBagConstraints.HORIZONTAL;
-		gbc_spinner_5.insets = new Insets(0, 0, 5, 5);
+		gbc_spinner_5.insets = new Insets(0, 0, 5, 0);
 		gbc_spinner_5.gridx = 1;
 		gbc_spinner_5.gridy = 5;
 		panel_3.add(spinner_5, gbc_spinner_5);
 
 		JLabel lblQuartosExecutivoTriplo = new JLabel(
-				"Quartos Executivo Triplo:");
+				"Executivo Triplo:");
 		GridBagConstraints gbc_lblQuartosExecutivoTriplo = new GridBagConstraints();
 		gbc_lblQuartosExecutivoTriplo.anchor = GridBagConstraints.WEST;
-		gbc_lblQuartosExecutivoTriplo.insets = new Insets(0, 0, 0, 5);
+		gbc_lblQuartosExecutivoTriplo.insets = new Insets(0, 0, 0, 10);
 		gbc_lblQuartosExecutivoTriplo.gridx = 0;
 		gbc_lblQuartosExecutivoTriplo.gridy = 6;
 		panel_3.add(lblQuartosExecutivoTriplo, gbc_lblQuartosExecutivoTriplo);
 
 		spinner_6 = new JSpinner();
+		spinner_6.setFocusable(false);
 		spinner_6.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent arg0) {
@@ -420,26 +456,11 @@ public class RealizaReserva extends JPanel {
 				new Integer(0), null, new Integer(1)));
 		spinner_6.setEditor(new JSpinner.DefaultEditor(spinner_6));
 		GridBagConstraints gbc_spinner_6 = new GridBagConstraints();
-		gbc_spinner_6.insets = new Insets(0, 0, 0, 5);
 		gbc_spinner_6.fill = GridBagConstraints.HORIZONTAL;
 		gbc_spinner_6.gridx = 1;
 		gbc_spinner_6.gridy = 6;
 		panel_3.add(spinner_6, gbc_spinner_6);
-
-		JLabel lblPeriodoDeEstadia = new JLabel("Per\u00EDodo de estadia:");
-		GridBagConstraints gbc_lblPeriodoDeEstadia = new GridBagConstraints();
-		gbc_lblPeriodoDeEstadia.insets = new Insets(0, 0, 0, 5);
-		gbc_lblPeriodoDeEstadia.gridx = 1;
-		gbc_lblPeriodoDeEstadia.gridy = 0;
-		panel.add(lblPeriodoDeEstadia, gbc_lblPeriodoDeEstadia);
-
-		calendarioAlugavel = new CalendarioAlugavel();
-		GridBagConstraints gbc_calendarioAlugavel = new GridBagConstraints();
-		gbc_calendarioAlugavel.anchor = GridBagConstraints.EAST;
-		gbc_calendarioAlugavel.gridx = 2;
-		gbc_calendarioAlugavel.gridy = 0;
-		panel.add(calendarioAlugavel, gbc_calendarioAlugavel);
-		ErrorLabel.setIcon(new ImageIcon(RealizaReserva.class
+		ErrorLabel.setIcon(new ImageIcon(RealizarReserva.class
 				.getResource("/gui/images/error.png")));
 		GridBagConstraints gbc_btnCancelar = new GridBagConstraints();
 		gbc_btnCancelar.anchor = GridBagConstraints.EAST;
@@ -456,7 +477,8 @@ public class RealizaReserva extends JPanel {
 		gbc_panel_5.gridy = 4;
 		add(panel_5, gbc_panel_5);
 
-		JButton btnConfirmar = new JButton("Continuar");
+		JButton btnConfirmar = new JButton("Confirmar");
+		btnConfirmar.setFocusable(false);
 		btnConfirmar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -471,14 +493,6 @@ public class RealizaReserva extends JPanel {
 		gbc_btnConfirmar.gridy = 0;
 		panel_5.add(btnConfirmar, gbc_btnConfirmar);
 		btnConfirmar.setHorizontalAlignment(SwingConstants.RIGHT);
-
-		calendarioAlugavel.initCategoria("quartop", 0);
-		calendarioAlugavel.initCategoria("quartoes", 0);
-		calendarioAlugavel.initCategoria("quartoed", 0);
-		calendarioAlugavel.initCategoria("quartoet", 0);
-		calendarioAlugavel.initCategoria("quartols", 0);
-		calendarioAlugavel.initCategoria("quartold", 0);
-		calendarioAlugavel.initCategoria("quartolt", 0);
 		int quantp = 0, quantls = 0, quantld = 0, quantlt = 0, quantes = 0, quanted = 0, quantet = 0;
 
 		for (Quarto q : Sistema.getHotel().getQuartos()) {

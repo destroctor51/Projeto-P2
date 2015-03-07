@@ -50,9 +50,9 @@ public class OpiniaoTest {
 		Opiniao opiniao1 = new Opiniao(2, "Pessimo quarto e atendimento.", new GregorianCalendar());
 		Opiniao opiniao2 = new Opiniao(10, "", new GregorianCalendar());
 
-		Assert.assertEquals(opiniao.toString(), "Autor: " + opiniao.getAutor() + ", nota: " + opiniao.getNota() + ", coment\u00E1rio: " + opiniao.getComentario());
-		Assert.assertEquals(opiniao1.toString(), "Autor: " + opiniao1.getAutor() + ", nota: " + opiniao1.getNota() + ", coment\u00E1rio: " + opiniao1.getComentario());
-		Assert.assertEquals(opiniao2.toString(), "Autor: " + opiniao2.getAutor() + ", nota: " + opiniao2.getNota() + ", coment\u00E1rio: " + opiniao2.getComentario());
+		Assert.assertEquals(opiniao.toString(), "Autor: " + opiniao.getAutor() + ", Nota: " + opiniao.getNota() + ", Coment\u00E1rio: " + opiniao.getComentario());
+		Assert.assertEquals(opiniao1.toString(), "Autor: " + opiniao1.getAutor() + ", Nota: " + opiniao1.getNota() + ", Coment\u00E1rio: " + opiniao1.getComentario());
+		Assert.assertEquals(opiniao2.toString(), "Autor: " + opiniao2.getAutor() + ", Nota: " + opiniao2.getNota() + ", Coment\u00E1rio: " + opiniao2.getComentario());
 	}
 
 	@Test

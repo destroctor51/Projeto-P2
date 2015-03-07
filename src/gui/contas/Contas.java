@@ -55,9 +55,9 @@ public class Contas extends JPanel {
 		setName("Contas de usu\u00E1rio");
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{30, 400, 30};
-		gridBagLayout.rowHeights = new int[]{0, 0, 90, 0};
-		gridBagLayout.columnWeights = new double[]{1.0, 1.0, 1.0};
-		gridBagLayout.rowWeights = new double[]{0.75, 0.5, 1.0, 1.0};
+		gridBagLayout.rowHeights = new int[] {0, 0, 120, 0};
+		gridBagLayout.columnWeights = new double[]{1.0, 0.25, 1.0};
+		gridBagLayout.rowWeights = new double[]{1.0, 0.1, 0.5, 1.0};
 		setLayout(gridBagLayout);
 
 		JPanel panel = new JPanel();
@@ -137,6 +137,7 @@ public class Contas extends JPanel {
 		panel_1.setLayout(gbl_panel_1);
 
 		JButton btnNewButton_1 = new JButton("Remover conta");
+		btnNewButton_1.setFocusable(false);
 		btnNewButton_1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -145,14 +146,14 @@ public class Contas extends JPanel {
 				Filtro.exibeFiltrado(textField.getText(), filtraContas(), list);
 			}
 		});
-		btnNewButton_1.setFocusPainted(false);
 		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
-		gbc_btnNewButton_1.insets = new Insets(0, 0, 0, 5);
+		gbc_btnNewButton_1.insets = new Insets(0, 0, 0, 10);
 		gbc_btnNewButton_1.gridx = 0;
 		gbc_btnNewButton_1.gridy = 0;
 		panel_1.add(btnNewButton_1, gbc_btnNewButton_1);
 
 		JButton btnNewButton_2 = new JButton("Adicionar conta");
+		btnNewButton_2.setFocusable(false);
 		btnNewButton_2.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -160,7 +161,6 @@ public class Contas extends JPanel {
 				Filtro.exibeFiltrado(textField.getText(), filtraContas(), list);
 			}
 		});
-		btnNewButton_2.setFocusPainted(false);
 		GridBagConstraints gbc_btnNewButton_2 = new GridBagConstraints();
 		gbc_btnNewButton_2.gridx = 1;
 		gbc_btnNewButton_2.gridy = 0;
@@ -189,6 +189,7 @@ public class Contas extends JPanel {
 		panel_2.add(scrollPane, gbc_scrollPane);
 
 		list = new JList<>();
+		list.setFocusable(false);
 		list.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -219,7 +220,7 @@ public class Contas extends JPanel {
 		gbl_panel_3.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_3.setLayout(gbl_panel_3);
 
-		JLabel lblNewLabel = new JLabel("<mensagens>");
+		JLabel lblNewLabel = new JLabel("<erro>");
 		lblNewLabel.setVisible(false);
 		lblNewLabel.setForeground(Color.RED);
 		lblNewLabel.setIcon(new ImageIcon(Contas.class.getResource("/gui/images/error.png")));
@@ -231,7 +232,7 @@ public class Contas extends JPanel {
 		panel_3.add(lblNewLabel, gbc_lblNewLabel);
 
 		JButton btnNewButton = new JButton("Voltar");
-		btnNewButton.setFocusPainted(false);
+		btnNewButton.setFocusable(false);
 		btnNewButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

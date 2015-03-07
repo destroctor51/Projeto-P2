@@ -18,6 +18,8 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.ScrollPaneConstants;
 
 import core.tempo.Estacao;
 import core.tempo.Periodo;
@@ -49,24 +51,24 @@ public class GerenciarEstacao extends JPanel {
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 0, 0, 0 };
-		gridBagLayout.rowHeights = new int[] { 0, 0, 0, 0 };
+		gridBagLayout.rowHeights = new int[] { 0, 0, 0 };
 		gridBagLayout.columnWeights = new double[] { 1.0, 0.5, 1.0 };
-		gridBagLayout.rowWeights = new double[] { 1.0, 0.0, 0.5, 1.0 };
+		gridBagLayout.rowWeights = new double[] { 1.0, 0.5, 1.0 };
 		setLayout(gridBagLayout);
 
 		JPanel panel_1 = new JPanel();
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
 		gbc_panel_1.anchor = GridBagConstraints.SOUTH;
-		gbc_panel_1.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_1.insets = new Insets(0, 0, 10, 5);
 		gbc_panel_1.fill = GridBagConstraints.HORIZONTAL;
 		gbc_panel_1.gridx = 1;
 		gbc_panel_1.gridy = 0;
 		add(panel_1, gbc_panel_1);
 		GridBagLayout gbl_panel_1 = new GridBagLayout();
-		gbl_panel_1.columnWidths = new int[] { 0, 0, 0 };
-		gbl_panel_1.rowHeights = new int[] { 28, 28, 0 };
-		gbl_panel_1.columnWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
-		gbl_panel_1.rowWeights = new double[] { 0.0, 0.0, Double.MIN_VALUE };
+		gbl_panel_1.columnWidths = new int[] {0, 0};
+		gbl_panel_1.rowHeights = new int[] {0, 0};
+		gbl_panel_1.columnWeights = new double[] { 0.0, 1.0 };
+		gbl_panel_1.rowWeights = new double[] { 0.0, 0.0 };
 		panel_1.setLayout(gbl_panel_1);
 
 		JLabel lblNomeDaEstao = new JLabel("Nome:");
@@ -104,7 +106,7 @@ public class GerenciarEstacao extends JPanel {
 
 		JPanel panel = new JPanel();
 		GridBagConstraints gbc_panel = new GridBagConstraints();
-		gbc_panel.fill = GridBagConstraints.BOTH;
+		gbc_panel.fill = GridBagConstraints.HORIZONTAL;
 		gbc_panel.insets = new Insets(0, 0, 10, 5);
 		gbc_panel.gridx = 1;
 		gbc_panel.gridy = 1;
@@ -112,19 +114,61 @@ public class GerenciarEstacao extends JPanel {
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[] { 0, 0, 0 };
 		gbl_panel.rowHeights = new int[] { 0 };
-		gbl_panel.columnWeights = new double[] { 0.0, 1.0, 0.0 };
+		gbl_panel.columnWeights = new double[] { 0.0, 0.0, 1.0 };
 		gbl_panel.rowWeights = new double[] { 0.0 };
 		panel.setLayout(gbl_panel);
 
 		calendario = new CalendarioEstacao(estacao);
 		GridBagConstraints gbc_calendario = new GridBagConstraints();
-		gbc_calendario.insets = new Insets(0, 0, 0, 5);
+		gbc_calendario.insets = new Insets(0, 0, 0, 10);
 		gbc_calendario.anchor = GridBagConstraints.NORTHWEST;
 		gbc_calendario.gridx = 0;
 		gbc_calendario.gridy = 0;
 		panel.add(calendario, gbc_calendario);
 
-		JButton btnAdicionarPeriodio = new JButton("Adicionar per\u00EDodo");
+		JPanel panel_3 = new JPanel();
+		GridBagConstraints gbc_panel_3 = new GridBagConstraints();
+		gbc_panel_3.insets = new Insets(0, 0, 0, 10);
+		gbc_panel_3.gridx = 1;
+		gbc_panel_3.gridy = 0;
+		panel.add(panel_3, gbc_panel_3);
+		GridBagLayout gbl_panel_3 = new GridBagLayout();
+		gbl_panel_3.columnWidths = new int[]{0, 0};
+		gbl_panel_3.rowHeights = new int[]{0, 0, 0};
+		gbl_panel_3.columnWeights = new double[]{0.0, Double.MIN_VALUE};
+		gbl_panel_3.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		panel_3.setLayout(gbl_panel_3);
+
+		JButton btnAdicionarPeriodio = new JButton(">>");
+		GridBagConstraints gbc_btnAdicionarPeriodio = new GridBagConstraints();
+		gbc_btnAdicionarPeriodio.insets = new Insets(0, 0, 10, 0);
+		gbc_btnAdicionarPeriodio.gridx = 0;
+		gbc_btnAdicionarPeriodio.gridy = 0;
+		panel_3.add(btnAdicionarPeriodio, gbc_btnAdicionarPeriodio);
+		btnAdicionarPeriodio.setFocusable(false);
+
+		JButton btnRemoverPeriodo = new JButton("<<");
+		GridBagConstraints gbc_btnRemoverPeriodo = new GridBagConstraints();
+		gbc_btnRemoverPeriodo.gridx = 0;
+		gbc_btnRemoverPeriodo.gridy = 1;
+		panel_3.add(btnRemoverPeriodo, gbc_btnRemoverPeriodo);
+		btnRemoverPeriodo.setFocusable(false);
+		btnRemoverPeriodo.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					Periodo p = list.getSelectedValue();
+					estacao.removePeriodo(p);
+					calendario.atualizaDias();
+					lista.remove(list.getSelectedIndex());
+				} catch(ArrayIndexOutOfBoundsException ex) {
+					ErrorLabel.setText("Nenhum per\u00EDodo foi selecionado");
+					ErrorLabel.setVisible(true);
+					return;
+				}
+				ErrorLabel.setVisible(false);
+			}
+		});
 		btnAdicionarPeriodio.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -143,45 +187,20 @@ public class GerenciarEstacao extends JPanel {
 				calendario.atualizaDias();
 			}
 		});
-		GridBagConstraints gbc_btnAdicionarPeriodio = new GridBagConstraints();
-		gbc_btnAdicionarPeriodio.insets = new Insets(0, 0, 0, 10);
-		gbc_btnAdicionarPeriodio.anchor = GridBagConstraints.SOUTHEAST;
-		gbc_btnAdicionarPeriodio.gridx = 1;
-		gbc_btnAdicionarPeriodio.gridy = 0;
-		panel.add(btnAdicionarPeriodio, gbc_btnAdicionarPeriodio);
-
-		JButton btnRemoverPeriodo = new JButton("Remover per\u00EDodo");
-		btnRemoverPeriodo.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				try {
-					Periodo p = list.getSelectedValue();
-					estacao.removePeriodo(p);
-					calendario.atualizaDias();
-					lista.remove(list.getSelectedIndex());
-				} catch(ArrayIndexOutOfBoundsException ex) {
-					ErrorLabel.setText("Nenhum per\u00EDodo foi selecionado");
-					ErrorLabel.setVisible(true);
-					return;
-				}
-				ErrorLabel.setVisible(false);
-			}
-		});
-		GridBagConstraints gbc_btnRemoverPeriodo = new GridBagConstraints();
-		gbc_btnRemoverPeriodo.anchor = GridBagConstraints.SOUTHEAST;
-		gbc_btnRemoverPeriodo.gridx = 2;
-		gbc_btnRemoverPeriodo.gridy = 0;
-		panel.add(btnRemoverPeriodo, gbc_btnRemoverPeriodo);
 
 		JScrollPane scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
-		gbc_scrollPane.insets = new Insets(0, 0, 10, 5);
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
-		gbc_scrollPane.gridx = 1;
-		gbc_scrollPane.gridy = 2;
-		add(scrollPane, gbc_scrollPane);
+		gbc_scrollPane.gridx = 2;
+		gbc_scrollPane.gridy = 0;
+		panel.add(scrollPane, gbc_scrollPane);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
 		list = new JList<Periodo>();
+		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		list.setVisibleRowCount(-1);
+		list.setFocusable(false);
+		list.setFixedCellWidth(100);
 		scrollPane.setViewportView(list);
 
 		JPanel panel_2 = new JPanel();
@@ -190,7 +209,7 @@ public class GerenciarEstacao extends JPanel {
 		gbc_panel_2.insets = new Insets(0, 0, 0, 5);
 		gbc_panel_2.fill = GridBagConstraints.HORIZONTAL;
 		gbc_panel_2.gridx = 1;
-		gbc_panel_2.gridy = 3;
+		gbc_panel_2.gridy = 2;
 		add(panel_2, gbc_panel_2);
 		GridBagLayout gbl_panel_2 = new GridBagLayout();
 		gbl_panel_2.columnWidths = new int[] { 200, 0, 0 };
@@ -212,6 +231,7 @@ public class GerenciarEstacao extends JPanel {
 		panel_2.add(ErrorLabel, gbc_lblobservaes);
 
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setFocusable(false);
 		btnCancelar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -226,6 +246,7 @@ public class GerenciarEstacao extends JPanel {
 		panel_2.add(btnCancelar, gbc_btnCancelar);
 
 		JButton btnConfirmar = new JButton("Confirmar");
+		btnConfirmar.setFocusable(false);
 		btnConfirmar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ev) {

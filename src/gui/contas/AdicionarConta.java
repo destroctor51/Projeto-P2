@@ -33,6 +33,7 @@ import core.login.Permissao;
 public class AdicionarConta extends JPanel {
 
 	private static final long serialVersionUID = 1L;
+
 	private JTextField textField;
 	private JPasswordField passwordField;
 	private JPasswordField passwordField_1;
@@ -41,9 +42,6 @@ public class AdicionarConta extends JPanel {
 	private JTextField textField_1;
 	private JTextField textField_2;
 
-	/**
-	 * Create the panel.
-	 */
 	public AdicionarConta(final Permissao tipo, final JPanel telaAnterior) {
 		setName("Adicionar Conta");
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -166,7 +164,7 @@ public class AdicionarConta extends JPanel {
 		gbl_panel_1.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_1.setLayout(gbl_panel_1);
 
-		final JLabel lblNewLabel = new JLabel("<mensagem>");
+		final JLabel lblNewLabel = new JLabel("<erro>");
 		lblNewLabel.setVisible(false);
 		lblNewLabel.setIcon(new ImageIcon(AdicionarConta.class.getResource("/gui/images/error.png")));
 		lblNewLabel.setForeground(Color.RED);
@@ -178,7 +176,7 @@ public class AdicionarConta extends JPanel {
 		panel_1.add(lblNewLabel, gbc_lblNewLabel);
 
 		JButton btnNewButton_1 = new JButton("Cancelar");
-		btnNewButton_1.setFocusPainted(false);
+		btnNewButton_1.setFocusable(false);
 		btnNewButton_1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -193,7 +191,7 @@ public class AdicionarConta extends JPanel {
 		panel_1.add(btnNewButton_1, gbc_btnNewButton_1);
 
 		JButton btnNewButton = new JButton("Adicionar");
-		btnNewButton.setFocusPainted(false);
+		btnNewButton.setFocusable(false);
 		btnNewButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

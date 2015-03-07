@@ -24,6 +24,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.AncestorEvent;
 import javax.swing.event.AncestorListener;
@@ -60,10 +61,10 @@ public class Opinioes extends JPanel {
 		setMinimumSize(new Dimension(0, 0));
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.rowHeights = new int[] {0, 123, 0, 0, 0};
-		gridBagLayout.columnWidths = new int[] {0, 400, 0};
-		gridBagLayout.columnWeights = new double[]{1.0, 1.0, 1.0};
-		gridBagLayout.rowWeights = new double[]{0.5, 1.0, 1.0, 0.0, 1.0};
+		gridBagLayout.rowHeights = new int[] {0, 120, 0};
+		gridBagLayout.columnWidths = new int[] {30, 400, 30};
+		gridBagLayout.columnWeights = new double[]{1.0, 0.25, 1.0};
+		gridBagLayout.rowWeights = new double[]{1.0, 0.5, 1.0};
 		setLayout(gridBagLayout);
 
 		JPanel panel = new JPanel();
@@ -75,40 +76,33 @@ public class Opinioes extends JPanel {
 		gbc_panel.gridy = 0;
 		add(panel, gbc_panel);
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[]{113, 0, 115, 0};
-		gbl_panel.rowHeights = new int[]{0, 23, 0};
-		gbl_panel.columnWeights = new double[]{1.0, 0.0, 1.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.columnWidths = new int[]{0, 113, 0, 115, 0};
+		gbl_panel.rowHeights = new int[]{23, 0};
+		gbl_panel.columnWeights = new double[]{0.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
-
-		JLabel lblAno = new JLabel("Ano:");
-		GridBagConstraints gbc_lblAno = new GridBagConstraints();
-		gbc_lblAno.anchor = GridBagConstraints.WEST;
-		gbc_lblAno.insets = new Insets(0, 0, 5, 5);
-		gbc_lblAno.gridx = 0;
-		gbc_lblAno.gridy = 0;
-		panel.add(lblAno, gbc_lblAno);
-
-		JLabel lblMs = new JLabel("M\u00EAs:");
-		GridBagConstraints gbc_lblMs = new GridBagConstraints();
-		gbc_lblMs.anchor = GridBagConstraints.WEST;
-		gbc_lblMs.insets = new Insets(0, 0, 5, 0);
-		gbc_lblMs.gridx = 2;
-		gbc_lblMs.gridy = 0;
-		panel.add(lblMs, gbc_lblMs);
 
 
 		GridBagConstraints gbc_cbAno = new GridBagConstraints();
-		gbc_cbAno.insets = new Insets(0, 0, 0, 5);
+		gbc_cbAno.insets = new Insets(0, 0, 0, 20);
 		gbc_cbAno.fill = GridBagConstraints.HORIZONTAL;
-		gbc_cbAno.gridx = 0;
-		gbc_cbAno.gridy = 1;
+		gbc_cbAno.gridx = 1;
+		gbc_cbAno.gridy = 0;
+		cbAno.setFocusable(false);
 		cbAno.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				atualizaJList();
 			}
 		});
+
+		JLabel lblAno = new JLabel("Ano:");
+		GridBagConstraints gbc_lblAno = new GridBagConstraints();
+		gbc_lblAno.anchor = GridBagConstraints.WEST;
+		gbc_lblAno.insets = new Insets(0, 0, 0, 10);
+		gbc_lblAno.gridx = 0;
+		gbc_lblAno.gridy = 0;
+		panel.add(lblAno, gbc_lblAno);
 		panel.add(cbAno, gbc_cbAno);
 
 		DefaultComboBoxModel<Object> ano = new DefaultComboBoxModel<>();
@@ -120,14 +114,23 @@ public class Opinioes extends JPanel {
 
 		GridBagConstraints gbc_cbMes = new GridBagConstraints();
 		gbc_cbMes.fill = GridBagConstraints.HORIZONTAL;
-		gbc_cbMes.gridx = 2;
-		gbc_cbMes.gridy = 1;
+		gbc_cbMes.gridx = 3;
+		gbc_cbMes.gridy = 0;
+		cbMes.setFocusable(false);
 		cbMes.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				atualizaJList();
 			}
 		});
+
+		JLabel lblMs = new JLabel("M\u00EAs:");
+		GridBagConstraints gbc_lblMs = new GridBagConstraints();
+		gbc_lblMs.anchor = GridBagConstraints.WEST;
+		gbc_lblMs.insets = new Insets(0, 0, 0, 10);
+		gbc_lblMs.gridx = 2;
+		gbc_lblMs.gridy = 0;
+		panel.add(lblMs, gbc_lblMs);
 		panel.add(cbMes, gbc_cbMes);
 
 		String[] e = {"Janeiro","Fevereiro","Mar\u00E7o","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"};
@@ -138,7 +141,7 @@ public class Opinioes extends JPanel {
 		JPanel panelLista = new JPanel();
 		panelLista.setMaximumSize(new Dimension(10, 80));
 		GridBagConstraints gbc_panelLista = new GridBagConstraints();
-		gbc_panelLista.insets = new Insets(0, 0, 5, 5);
+		gbc_panelLista.insets = new Insets(0, 0, 10, 5);
 		gbc_panelLista.fill = GridBagConstraints.BOTH;
 		gbc_panelLista.gridx = 1;
 		gbc_panelLista.gridy = 1;
@@ -158,6 +161,9 @@ public class Opinioes extends JPanel {
 		gbc_scrollPane.gridx = 0;
 		gbc_scrollPane.gridy = 0;
 		panelLista.add(scrollPane, gbc_scrollPane);
+		list.setSelectionForeground(UIManager.getColor("List.foreground"));
+		list.setSelectionBackground(UIManager.getColor("List.background"));
+		list.setFocusable(false);
 
 		list.setVisibleRowCount(-1); //controla crescimento vertical
 		list.setFixedCellWidth(100); //controla crescimento horizontal
@@ -169,24 +175,41 @@ public class Opinioes extends JPanel {
 
 		JPanel panel_1 = new JPanel();
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
-		gbc_panel_1.gridheight = 3;
+		gbc_panel_1.fill = GridBagConstraints.HORIZONTAL;
 		gbc_panel_1.anchor = GridBagConstraints.NORTH;
 		gbc_panel_1.insets = new Insets(0, 0, 0, 5);
 		gbc_panel_1.gridx = 1;
 		gbc_panel_1.gridy = 2;
 		add(panel_1, gbc_panel_1);
+		GridBagLayout gbl_panel_1 = new GridBagLayout();
+		gbl_panel_1.columnWidths = new int[] {0, 0};
+		gbl_panel_1.rowHeights = new int[] {0};
+		gbl_panel_1.columnWeights = new double[]{1.0, 0.0};
+		gbl_panel_1.rowWeights = new double[]{0.0};
+		panel_1.setLayout(gbl_panel_1);
 
 		JButton btVoltar = new JButton("Voltar");
+		btVoltar.setFocusable(false);
 		btVoltar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Sistema.setTela(new Menu());
 			}
 		});
-		panel_1.add(btVoltar);
+		GridBagConstraints gbc_btVoltar = new GridBagConstraints();
+		gbc_btVoltar.anchor = GridBagConstraints.NORTHEAST;
+		gbc_btVoltar.insets = new Insets(0, 0, 0, 10);
+		gbc_btVoltar.gridx = 0;
+		gbc_btVoltar.gridy = 0;
+		panel_1.add(btVoltar, gbc_btVoltar);
 
 		JButton btnAdicionar_1 = new JButton("Adicionar Opini\u00E3o");
-		panel_1.add(btnAdicionar_1);
+		btnAdicionar_1.setFocusable(false);
+		GridBagConstraints gbc_btnAdicionar_1 = new GridBagConstraints();
+		gbc_btnAdicionar_1.anchor = GridBagConstraints.NORTHWEST;
+		gbc_btnAdicionar_1.gridx = 1;
+		gbc_btnAdicionar_1.gridy = 0;
+		panel_1.add(btnAdicionar_1, gbc_btnAdicionar_1);
 		btnAdicionar_1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {

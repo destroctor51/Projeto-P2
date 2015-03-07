@@ -180,7 +180,7 @@ public class Hospede implements Serializable {
 	 * Realiza reserva do hospede, criando assim um contrato pendente.
 	 *
 	 * @param cartao  o numero do cartao do hospede
-	 * @param tarifa  a tarifa a ser cobrada sobre o preco do contrato
+	 * @param estacao  a estacao que definira a tarifa sobre o pagamento
 	 * @throws Exception caso o formato do cartao seja invalido
 	 */
 	public void realizarReserva(String cartao, Estacao estacao) throws Exception {

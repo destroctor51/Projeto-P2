@@ -29,13 +29,10 @@ public class AtualizarRefeicao extends JPanel {
 	private JPanel telaAnterior;
 	private Refeicao refeicao;
 	private String nomeRestaurante;
-	private final JLabel lbObs = new JLabel("*Observa\u00E7\u00F5es");
+	private final JLabel lbObs = new JLabel("<erro>");
 	private JTextField tfNome;
 	private JTextField tfPreco;
 
-	/**
-	 * Create the panel.
-	 */
 	public AtualizarRefeicao(final JPanel telaAnterior,final String nomeRestaurante, final Refeicao refeicao) {
 		setName("Atualizar Refei\u00E7\u00E3o");
 		this.setTelaAnterior(telaAnterior);
@@ -122,6 +119,7 @@ public class AtualizarRefeicao extends JPanel {
 		lbObs.setVisible(false);
 
 		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.setFocusable(false);
 		GridBagConstraints gbc_btnVoltar = new GridBagConstraints();
 		gbc_btnVoltar.anchor = GridBagConstraints.EAST;
 		gbc_btnVoltar.insets = new Insets(0, 0, 0, 5);
@@ -129,6 +127,7 @@ public class AtualizarRefeicao extends JPanel {
 		gbc_btnVoltar.gridy = 0;
 		panel_1.add(btnVoltar, gbc_btnVoltar);
 		JButton btnAdicionar = new JButton("Atualizar");
+		btnAdicionar.setFocusable(false);
 		GridBagConstraints gbc_btnAdicionar = new GridBagConstraints();
 		gbc_btnAdicionar.insets = new Insets(0, 0, 0, 1);
 		gbc_btnAdicionar.gridx = 2;
@@ -159,15 +158,12 @@ public class AtualizarRefeicao extends JPanel {
 					Sistema.setTela(telaAnterior);
 				} catch(NumberFormatException nfe) {
 					lbObs.setText("O pre\u00E7o deve ser um numero positivo");
-					lbObs.setForeground(Color.RED);
 					lbObs.setVisible(true);
 				} catch(IllegalArgumentException iae) {
 					lbObs.setText("Nome deve ter no m\u00EDnimo 3 caracteres(apenas letras)");
-					lbObs.setForeground(Color.RED);
 					lbObs.setVisible(true);
 				} catch(Exception exc) {
 					lbObs.setText(exc.getMessage());
-					lbObs.setForeground(Color.RED);
 					lbObs.setVisible(true);
 				}
 

@@ -21,9 +21,7 @@ public class SuperTextField extends JTextField {
 	private String hint;
 
 	/**
-	 * Cria um SuperTextField.
-	 *
-	 * @param hint  o texto default
+	 * Cria um SuperTextField
 	 */
 	public SuperTextField() {
 		this.hint = new String();

@@ -30,23 +30,18 @@ import javax.swing.event.AncestorListener;
 import utils.Filtro;
 import core.hotel.Hospede;
 
-public class PesquisaHospede extends JPanel {
-	/**
-	 *
-	 */
+public class Hospedes extends JPanel {
+
 	private static final long serialVersionUID = 1L;
+
 	protected String nome;
 	private static JList<Hospede> list = new JList<>();
 	private JLabel errorLabel;
 	private JPanel tela = this;
 
 	private SuperTextField superTextField;
-	/**
-	 * Create the panel.
-	 *
-	 * @throws Exception
-	 */
-	public PesquisaHospede() {
+
+	public Hospedes() {
 		addAncestorListener(new AncestorListener() {
 			@Override
 			public void ancestorAdded(AncestorEvent arg0) {
@@ -66,15 +61,15 @@ public class PesquisaHospede extends JPanel {
 		setName("Pesquisa H\u00F3spede");
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] {30, 400, 30};
-		gridBagLayout.rowHeights = new int[] {0, 90, 0};
-		gridBagLayout.columnWeights = new double[] { 1.0, 1.0, 1.0 };
-		gridBagLayout.rowWeights = new double[] { 1.0, 1.0, 1.0 };
+		gridBagLayout.rowHeights = new int[] {0, 120, 0};
+		gridBagLayout.columnWeights = new double[] { 1.0, 0.25, 1.0 };
+		gridBagLayout.rowWeights = new double[] { 1.0, 0.5, 1.0 };
 		setLayout(gridBagLayout);
 
 		JPanel panel = new JPanel();
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.anchor = GridBagConstraints.SOUTH;
-		gbc_panel.insets = new Insets(0, 0, 5, 5);
+		gbc_panel.insets = new Insets(0, 0, 10, 5);
 		gbc_panel.fill = GridBagConstraints.HORIZONTAL;
 		gbc_panel.gridx = 1;
 		gbc_panel.gridy = 0;
@@ -88,7 +83,7 @@ public class PesquisaHospede extends JPanel {
 
 		JLabel lblHspede = new JLabel("H\u00F3spede :");
 		GridBagConstraints gbc_lblHspede = new GridBagConstraints();
-		gbc_lblHspede.insets = new Insets(0, 0, 10, 10);
+		gbc_lblHspede.insets = new Insets(0, 0, 0, 10);
 		gbc_lblHspede.gridx = 0;
 		gbc_lblHspede.gridy = 0;
 		panel.add(lblHspede, gbc_lblHspede);
@@ -105,7 +100,6 @@ public class PesquisaHospede extends JPanel {
 		};
 		atualizaJList();
 		GridBagConstraints gbc_superTextField = new GridBagConstraints();
-		gbc_superTextField.insets = new Insets(0, 0, 10, 0);
 		gbc_superTextField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_superTextField.gridx = 1;
 		gbc_superTextField.gridy = 0;
@@ -131,6 +125,7 @@ public class PesquisaHospede extends JPanel {
 		gbc_scrollPane.gridx = 0;
 		gbc_scrollPane.gridy = 0;
 		panel_2.add(scrollPane, gbc_scrollPane);
+		list.setFocusable(false);
 
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		atualizaJList();
@@ -156,7 +151,7 @@ public class PesquisaHospede extends JPanel {
 		gbl_panel_1.rowWeights = new double[] { 0.0 };
 		panel_1.setLayout(gbl_panel_1);
 
-		errorLabel = new JLabel("");
+		errorLabel = new JLabel("<erro>");
 		GridBagConstraints gbc_ErrorLabel = new GridBagConstraints();
 		gbc_ErrorLabel.anchor = GridBagConstraints.WEST;
 		gbc_ErrorLabel.insets = new Insets(0, 0, 0, 10);
@@ -164,10 +159,11 @@ public class PesquisaHospede extends JPanel {
 		gbc_ErrorLabel.gridy = 0;
 		panel_1.add(errorLabel, gbc_ErrorLabel);
 		errorLabel.setVisible(false);
-		errorLabel.setIcon(new ImageIcon(PesquisaHospede.class
+		errorLabel.setIcon(new ImageIcon(Hospedes.class
 				.getResource("/gui/images/error.png")));
 
 		JButton btnCancelar = new JButton("Voltar");
+		btnCancelar.setFocusable(false);
 		GridBagConstraints gbc_btnCancelar = new GridBagConstraints();
 		gbc_btnCancelar.anchor = GridBagConstraints.EAST;
 		gbc_btnCancelar.insets = new Insets(0, 0, 0, 10);
@@ -176,15 +172,15 @@ public class PesquisaHospede extends JPanel {
 		panel_1.add(btnCancelar, gbc_btnCancelar);
 
 		JButton btnCadastrar = new JButton("Cadastrar");
+		btnCadastrar.setFocusable(false);
 		GridBagConstraints gbc_btnCadastrar = new GridBagConstraints();
-		gbc_btnCadastrar.insets = new Insets(0, 0, 0, 5);
 		gbc_btnCadastrar.gridx = 2;
 		gbc_btnCadastrar.gridy = 0;
 		panel_1.add(btnCadastrar, gbc_btnCadastrar);
 		btnCadastrar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Sistema.setTela(new CadastraHospede(tela));
+				Sistema.setTela(new CadastrarHospede(tela));
 			}
 		});
 		btnCancelar.addActionListener(new ActionListener() {
@@ -223,7 +219,7 @@ public class PesquisaHospede extends JPanel {
 					return;
 				}
 				list.ensureIndexIsVisible(index);
-				Sistema.setTela(new AtualizaHospede((Hospede) item,tela));
+				Sistema.setTela(new AtualizarHospede((Hospede) item,tela));
 			}
 		}
 	}

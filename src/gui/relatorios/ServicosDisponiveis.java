@@ -85,6 +85,7 @@ public class ServicosDisponiveis extends JPanel {
 		panel_1.setLayout(gbl_panel_1);
 
 		JButton btnGerarRelatorio = new JButton("Gerar relat\u00F3rio");
+		btnGerarRelatorio.setFocusable(false);
 		btnGerarRelatorio.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -93,7 +94,6 @@ public class ServicosDisponiveis extends JPanel {
 					errorLabel.setVisible(false);
 					geraGrafico();
 				} else {
-					errorLabel.setForeground(Color.RED);
 					errorLabel.setVisible(true);
 					errorLabel.setText("Selecione um per\u00EDodo");
 				}
@@ -160,6 +160,7 @@ public class ServicosDisponiveis extends JPanel {
 		errorLabel.setForeground(Color.RED);
 
 		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.setFocusable(false);
 		GridBagConstraints gbc_btnVoltar = new GridBagConstraints();
 		gbc_btnVoltar.anchor = GridBagConstraints.EAST;
 		gbc_btnVoltar.gridx = 1;

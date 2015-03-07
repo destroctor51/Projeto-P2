@@ -30,7 +30,7 @@ import core.hotel.Contrato;
 import core.hotel.EstadoDeContrato;
 import core.hotel.Hospede;
 
-public class AtualizarContratos extends JPanel {
+public class Contratos extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
@@ -44,13 +44,13 @@ public class AtualizarContratos extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public AtualizarContratos() {
+	public Contratos() {
 		setName("Atualizar Contratos");
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[] {0, 0, 0};
-		gridBagLayout.rowHeights = new int[] {0, 0, 0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{1.0, 0.5, 1.0};
+		gridBagLayout.columnWidths = new int[] {0, 400, 0};
+		gridBagLayout.rowHeights = new int[] {0, 120, 0, 120, 0};
+		gridBagLayout.columnWeights = new double[]{1.0, 0.25, 1.0};
 		gridBagLayout.rowWeights = new double[]{1.0, 0.25, 0.1, 0.25, 1.0};
 		setLayout(gridBagLayout);
 
@@ -62,13 +62,13 @@ public class AtualizarContratos extends JPanel {
 		gbl_panel.rowWeights = new double[]{0.0};
 		panel.setLayout(gbl_panel);
 
-		JLabel label = new JLabel("Procurar H\u00F3spede:");
-		label.setHorizontalAlignment(SwingConstants.LEFT);
-		GridBagConstraints gbc_label = new GridBagConstraints();
-		gbc_label.insets = new Insets(0, 0, 0, 10);
-		gbc_label.gridx = 0;
-		gbc_label.gridy = 0;
-		panel.add(label, gbc_label);
+		JLabel lblBuscarHspede = new JLabel("Buscar H\u00F3spede:");
+		lblBuscarHspede.setHorizontalAlignment(SwingConstants.LEFT);
+		GridBagConstraints gbc_lblBuscarHspede = new GridBagConstraints();
+		gbc_lblBuscarHspede.insets = new Insets(0, 0, 0, 10);
+		gbc_lblBuscarHspede.gridx = 0;
+		gbc_lblBuscarHspede.gridy = 0;
+		panel.add(lblBuscarHspede, gbc_lblBuscarHspede);
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.anchor = GridBagConstraints.SOUTH;
 		gbc_panel.fill = GridBagConstraints.HORIZONTAL;
@@ -97,6 +97,9 @@ public class AtualizarContratos extends JPanel {
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
 		listHospedes = new JList<>();
+		listHospedes.setVisibleRowCount(-1);
+		listHospedes.setFixedCellWidth(100);
+		listHospedes.setFocusable(false);
 		listHospedes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listHospedes.addMouseListener(new MouseAdapter() {
 			@Override
@@ -124,6 +127,9 @@ public class AtualizarContratos extends JPanel {
 		scrollPane_1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
 		listContratos = new JList<>();
+		listContratos.setVisibleRowCount(-1);
+		listContratos.setFixedCellWidth(100);
+		listContratos.setFocusable(false);
 		listContratos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane_1.setViewportView(listContratos);
 		GridBagConstraints gbc_scrollPane_1 = new GridBagConstraints();
@@ -157,10 +163,10 @@ public class AtualizarContratos extends JPanel {
 		panel_1.add(errorLabel, gbc_errorLabel);
 		errorLabel.setForeground(Color.RED);
 		errorLabel.setVisible(false);
-		errorLabel.setIcon(new ImageIcon(AtualizarContratos.class
+		errorLabel.setIcon(new ImageIcon(Contratos.class
 				.getResource("/gui/images/error.png")));
 
-		JButton btnCancelar = new JButton("Cancelar");
+		JButton btnCancelar = new JButton("Voltar");
 		btnCancelar.setFocusable(false);
 		GridBagConstraints gbc_btnCancelar = new GridBagConstraints();
 		gbc_btnCancelar.anchor = GridBagConstraints.EAST;
@@ -212,13 +218,13 @@ public class AtualizarContratos extends JPanel {
 			errorLabel.setVisible(true);
 			return;
 		}
-		
+
 		errorLabel.setVisible(false);
-		
+
 		Hospede hospede = listHospedes.getSelectedValue();
 		Contrato contrato = listContratos.getSelectedValue();
 		EstadoDeContrato estado = contrato.getEstado();
-		
+
 		if(estado == EstadoDeContrato.ABERTO)
 			Sistema.setTela(new VisualizarContrato(contrato, tela));
 		else if (estado == EstadoDeContrato.FECHADO)

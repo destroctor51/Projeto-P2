@@ -21,6 +21,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -51,7 +52,7 @@ public class Servicos extends JPanel {
 	private JButton btnAdicionar;
 	private JLabel  lblAtualizarServios, lblBuscar, lblTipoDeServio;
 	final JList<Object> list = new JList<Object>();
-	private JLabel lbObs = new JLabel("*Observa\u00E7\u00F5es");
+	private JLabel lbObs = new JLabel("<erro>");
 	private JPanel tela = this;
 
 	/**
@@ -64,7 +65,7 @@ public class Servicos extends JPanel {
 			public void ancestorAdded(AncestorEvent arg0) {
 				List<Object> elementos = filtraList();
 				Filtro.exibeFiltrado(tfBuscar.getText(), elementos, list);
-				
+
 				lbObs.setVisible(false);
 			}
 			@Override
@@ -76,10 +77,10 @@ public class Servicos extends JPanel {
 		setMinimumSize(new Dimension(0, 0));
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.rowHeights = new int[] {0, 0, 90, 0};
+		gridBagLayout.rowHeights = new int[] {0, 60, 120, 0};
 		gridBagLayout.columnWidths = new int[] {0, 400, 0};
-		gridBagLayout.columnWeights = new double[]{1.0, 1.0, 1.0};
-		gridBagLayout.rowWeights = new double[]{0.75, 0.5, 1.0, 1.0};
+		gridBagLayout.columnWeights = new double[]{1.0, 0.25, 1.0};
+		gridBagLayout.rowWeights = new double[]{1.0, 0.1, 0.5, 1.0};
 		setLayout(gridBagLayout);
 
 		JPanel panelSuperior = new JPanel();
@@ -96,7 +97,7 @@ public class Servicos extends JPanel {
 				Filtro.exibeFiltrado(text, elementos, list);
 			}
 		};
-		
+
 		tfBuscar.setMaximumSize(new Dimension(100, 100));
 		panelSuperior.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{tfBuscar, cbServicos_1, btnAdicionar, lblAtualizarServios, lblBuscar, lblTipoDeServio}));
 
@@ -113,6 +114,7 @@ public class Servicos extends JPanel {
 		gbc_tfBuscar.gridx = 1;
 		gbc_tfBuscar.gridy = 1;
 		panelSuperior.add(tfBuscar, gbc_tfBuscar);
+		cbServicos_1.setFocusable(false);
 
 		cbServicos_1.setAlignmentX(Component.LEFT_ALIGNMENT);
 
@@ -160,6 +162,7 @@ public class Servicos extends JPanel {
 		gbl_panel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		JButton btnRemoverServio = new JButton("Remover Servi\u00E7o");
+		btnRemoverServio.setFocusable(false);
 		GridBagConstraints gbc_btnRemoverServio = new GridBagConstraints();
 		gbc_btnRemoverServio.anchor = GridBagConstraints.NORTHWEST;
 		gbc_btnRemoverServio.insets = new Insets(0, 0, 0, 5);
@@ -176,12 +179,14 @@ public class Servicos extends JPanel {
 
 				if (item == null) {
 					lbObs.setText("Nenhum item foi selecionado");
+					lbObs.setIcon(new ImageIcon(Servicos.class.getResource("/gui/images/error.png")));
 					lbObs.setForeground(Color.RED);
 					lbObs.setVisible(true);
 					return;
 				}
 
-				lbObs.setForeground(new Color(0, 180, 0));
+				lbObs.setIcon(new ImageIcon(Servicos.class.getResource("/gui/images/success.png")));
+				lbObs.setForeground(new Color(0, 150, 0));
 				lbObs.setText("Item removido com sucesso");
 				lbObs.setVisible(true);
 
@@ -220,6 +225,7 @@ public class Servicos extends JPanel {
 		});
 
 		JButton btnAdicionar_1 = new JButton("Adicionar Servi\u00E7o");
+		btnAdicionar_1.setFocusable(false);
 		GridBagConstraints gbc_btnAdicionar_1 = new GridBagConstraints();
 		gbc_btnAdicionar_1.anchor = GridBagConstraints.NORTHWEST;
 		gbc_btnAdicionar_1.gridx = 1;
@@ -283,9 +289,12 @@ public class Servicos extends JPanel {
 		gbc_lbObs.insets = new Insets(0, 0, 0, 5);
 		gbc_lbObs.gridx = 0;
 		gbc_lbObs.gridy = 0;
+		lbObs.setIcon(new ImageIcon(Servicos.class.getResource("/gui/images/error.png")));
+		lbObs.setForeground(Color.RED);
 		panel_1.add(lbObs, gbc_lbObs);
 
 		JButton btnNewButton = new JButton("Voltar");
+		btnNewButton.setFocusable(false);
 		btnNewButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -303,12 +312,12 @@ public class Servicos extends JPanel {
 
 	private List<Object> filtraList() {
 		String selecionado = (String) cbServicos_1.getSelectedItem();
-		
+
 		if (selecionado == null)
 			return new ArrayList<Object>();
-		
+
 		List<Object> elementos = new LinkedList<>();
-		
+
 		switch(selecionado){
 		case "Babysitter":
 			for(Babysitter bs: Sistema.getHotel().getBabas())
@@ -331,10 +340,10 @@ public class Servicos extends JPanel {
 				elementos.add(r);
 			break;
 		}
-		
+
 		return elementos;
 	}
-	
+
 	private void atualizaJList() {
 		List<Object> elementos = filtraList();
 		Filtro.ordenaToString(elementos);

@@ -47,9 +47,6 @@ public class EditarConta extends JPanel {
 	private JTextField textField_1;
 	private JTextField textField_2;
 
-	/**
-	 * Create the panel.
-	 */
 	public EditarConta(final Conta conta, final JPanel telaAnterior) {
 		setName("Editar Conta");
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -101,6 +98,7 @@ public class EditarConta extends JPanel {
 		panel.add(lblNewLabel_2, gbc_lblNewLabel_2);
 
 		comboBox = new JComboBox<>();
+		comboBox.setFocusable(false);
 		comboBox.setModel(new DefaultComboBoxModel<>(Permissao.values()));
 		comboBox.setSelectedItem(conta.getPermissao());
 		comboBox.setEnabled(false);
@@ -196,7 +194,7 @@ public class EditarConta extends JPanel {
 		gbl_panel_1.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_1.setLayout(gbl_panel_1);
 
-		final JLabel lblNewLabel = new JLabel("<mensagem>");
+		final JLabel lblNewLabel = new JLabel("<erro>");
 		lblNewLabel.setVisible(false);
 		lblNewLabel.setIcon(new ImageIcon(EditarConta.class.getResource("/gui/images/error.png")));
 		lblNewLabel.setForeground(Color.RED);
@@ -208,10 +206,10 @@ public class EditarConta extends JPanel {
 		panel_1.add(lblNewLabel, gbc_lblNewLabel);
 
 		btnNewButton_1 = new JButton("Voltar");
+		btnNewButton_1.setFocusable(false);
 		btnNewButton_1.setMaximumSize(new Dimension(75, 23));
 		btnNewButton_1.setMinimumSize(new Dimension(75, 23));
 		btnNewButton_1.setPreferredSize(new Dimension(75, 23));
-		btnNewButton_1.setFocusPainted(false);
 		btnNewButton_1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -244,6 +242,7 @@ public class EditarConta extends JPanel {
 		panel_1.add(btnNewButton_1, gbc_btnNewButton_1);
 
 		btnNewButton = new JButton("Editar");
+		btnNewButton.setFocusable(false);
 		btnNewButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -325,7 +324,6 @@ public class EditarConta extends JPanel {
 		btnNewButton.setMaximumSize(new Dimension(79, 23));
 		btnNewButton.setMinimumSize(new Dimension(79, 23));
 		btnNewButton.setPreferredSize(new Dimension(79, 23));
-		btnNewButton.setFocusPainted(false);
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.gridx = 2;
 		gbc_btnNewButton.gridy = 0;

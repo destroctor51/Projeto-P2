@@ -96,7 +96,7 @@ public class Sistema extends JFrame implements ActionListener, FullscreenListene
 		gbc_toolBar.gridy = 0;
 		getContentPane().add(toolBar, gbc_toolBar);
 		GridBagLayout gbl_toolBar = new GridBagLayout();
-		gbl_toolBar.columnWidths = new int[] {15, 280, 0, 300};
+		gbl_toolBar.columnWidths = new int[] {15, 240, 0, 260};
 		gbl_toolBar.rowHeights = new int[] {17};
 		gbl_toolBar.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0};
 		gbl_toolBar.rowWeights = new double[]{0.0};

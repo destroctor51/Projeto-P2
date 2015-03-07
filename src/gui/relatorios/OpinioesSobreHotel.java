@@ -101,7 +101,6 @@ public class OpinioesSobreHotel extends JPanel {
 
 		JButton btnGerarRelatorio = new JButton("Gerar relat\u00F3rio");
 		btnGerarRelatorio.setFocusable(false);
-		btnGerarRelatorio.setFocusPainted(false);
 		btnGerarRelatorio.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -110,7 +109,6 @@ public class OpinioesSobreHotel extends JPanel {
 					errorLabel.setVisible(false);
 					geraGrafico(calendario.getSelecao());
 				} else {
-					errorLabel.setForeground(Color.RED);
 					errorLabel.setVisible(true);
 					errorLabel.setText("Selecione um per\u00EDodo");
 				}
@@ -177,7 +175,6 @@ public class OpinioesSobreHotel extends JPanel {
 		errorLabel.setIcon(new ImageIcon(OpinioesSobreHotel.class.getResource("/gui/images/error.png")));
 
 		JButton btnVoltar = new JButton("Voltar");
-		btnVoltar.setFocusPainted(false);
 		btnVoltar.setFocusable(false);
 		GridBagConstraints gbc_btnVoltar = new GridBagConstraints();
 		gbc_btnVoltar.anchor = GridBagConstraints.EAST;

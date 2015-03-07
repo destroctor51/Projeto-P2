@@ -21,10 +21,9 @@ public class Opiniao implements Serializable {
 	/**
 	 * Cria uma opiniao a partir da nota e do comentario.
 	 *
-	 * @param nota
-	 * 			A nota do produto em que sera registrada a opiniao.
-	 * @param comentario
-	 * 			O comentario da opiniao.
+	 * @param nota  a nota do produto em que sera registrada a opiniao
+	 * @param comentario  o comentario da opiniao
+	 * @param data  a data em que a opiniao foi criada
 	 */
 	public Opiniao(int nota, String comentario, Calendar data) {
 		this("An\00F4nimo", nota, comentario, data);
@@ -96,7 +95,7 @@ public class Opiniao implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Autor: " + getAutor() + ", nota: " + getNota() + ", coment\u00E1rio: " + getComentario();
+		return "Autor: " + getAutor() + ", Nota: " + getNota() + ", Coment\u00E1rio: " + getComentario();
 	}
 
 	@Override

@@ -36,6 +36,7 @@ public class MenuRelatorios extends JPanel {
 		setLayout(gridBagLayout);
 
 		JButton btnServicosDisponiveis = new JButton("Servicos dispon\u00EDveis");
+		btnServicosDisponiveis.setFocusable(false);
 		GridBagConstraints gbc_btnServicosDisponiveis = new GridBagConstraints();
 		gbc_btnServicosDisponiveis.fill = GridBagConstraints.BOTH;
 		gbc_btnServicosDisponiveis.insets = new Insets(0, 0, 10, 5);
@@ -44,6 +45,7 @@ public class MenuRelatorios extends JPanel {
 		add(btnServicosDisponiveis, gbc_btnServicosDisponiveis);
 
 		JButton btnContratosEmAberto = new JButton("Contratos em aberto");
+		btnContratosEmAberto.setFocusable(false);
 		GridBagConstraints gbc_btnContratosEmAberto = new GridBagConstraints();
 		gbc_btnContratosEmAberto.fill = GridBagConstraints.BOTH;
 		gbc_btnContratosEmAberto.insets = new Insets(0, 0, 10, 5);
@@ -52,6 +54,7 @@ public class MenuRelatorios extends JPanel {
 		add(btnContratosEmAberto, gbc_btnContratosEmAberto);
 
 		JButton btnFaturamento = new JButton("Faturamento e Servi\u00E7os");
+		btnFaturamento.setFocusable(false);
 		GridBagConstraints gbc_btnFaturamentoPorMs = new GridBagConstraints();
 		gbc_btnFaturamentoPorMs.fill = GridBagConstraints.BOTH;
 		gbc_btnFaturamentoPorMs.insets = new Insets(0, 0, 10, 5);
@@ -60,6 +63,7 @@ public class MenuRelatorios extends JPanel {
 		add(btnFaturamento, gbc_btnFaturamentoPorMs);
 
 		JButton btnOpinioes = new JButton("Opini\u00F5es sobre hotel");
+		btnOpinioes.setFocusable(false);
 		GridBagConstraints gbc_btnOpinioes = new GridBagConstraints();
 		gbc_btnOpinioes.fill = GridBagConstraints.BOTH;
 		gbc_btnOpinioes.insets = new Insets(0, 0, 10, 5);
@@ -68,6 +72,7 @@ public class MenuRelatorios extends JPanel {
 		add(btnOpinioes, gbc_btnOpinioes);
 
 		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.setFocusable(false);
 		GridBagConstraints gbc_btnVoltar = new GridBagConstraints();
 		gbc_btnVoltar.anchor = GridBagConstraints.NORTHEAST;
 		gbc_btnVoltar.insets = new Insets(0, 0, 0, 5);

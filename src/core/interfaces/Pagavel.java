@@ -12,18 +12,17 @@ import java.io.Serializable;
 public interface Pagavel extends Cloneable, Serializable {
 
 	/**
-	 *
-	 * @return
-	 * 		A descricao do pagavel. Informacoes em geral sobre o objeto.
+	 * @return a descricao do pagavel. Informacoes em geral sobre o objeto
 	 */
 	public String getDescricao();
 
 	/**
-	 *
-	 * @return
-	 * 		O custo associado ao Pagavel.
+	 * @return o custo associado ao Pagavel
 	 */
 	public float getPreco();
 
+	/**
+	 * @return um clone independente do pagavel em questao
+	 */
 	public Object clone();
 }

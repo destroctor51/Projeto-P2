@@ -9,16 +9,33 @@ import java.util.TreeSet;
 
 import core.tempo.Periodo;
 
+/**
+ * Metodos estaticos com foco em facilitar a interacao com conjuntos de periodos.
+ *
+ * @author Victor Andrade de Almeida
+ */
 public final class Tempo {
 
 	private Tempo() {}
 
+	/**
+	 * Cria um clone da data sem o ano.
+	 *
+	 * @param data  a data a ser congelada no tempo
+	 * @return o clone resultante
+	 */
 	public static Calendar freeze(Calendar data) {
 		Calendar clone = (Calendar) data.clone();
 		clone.set(Calendar.YEAR, 1);
 		return clone;
 	}
 
+	/**
+	 * Congela um periodo no tempo, removendo suas informacoes sobre o ano.
+	 *
+	 * @param periodo  o periodo alvo
+	 * @return uma lista contendo os periodos resultantes
+	 */
 	public static List<Periodo> freeze(Periodo periodo) {
 		List<Periodo> resultado = new ArrayList<>();
 		if(periodo == null) return resultado;
@@ -43,9 +60,15 @@ public final class Tempo {
 		return resultado;
 	}
 
-	public static void merge(Periodo periodo, Set<Periodo> periodos) {
+	/**
+	 * Adiciona um periodo a um conjunto de modo a manter o minimo de periodos dentro dele.
+	 *
+	 * @param periodo  o periodo a ser adicionado
+	 * @param set  o conjunto alvo
+	 */
+	public static void merge(Periodo periodo, Set<Periodo> set) {
 		if(periodo == null) return;
-		Set<Periodo> cache = new TreeSet<>(periodos);
+		Set<Periodo> cache = new TreeSet<>(set);
 
 		for(Periodo p : cache)
 			if(!periodo.entraEmConflito(p)) {
@@ -63,10 +86,16 @@ public final class Tempo {
 			else
 				periodo.setInicio(p.getInicio());
 
-		while(periodos.remove(periodo));
-		periodos.add(periodo);
+		while(set.remove(periodo));
+		set.add(periodo);
 	}
 
+	/**
+	 * Remove um periodo qualquer de um conjunto, mesmo que ele nao tenha sido colocado explicitamente.
+	 *
+	 * @param periodo  o periodo a ser removido
+	 * @param set  o conjunto alvo
+	 */
 	public static void cut(Periodo periodo, Set<Periodo> set) {
 		if(periodo == null) return;
 		Set<Periodo> cache = new TreeSet<>();

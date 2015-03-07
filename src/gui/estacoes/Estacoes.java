@@ -26,6 +26,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.event.AncestorEvent;
 import javax.swing.event.AncestorListener;
 
@@ -62,31 +63,31 @@ public class Estacoes extends JPanel {
 		});
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 402, 0, 0};
-		gridBagLayout.rowHeights = new int[]{59, 34, 166, 59, 0};
-		gridBagLayout.columnWeights = new double[]{1.0, 1.0, 1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{1.0, 0.25, 1.0, 1.0, Double.MIN_VALUE};
+		gridBagLayout.columnWidths = new int[] {0, 0, 0};
+		gridBagLayout.rowHeights = new int[] {0, 120, 0};
+		gridBagLayout.columnWeights = new double[]{1.0, 0.25, 1.0};
+		gridBagLayout.rowWeights = new double[]{1.0, 0.5, 1.0};
 		setLayout(gridBagLayout);
 
 		JPanel panel = new JPanel();
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.anchor = GridBagConstraints.SOUTH;
-		gbc_panel.insets = new Insets(0, 0, 5, 5);
+		gbc_panel.insets = new Insets(0, 0, 10, 5);
 		gbc_panel.fill = GridBagConstraints.HORIZONTAL;
 		gbc_panel.gridx = 1;
 		gbc_panel.gridy = 0;
 		add(panel, gbc_panel);
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[]{0, 0, 0};
-		gbl_panel.rowHeights = new int[]{0, 0, 0, 0};
-		gbl_panel.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{1.0, 1.0, 1.0, Double.MIN_VALUE};
+		gbl_panel.columnWidths = new int[] {0, 0};
+		gbl_panel.rowHeights = new int[] {0};
+		gbl_panel.columnWeights = new double[]{0.0, 1.0};
+		gbl_panel.rowWeights = new double[]{1.0, 1.0};
 		panel.setLayout(gbl_panel);
 
 		JLabel label = new JLabel("Buscar:");
 		GridBagConstraints gbc_label = new GridBagConstraints();
 		gbc_label.anchor = GridBagConstraints.EAST;
-		gbc_label.insets = new Insets(0, 0, 10, 10);
+		gbc_label.insets = new Insets(0, 0, 0, 10);
 		gbc_label.gridx = 0;
 		gbc_label.gridy = 1;
 		panel.add(label, gbc_label);
@@ -103,79 +104,19 @@ public class Estacoes extends JPanel {
 		tfBuscar.setMaximumSize(new Dimension(100, 100));
 		GridBagConstraints gbc_textField = new GridBagConstraints();
 		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.insets = new Insets(0, 0, 10, 0);
 		gbc_textField.gridx = 1;
 		gbc_textField.gridy = 1;
 		panel.add(tfBuscar, gbc_textField);
 
-
-		JPanel panel_1 = new JPanel();
-		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
-		gbc_panel_1.anchor = GridBagConstraints.SOUTH;
-		gbc_panel_1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_panel_1.insets = new Insets(0, 0, 5, 5);
-		gbc_panel_1.gridx = 1;
-		gbc_panel_1.gridy = 1;
-		add(panel_1, gbc_panel_1);
-		GridBagLayout gbl_panel_1 = new GridBagLayout();
-		gbl_panel_1.columnWidths = new int[]{113, 115, 0};
-		gbl_panel_1.rowHeights = new int[]{23, 0};
-		gbl_panel_1.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
-		gbl_panel_1.rowWeights = new double[]{0.0, Double.MIN_VALUE};
-		panel_1.setLayout(gbl_panel_1);
-
-
-		JButton btnRemoverEstao = new JButton("Remover Esta\u00E7\u00E3o");
-		btnRemoverEstao.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				Object item = list.getSelectedValue();
-
-				if (item == null) {
-					lblobservaes.setText("Nenhum \u00EDtem foi selecionado");
-					lblobservaes.setForeground(Color.RED);
-					lblobservaes.setVisible(true);
-					return;
-				}
-
-				lblobservaes.setVisible(false);
-
-				Sistema.getHotel().removeEstacao((Estacao) item);
-
-				List<Object> elementos = filtraList();
-				Filtro.exibeFiltrado(tfBuscar.getText(), elementos, list);
-			}
-		});
-		btnRemoverEstao.setMaximumSize(new Dimension(150, 100));
-		btnRemoverEstao.setBounds(new Rectangle(100, 0, 100, 50));
-		GridBagConstraints gbc_btnRemoverEstao = new GridBagConstraints();
-		gbc_btnRemoverEstao.anchor = GridBagConstraints.NORTHWEST;
-		gbc_btnRemoverEstao.insets = new Insets(0, 0, 0, 5);
-		gbc_btnRemoverEstao.gridx = 0;
-		gbc_btnRemoverEstao.gridy = 0;
-		panel_1.add(btnRemoverEstao, gbc_btnRemoverEstao);
-
-
-		btnAdicionar = new JButton("Adicionar Esta\u00E7\u00E3o");
-		btnAdicionar.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Sistema.setTela(new GerenciarEstacao());
-			}
-		});
-		GridBagConstraints gbc_btnAdicionarEstao = new GridBagConstraints();
-		gbc_btnAdicionarEstao.anchor = GridBagConstraints.NORTHWEST;
-		gbc_btnAdicionarEstao.gridx = 1;
-		gbc_btnAdicionarEstao.gridy = 0;
-		panel_1.add(btnAdicionar, gbc_btnAdicionarEstao);
-
 		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
-		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
+		gbc_scrollPane.insets = new Insets(0, 0, 10, 5);
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane.gridx = 1;
-		gbc_scrollPane.gridy = 2;
+		gbc_scrollPane.gridy = 1;
 		add(scrollPane, gbc_scrollPane);
+		list.setFocusable(false);
 
 		list.addMouseListener(new MouseAdapter() {
 			@Override
@@ -209,37 +150,84 @@ public class Estacoes extends JPanel {
 		gbc_panel_2.insets = new Insets(0, 0, 0, 5);
 		gbc_panel_2.fill = GridBagConstraints.HORIZONTAL;
 		gbc_panel_2.gridx = 1;
-		gbc_panel_2.gridy = 3;
+		gbc_panel_2.gridy = 2;
 		add(panel_2, gbc_panel_2);
 		GridBagLayout gbl_panel_2 = new GridBagLayout();
-		gbl_panel_2.columnWidths = new int[]{154, 0, 46, 0, 0};
-		gbl_panel_2.rowHeights = new int[]{25, 0};
-		gbl_panel_2.columnWeights = new double[]{1.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
-		gbl_panel_2.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		gbl_panel_2.columnWidths = new int[] {160, 0, 0, 0};
+		gbl_panel_2.rowHeights = new int[] {0};
+		gbl_panel_2.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0};
+		gbl_panel_2.rowWeights = new double[]{0.0};
 		panel_2.setLayout(gbl_panel_2);
 
-		lblobservaes = new JLabel("*Observa\u00E7\u00EDµes");
+		lblobservaes = new JLabel("<erro>");
 		lblobservaes.setIcon(new ImageIcon(Estacoes.class.getResource("/gui/images/error.png")));
 		lblobservaes.setVisible(false);
 		GridBagConstraints gbc_lblobservaes = new GridBagConstraints();
-		gbc_lblobservaes.anchor = GridBagConstraints.NORTHWEST;
+		gbc_lblobservaes.anchor = GridBagConstraints.WEST;
 		gbc_lblobservaes.insets = new Insets(0, 0, 0, 5);
 		gbc_lblobservaes.gridx = 0;
 		gbc_lblobservaes.gridy = 0;
 		panel_2.add(lblobservaes, gbc_lblobservaes);
 
 		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.setFocusable(false);
 		btnVoltar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				Sistema.setTela(new Menu());
 			}
 		});
+
+
+		JButton btnRemoverEstao = new JButton("Remover Esta\u00E7\u00E3o");
+		GridBagConstraints gbc_btnRemoverEstao = new GridBagConstraints();
+		gbc_btnRemoverEstao.insets = new Insets(0, 0, 0, 10);
+		gbc_btnRemoverEstao.gridx = 2;
+		gbc_btnRemoverEstao.gridy = 0;
+		panel_2.add(btnRemoverEstao, gbc_btnRemoverEstao);
+		btnRemoverEstao.setFocusable(false);
+		btnRemoverEstao.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Object item = list.getSelectedValue();
+
+				if (item == null) {
+					lblobservaes.setText("Nenhum item foi selecionado");
+					lblobservaes.setForeground(Color.RED);
+					lblobservaes.setVisible(true);
+					return;
+				}
+
+				lblobservaes.setVisible(false);
+
+				Sistema.getHotel().removeEstacao((Estacao) item);
+
+				List<Object> elementos = filtraList();
+				Filtro.exibeFiltrado(tfBuscar.getText(), elementos, list);
+			}
+		});
+		btnRemoverEstao.setMaximumSize(new Dimension(150, 100));
+		btnRemoverEstao.setBounds(new Rectangle(100, 0, 100, 50));
 		GridBagConstraints gbc_btnVoltar = new GridBagConstraints();
-		gbc_btnVoltar.anchor = GridBagConstraints.NORTHEAST;
-		gbc_btnVoltar.gridx = 3;
+		gbc_btnVoltar.insets = new Insets(0, 0, 0, 10);
+		gbc_btnVoltar.anchor = GridBagConstraints.EAST;
+		gbc_btnVoltar.gridx = 1;
 		gbc_btnVoltar.gridy = 0;
 		panel_2.add(btnVoltar, gbc_btnVoltar);
+
+
+		btnAdicionar = new JButton("Adicionar Esta\u00E7\u00E3o");
+		GridBagConstraints gbc_btnAdicionar = new GridBagConstraints();
+		gbc_btnAdicionar.gridx = 3;
+		gbc_btnAdicionar.gridy = 0;
+		panel_2.add(btnAdicionar, gbc_btnAdicionar);
+		btnAdicionar.setFocusable(false);
+		btnAdicionar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Sistema.setTela(new GerenciarEstacao());
+			}
+		});
 
 	}
 

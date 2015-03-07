@@ -17,6 +17,7 @@ import java.awt.event.MouseMotionAdapter;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -29,19 +30,16 @@ public class AdicionarOpiniao extends JPanel {
 
 	private Calendar dataAtual = GregorianCalendar.getInstance();
 
-	/**
-	 * Create the panel.
-	 */
 	public AdicionarOpiniao(final JPanel tela) {
 
 		setName("Adicionar Opini\u00E3o");
 		setMinimumSize(new Dimension(0, 0));
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.rowHeights = new int[] {67, 168, 37, 58};
+		gridBagLayout.rowHeights = new int[] {0, 0, 120, 0};
 		gridBagLayout.columnWidths = new int[] {0, 400, 0};
-		gridBagLayout.columnWeights = new double[]{1.0, 1.0, 1.0};
-		gridBagLayout.rowWeights = new double[]{0.5, 1.0, 0.0, 1.0};
+		gridBagLayout.columnWeights = new double[]{1.0, 0.25, 1.0};
+		gridBagLayout.rowWeights = new double[]{1.0, 0.1, 0.5, 1.0};
 		setLayout(gridBagLayout);
 
 		JPanel panel = new JPanel();
@@ -53,44 +51,45 @@ public class AdicionarOpiniao extends JPanel {
 		gbc_panel.gridy = 0;
 		add(panel, gbc_panel);
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[]{113, 143, 96, 0};
-		gbl_panel.rowHeights = new int[]{0, 23, 0};
-		gbl_panel.columnWeights = new double[]{1.0, 0.0, 1.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
+		gbl_panel.columnWidths = new int[] {0, 0, 0, 0, 75};
+		gbl_panel.rowHeights = new int[] {0};
+		gbl_panel.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0};
+		gbl_panel.rowWeights = new double[]{0.0};
 		panel.setLayout(gbl_panel);
-
-		JLabel lblAno = new JLabel("Nome:");
-		GridBagConstraints gbc_lblAno = new GridBagConstraints();
-		gbc_lblAno.anchor = GridBagConstraints.WEST;
-		gbc_lblAno.insets = new Insets(0, 0, 5, 5);
-		gbc_lblAno.gridx = 0;
-		gbc_lblAno.gridy = 0;
-		panel.add(lblAno, gbc_lblAno);
-
-		JLabel lblMs = new JLabel("Nota:");
-		GridBagConstraints gbc_lblMs = new GridBagConstraints();
-		gbc_lblMs.insets = new Insets(0, 0, 5, 5);
-		gbc_lblMs.gridx = 1;
-		gbc_lblMs.gridy = 0;
-		panel.add(lblMs, gbc_lblMs);
 
 		final JLabel lblAvaliacao = new JLabel("Avaliacao");
 		lblAvaliacao.setVisible(false);
 
+		JLabel lblAno = new JLabel("Nome:");
+		GridBagConstraints gbc_lblAno = new GridBagConstraints();
+		gbc_lblAno.anchor = GridBagConstraints.WEST;
+		gbc_lblAno.insets = new Insets(0, 0, 0, 10);
+		gbc_lblAno.gridx = 0;
+		gbc_lblAno.gridy = 0;
+		panel.add(lblAno, gbc_lblAno);
+
 		final SuperTextField tfNome = new SuperTextField();
 		tfNome.setHint("An\u00F4nimo");
 		GridBagConstraints gbc_superTextField = new GridBagConstraints();
-		gbc_superTextField.insets = new Insets(0, 0, 0, 5);
+		gbc_superTextField.insets = new Insets(0, 0, 0, 20);
 		gbc_superTextField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_superTextField.gridx = 0;
-		gbc_superTextField.gridy = 1;
+		gbc_superTextField.gridx = 1;
+		gbc_superTextField.gridy = 0;
 		panel.add(tfNome, gbc_superTextField);
+
+		JLabel lblMs = new JLabel("Nota:");
+		GridBagConstraints gbc_lblMs = new GridBagConstraints();
+		gbc_lblMs.insets = new Insets(0, 0, 0, 10);
+		gbc_lblMs.gridx = 2;
+		gbc_lblMs.gridy = 0;
+		panel.add(lblMs, gbc_lblMs);
 		GridBagConstraints gbc_lblAvaliacao = new GridBagConstraints();
-		gbc_lblAvaliacao.gridx = 2;
-		gbc_lblAvaliacao.gridy = 1;
+		gbc_lblAvaliacao.gridx = 4;
+		gbc_lblAvaliacao.gridy = 0;
 		panel.add(lblAvaliacao, gbc_lblAvaliacao);
 
 		final NotaPorEstrelas starRate = new NotaPorEstrelas();
+		starRate.setFocusable(false);
 		starRate.addMouseListener(new MouseAdapter() {
 
 			@Override
@@ -105,56 +104,45 @@ public class AdicionarOpiniao extends JPanel {
 			}
 		});
 		GridBagConstraints gbc_starRate = new GridBagConstraints();
-		gbc_starRate.insets = new Insets(0, 0, 0, 5);
+		gbc_starRate.anchor = GridBagConstraints.WEST;
+		gbc_starRate.insets = new Insets(0, 0, 0, 10);
 		gbc_starRate.fill = GridBagConstraints.VERTICAL;
-		gbc_starRate.gridx = 1;
-		gbc_starRate.gridy = 1;
+		gbc_starRate.gridx = 3;
+		gbc_starRate.gridy = 0;
 		panel.add(starRate, gbc_starRate);
+
+		JLabel lblComentrio = new JLabel("Coment\u00E1rio:");
+		GridBagConstraints gbc_lblComentrio = new GridBagConstraints();
+		gbc_lblComentrio.anchor = GridBagConstraints.SOUTHWEST;
+		gbc_lblComentrio.insets = new Insets(0, 0, 5, 5);
+		gbc_lblComentrio.gridx = 1;
+		gbc_lblComentrio.gridy = 1;
+		add(lblComentrio, gbc_lblComentrio);
 
 		JPanel panelLista = new JPanel();
 		panelLista.setMaximumSize(new Dimension(10, 10));
 		GridBagConstraints gbc_panelLista = new GridBagConstraints();
-		gbc_panelLista.anchor = GridBagConstraints.NORTH;
-		gbc_panelLista.insets = new Insets(0, 0, 5, 5);
-		gbc_panelLista.fill = GridBagConstraints.HORIZONTAL;
+		gbc_panelLista.insets = new Insets(0, 0, 10, 5);
+		gbc_panelLista.fill = GridBagConstraints.BOTH;
 		gbc_panelLista.gridx = 1;
-		gbc_panelLista.gridy = 1;
+		gbc_panelLista.gridy = 2;
 		add(panelLista, gbc_panelLista);
 		GridBagLayout gbl_panelLista = new GridBagLayout();
-		gbl_panelLista.rowHeights = new int[]{0, 149};
+		gbl_panelLista.columnWidths = new int[] {0};
+		gbl_panelLista.rowHeights = new int[] {0};
 		gbl_panelLista.columnWeights = new double[]{1.0};
-		gbl_panelLista.rowWeights = new double[]{0.0, 1.0};
+		gbl_panelLista.rowWeights = new double[]{1.0};
 		panelLista.setLayout(gbl_panelLista);
-
-		JLabel lblComentrio = new JLabel("Coment\u00E1rio:");
-		GridBagConstraints gbc_lblComentrio = new GridBagConstraints();
-		gbc_lblComentrio.anchor = GridBagConstraints.NORTHWEST;
-		gbc_lblComentrio.insets = new Insets(0, 0, 5, 0);
-		gbc_lblComentrio.gridx = 0;
-		gbc_lblComentrio.gridy = 0;
-		panelLista.add(lblComentrio, gbc_lblComentrio);
 
 		JScrollPane scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane.gridx = 0;
-		gbc_scrollPane.gridy = 1;
+		gbc_scrollPane.gridy = 0;
 		panelLista.add(scrollPane, gbc_scrollPane);
 
 		final JTextArea tfComentario = new JTextArea(2,2);
 		scrollPane.setViewportView(tfComentario);
-		JPanel panel_2 = new JPanel();
-		GridBagConstraints gbc_panel_2 = new GridBagConstraints();
-		gbc_panel_2.anchor = GridBagConstraints.NORTH;
-		gbc_panel_2.insets = new Insets(0, 0, 5, 5);
-		gbc_panel_2.fill = GridBagConstraints.HORIZONTAL;
-		gbc_panel_2.gridx = 1;
-		gbc_panel_2.gridy = 2;
-		add(panel_2, gbc_panel_2);
-
-		final JLabel lblobs = new JLabel("*Obs");
-		lblobs.setVisible(false);
-		panel_2.add(lblobs);
 
 		JPanel panel_1 = new JPanel();
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
@@ -164,18 +152,45 @@ public class AdicionarOpiniao extends JPanel {
 		gbc_panel_1.gridx = 1;
 		gbc_panel_1.gridy = 3;
 		add(panel_1, gbc_panel_1);
+		GridBagLayout gbl_panel_1 = new GridBagLayout();
+		gbl_panel_1.columnWidths = new int[] {200, 0, 0};
+		gbl_panel_1.rowHeights = new int[] {0};
+		gbl_panel_1.columnWeights = new double[]{0.0, 1.0, 0.0};
+		gbl_panel_1.rowWeights = new double[]{0.0};
+		panel_1.setLayout(gbl_panel_1);
 
 		JButton btnNewButton = new JButton("Voltar");
+		btnNewButton.setFocusable(false);
 		btnNewButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				Sistema.setTela(tela);
 			}
 		});
-		panel_1.add(btnNewButton);
+
+		final JLabel lblobs = new JLabel("<erro>");
+		lblobs.setIcon(new ImageIcon(AdicionarOpiniao.class.getResource("/gui/images/error.png")));
+		lblobs.setForeground(Color.RED);
+		GridBagConstraints gbc_lblobs = new GridBagConstraints();
+		gbc_lblobs.anchor = GridBagConstraints.WEST;
+		gbc_lblobs.insets = new Insets(0, 0, 0, 5);
+		gbc_lblobs.gridx = 0;
+		gbc_lblobs.gridy = 0;
+		panel_1.add(lblobs, gbc_lblobs);
+		lblobs.setVisible(false);
+		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+		gbc_btnNewButton.anchor = GridBagConstraints.EAST;
+		gbc_btnNewButton.insets = new Insets(0, 0, 0, 10);
+		gbc_btnNewButton.gridx = 1;
+		gbc_btnNewButton.gridy = 0;
+		panel_1.add(btnNewButton, gbc_btnNewButton);
 
 		JButton btnAdicionar_1 = new JButton("Adicionar Opini\u00E3o");
-		panel_1.add(btnAdicionar_1);
+		btnAdicionar_1.setFocusable(false);
+		GridBagConstraints gbc_btnAdicionar_1 = new GridBagConstraints();
+		gbc_btnAdicionar_1.gridx = 2;
+		gbc_btnAdicionar_1.gridy = 0;
+		panel_1.add(btnAdicionar_1, gbc_btnAdicionar_1);
 		btnAdicionar_1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -201,11 +216,9 @@ public class AdicionarOpiniao extends JPanel {
 
 				} catch (NumberFormatException nfe) {
 					lblobs.setVisible(true);
-					lblobs.setForeground(Color.RED);
 					lblobs.setText("Deve ser dada uma nota");
 				} catch (IllegalArgumentException iae) {
 					lblobs.setVisible(true);
-					lblobs.setForeground(Color.RED);
 					lblobs.setText("Coment\u00E1rio e nome (se for preenchido) devem ter no m\u00EDnimo 3 caract\u00E9res");
 				}
 			}

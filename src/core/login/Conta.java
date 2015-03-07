@@ -20,8 +20,10 @@ public class Conta implements Serializable {
 	 * Cria uma conta com um id, uma senha e um nivel de acesso.
 	 *
 	 * @param id  a identificacao da conta
-	 * @param senha  a senha usada para acessar a conta
 	 * @param permissao  o nivel de acesso que a conta possui
+	 * @param nome  o nome do usuario
+	 * @param email  o e-mail usado para enviar mensagens de recuperacao
+	 * @param senha  a senha usada para acessar a conta
 	 */
 	public Conta(String id, Permissao permissao, String nome, String email, String senha) {
 		if(id == null || permissao == null || nome == null || email == null || senha == null)

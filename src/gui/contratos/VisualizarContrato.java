@@ -11,9 +11,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 import javax.swing.ImageIcon;
@@ -35,7 +32,6 @@ import core.hotel.Contrato;
 import core.interfaces.Alugavel;
 import core.interfaces.Devolvivel;
 import core.interfaces.Pagavel;
-import core.servicos.devolviveis.Quarto;
 
 public class VisualizarContrato extends JPanel {
 
@@ -46,15 +42,13 @@ public class VisualizarContrato extends JPanel {
 	private JButton btnDeletar;
 	private JPanel telaAtual = this;
 	private JTextField textField_1;
+	private JTextField textField_2;
 
-	/**
-	 * Create the panel.
-	 */
 	public VisualizarContrato(final Contrato contrato, final JPanel tela) {
 		this.setName("Visualizar Contrato");
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.rowHeights = new int[] {0, 0, 0, 0};
+		gridBagLayout.rowHeights = new int[] {0, 0, 120, 0};
 		gridBagLayout.columnWidths = new int[] {30, 0, 30};
 		gridBagLayout.columnWeights = new double[]{1.0, 0.25, 1.0};
 		gridBagLayout.rowWeights = new double[]{1.0, 0.1, 0.25, 1.0};
@@ -68,9 +62,9 @@ public class VisualizarContrato extends JPanel {
 		gbc_panel.gridy = 0;
 		add(panel, gbc_panel);
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[] {0, 0, 0, 0};
+		gbl_panel.columnWidths = new int[] {0, 0, 0, 0, 0, 0};
 		gbl_panel.rowHeights = new int[] {0};
-		gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0};
+		gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0};
 		gbl_panel.rowWeights = new double[]{0.0};
 		panel.setLayout(gbl_panel);
 
@@ -90,37 +84,41 @@ public class VisualizarContrato extends JPanel {
 		panel.add(textField, gbc_textField);
 		textField.setEditable(false);
 		textField.setColumns(10);
-		
+
+		JLabel lblNewLabel_1 = new JLabel("Protocolo");
+		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
+		gbc_lblNewLabel_1.anchor = GridBagConstraints.EAST;
+		gbc_lblNewLabel_1.insets = new Insets(0, 0, 0, 10);
+		gbc_lblNewLabel_1.gridx = 2;
+		gbc_lblNewLabel_1.gridy = 0;
+		panel.add(lblNewLabel_1, gbc_lblNewLabel_1);
+
+		textField_2 = new JTextField(Integer.toString(contrato.getProtocolo()));
+		textField_2.setEditable(false);
+		GridBagConstraints gbc_textField_2 = new GridBagConstraints();
+		gbc_textField_2.insets = new Insets(0, 0, 0, 20);
+		gbc_textField_2.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_2.gridx = 3;
+		gbc_textField_2.gridy = 0;
+		panel.add(textField_2, gbc_textField_2);
+		textField_2.setColumns(10);
+
 		JLabel label_1 = new JLabel("Esta\u00E7\u00E3o");
 		GridBagConstraints gbc_label_1 = new GridBagConstraints();
 		gbc_label_1.anchor = GridBagConstraints.EAST;
 		gbc_label_1.insets = new Insets(0, 0, 0, 10);
-		gbc_label_1.gridx = 2;
+		gbc_label_1.gridx = 4;
 		gbc_label_1.gridy = 0;
 		panel.add(label_1, gbc_label_1);
-		
+
 		textField_1 = new JTextField(contrato.getEstacao().toString());
 		textField_1.setEditable(false);
 		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
-		gbc_textField_1.gridx = 3;
+		gbc_textField_1.gridx = 5;
 		gbc_textField_1.gridy = 0;
 		panel.add(textField_1, gbc_textField_1);
 		textField_1.setColumns(10);
-		
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		Calendar data = null;
-		for (Pagavel p : contrato.getServicos()) {
-			if (p instanceof Quarto)
-				data = ((Quarto) p).getHistorico().iterator().next().getInicio();
-				break;
-		}
-		if (data == null)
-			textField_1.setText("Indispon\u00EDvel");
-		else {
-			Date d = data.getTime();
-			textField_1.setText(sdf.format(d));
-		}
-			
+
 		JLabel label_2 = new JLabel("Servi\u00E7os contratados:");
 		GridBagConstraints gbc_label_2 = new GridBagConstraints();
 		gbc_label_2.anchor = GridBagConstraints.SOUTHWEST;
@@ -133,6 +131,9 @@ public class VisualizarContrato extends JPanel {
 		scrollPane_1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
 		final JList<Pagavel> list = new JList<>();
+		list.setVisibleRowCount(-1);
+		list.setFixedCellWidth(100);
+		list.setFocusable(false);
 		list.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -202,23 +203,24 @@ public class VisualizarContrato extends JPanel {
 				Devolvivel selecionado = (Devolvivel) list.getSelectedValue();
 				selecionado.devolve(GregorianCalendar.getInstance());
 				btnDevolver.setEnabled(false);
-				
+
 			}
 		});
-		
-		btnDeletar = new JButton("Deletar Servi\u00E7o");
+
+		btnDeletar = new JButton("Remover Servi\u00E7o");
 		btnDeletar.setFocusable(false);
 		btnDeletar.setEnabled(false);
 		btnDeletar.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				Alugavel selecionado = (Alugavel) list.getSelectedValue();
-				contrato.removeServico(selecionado);	
+				contrato.removeServico(selecionado);
 				btnDeletar.setEnabled(false);
 				Filtro.preencheJList(contrato.getServicos(), list);
 			}
 		});
 		GridBagConstraints gbc_btnDeletarServico = new GridBagConstraints();
-		gbc_btnDeletarServico.insets = new Insets(0, 0, 0, 5);
+		gbc_btnDeletarServico.insets = new Insets(0, 0, 0, 10);
 		gbc_btnDeletarServico.gridx = 2;
 		gbc_btnDeletarServico.gridy = 0;
 		panel_1.add(btnDeletar, gbc_btnDeletarServico);

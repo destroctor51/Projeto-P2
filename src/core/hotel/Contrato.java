@@ -89,10 +89,10 @@ public class Contrato implements Serializable {
 	public Estacao getEstacao() {
 		return estacao;
 	}
-	
+
 	/**
 	 * Recupera protocolo do contrato.
-	 * 
+	 *
 	 * @return
 	 * 		   O protocolo do contrato.
 	 */
@@ -190,6 +190,7 @@ public class Contrato implements Serializable {
 	 * Realiza check out do contrato a partir do cartao do contrato (utilizado apenas por seguranca).
 	 *
 	 * @param cartao  o numero do cartao do contrato
+	 * @param data  a data em que o check-out foi realizado
 	 * @return boolean representando se a acao foi ou nao realizada
 	 */
 	public boolean realizarCheckOut(String cartao, Calendar data) {

@@ -11,10 +11,22 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+/**
+ * Um conjunto de metodos estaticos feitos para interagir com a internet.
+ *
+ * @author Victor Andrade de Almeida
+ */
 public final class Internet {
 
 	private Internet() {}
 
+	/**
+	 * Envia um e-mail usando a conta noreply.riviera@gmail.com.
+	 *
+	 * @param destinatario  o e-mail do destinatario
+	 * @param titulo  o titulo da mensagem
+	 * @param mensagem  o e-mail em si
+	 */
 	public static void enviaEmail(String destinatario, String titulo, String mensagem)
 	{
 		final String username = "noreply.riviera@gmail.com";
@@ -48,6 +60,12 @@ public final class Internet {
 		}
 	}
 
+	/**
+	 * Confere se uma string pode ser interpretada como um e-mail.
+	 *
+	 * @param email  a string a ser avaliada
+	 * @return true se for um e-mail, false caso contrario
+	 */
 	public static boolean isEmailValido(String email) {
 		return Pattern.matches("^[a-zA-Z0-9_.]{3,}@[a-zA-Z]{3,}\\.[a-zA-Z]{3,}", email);
 	}

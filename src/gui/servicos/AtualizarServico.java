@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.text.ParseException;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
@@ -43,28 +44,25 @@ public class AtualizarServico extends JPanel {
 	private MaskFormatter ftmPlaca;
 	private JTextField tfNumero = new JTextField();
 	private JTextField tfNomeR = new JTextField();
-	private final JLabel lbObs = new JLabel("*Observa\u00E7\u00F5es");
+	private final JLabel lbObs = new JLabel("<erro>");
 	private JComboBox<TipoCarro> cbTipoCarro = new JComboBox<>();
 	private JComboBox<TipoQuarto> cbTipoQuarto = new JComboBox<>();
 
-	/**
-	 * Create the panel.
-	 */
 	public AtualizarServico(final JPanel telaAnterior, final Object servico) {
 		setName("Atualizar Servi\u00E7o");
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] {0, 0, 0};
 		gridBagLayout.rowHeights = new int[] {0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{1.0, 0.25, 1.0};
+		gridBagLayout.columnWeights = new double[]{1.0, 0.1, 1.0};
 		gridBagLayout.rowWeights = new double[]{1.0, 0.25, 1.0};
 		setLayout(gridBagLayout);
 
 		final JPanel panel = new JPanel();
-		panel.setBorder(new CompoundBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), servico.getClass().getSimpleName(), TitledBorder.LEADING, TitledBorder.ABOVE_TOP, null, new Color(0, 0, 0)), new EmptyBorder(0, 10, 0, 10)));
+		panel.setBorder(new CompoundBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "<dynamic>", TitledBorder.LEADING, TitledBorder.ABOVE_TOP, null, new Color(0, 0, 0)), new EmptyBorder(0, 20, 0, 20)));
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.fill = GridBagConstraints.BOTH;
-		gbc_panel.insets = new Insets(0, 0, 5, 5);
+		gbc_panel.insets = new Insets(0, 0, 10, 5);
 		gbc_panel.gridx = 1;
 		gbc_panel.gridy = 1;
 		add(panel, gbc_panel);
@@ -128,6 +126,7 @@ public class AtualizarServico extends JPanel {
 		gbc_label_5.gridx = 0;
 		gbc_label_5.gridy = 2;
 		panel_q.add(label_5, gbc_label_5);
+		cbTipoQuarto.setFocusable(false);
 
 		cbTipoQuarto.setModel(new DefaultComboBoxModel<>(TipoQuarto.values()));
 		GridBagConstraints gbc_cbTipoQuarto = new GridBagConstraints();
@@ -207,7 +206,7 @@ public class AtualizarServico extends JPanel {
 			lbObs.setText("Placa inv\u00E1lida");
 			lbObs.setVisible(true);
 		}
-		
+
 		tfPlaca = new JFormattedTextField(ftmPlaca);
 		tfPlaca.setColumns(10);
 		GridBagConstraints gbc_tfPlaca = new GridBagConstraints();
@@ -226,6 +225,7 @@ public class AtualizarServico extends JPanel {
 		panel_c.add(label_3, gbc_label_3);
 
 		selecionaCard(servico, panel, cbTipoCarro, cbTipoQuarto);
+		cbTipoCarro.setFocusable(false);
 
 		cbTipoCarro.setModel(new DefaultComboBoxModel<>(TipoCarro.values()));
 		GridBagConstraints gbc_cbTipoCarro = new GridBagConstraints();
@@ -243,16 +243,17 @@ public class AtualizarServico extends JPanel {
 		gbc_panel_3.gridy = 2;
 		add(panel_3, gbc_panel_3);
 		GridBagLayout gbl_panel_3 = new GridBagLayout();
-		gbl_panel_3.columnWidths = new int[] {0, 0, 0};
+		gbl_panel_3.columnWidths = new int[] {200, 0, 0};
 		gbl_panel_3.rowHeights = new int[] {0};
-		gbl_panel_3.columnWeights = new double[]{1.0, 0.0, 0.0};
+		gbl_panel_3.columnWeights = new double[]{0.0, 1.0, 0.0};
 		gbl_panel_3.rowWeights = new double[]{0.0};
 		panel_3.setLayout(gbl_panel_3);
 		GridBagConstraints gbc_lbObs = new GridBagConstraints();
+		gbc_lbObs.insets = new Insets(0, 0, 0, 5);
 		gbc_lbObs.anchor = GridBagConstraints.WEST;
-		gbc_lbObs.insets = new Insets(10, 0, 0, 10);
 		gbc_lbObs.gridx = 0;
 		gbc_lbObs.gridy = 0;
+		lbObs.setIcon(new ImageIcon(AtualizarServico.class.getResource("/gui/images/error.png")));
 		panel_3.add(lbObs, gbc_lbObs);
 
 		lbObs.setForeground(Color.RED);
@@ -260,8 +261,8 @@ public class AtualizarServico extends JPanel {
 
 		JButton btnCancelar = new JButton("Cancelar");
 		GridBagConstraints gbc_btnCancelar = new GridBagConstraints();
-		gbc_btnCancelar.insets = new Insets(10, 0, 0, 10);
-		gbc_btnCancelar.fill = GridBagConstraints.BOTH;
+		gbc_btnCancelar.anchor = GridBagConstraints.EAST;
+		gbc_btnCancelar.insets = new Insets(0, 0, 0, 10);
 		gbc_btnCancelar.gridx = 1;
 		gbc_btnCancelar.gridy = 0;
 		panel_3.add(btnCancelar, gbc_btnCancelar);
@@ -273,8 +274,6 @@ public class AtualizarServico extends JPanel {
 		});
 		JButton btnConfirmar = new JButton("Confirmar");
 		GridBagConstraints gbc_btnConfirmar = new GridBagConstraints();
-		gbc_btnConfirmar.fill = GridBagConstraints.BOTH;
-		gbc_btnConfirmar.insets = new Insets(10, 0, 0, 0);
 		gbc_btnConfirmar.gridx = 2;
 		gbc_btnConfirmar.gridy = 0;
 		panel_3.add(btnConfirmar, gbc_btnConfirmar);
@@ -299,12 +298,10 @@ public class AtualizarServico extends JPanel {
 						Sistema.setTela(telaAnterior);
 
 					} catch(IllegalArgumentException iae){
-						lbObs.setText("Nome deve ter no m\u00EDnimo 3 caract\u00E9res(apenas letras)");
-						lbObs.setForeground(Color.RED);
+						lbObs.setText("Nome deve ter no m\u00EDnimo 3 letras");
 						lbObs.setVisible(true);
 					} catch(Exception exc){
 						lbObs.setText(exc.getMessage());
-						lbObs.setForeground(Color.RED);
 						lbObs.setVisible(true);
 					}
 				}
@@ -320,19 +317,12 @@ public class AtualizarServico extends JPanel {
 						Sistema.getHotel().adicionaCamaExtra(codigo);
 						Sistema.setTela(telaAnterior);
 
-					} catch (NumberFormatException nfe) {
-						lbObs.setText("O C\u00F3digo deve ser um n\u00FAmero inteiro positivo");
-						lbObs.setForeground(Color.RED);
-						lbObs.setVisible(true);
-
-					} catch (IllegalArgumentException iae) {
-						lbObs.setText("O C\u00F3digo deve ser um n\u00FAmero inteiro positivo");
-						lbObs.setForeground(Color.RED);
+					} catch (IllegalArgumentException nfe) {
+						lbObs.setText("O C\u00F3digo deve ser um inteiro positivo");
 						lbObs.setVisible(true);
 
 					} catch (Exception exc) {
 						lbObs.setText(exc.getMessage());
-						lbObs.setForeground(Color.RED);
 						lbObs.setVisible(true);
 					}
 				}
@@ -350,7 +340,6 @@ public class AtualizarServico extends JPanel {
 
 					} catch (Exception exc) {
 						lbObs.setText(exc.getMessage());
-						lbObs.setForeground(Color.RED);
 						lbObs.setVisible(true);
 					}
 				}
@@ -370,18 +359,15 @@ public class AtualizarServico extends JPanel {
 						Sistema.setTela(telaAnterior);
 
 					} catch (NumberFormatException nfe) {
-						lbObs.setText("N\u00FAmero deve ser positivo");
-						lbObs.setForeground(Color.RED);
+						lbObs.setText("N\u00FAmero deve ser um inteiro positivo");
 						lbObs.setVisible(true);
 
 					} catch (IllegalArgumentException nfe) {
-						lbObs.setText("N\u00FAmero deve ser positivo");
-						lbObs.setForeground(Color.RED);
+						lbObs.setText("N\u00FAmero deve ser um inteiro  positivo");
 						lbObs.setVisible(true);
 
 					} catch (Exception exc) {
 						lbObs.setText(exc.getMessage());
-						lbObs.setForeground(Color.RED);
 						lbObs.setVisible(true);
 					}
 				}
@@ -404,13 +390,11 @@ public class AtualizarServico extends JPanel {
 
 					}
 					catch(IllegalArgumentException iae){
-						lbObs.setText("Nome deve ter no m\u00EDnimo 3 caract\u00E9res(apenas letras)");
-						lbObs.setForeground(Color.RED);
+						lbObs.setText("Nome deve ter no m\u00EDnimo 3 letras");
 						lbObs.setVisible(true);
 					}
 					catch(Exception exc){
 						lbObs.setText(exc.getMessage());
-						lbObs.setForeground(Color.RED);
 						lbObs.setVisible(true);
 					}
 				}

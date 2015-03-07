@@ -194,6 +194,9 @@ public class Calendario extends JComponent {
 		}
 	}
 
+	/**
+	 * Recarrega as informacoes usadas para selecionar e visualizar o calendario
+	 */
 	public final void atualizaDias() {
 		if(isSelecaoInvalida())
 			selecao = null;

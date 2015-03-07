@@ -127,7 +127,6 @@ public class FaturamentoEServicos extends JPanel {
 					errorLabel.setVisible(false);
 					estrategia.geraGraficoAnual(panel,cbRelatorioAnual);
 				} else {
-					errorLabel.setForeground(Color.RED);
 					errorLabel.setVisible(true);
 					errorLabel.setText("Selecione um ano");
 				}
@@ -158,7 +157,6 @@ public class FaturamentoEServicos extends JPanel {
 					errorLabel.setVisible(false);
 					estrategia.geraGraficoMensal(panel,cbRelatorioMensal);
 				} else {
-					errorLabel.setForeground(Color.RED);
 					errorLabel.setVisible(true);
 					errorLabel.setText("Selecione um mes");
 				}
@@ -212,7 +210,6 @@ public class FaturamentoEServicos extends JPanel {
 					errorLabel.setVisible(false);
 					estrategia.geraGraficoEstacao(panel,cbRelatorioEstacoes);
 				} else {
-					errorLabel.setForeground(Color.RED);
 					errorLabel.setVisible(true);
 					errorLabel.setText("Selecione uma esta\u00E7\u00E3o");
 				}
