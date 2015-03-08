@@ -3,6 +3,7 @@ package core.hotel;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
 
@@ -62,6 +63,37 @@ public class Hotel implements Serializable {
 			i=201; j=0;
 			while(j < 20) adicionaQuarto(TipoQuarto.LUXO_TRIPLO, i+j++); i+=j; j=0;
 			while(j < 5) adicionaQuarto(TipoQuarto.PRESIDENCIAL, i+j++);
+
+			adicionaRestaurante("Restaurante Del\u00EDcias da Serra I");
+			adicionaRestaurante("Restaurante Del\u00EDcias da Serra II");
+
+			Estacao natal = new Estacao("Natal + Reveillon", 1.2);
+			Estacao saojoao = new Estacao("S\u00E3o Jo\u00E3o", 1.1);
+			Estacao saojoao1 = new Estacao("S\u00E3o Jo\u00E3o - Alta temporada", 1.5);
+
+			Calendar c1 = new GregorianCalendar(2014,11,20);
+			Calendar c2 = new GregorianCalendar(2015,0,03);
+			Calendar c3 = new GregorianCalendar(2015,5,14);
+			Calendar c4 = new GregorianCalendar(2015,6,15);
+			Calendar c5 = new GregorianCalendar(2015,5,23);
+			Calendar c6 = new GregorianCalendar(2015,5,26);
+			Calendar c7 = new GregorianCalendar(2015,5,28);
+			Calendar c8 = new GregorianCalendar(2015,5,30);
+
+			Periodo p1 = new Periodo(c1,c2);
+			Periodo p2 = new Periodo(c3,c4);
+			Periodo p3 = new Periodo(c5,c6);
+			Periodo p4 = new Periodo(c7,c8);
+
+			natal.addPeriodo(p1);
+			saojoao.addPeriodo(p2);
+			saojoao1.addPeriodo(p3);
+			saojoao1.addPeriodo(p4);
+
+			adicionaEstacao(natal);
+			adicionaEstacao(saojoao);
+			adicionaEstacao(saojoao1);
+
 		} catch (Exception e) {}
 	}
 
