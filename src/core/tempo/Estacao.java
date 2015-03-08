@@ -130,7 +130,17 @@ public class Estacao implements Cloneable, Serializable {
 	public String toString() {
 		return id;
 	}
-
+	
+	@Override
+	public boolean equals(Object obj){
+		
+		if(!(obj instanceof Estacao))
+			return false;
+		
+		Estacao outraEstacao = (Estacao) obj;
+		return outraEstacao.getId().equals(id);
+	}
+	
 	@Override
 	public Object clone() {
 		try {

@@ -18,7 +18,6 @@ import core.servicos.devolviveis.Carro;
 import core.servicos.devolviveis.Quarto;
 import core.servicos.pagaveis.Refeicao;
 import core.tempo.Estacao;
-import core.tempo.Periodo;
 
 public class Faturamento extends Estrategia {
 
@@ -126,10 +125,7 @@ public class Faturamento extends Estrategia {
 		for (Hospede hospede : Sistema.getHotel().getHospedes()) {
 			for (Contrato contrato : hospede.getContratos()) {
 				if (contrato.getEstado() == EstadoDeContrato.FECHADO
-						&& estacao1
-						.entraEmConflito(new Periodo(contrato
-								.getDataCheckOut(), contrato
-								.getDataCheckOut())) && contrato.getDataCheckOut().get(Calendar.YEAR)== anoRelatorio) {
+						&& contrato.getEstacao().equals(estacao1)) {
 					estacao += calculaValor(contrato);
 				}
 			}
@@ -166,7 +162,7 @@ public class Faturamento extends Estrategia {
 				restaurante += preco;
 			}
 		}
-		return valor * contrato.getEstacao().getTarifa();
+		return valor;
 	}
 
 	@Override

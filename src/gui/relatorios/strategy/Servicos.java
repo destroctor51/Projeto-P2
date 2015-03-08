@@ -18,7 +18,6 @@ import core.servicos.devolviveis.Carro;
 import core.servicos.devolviveis.Quarto;
 import core.servicos.pagaveis.Refeicao;
 import core.tempo.Estacao;
-import core.tempo.Periodo;
 
 public class Servicos extends Estrategia {
 
@@ -95,7 +94,7 @@ public class Servicos extends Estrategia {
 		calculaRelatorioEstacao(estacao1, anoRelatorio);
 
 		texto += "Servi\u00E7os na esta\u00E7\u00E3o\n";
-		texto += "Estacao: " + estacao1 + "\n\n";
+		texto += "Esta\u00E7\u00E3o: " + estacao1 + "\n\n";
 
 		texto += "Babas: " + baba + "\n";
 		texto += "Camas Extras: " + cama + "\n";
@@ -145,7 +144,7 @@ public class Servicos extends Estrategia {
 		for (Hospede hospede : Sistema.getHotel().getHospedes()) {
 			for (Contrato contrato : hospede.getContratos()) {
 				if (contrato.getEstado() == EstadoDeContrato.FECHADO
-						&& estacao.entraEmConflito(new Periodo(contrato.getDataCheckOut(), contrato.getDataCheckOut())) && contrato.getDataCheckOut().get(Calendar.YEAR)== anoRelatorio) {
+						&& contrato.getEstacao().equals(estacao)) {
 					this.estacao += calculaValor(contrato);
 				}
 			}
@@ -153,13 +152,11 @@ public class Servicos extends Estrategia {
 	}
 
 	private void calculaRelatorioMensal(String texto, int mesRelatorio, int anoRelatorio) {
-		double valor = 0.0;
 		for (Hospede hospede : Sistema.getHotel().getHospedes()) {
 			for (Contrato contrato : hospede.getContratos()) {
 				if (contrato.getEstado() == EstadoDeContrato.FECHADO
 						&& contrato.getDataCheckOut().get(Calendar.MONTH) == mesRelatorio && contrato.getDataCheckOut().get(Calendar.YEAR) == anoRelatorio) {
-					valor = calculaValor(contrato);
-					mes += valor;
+					mes += calculaValor(contrato);
 				}
 			}
 		}
