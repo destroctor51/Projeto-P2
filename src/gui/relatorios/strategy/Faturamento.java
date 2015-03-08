@@ -31,7 +31,7 @@ public class Faturamento extends Estrategia {
 				.getInstance().getTime());
 		String texto = "";
 
-		texto += "Data: " + dataAtual + "\n";
+		texto += "Data de consulta: " + dataAtual + "\n";
 		texto += "Faturamento mensal\n";
 		texto += "M\u00EAs: " + cb.getSelectedItem() + "\n\n";
 
@@ -57,7 +57,7 @@ public class Faturamento extends Estrategia {
 				.getInstance().getTime());
 		String texto = "";
 
-		texto += "Data: " + dataAtual + "\n";
+		texto += "Data de consulta: " + dataAtual + "\n";
 
 		calculaRelatorioAnual(cb);
 
@@ -91,11 +91,11 @@ public class Faturamento extends Estrategia {
 				.getInstance().getTime());
 		String texto = "";
 
-		texto += "Data: " + dataAtual + "\n";
+		texto += "Data de consulta: " + dataAtual + "\n";
 		calculaRelatorioEstacao(estacao1, anoRelatorio);
 
 		texto += "Faturamento de esta\u00E7\u00E3o\n";
-		texto += "Estacao: " + estacao1 + "\n\n";
+		texto += "Esta\u00E7\u00E3o: " + estacao1 + "\n\n";
 
 		texto += "Bab\u00E1s: R$ " + baba + "\n";
 		texto += "Camas Extras: R$ " + cama + "\n";
@@ -111,14 +111,12 @@ public class Faturamento extends Estrategia {
 	private void calculaRelatorioAnual(JComboBox<?> cb) {
 
 		int anoFatura = (int) cb.getSelectedItem();
-		double valor = 0.0;
 		for (Hospede hospede : Sistema.getHotel().getHospedes()) {
 			for (Contrato contrato : hospede.getContratos()) {
 				if (contrato.getEstado() == EstadoDeContrato.FECHADO
 						&& contrato.getDataCheckOut().get(Calendar.YEAR) == anoFatura) {
-					valor = calculaValor(contrato);
-					ano += valor;
-					meses[contrato.getDataCheckOut().get(Calendar.MONTH)] += valor;
+					ano += contrato.getFatura();
+					meses[contrato.getDataCheckOut().get(Calendar.MONTH)] += contrato.getFatura();
 				}
 			}
 		}
@@ -151,22 +149,24 @@ public class Faturamento extends Estrategia {
 
 	private double calculaValor(Contrato contrato) {
 		double valor = 0.0;
+		double preco;
 		for (Pagavel p : contrato.getServicos()) {
-			valor += p.getPreco();
+			preco = p.getPreco() * contrato.getEstacao().getTarifa();
+			valor += preco;
 
 			if (p instanceof Babysitter) {
-				baba += p.getPreco();
+				baba += preco;
 			} else if (p instanceof CamaExtra) {
-				cama += p.getPreco();
+				cama += preco;
 			} else if (p instanceof Carro) {
-				carro += p.getPreco();
+				carro += preco;
 			} else if (p instanceof Quarto) {
-				quarto += p.getPreco();
+				quarto += preco;
 			} else if (p instanceof Refeicao) {
-				restaurante += p.getPreco();
+				restaurante += preco;
 			}
 		}
-		return valor;
+		return valor * contrato.getEstacao().getTarifa();
 	}
 
 	@Override

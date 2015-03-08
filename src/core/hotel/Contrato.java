@@ -31,7 +31,7 @@ public class Contrato implements Serializable {
 	// construtor
 
 	/**
-	 * Cria um contrato a partir do numero de cartao do hospede e da tarifa atual do hotel.
+	 * Cria um contrato a partir do numero de cartao do hospede e da estacao atual.
 	 *
 	 * @param cartao
 	 * 			O numero do cartao do hospede.
@@ -213,7 +213,22 @@ public class Contrato implements Serializable {
 
 		return false;
 	}
+	
+	/**
+	 * Calcula fatura e retorna valor ja com tarifa da estacao.
+	 * 
+	 * @return fatura
+	 */
+	public double getFatura() {
+		double fatura = 0.0;
+		double tarifa = estacao.getTarifa();
 
+		for (Pagavel p : servicos) {
+			fatura += p.getPreco();
+		}
+
+		return fatura * tarifa;
+	}
 	@Override
 	public String toString() {
 		return "Contrato " + estado + ", protocolo: " + protocolo;

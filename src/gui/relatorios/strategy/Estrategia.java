@@ -92,9 +92,9 @@ public abstract class Estrategia {
 	public void geraGraficoLinhaPadrao(JPanel panel, JComboBox<?> cb,String titulo, String coluna) {
 
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-		for (int i = 0; i < 12; i++)
-			dataset.addValue(meses[i], "Faturamento", "M\u00EAs" + (i + 1));
-
+		for (int i = 0; i < 12; i++){
+			dataset.addValue(meses[i], coluna , "M\u00EAs" + (i + 1));
+		}
 		JFreeChart chart = ChartFactory.createLineChart(
 				titulo + cb.getSelectedItem(), "M\u00EAs", coluna ,
 				dataset);

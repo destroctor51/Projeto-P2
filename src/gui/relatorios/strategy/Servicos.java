@@ -31,7 +31,7 @@ public class Servicos extends Estrategia {
 				.getInstance().getTime());
 		String texto = "";
 
-		texto += "Data: " + dataAtual + "\n";
+		texto += "Data de consulta: " + dataAtual + "\n";
 
 		calculaRelatorioAnual(cb);
 
@@ -65,7 +65,7 @@ public class Servicos extends Estrategia {
 				.getInstance().getTime());
 		String texto = "";
 
-		texto += "Data: " + dataAtual + "\n";
+		texto += "Data de consulta: " + dataAtual + "\n";
 		texto += "Servi\u00E7os mensais\n";
 		texto += "M\u00EAs: " + cb.getSelectedItem() + "\n\n";
 
@@ -91,7 +91,7 @@ public class Servicos extends Estrategia {
 				.getInstance().getTime());
 		String texto = "";
 
-		texto += "Data: " + dataAtual + "\n";
+		texto += "Data de consulta: " + dataAtual + "\n";
 		calculaRelatorioEstacao(estacao1, anoRelatorio);
 
 		texto += "Servi\u00E7os na esta\u00E7\u00E3o\n";
@@ -167,7 +167,7 @@ public class Servicos extends Estrategia {
 
 	@Override
 	public void geraGraficoAnual(JPanel panel, JComboBox<?> cb) {
-		geraGraficoLinhaPadrao(panel, cb, "Servi\u00E7os mais utilizados no ano de " , "Servicos");
+		geraGraficoLinhaPadrao(panel, cb, "Servi\u00E7os mais utilizados no ano de " , "Servi\u00E7os");
 	}
 
 	@Override
