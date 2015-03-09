@@ -174,21 +174,10 @@ public class Servicos extends JPanel {
 		btnRemoverServio.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				if(list.isSelectionEmpty()) return;
+
 				Object item = list.getSelectedValue();
 				int selected = cbServicos_1.getSelectedIndex();
-
-				if (item == null) {
-					lbObs.setText("Nenhum item foi selecionado");
-					lbObs.setIcon(new ImageIcon(Servicos.class.getResource("/gui/images/error.png")));
-					lbObs.setForeground(Color.RED);
-					lbObs.setVisible(true);
-					return;
-				}
-
-				lbObs.setIcon(new ImageIcon(Servicos.class.getResource("/gui/images/success.png")));
-				lbObs.setForeground(new Color(0, 150, 0));
-				lbObs.setText("Item removido com sucesso");
-				lbObs.setVisible(true);
 
 				switch(selected) {
 
@@ -289,7 +278,7 @@ public class Servicos extends JPanel {
 		gbc_lbObs.insets = new Insets(0, 0, 0, 5);
 		gbc_lbObs.gridx = 0;
 		gbc_lbObs.gridy = 0;
-		lbObs.setIcon(new ImageIcon(Servicos.class.getResource("/gui/images/error.png")));
+		lbObs.setIcon(new ImageIcon(Servicos.class.getResource("/gui/resources/error.png")));
 		lbObs.setForeground(Color.RED);
 		panel_1.add(lbObs, gbc_lbObs);
 

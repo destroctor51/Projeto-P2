@@ -8,6 +8,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.PrinterException;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -124,16 +125,18 @@ public class FaturamentoHospede extends JPanel {
 
 		texto += "Servi\u00E7os contratados:\n";
 
+		DecimalFormat df = new DecimalFormat("0.00");
+
 		double total = 0;
 		for(Pagavel p: contrato.getServicos()) {
-			texto += "- " + p.getDescricao() + " : R$ " + p.getPreco() +  "\n";
+			texto += "- " + p.getDescricao() + " : R$ " + df.format(p.getPreco()) +  "\n";
 			total += p.getPreco();
 		}
 
 		texto += "\n";
-		texto += "Total: R$ " + total + "\n";
-		texto += "Tarifa: " + tarifa * 100 + "%\n";
-		texto += "Pre\u00E7o a pagar: R$ " + total * tarifa + "\n";
+		texto += "Total: R$ " + df.format(total) + "\n";
+		texto += "Tarifa: " + df.format(tarifa * 100) + "%\n";
+		texto += "Pre\u00E7o a pagar: R$ " + df.format(total * tarifa) + "\n";
 
 		return texto;
 	}

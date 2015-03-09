@@ -40,7 +40,7 @@ public class Estacoes extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private SuperTextField tfBuscar;
 	private JButton btnAdicionar;
-	final JList<Object> list = new JList<Object>();
+	final JList<Estacao> list = new JList<>();
 	private JLabel lblobservaes;
 
 	/**
@@ -51,10 +51,8 @@ public class Estacoes extends JPanel {
 		addAncestorListener(new AncestorListener() {
 			@Override
 			public void ancestorAdded(AncestorEvent arg0) {
-				List<Object> elementos = filtraList();
+				List<Estacao> elementos = filtraList();
 				Filtro.exibeFiltrado(tfBuscar.getText(), elementos, list);
-
-				lblobservaes.setVisible(false);
 			}
 			@Override
 			public void ancestorMoved(AncestorEvent arg0) {}
@@ -96,7 +94,7 @@ public class Estacoes extends JPanel {
 			private static final long serialVersionUID = 1L;
 			@Override
 			protected void textChanged(String text) {
-				List<Object> elementos = filtraList();
+				List<Estacao> elementos = filtraList();
 				Filtro.exibeFiltrado(text, elementos, list);
 			}
 		};
@@ -126,7 +124,7 @@ public class Estacoes extends JPanel {
 					Object item;
 					try {
 						index = list.locationToIndex(e.getPoint());
-						ListModel<Object> dlm = list.getModel();
+						ListModel<Estacao> dlm = list.getModel();
 						item = dlm.getElementAt(index);
 					} catch (ArrayIndexOutOfBoundsException ex) {
 						return;
@@ -160,7 +158,8 @@ public class Estacoes extends JPanel {
 		panel_2.setLayout(gbl_panel_2);
 
 		lblobservaes = new JLabel("<erro>");
-		lblobservaes.setIcon(new ImageIcon(Estacoes.class.getResource("/gui/images/error.png")));
+		lblobservaes.setForeground(Color.RED);
+		lblobservaes.setIcon(new ImageIcon(Estacoes.class.getResource("/gui/resources/error.png")));
 		lblobservaes.setVisible(false);
 		GridBagConstraints gbc_lblobservaes = new GridBagConstraints();
 		gbc_lblobservaes.anchor = GridBagConstraints.WEST;
@@ -178,7 +177,6 @@ public class Estacoes extends JPanel {
 			}
 		});
 
-
 		JButton btnRemoverEstao = new JButton("Remover Esta\u00E7\u00E3o");
 		GridBagConstraints gbc_btnRemoverEstao = new GridBagConstraints();
 		gbc_btnRemoverEstao.insets = new Insets(0, 0, 0, 10);
@@ -189,20 +187,12 @@ public class Estacoes extends JPanel {
 		btnRemoverEstao.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				Object item = list.getSelectedValue();
+				if(list.isSelectionEmpty()) return;
 
-				if (item == null) {
-					lblobservaes.setText("Nenhum item foi selecionado");
-					lblobservaes.setForeground(Color.RED);
-					lblobservaes.setVisible(true);
-					return;
-				}
+				Estacao item = list.getSelectedValue();
+				Sistema.getHotel().removeEstacao(item);
 
-				lblobservaes.setVisible(false);
-
-				Sistema.getHotel().removeEstacao((Estacao) item);
-
-				List<Object> elementos = filtraList();
+				List<Estacao> elementos = filtraList();
 				Filtro.exibeFiltrado(tfBuscar.getText(), elementos, list);
 			}
 		});
@@ -214,7 +204,6 @@ public class Estacoes extends JPanel {
 		gbc_btnVoltar.gridx = 1;
 		gbc_btnVoltar.gridy = 0;
 		panel_2.add(btnVoltar, gbc_btnVoltar);
-
 
 		btnAdicionar = new JButton("Adicionar Esta\u00E7\u00E3o");
 		GridBagConstraints gbc_btnAdicionar = new GridBagConstraints();
@@ -228,12 +217,10 @@ public class Estacoes extends JPanel {
 				Sistema.setTela(new GerenciarEstacao());
 			}
 		});
-
 	}
 
-
-	private List<Object> filtraList() {
-		List<Object> elementos = new LinkedList<>();
+	private List<Estacao> filtraList() {
+		List<Estacao> elementos = new LinkedList<>();
 		Iterator<Estacao> estacoes = Sistema.getHotel().getTarifas();
 		while (estacoes.hasNext()) {
 			elementos.add(estacoes.next());

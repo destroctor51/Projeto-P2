@@ -201,7 +201,7 @@ public class CadastrarHospede extends JPanel {
 		errorLabel.setVisible(false);
 		errorLabel.setForeground(Color.RED);
 		errorLabel.setIcon(new ImageIcon(CadastrarHospede.class
-				.getResource("/gui/images/error.png")));
+				.getResource("/gui/resources/error.png")));
 		GridBagConstraints gbc_lblError = new GridBagConstraints();
 		gbc_lblError.anchor = GridBagConstraints.WEST;
 		gbc_lblError.insets = new Insets(0, 0, 0, 5);

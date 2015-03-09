@@ -59,7 +59,7 @@ public class AtualizarServico extends JPanel {
 		setLayout(gridBagLayout);
 
 		final JPanel panel = new JPanel();
-		panel.setBorder(new CompoundBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "<dynamic>", TitledBorder.LEADING, TitledBorder.ABOVE_TOP, null, new Color(0, 0, 0)), new EmptyBorder(0, 20, 0, 20)));
+		panel.setBorder(new CompoundBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), servico.getClass().getSimpleName(), TitledBorder.LEADING, TitledBorder.ABOVE_TOP, null, new Color(0, 0, 0)), new EmptyBorder(0, 20, 0, 20)));
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.insets = new Insets(0, 0, 10, 5);
@@ -253,7 +253,7 @@ public class AtualizarServico extends JPanel {
 		gbc_lbObs.anchor = GridBagConstraints.WEST;
 		gbc_lbObs.gridx = 0;
 		gbc_lbObs.gridy = 0;
-		lbObs.setIcon(new ImageIcon(AtualizarServico.class.getResource("/gui/images/error.png")));
+		lbObs.setIcon(new ImageIcon(AtualizarServico.class.getResource("/gui/resources/error.png")));
 		panel_3.add(lbObs, gbc_lbObs);
 
 		lbObs.setForeground(Color.RED);

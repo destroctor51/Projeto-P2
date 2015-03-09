@@ -57,7 +57,7 @@ public class Contas extends JPanel {
 		gridBagLayout.columnWidths = new int[]{30, 400, 30};
 		gridBagLayout.rowHeights = new int[] {0, 0, 120, 0};
 		gridBagLayout.columnWeights = new double[]{1.0, 0.25, 1.0};
-		gridBagLayout.rowWeights = new double[]{1.0, 0.1, 0.5, 1.0};
+		gridBagLayout.rowWeights = new double[]{1.0, 0.2, 0.5, 1.0};
 		setLayout(gridBagLayout);
 
 		JPanel panel = new JPanel();
@@ -223,7 +223,7 @@ public class Contas extends JPanel {
 		JLabel lblNewLabel = new JLabel("<erro>");
 		lblNewLabel.setVisible(false);
 		lblNewLabel.setForeground(Color.RED);
-		lblNewLabel.setIcon(new ImageIcon(Contas.class.getResource("/gui/images/error.png")));
+		lblNewLabel.setIcon(new ImageIcon(Contas.class.getResource("/gui/resources/error.png")));
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.anchor = GridBagConstraints.WEST;
 		gbc_lblNewLabel.insets = new Insets(0, 0, 0, 5);

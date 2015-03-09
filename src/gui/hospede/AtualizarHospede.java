@@ -230,22 +230,18 @@ public class AtualizarHospede extends JPanel {
 		panel_6.add(errorLabel, gbc_errorLabel);
 		errorLabel.setVisible(false);
 		errorLabel.setIcon(new ImageIcon(AtualizarHospede.class
-				.getResource("/gui/images/error.png")));
+				.getResource("/gui/resources/error.png")));
 		GridBagConstraints gbc_btnVoltar = new GridBagConstraints();
 		gbc_btnVoltar.anchor = GridBagConstraints.EAST;
 		gbc_btnVoltar.insets = new Insets(0, 0, 0, 10);
 		gbc_btnVoltar.gridx = 1;
 		gbc_btnVoltar.gridy = 0;
 		btnVoltar.setPreferredSize(new Dimension(75, 23));
-		btnVoltar.setMinimumSize(new Dimension(75, 23));
-		btnVoltar.setMaximumSize(new Dimension(75, 23));
 		btnVoltar.setFocusable(false);
 		panel_6.add(btnVoltar, gbc_btnVoltar);
 		GridBagConstraints gbc_btnAtualizar = new GridBagConstraints();
 		gbc_btnAtualizar.gridx = 2;
 		gbc_btnAtualizar.gridy = 0;
-		btnAtualizar.setMaximumSize(new Dimension(79, 23));
-		btnAtualizar.setMinimumSize(new Dimension(79, 23));
 		btnAtualizar.setPreferredSize(new Dimension(79, 23));
 		btnAtualizar.setFocusable(false);
 		panel_6.add(btnAtualizar, gbc_btnAtualizar);
@@ -284,7 +280,7 @@ public class AtualizarHospede extends JPanel {
 
 		if(b) {
 			btnVoltar.setText("Cancelar");
-			btnAtualizar.setText("Atualizar");
+			btnAtualizar.setText("Confirmar");
 		}
 
 		else {

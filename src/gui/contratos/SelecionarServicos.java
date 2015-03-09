@@ -390,7 +390,7 @@ public class SelecionarServicos extends JPanel {
 		ErrorLabel.setForeground(Color.RED);
 		ErrorLabel.setVisible(false);
 		ErrorLabel.setIcon(new ImageIcon(SelecionarServicos.class
-				.getResource("/gui/images/error.png")));
+				.getResource("/gui/resources/error.png")));
 
 		JButton btnCancelar = new JButton("Cancelar");
 		GridBagConstraints gbc_btnCancelar = new GridBagConstraints();
@@ -566,17 +566,17 @@ public class SelecionarServicos extends JPanel {
 
 			if (inicio == saida) {
 				ErrorLabel
-				.setText("Hora de in\u00ED­cio e de sa\u00ED­da n\u00E3o podem ser iguais");
+				.setText("Hora de in\u00EDcio e de sa\u00EDda n\u00E3o podem ser iguais");
 				ErrorLabel.setVisible(true);
 				return;
 			} else if (inicio > saida) {
 				ErrorLabel
-				.setText("Hora de in\u00ED­cio deve ser menor que a de sa\u00ED­da");
+				.setText("Hora de in\u00EDcio deve ser menor que a de sa\u00EDda");
 				ErrorLabel.setVisible(true);
 				return;
 			} else if (saida - inicio > 8) {
 				ErrorLabel
-				.setText("Mesma bab\u00ED¡ n\u00E3o pode ser contratada por mais de 8 horas no mesmo dia");
+				.setText("Mesma bab\u00E1 n\u00E3o pode ser contratada por mais de 8 horas no mesmo dia");
 				ErrorLabel.setVisible(true);
 				return;
 			}

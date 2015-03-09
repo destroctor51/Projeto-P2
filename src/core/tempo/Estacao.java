@@ -2,6 +2,8 @@ package core.tempo;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.Random;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -20,12 +22,13 @@ import utils.Tempo;
 
 public class Estacao implements Cloneable, Serializable {
 
-	public static final Estacao NENHUMA = new Estacao("Nenhuma",1);
+	public static final Estacao NENHUMA = new Estacao("Nenhuma", 1);
 
 	private static final long serialVersionUID = 1L;
 
 	private Set<Periodo> periodos = new TreeSet<>();
 	private double tarifa;
+	private int hash;
 	private String id;
 
 	/**
@@ -37,6 +40,9 @@ public class Estacao implements Cloneable, Serializable {
 	public Estacao(String id, double tarifa){
 		if(id == null)
 			throw new IllegalArgumentException();
+
+		Random rand = new Random();
+		this.hash = new String(rand.nextLong()+":"+GregorianCalendar.getInstance().hashCode()).hashCode();
 
 		this.tarifa = tarifa;
 		this.id = id;
@@ -130,17 +136,21 @@ public class Estacao implements Cloneable, Serializable {
 	public String toString() {
 		return id;
 	}
-	
+
+	@Override
+	public int hashCode() {
+		return hash;
+	}
+
 	@Override
 	public boolean equals(Object obj){
-		
 		if(!(obj instanceof Estacao))
 			return false;
-		
+
 		Estacao outraEstacao = (Estacao) obj;
-		return outraEstacao.getId().equals(id);
+		return outraEstacao.hash == hash;
 	}
-	
+
 	@Override
 	public Object clone() {
 		try {

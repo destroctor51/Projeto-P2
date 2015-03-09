@@ -8,6 +8,9 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.util.Locale;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -109,7 +112,7 @@ public class AdicionarRefeicao extends JPanel {
 		gbc_lbObs.insets = new Insets(0, 2, 0, 5);
 		gbc_lbObs.gridx = 0;
 		gbc_lbObs.gridy = 0;
-		lbObs.setIcon(new ImageIcon(AdicionarRefeicao.class.getResource("/gui/images/error.png")));
+		lbObs.setIcon(new ImageIcon(AdicionarRefeicao.class.getResource("/gui/resources/error.png")));
 		panel_1.add(lbObs, gbc_lbObs);
 		lbObs.setForeground(Color.RED);
 		lbObs.setVisible(false);
@@ -146,7 +149,10 @@ public class AdicionarRefeicao extends JPanel {
 						if (!Character.isAlphabetic(tfNome.getText().charAt(i))
 								&& tfNome.getText().charAt(i) != ' ')
 							throw new IllegalArgumentException();
-					float preco = (float) Double.parseDouble(tfPreco.getText());
+
+					NumberFormat format = NumberFormat.getInstance(Locale.FRANCE);
+					Number number = format.parse(tfPreco.getText());
+					float preco = number.floatValue();
 
 					if(preco <= 0)
 						throw new NumberFormatException();
@@ -156,11 +162,11 @@ public class AdicionarRefeicao extends JPanel {
 							r.cadastraRefeicao(tfNome.getText(), preco);
 
 					Sistema.setTela(telaAnterior);
-				} catch(NumberFormatException nfe) {
-					lbObs.setText("O pre\u00E7o deve ser um numero positivo");
+				} catch(ParseException nfe) {
+					lbObs.setText("O pre\u00E7o deve ser um real positivo");
 					lbObs.setVisible(true);
 				} catch(IllegalArgumentException iae) {
-					lbObs.setText("Nome deve ter no m\u00EDnimo 3 caracteres(apenas letras)");
+					lbObs.setText("Nome deve ter no m\u00EDnimo 3 letras");
 					lbObs.setVisible(true);
 				} catch(Exception exc) {
 					lbObs.setText(exc.getMessage());

@@ -8,6 +8,10 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.util.Locale;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -85,7 +89,9 @@ public class AtualizarRefeicao extends JPanel {
 		gbc_lblNewLabel.gridy = 2;
 		panel_3.add(lblNewLabel, gbc_lblNewLabel);
 
-		tfPreco = new JTextField(refeicao.getPreco() + "");
+		DecimalFormat df = new DecimalFormat("0.00");
+
+		tfPreco = new JTextField(df.format(refeicao.getPreco()));
 		GridBagConstraints gbc_tfPreco = new GridBagConstraints();
 		gbc_tfPreco.fill = GridBagConstraints.HORIZONTAL;
 		gbc_tfPreco.gridx = 1;
@@ -113,7 +119,7 @@ public class AtualizarRefeicao extends JPanel {
 		gbc_lbObs.insets = new Insets(0, 2, 0, 5);
 		gbc_lbObs.gridx = 0;
 		gbc_lbObs.gridy = 0;
-		lbObs.setIcon(new ImageIcon(AtualizarRefeicao.class.getResource("/gui/images/error.png")));
+		lbObs.setIcon(new ImageIcon(AtualizarRefeicao.class.getResource("/gui/resources/error.png")));
 		panel_1.add(lbObs, gbc_lbObs);
 		lbObs.setForeground(Color.RED);
 		lbObs.setVisible(false);
@@ -144,7 +150,10 @@ public class AtualizarRefeicao extends JPanel {
 						if (!Character.isAlphabetic(tfNome.getText().charAt(i))
 								&& tfNome.getText().charAt(i) != ' ')
 							throw new IllegalArgumentException();
-					float preco = (float) Double.parseDouble(tfPreco.getText());
+
+					NumberFormat format = NumberFormat.getInstance(Locale.FRANCE);
+					Number number = format.parse(tfPreco.getText());
+					float preco = number.floatValue();
 
 					if(preco <= 0)
 						throw new NumberFormatException();
@@ -156,11 +165,11 @@ public class AtualizarRefeicao extends JPanel {
 						}
 
 					Sistema.setTela(telaAnterior);
-				} catch(NumberFormatException nfe) {
-					lbObs.setText("O pre\u00E7o deve ser um numero positivo");
+				} catch(ParseException nfe) {
+					lbObs.setText("O pre\u00E7o deve ser um real positivo");
 					lbObs.setVisible(true);
 				} catch(IllegalArgumentException iae) {
-					lbObs.setText("Nome deve ter no m\u00EDnimo 3 caracteres(apenas letras)");
+					lbObs.setText("Nome deve ter no m\u00EDnimo 3 letras");
 					lbObs.setVisible(true);
 				} catch(Exception exc) {
 					lbObs.setText(exc.getMessage());

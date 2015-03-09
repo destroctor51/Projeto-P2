@@ -160,7 +160,7 @@ public class Hospedes extends JPanel {
 		panel_1.add(errorLabel, gbc_ErrorLabel);
 		errorLabel.setVisible(false);
 		errorLabel.setIcon(new ImageIcon(Hospedes.class
-				.getResource("/gui/images/error.png")));
+				.getResource("/gui/resources/error.png")));
 
 		JButton btnCancelar = new JButton("Voltar");
 		btnCancelar.setFocusable(false);

@@ -169,7 +169,7 @@ public class AdicionarOpiniao extends JPanel {
 		});
 
 		final JLabel lblobs = new JLabel("<erro>");
-		lblobs.setIcon(new ImageIcon(AdicionarOpiniao.class.getResource("/gui/images/error.png")));
+		lblobs.setIcon(new ImageIcon(AdicionarOpiniao.class.getResource("/gui/resources/error.png")));
 		lblobs.setForeground(Color.RED);
 		GridBagConstraints gbc_lblobs = new GridBagConstraints();
 		gbc_lblobs.anchor = GridBagConstraints.WEST;

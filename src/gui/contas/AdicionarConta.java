@@ -166,7 +166,7 @@ public class AdicionarConta extends JPanel {
 
 		final JLabel lblNewLabel = new JLabel("<erro>");
 		lblNewLabel.setVisible(false);
-		lblNewLabel.setIcon(new ImageIcon(AdicionarConta.class.getResource("/gui/images/error.png")));
+		lblNewLabel.setIcon(new ImageIcon(AdicionarConta.class.getResource("/gui/resources/error.png")));
 		lblNewLabel.setForeground(Color.RED);
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.anchor = GridBagConstraints.WEST;

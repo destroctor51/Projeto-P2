@@ -461,7 +461,7 @@ public class RealizarReserva extends JPanel {
 		gbc_spinner_6.gridy = 6;
 		panel_3.add(spinner_6, gbc_spinner_6);
 		ErrorLabel.setIcon(new ImageIcon(RealizarReserva.class
-				.getResource("/gui/images/error.png")));
+				.getResource("/gui/resources/error.png")));
 		GridBagConstraints gbc_btnCancelar = new GridBagConstraints();
 		gbc_btnCancelar.anchor = GridBagConstraints.EAST;
 		gbc_btnCancelar.insets = new Insets(0, 0, 0, 10);

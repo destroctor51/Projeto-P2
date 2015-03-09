@@ -11,6 +11,7 @@ import java.awt.Insets;
 import java.awt.Paint;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -172,7 +173,7 @@ public class OpinioesSobreHotel extends JPanel {
 		gbc_errorLabel.gridy = 0;
 		panel_3.add(errorLabel, gbc_errorLabel);
 		errorLabel.setForeground(Color.RED);
-		errorLabel.setIcon(new ImageIcon(OpinioesSobreHotel.class.getResource("/gui/images/error.png")));
+		errorLabel.setIcon(new ImageIcon(OpinioesSobreHotel.class.getResource("/gui/resources/error.png")));
 
 		JButton btnVoltar = new JButton("Voltar");
 		btnVoltar.setFocusable(false);
@@ -213,8 +214,10 @@ public class OpinioesSobreHotel extends JPanel {
 		texto += "Nota 4 - bom: " + bom + "\n";
 		texto += "Nota 5 - \u00F3timo: " + otimo + "\n\n";
 
+		DecimalFormat df = new DecimalFormat("0.00");
+
 		calculaMedia();
-		texto += "M\u00E9dia: " + media;
+		texto += "M\u00E9dia: " + df.format(media);
 
 		return texto;
 	}

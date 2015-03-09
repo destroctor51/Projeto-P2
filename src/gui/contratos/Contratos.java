@@ -164,7 +164,7 @@ public class Contratos extends JPanel {
 		errorLabel.setForeground(Color.RED);
 		errorLabel.setVisible(false);
 		errorLabel.setIcon(new ImageIcon(Contratos.class
-				.getResource("/gui/images/error.png")));
+				.getResource("/gui/resources/error.png")));
 
 		JButton btnCancelar = new JButton("Voltar");
 		btnCancelar.setFocusable(false);

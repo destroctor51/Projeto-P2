@@ -3,4 +3,4 @@
  * 
  * @author Victor Andrade de Almeida
  */
-package gui.images;
+package gui.resources;

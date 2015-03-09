@@ -183,7 +183,7 @@ public class ConfirmaCompra extends JPanel {
 		gbc_ErrorLabel.gridy = 0;
 		panel_3.add(errorLabel, gbc_ErrorLabel);
 		errorLabel.setVisible(false);
-		errorLabel.setIcon(new ImageIcon(ConfirmaCompra.class.getResource("/gui/images/error.png")));
+		errorLabel.setIcon(new ImageIcon(ConfirmaCompra.class.getResource("/gui/resources/error.png")));
 
 		JButton btnConfirmar = new JButton("Confirmar");
 		btnConfirmar.setFocusable(false);

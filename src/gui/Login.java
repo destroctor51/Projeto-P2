@@ -198,7 +198,7 @@ public class Login extends JPanel implements FullscreenListener {
 
 		registerErrorLabel = new JLabel("");
 		registerErrorLabel.setVisible(false);
-		registerErrorLabel.setIcon(new ImageIcon(Login.class.getResource("/gui/images/error.png")));
+		registerErrorLabel.setIcon(new ImageIcon(Login.class.getResource("/gui/resources/error.png")));
 		registerErrorLabel.setForeground(Color.RED);
 		GridBagConstraints gbc_registerErrorLabel = new GridBagConstraints();
 		gbc_registerErrorLabel.anchor = GridBagConstraints.LINE_START;
@@ -349,7 +349,7 @@ public class Login extends JPanel implements FullscreenListener {
 
 		loginErrorLabel = new JLabel("<erro>");
 		loginErrorLabel.setVisible(false);
-		loginErrorLabel.setIcon(new ImageIcon(Login.class.getResource("/gui/images/error.png")));
+		loginErrorLabel.setIcon(new ImageIcon(Login.class.getResource("/gui/resources/error.png")));
 		loginErrorLabel.setForeground(Color.RED);
 		GridBagConstraints gbc_loginErrorLabel = new GridBagConstraints();
 		gbc_loginErrorLabel.anchor = GridBagConstraints.LINE_START;
@@ -398,7 +398,7 @@ public class Login extends JPanel implements FullscreenListener {
 	}
 
 	private void printMensagem(String mensagem, boolean isErro, JLabel alvo) {
-		String icone = isErro? "/gui/images/error.png" : "/gui/images/success.png";
+		String icone = isErro? "/gui/resources/error.png" : "/gui/resources/success.png";
 		alvo.setForeground(isErro? Color.RED : new Color(0, 150, 0));
 		alvo.setIcon(new ImageIcon(Login.class.getResource(icone)));
 		alvo.setText(mensagem);

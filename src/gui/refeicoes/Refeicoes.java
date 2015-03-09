@@ -59,6 +59,7 @@ public class Refeicoes extends JPanel {
 	public Refeicoes() {
 
 		setName("Refei\u00E7\u00F5es");
+
 		setMinimumSize(new Dimension(0, 0));
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.rowHeights = new int[] {0, 0, 120, 0};
@@ -161,17 +162,11 @@ public class Refeicoes extends JPanel {
 		btnRemoverRefeicao.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				lbObs.setVisible(false);
+				if(list.isSelectionEmpty()) return;
 
 				Object value = list.getSelectedValue();
 				Object item = cbRestaurantes.getSelectedItem();
-
-				if (value == null) {
-					lbObs.setText("Nenhum item foi selecionado");
-					lbObs.setIcon(new ImageIcon(Refeicoes.class.getResource("/gui/images/error.png")));
-					lbObs.setForeground(Color.RED);
-					lbObs.setVisible(true);
-					return;
-				}
 
 				String nomeRestaurante = (String) item;
 				for (Restaurante r : Sistema.getHotel().getRestaurantes())
@@ -182,11 +177,6 @@ public class Refeicoes extends JPanel {
 
 				List<Refeicao> elementos = filtraList();
 				Filtro.exibeFiltrado(tfBuscar.getText(), elementos, list);
-
-				lbObs.setIcon(new ImageIcon(Refeicoes.class.getResource("/gui/images/success.png")));
-				lbObs.setForeground(new Color(0, 150, 0));
-				lbObs.setText("Item removido com sucesso");
-				lbObs.setVisible(true);
 			}
 		});
 
@@ -200,15 +190,14 @@ public class Refeicoes extends JPanel {
 		btnAdicionar_1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				if (cbRestaurantes.getSelectedItem() == null) {
-					lbObs.setText("Nao h\u00E1 um restaurante selecionado");
-					lbObs.setIcon(new ImageIcon(Refeicoes.class.getResource("/gui/images/error.png")));
-					lbObs.setForeground(Color.RED);
+				if(cbRestaurantes.getSelectedItem() == null) {
+					lbObs.setText("N\u00E3o h\u00E1 nenhum restaurante");
 					lbObs.setVisible(true);
-				} else {
-					String nome = (String)cbRestaurantes.getSelectedItem();
-					Sistema.setTela(new AdicionarRefeicao(tela,nome));
+					return;
 				}
+
+				String nome = (String) cbRestaurantes.getSelectedItem();
+				Sistema.setTela(new AdicionarRefeicao(tela, nome));
 			}
 		});
 
@@ -265,19 +254,18 @@ public class Refeicoes extends JPanel {
 		gbc_lbObs.insets = new Insets(0, 0, 0, 5);
 		gbc_lbObs.gridx = 0;
 		gbc_lbObs.gridy = 0;
-		lbObs.setIcon(new ImageIcon(Refeicoes.class.getResource("/gui/images/error.png")));
+		lbObs.setIcon(new ImageIcon(Refeicoes.class.getResource("/gui/resources/error.png")));
 		lbObs.setForeground(Color.RED);
 		panel_1.add(lbObs, gbc_lbObs);
 
 		final JButton btnContrato = new JButton("Carrinho (0)");
 		btnContrato.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnContrato.setMaximumSize(new Dimension(97, 23));
-		btnContrato.setMinimumSize(new Dimension(97, 23));
 		btnContrato.setPreferredSize(new Dimension(97, 23));
 		btnContrato.setFocusable(false);
 		btnContrato.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				lbObs.setVisible(false);
 				Sistema.setTela(new CarrinhoRefeicoes(selecionadas, tela));
 			}
 		});
@@ -307,6 +295,7 @@ public class Refeicoes extends JPanel {
 		btnAddContrato.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				lbObs.setVisible(false);
 				if (list.getSelectedIndex() != -1) selecionadas.add(list.getSelectedValue());
 				btnContrato.setText("Carrinho ("+selecionadas.size()+")");
 			}
@@ -319,6 +308,7 @@ public class Refeicoes extends JPanel {
 		addAncestorListener(new AncestorListener() {
 			@Override
 			public void ancestorAdded(AncestorEvent arg0) {
+				atualizaJList();
 				btnContrato.setText("Carrinho ("+selecionadas.size()+")");
 				lbObs.setVisible(false);
 			}

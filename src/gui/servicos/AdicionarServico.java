@@ -59,7 +59,7 @@ public class AdicionarServico extends JPanel {
 		gbc_panel_card.insets = new Insets(0, 0, 10, 5);
 		gbc_panel_card.gridx = 1;
 		gbc_panel_card.gridy = 1;
-		panel_card.setBorder(new CompoundBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "<dynamic>", TitledBorder.LEADING, TitledBorder.ABOVE_TOP, null, new Color(0, 0, 0)), new EmptyBorder(0, 20, 0, 20)));
+		panel_card.setBorder(new CompoundBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), cbSelecionado, TitledBorder.LEADING, TitledBorder.ABOVE_TOP, null, new Color(0, 0, 0)), new EmptyBorder(0, 20, 0, 20)));
 		add(panel_card, gbc_panel_card);
 		panel_card.setLayout(new CardLayout(0, 0));
 
@@ -249,7 +249,7 @@ public class AdicionarServico extends JPanel {
 		gbc_lbObs.insets = new Insets(0, 0, 0, 10);
 		gbc_lbObs.gridx = 0;
 		gbc_lbObs.gridy = 0;
-		lbObs.setIcon(new ImageIcon(AdicionarServico.class.getResource("/gui/images/error.png")));
+		lbObs.setIcon(new ImageIcon(AdicionarServico.class.getResource("/gui/resources/error.png")));
 		panel_1.add(lbObs, gbc_lbObs);
 		lbObs.setForeground(Color.RED);
 		lbObs.setVisible(false);

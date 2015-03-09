@@ -158,7 +158,7 @@ public class FaturamentoEServicos extends JPanel {
 					estrategia.geraGraficoMensal(panel,cbRelatorioMensal);
 				} else {
 					errorLabel.setVisible(true);
-					errorLabel.setText("Selecione um mes");
+					errorLabel.setText("Selecione um m\u00EAs");
 				}
 			}
 		});
@@ -296,7 +296,7 @@ public class FaturamentoEServicos extends JPanel {
 		gbc_errorLabel.insets = new Insets(0, 0, 0, 5);
 		gbc_errorLabel.gridx = 0;
 		gbc_errorLabel.gridy = 0;
-		errorLabel.setIcon(new ImageIcon(FaturamentoEServicos.class.getResource("/gui/images/error.png")));
+		errorLabel.setIcon(new ImageIcon(FaturamentoEServicos.class.getResource("/gui/resources/error.png")));
 		errorLabel.setForeground(Color.RED);
 		panel_3.add(errorLabel, gbc_errorLabel);
 

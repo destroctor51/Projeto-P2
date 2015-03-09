@@ -2,6 +2,7 @@ package gui.relatorios.strategy;
 
 import gui.Sistema;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -35,14 +36,15 @@ public class Faturamento extends Estrategia {
 		texto += "M\u00EAs: " + cb.getSelectedItem() + "\n\n";
 
 		calculaRelatorioMensal(texto, cb.getSelectedIndex(), anoRelatorio);
+		DecimalFormat df = new DecimalFormat("0.00");
 
-		texto += "Bab\u00E1s: R$ " + baba + "\n";
-		texto += "Camas Extras: R$ " + cama + "\n";
-		texto += "Carros: R$ " + carro + "\n";
-		texto += "Quartos: R$ " + quarto + "\n";
-		texto += "Restaurantes: R$ " + restaurante + "\n\n";
+		texto += "Bab\u00E1s:\t\tR$ " + df.format(baba) + "\n";
+		texto += "Camas Extras:\tR$ " + df.format(cama) + "\n";
+		texto += "Carros:\t\tR$ " + df.format(carro) + "\n";
+		texto += "Quartos:\t\tR$ " + df.format(quarto) + "\n";
+		texto += "Restaurantes:\tR$ " + df.format(restaurante) + "\n\n";
 
-		texto += "Faturamento mensal: R$ " + mes + "\n";
+		texto += "Faturamento mensal:\tR$ " + df.format(mes) + "\n";
 
 		return texto;
 	}
@@ -59,24 +61,25 @@ public class Faturamento extends Estrategia {
 		texto += "Data de consulta: " + dataAtual + "\n";
 
 		calculaRelatorioAnual(cb);
+		DecimalFormat df = new DecimalFormat("0.00");
 
 		texto += "Faturamento anual\n";
 		texto += "Ano: " + cb.getSelectedItem() + "\n\n";
 
-		texto += "Janeiro: R$ " + meses[0] + "\n";
-		texto += "Fevereiro: R$ " + meses[1] + "\n";
-		texto += "Mar\u00E7o: R$ " + meses[2] + "\n";
-		texto += "Abril: R$ " + meses[3] + "\n";
-		texto += "Maio: R$ " + meses[4] + "\n";
-		texto += "Junho: R$ " + meses[5] + "\n";
-		texto += "Julho: R$ " + meses[6] + "\n";
-		texto += "Agosto: R$ " + meses[7] + "\n";
-		texto += "Setembro: R$ " + meses[8] + "\n";
-		texto += "Outubro: R$ " + meses[9] + "\n";
-		texto += "Novembro: R$ " + meses[10] + "\n";
-		texto += "Dezembro: R$ " + meses[11] + "\n\n";
+		texto += "Janeiro:\t\tR$ " + df.format(meses[0]) + "\n";
+		texto += "Fevereiro:\t\tR$ " + df.format(meses[1]) + "\n";
+		texto += "Mar\u00E7o:\t\tR$ " + df.format(meses[2]) + "\n";
+		texto += "Abril:\t\tR$ " + df.format(meses[3]) + "\n";
+		texto += "Maio:\t\tR$ " + df.format(meses[4]) + "\n";
+		texto += "Junho:\t\tR$ " + df.format(meses[5]) + "\n";
+		texto += "Julho:\t\tR$ " + df.format(meses[6]) + "\n";
+		texto += "Agosto:\t\tR$ " + df.format(meses[7]) + "\n";
+		texto += "Setembro:\t\tR$ " + df.format(meses[8]) + "\n";
+		texto += "Outubro:\t\tR$ " + df.format(meses[9]) + "\n";
+		texto += "Novembro:\t\tR$ " + df.format(meses[10]) + "\n";
+		texto += "Dezembro:\t\tR$ " + df.format(meses[11]) + "\n\n";
 
-		texto += "Faturamento anual: R$ " + ano + "\n";
+		texto += "Faturamento anual:\tR$ " + df.format(ano) + "\n";
 
 		return texto;
 	}
@@ -92,18 +95,19 @@ public class Faturamento extends Estrategia {
 
 		texto += "Data de consulta: " + dataAtual + "\n";
 		calculaRelatorioEstacao(estacao1, anoRelatorio);
+		DecimalFormat df = new DecimalFormat("0.00");
 
 		texto += "Faturamento de esta\u00E7\u00E3o\n";
 		texto += "Esta\u00E7\u00E3o: " + estacao1 + "\n\n";
 
-		texto += "Bab\u00E1s: R$ " + baba + "\n";
-		texto += "Camas Extras: R$ " + cama + "\n";
-		texto += "Carros: R$ " + carro + "\n";
-		texto += "Quartos: R$ " + quarto + "\n";
-		texto += "Restaurantes: R$ " + restaurante + "\n";
+		texto += "Bab\u00E1s:\t\tR$ " + df.format(baba) + "\n";
+		texto += "Camas Extras:\tR$ " + df.format(cama) + "\n";
+		texto += "Carros:\t\tR$ " + df.format(carro) + "\n";
+		texto += "Quartos:\t\tR$ " + df.format(quarto) + "\n";
+		texto += "Restaurantes:\tR$ " + df.format(restaurante) + "\n";
 
 		texto += "\n";
-		texto += "Faturamento da esta\u00E7\u00E3o: R$ " + estacao + "\n";
+		texto += "Faturamento da esta\u00E7\u00E3o:\tR$ " + df.format(estacao) + "\n";
 		return texto;
 	}
 

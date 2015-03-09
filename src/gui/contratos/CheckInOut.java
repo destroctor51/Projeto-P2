@@ -193,7 +193,7 @@ public class CheckInOut extends JPanel {
 		ErrorLabel = new JLabel("<erro>");
 		ErrorLabel.setVisible(false);
 		ErrorLabel.setForeground(Color.RED);
-		ErrorLabel.setIcon(new ImageIcon(CheckInOut.class.getResource("/gui/images/error.png")));
+		ErrorLabel.setIcon(new ImageIcon(CheckInOut.class.getResource("/gui/resources/error.png")));
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblNewLabel.insets = new Insets(0, 0, 0, 5);

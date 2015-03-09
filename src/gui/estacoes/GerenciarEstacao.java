@@ -9,6 +9,10 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.util.Locale;
 
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -156,16 +160,13 @@ public class GerenciarEstacao extends JPanel {
 		btnRemoverPeriodo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				try {
-					Periodo p = list.getSelectedValue();
-					estacao.removePeriodo(p);
-					calendario.atualizaDias();
-					lista.remove(list.getSelectedIndex());
-				} catch(ArrayIndexOutOfBoundsException ex) {
-					ErrorLabel.setText("Nenhum per\u00EDodo foi selecionado");
-					ErrorLabel.setVisible(true);
-					return;
-				}
+				if(list.isSelectionEmpty()) return;
+
+				Periodo p = list.getSelectedValue();
+				estacao.removePeriodo(p);
+				calendario.atualizaDias();
+				lista.remove(list.getSelectedIndex());
+
 				ErrorLabel.setVisible(false);
 			}
 		});
@@ -174,13 +175,9 @@ public class GerenciarEstacao extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				Periodo periodo = calendario.getSelecao();
 
-				if (periodo == null) {
-					ErrorLabel.setText("Per\u00EDodo n\u00E3o foi selecionado");
-					ErrorLabel.setVisible(true);
-					return;
-				}
-
+				if (periodo == null) return;
 				ErrorLabel.setVisible(false);
+
 				lista.addElement(periodo);
 				list.setModel(lista);
 				estacao.addPeriodo(periodo);
@@ -220,7 +217,7 @@ public class GerenciarEstacao extends JPanel {
 
 		ErrorLabel = new JLabel("<erro>");
 		ErrorLabel.setIcon(new ImageIcon(GerenciarEstacao.class
-				.getResource("/gui/images/error.png")));
+				.getResource("/gui/resources/error.png")));
 		ErrorLabel.setForeground(Color.RED);
 		ErrorLabel.setVisible(false);
 		GridBagConstraints gbc_lblobservaes = new GridBagConstraints();
@@ -260,9 +257,11 @@ public class GerenciarEstacao extends JPanel {
 				}
 
 				try {
-					tarifa = Double.parseDouble(textField_1.getText()) / 100;
-				} catch (NumberFormatException ex) {
-					ErrorLabel.setText("Valor de tarifa inv\u00EDlido");
+					NumberFormat format = NumberFormat.getInstance(Locale.FRANCE);
+					Number number = format.parse(textField_1.getText());
+					tarifa = number.doubleValue() / 100;
+				} catch (ParseException ex) {
+					ErrorLabel.setText("Valor de tarifa inv\u00E1lido");
 					ErrorLabel.setVisible(true);
 					return;
 				}
@@ -281,8 +280,10 @@ public class GerenciarEstacao extends JPanel {
 		gbc_btnConfirmar.gridy = 0;
 		panel_2.add(btnConfirmar, gbc_btnConfirmar);
 
+		DecimalFormat df = new DecimalFormat("0.00");
+
 		textField.setText(estacao.getId());
-		textField_1.setText(String.valueOf(estacao.getTarifa() * 100));
+		textField_1.setText(df.format(estacao.getTarifa() * 100));
 
 		for(Periodo p : estacao.getPeriodos()) {
 			lista.addElement(p);

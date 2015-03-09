@@ -196,7 +196,7 @@ public class EditarConta extends JPanel {
 
 		final JLabel lblNewLabel = new JLabel("<erro>");
 		lblNewLabel.setVisible(false);
-		lblNewLabel.setIcon(new ImageIcon(EditarConta.class.getResource("/gui/images/error.png")));
+		lblNewLabel.setIcon(new ImageIcon(EditarConta.class.getResource("/gui/resources/error.png")));
 		lblNewLabel.setForeground(Color.RED);
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.anchor = GridBagConstraints.WEST;
@@ -207,8 +207,6 @@ public class EditarConta extends JPanel {
 
 		btnNewButton_1 = new JButton("Voltar");
 		btnNewButton_1.setFocusable(false);
-		btnNewButton_1.setMaximumSize(new Dimension(75, 23));
-		btnNewButton_1.setMinimumSize(new Dimension(75, 23));
 		btnNewButton_1.setPreferredSize(new Dimension(75, 23));
 		btnNewButton_1.addActionListener(new ActionListener() {
 			@Override
@@ -321,8 +319,6 @@ public class EditarConta extends JPanel {
 				}
 			}
 		});
-		btnNewButton.setMaximumSize(new Dimension(79, 23));
-		btnNewButton.setMinimumSize(new Dimension(79, 23));
 		btnNewButton.setPreferredSize(new Dimension(79, 23));
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.gridx = 2;

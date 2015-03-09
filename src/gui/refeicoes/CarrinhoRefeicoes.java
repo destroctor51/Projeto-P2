@@ -107,7 +107,7 @@ public class CarrinhoRefeicoes extends JPanel {
 		gbc_lblNewLabel_3.gridy = 0;
 		panel.add(errorLabel, gbc_lblNewLabel_3);
 		errorLabel.setVisible(false);
-		errorLabel.setIcon(new ImageIcon(CarrinhoRefeicoes.class.getResource("/gui/images/error.png")));
+		errorLabel.setIcon(new ImageIcon(CarrinhoRefeicoes.class.getResource("/gui/resources/error.png")));
 
 		JButton btnRemover = new JButton("Remover");
 		btnRemover.setFocusable(false);
@@ -115,6 +115,7 @@ public class CarrinhoRefeicoes extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Object item = list.getSelectedValue();
+				errorLabel.setVisible(false);
 
 				if (item != null) {
 					escolhidas.remove(item);

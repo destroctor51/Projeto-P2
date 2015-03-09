@@ -11,8 +11,10 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Enumeration;
 import java.util.GregorianCalendar;
 
 import javax.swing.AbstractAction;
@@ -69,9 +71,22 @@ public class Sistema extends JFrame implements ActionListener, FullscreenListene
 	public static void main(String[] args) {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("src/gui/resources/Tahoma.ttf")));
+			setDefaultFont(new Font("Tahoma", Font.PLAIN, 11));
 		} catch (Exception e) {}
 
 		setTela(new Login());
+	}
+
+	private static void setDefaultFont(Font font) {
+		Enumeration<Object> keys = UIManager.getDefaults().keys();
+		while (keys.hasMoreElements()) {
+			Object key = keys.nextElement();
+			Object value = UIManager.get (key);
+			if (value != null && value instanceof javax.swing.plaf.FontUIResource)
+				UIManager.put (key, font);
+		}
 	}
 
 	private Sistema() {
@@ -104,9 +119,9 @@ public class Sistema extends JFrame implements ActionListener, FullscreenListene
 
 		logoutButton = new JButton("");
 		logoutButton.setFocusable(false);
-		logoutButton.setRolloverIcon(new ImageIcon(Sistema.class.getResource("/gui/images/power_hover.png")));
+		logoutButton.setRolloverIcon(new ImageIcon(Sistema.class.getResource("/gui/resources/power_hover.png")));
 		logoutButton.setBorderPainted(false);
-		logoutButton.setIcon(new ImageIcon(Sistema.class.getResource("/gui/images/power.png")));
+		logoutButton.setIcon(new ImageIcon(Sistema.class.getResource("/gui/resources/power.png")));
 		logoutButton.setContentAreaFilled(false);
 		logoutButton.setPreferredSize(new Dimension(15, 15));
 		logoutButton.setMargin(new Insets(0, 0, 0, 0));

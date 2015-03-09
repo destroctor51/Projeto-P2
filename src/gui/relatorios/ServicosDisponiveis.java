@@ -156,7 +156,7 @@ public class ServicosDisponiveis extends JPanel {
 		gbc_errorLabel.gridx = 0;
 		gbc_errorLabel.gridy = 0;
 		panel_3.add(errorLabel, gbc_errorLabel);
-		errorLabel.setIcon(new ImageIcon(ServicosDisponiveis.class.getResource("/gui/images/error.png")));
+		errorLabel.setIcon(new ImageIcon(ServicosDisponiveis.class.getResource("/gui/resources/error.png")));
 		errorLabel.setForeground(Color.RED);
 
 		JButton btnVoltar = new JButton("Voltar");
