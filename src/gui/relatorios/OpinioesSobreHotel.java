@@ -68,7 +68,7 @@ public class OpinioesSobreHotel extends JPanel {
 		setName("Relat\u00F3rio de opini\u00F5es");
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[] {0, 0, 0};
+		gridBagLayout.columnWidths = new int[] {0, 486, 0};
 		gridBagLayout.rowHeights = new int[] {30, 0, 200, 0};
 		gridBagLayout.columnWeights = new double[] { 1.0, 1.0, 1.0 };
 		gridBagLayout.rowWeights = new double[] { 1.0, 0.0, 1.0, 1.0 };

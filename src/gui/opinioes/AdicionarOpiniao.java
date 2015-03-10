@@ -37,8 +37,8 @@ public class AdicionarOpiniao extends JPanel {
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.rowHeights = new int[] {0, 0, 120, 0};
-		gridBagLayout.columnWidths = new int[] {0, 400, 0};
-		gridBagLayout.columnWeights = new double[]{1.0, 0.25, 1.0};
+		gridBagLayout.columnWidths = new int[] {0, 482, 0};
+		gridBagLayout.columnWeights = new double[]{1.0, 0.0, 1.0};
 		gridBagLayout.rowWeights = new double[]{1.0, 0.1, 0.5, 1.0};
 		setLayout(gridBagLayout);
 
@@ -51,7 +51,7 @@ public class AdicionarOpiniao extends JPanel {
 		gbc_panel.gridy = 0;
 		add(panel, gbc_panel);
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[] {0, 0, 0, 0, 75};
+		gbl_panel.columnWidths = new int[] {0, 0, 0, 0, 131};
 		gbl_panel.rowHeights = new int[] {0};
 		gbl_panel.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0};
 		gbl_panel.rowWeights = new double[]{0.0};
@@ -69,21 +69,24 @@ public class AdicionarOpiniao extends JPanel {
 		panel.add(lblAno, gbc_lblAno);
 
 		final SuperTextField tfNome = new SuperTextField();
+		tfNome.setColumns(15);
 		tfNome.setHint("An\u00F4nimo");
 		GridBagConstraints gbc_superTextField = new GridBagConstraints();
-		gbc_superTextField.insets = new Insets(0, 0, 0, 20);
 		gbc_superTextField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_superTextField.insets = new Insets(0, 0, 0, 20);
 		gbc_superTextField.gridx = 1;
 		gbc_superTextField.gridy = 0;
 		panel.add(tfNome, gbc_superTextField);
 
 		JLabel lblMs = new JLabel("Nota:");
 		GridBagConstraints gbc_lblMs = new GridBagConstraints();
+		gbc_lblMs.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblMs.insets = new Insets(0, 0, 0, 10);
 		gbc_lblMs.gridx = 2;
 		gbc_lblMs.gridy = 0;
 		panel.add(lblMs, gbc_lblMs);
 		GridBagConstraints gbc_lblAvaliacao = new GridBagConstraints();
+		gbc_lblAvaliacao.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblAvaliacao.gridx = 4;
 		gbc_lblAvaliacao.gridy = 0;
 		panel.add(lblAvaliacao, gbc_lblAvaliacao);
