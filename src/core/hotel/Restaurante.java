@@ -28,7 +28,7 @@ public class Restaurante implements Serializable {
 	 *            O nome do restaurante.
 	 */
 	public Restaurante(String nome) {
-		if (nome == null)
+		if (nome == null || nome.equals(""))
 			throw new IllegalArgumentException();
 		this.nome = nome;
 		estoque = new HashSet<Refeicao>();

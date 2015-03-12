@@ -147,10 +147,6 @@ public class Hotel implements Serializable {
 	 * @throws Exception  se ja houver uma cama com o mesmo codigo cadastrada
 	 */
 	public void adicionaCamaExtra(int codigo) throws Exception {
-		
-		if (codigo <= 0)
-			throw new IllegalArgumentException();
-		
 		for (CamaExtra cama : camas) {
 			if (cama.getCodigo() == codigo)
 				throw new Exception("C\u00F3digo j\u00E1 est\u00E1 sendo utilizado");
@@ -206,10 +202,6 @@ public class Hotel implements Serializable {
 	 * @throws Exception se ja houver uma baba com o mesmo nome cadastrada
 	 */
 	public void adicionaBaba(String nome) throws Exception {
-		
-		if(nome == null || nome.equals(""))
-			throw new IllegalArgumentException();
-	
 		for (Babysitter baba : babas)
 			if (baba.getNome().equals(nome))
 				throw new Exception("Nome j\u00E1 existente");
@@ -306,10 +298,6 @@ public class Hotel implements Serializable {
 	 * @throws Exception se ja houver um quarto com o mesmo numero cadastrado
 	 */
 	public void adicionaQuarto(TipoQuarto tipo, int numero) throws Exception {
-		
-		if(tipo == null || numero <= 0)
-			throw new IllegalArgumentException();
-		
 		for (Quarto quarto : quartos)
 			if (quarto.getNumero() == numero)
 				throw new Exception("N\u00FAmero j\u00E1 existente");
@@ -347,10 +335,6 @@ public class Hotel implements Serializable {
 	 * 			Lista de carros disponiveis no periodo.
 	 */
 	public List<Carro> getCarrosDisponiveis(Periodo periodo) {
-		
-		if(periodo == null)
-			throw new IllegalArgumentException();
-		
 		List<Carro> carrosDisponiveis = new ArrayList<>();
 
 		for (Carro carro : carros) {
@@ -371,10 +355,6 @@ public class Hotel implements Serializable {
 	 * @throws Exception  caso a placa seja invalida ou ja esteja cadastrada
 	 */
 	public void adicionaCarro(TipoCarro tipo, String placa) throws Exception {
-		
-		if (tipo == null || placa == null || placa.equals(""))
-			throw new IllegalArgumentException();
-		
 		if (!(Carro.verificaPlaca(placa)))
 			throw new Exception("Placa inv\u00E1lida (ex: ABC-1234)");
 
@@ -413,10 +393,6 @@ public class Hotel implements Serializable {
 	 * @throws Exception se ja houver um restaurante com o mesmo nome cadastrado
 	 */
 	public void adicionaRestaurante(String nome) throws Exception {
-		
-		if (nome == null || nome.equals(""))
-			throw new IllegalArgumentException();
-		
 		for (Restaurante restaurante : restaurantes)
 			if (restaurante.getNome().equals(nome))
 				throw new Exception("Nome j\u00E1 existente");
@@ -474,10 +450,6 @@ public class Hotel implements Serializable {
 	 * 			A estacao, caso exista.
 	 */
 	public Estacao procuraEstacao(Periodo periodo) {
-		
-		if(periodo == null)
-			throw new IllegalArgumentException();
-		
 		List<Estacao> candidatos = new ArrayList<>();
 
 		for (Estacao estacao : tarifas)

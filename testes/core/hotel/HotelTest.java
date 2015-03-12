@@ -82,7 +82,7 @@ public class HotelTest {
 			hotel.adicionaCamaExtra(-10394);
 			Assert.fail();
 		} catch(Exception e) {}
-		
+
 		hotel.adicionaCamaExtra(101);
 		try {
 			hotel.adicionaCamaExtra(101);
@@ -105,12 +105,12 @@ public class HotelTest {
 			hotel.adicionaBaba("Julia");
 			Assert.fail();
 		} catch(Exception e) {}
-		
+
 		try {
 			hotel.adicionaBaba(null);
 			Assert.fail();
 		} catch(Exception e) {}
-		
+
 		try {
 			hotel.adicionaBaba("");
 			Assert.fail();
@@ -170,7 +170,7 @@ public class HotelTest {
 			hotel.adicionaQuarto(TipoQuarto.LUXO_SIMPLES, 1001);
 			Assert.fail();
 		} catch(Exception e) {}
-		
+
 
 		try {
 			hotel.adicionaQuarto(null, 1001);
@@ -206,22 +206,22 @@ public class HotelTest {
 			hotel.adicionaCarro(TipoCarro.LUXO, "4123ABC");
 			Assert.fail();
 		} catch(Exception e) {}
-		
+
 		try {
 			hotel.adicionaCarro(null, "ABC-1234");
 			Assert.fail();
 		} catch(Exception e) {}
-		
+
 		try {
 			hotel.adicionaCarro(TipoCarro.LUXO, null);
 			Assert.fail();
 		} catch(Exception e) {}
-		
+
 		try {
 			hotel.adicionaCarro(TipoCarro.LUXO, "");
 			Assert.fail();
 		} catch(Exception e) {}
-		
+
 		hotel.adicionaCarro(TipoCarro.LUXO, "ABC-1234");
 		try {
 			hotel.adicionaCarro(TipoCarro.LUXO, "ABC-1234");
@@ -246,7 +246,7 @@ public class HotelTest {
 			hotel.adicionaRestaurante("Guaiamum");
 			Assert.fail();
 		} catch(Exception e) {}
-		
+
 		try {
 			hotel.adicionaRestaurante("");
 			Assert.fail();
@@ -283,14 +283,10 @@ public class HotelTest {
 		try {
 			hotel.adicionaEstacao(null);
 			Assert.fail();
-			} catch(IllegalArgumentException e) {}
-		
-		try {
-			 hotel.procuraEstacao(null);
-			Assert.fail();
-			} catch(IllegalArgumentException e) {}
+		} catch(IllegalArgumentException e) {}
 
 		Assert.assertEquals(Estacao.NENHUMA, hotel.procuraEstacao(periodo3));
+		Assert.assertEquals(Estacao.NENHUMA, hotel.procuraEstacao(null));
 
 		// OPINIAO
 

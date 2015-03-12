@@ -52,7 +52,7 @@ public class EstacaoTest {
 			new Estacao(null, 0.01);
 			Assert.fail();
 		} catch(IllegalArgumentException e) {}
-		
+
 		try {
 			new Estacao("Estacao", -1);
 			Assert.fail();
@@ -62,7 +62,7 @@ public class EstacaoTest {
 			e1.setTarifa(-1);
 			Assert.fail();
 		} catch(IllegalArgumentException e) {}
-		
+
 	}
 
 	@Test
@@ -114,19 +114,19 @@ public class EstacaoTest {
 		e1.clear();
 		Assert.assertEquals(0, e1.getPeriodos().size());
 	}
-	
+
 	@Test
 	public void setIdCloneTest(){
-		
 		try{
 			e1.setId(null);
 			Assert.fail();
-		}catch(Exception exc){
-			
-		}
+		} catch(IllegalArgumentException e){}
+
 		e1.setId("3216354635");
 		e1.addPeriodo(p1);
-		Estacao e2 = (Estacao)e1.clone();
-		Assert.assertTrue(e1.equals(e2));
+		Estacao e2 = (Estacao) e1.clone();
+		Assert.assertEquals(e1, e2);
+		Assert.assertNotEquals(e1, null);
+		Assert.assertEquals(e1.hashCode(), e2.hashCode());
 	}
 }

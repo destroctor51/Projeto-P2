@@ -51,7 +51,7 @@ public class Carro implements Devolvivel{
 	 * 			Placa do carro.
 	 */
 	public Carro(TipoCarro tipoCarro, String placa) {
-		if(tipoCarro == null || placa == null)
+		if(tipoCarro == null || placa == null || placa.equals(""))
 			throw new IllegalArgumentException();
 
 		this.tipoCarro = tipoCarro;

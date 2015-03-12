@@ -31,6 +31,8 @@ public class CamaExtra implements Alugavel {
 	 *            O codigo que representa a cama.
 	 */
 	public CamaExtra(int codigo) {
+		if (codigo <= 0)
+			throw new IllegalArgumentException();
 		this.codigo = codigo;
 	}
 

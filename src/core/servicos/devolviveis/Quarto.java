@@ -38,8 +38,7 @@ public class Quarto implements Devolvivel {
 	 * 			numero do quarto
 	 */
 	public Quarto(TipoQuarto tipoQuarto, int numero){
-
-		if(tipoQuarto == null)
+		if(tipoQuarto == null || numero <= 0)
 			throw new IllegalArgumentException();
 
 		this.tipoQuarto = tipoQuarto;

@@ -7,7 +7,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import core.servicos.alugaveis.CamaExtra;
 import core.tempo.Periodo;
 
 public class CamaExtraTest {
@@ -80,9 +79,9 @@ public class CamaExtraTest {
 
 	@Test
 	public void testToString(){
-		Assert.assertEquals(camaextra1.toString(), "Cama extra de código 10");
-		Assert.assertEquals(camaextra2.toString(), "Cama extra de código 18");
-		Assert.assertEquals(camaextra3.toString(), "Cama extra de código 18");
+		Assert.assertEquals(camaextra1.toString(), "Cama extra de c\u00F3digo 10");
+		Assert.assertEquals(camaextra2.toString(), "Cama extra de c\u00F3digo 18");
+		Assert.assertEquals(camaextra3.toString(), "Cama extra de c\u00F3digo 18");
 		Assert.assertEquals(camaextra2.toString(), camaextra3.toString());
 	}
 

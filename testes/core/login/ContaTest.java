@@ -23,6 +23,7 @@ public class ContaTest {
 		assertEquals(nome, conta.getNome());
 		assertEquals("Victor", conta.getID());
 		assertEquals(email, conta.getEmail());
+		assertEquals("segredo", conta.getSenha());
 
 		assertTrue(conta.confereAcesso("Victor", "segredo"));
 		assertFalse(conta.confereAcesso("Victor", "senha"));

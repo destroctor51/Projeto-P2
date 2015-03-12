@@ -49,6 +49,11 @@ public class CarroTest {
 		} catch(IllegalArgumentException i) {}
 
 		try {
+			new Carro(TipoCarro.LUXO, "");
+			Assert.fail();
+		} catch(IllegalArgumentException i) {}
+
+		try {
 			new Carro(TipoCarro.EXECUTIVO, null);
 			Assert.fail();
 		} catch(IllegalArgumentException i) {}
@@ -105,7 +110,7 @@ public class CarroTest {
 		Assert.assertFalse(Carro.verificaPlaca("A2C-4123"));
 		Assert.assertFalse(Carro.verificaPlaca("ABC-41D3"));
 		Assert.assertFalse(Carro.verificaPlaca("abc-4123"));
-		
+
 		Assert.assertTrue(Carro.verificaPlaca("ABC-4123"));
 	}
 

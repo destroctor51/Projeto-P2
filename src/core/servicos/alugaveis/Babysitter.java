@@ -35,7 +35,7 @@ public class Babysitter implements Alugavel {
 	 *            o nome da babysitter
 	 */
 	public Babysitter(String nome) {
-		if (nome == null)
+		if(nome == null || nome.equals(""))
 			throw new IllegalArgumentException();
 		this.nome = nome;
 	}
