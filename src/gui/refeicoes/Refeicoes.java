@@ -244,7 +244,7 @@ public class Refeicoes extends JPanel {
 		gbc_panel_1.gridy = 3;
 		add(panel_1, gbc_panel_1);
 		GridBagLayout gbl_panel_1 = new GridBagLayout();
-		gbl_panel_1.columnWidths = new int[] {200, 0, 0, 0};
+		gbl_panel_1.columnWidths = new int[] {200, 0, 0, 97};
 		gbl_panel_1.rowHeights = new int[] {0};
 		gbl_panel_1.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0};
 		gbl_panel_1.rowWeights = new double[]{0.0};
@@ -260,7 +260,6 @@ public class Refeicoes extends JPanel {
 
 		final JButton btnContrato = new JButton("Carrinho (0)");
 		btnContrato.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnContrato.setPreferredSize(new Dimension(97, 23));
 		btnContrato.setFocusable(false);
 		btnContrato.addActionListener(new ActionListener() {
 			@Override
@@ -301,6 +300,7 @@ public class Refeicoes extends JPanel {
 			}
 		});
 		GridBagConstraints gbc_btnContrato = new GridBagConstraints();
+		gbc_btnContrato.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnContrato.gridx = 3;
 		gbc_btnContrato.gridy = 0;
 		panel_1.add(btnContrato, gbc_btnContrato);

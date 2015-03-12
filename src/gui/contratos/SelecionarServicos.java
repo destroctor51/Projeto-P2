@@ -548,15 +548,15 @@ public class SelecionarServicos extends JPanel {
 			seguro.add(chckbxNewCheckBox_1.isSelected());
 
 		} else if (pagavel instanceof CamaExtra) {
-			camasAlugadas.add((CamaExtra) pagavel);
-			pcamasAlugadas.add(periodo);
 			Quarto quartosel = list_1.getSelectedValue();
-
 			if (quartosel == null) {
 				ErrorLabel.setText("Nenhum quarto foi selecionado");
 				ErrorLabel.setVisible(true);
 				return;
 			}
+
+			camasAlugadas.add((CamaExtra) pagavel);
+			pcamasAlugadas.add(periodo);
 
 		} else {
 			int inicio = Integer.parseInt(comboBox_1.getSelectedItem()

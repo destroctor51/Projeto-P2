@@ -224,15 +224,15 @@ public class AtualizarServico extends JPanel {
 		gbc_label_3.gridy = 2;
 		panel_c.add(label_3, gbc_label_3);
 
-		selecionaCard(servico, panel, cbTipoCarro, cbTipoQuarto);
 		cbTipoCarro.setFocusable(false);
-
 		cbTipoCarro.setModel(new DefaultComboBoxModel<>(TipoCarro.values()));
 		GridBagConstraints gbc_cbTipoCarro = new GridBagConstraints();
 		gbc_cbTipoCarro.fill = GridBagConstraints.HORIZONTAL;
 		gbc_cbTipoCarro.gridx = 1;
 		gbc_cbTipoCarro.gridy = 2;
 		panel_c.add(cbTipoCarro, gbc_cbTipoCarro);
+
+		selecionaCard(servico, panel, cbTipoCarro, cbTipoQuarto);
 
 		JPanel panel_3 = new JPanel();
 		GridBagConstraints gbc_panel_3 = new GridBagConstraints();

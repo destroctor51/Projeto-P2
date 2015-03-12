@@ -570,21 +570,6 @@ public class RealizarReserva extends JPanel {
 			ErrorLabel.setVisible(true);
 			return;
 		}
-		ErrorLabel.setVisible(false);
-
-		Estacao estacao = Sistema.getHotel().procuraEstacao(estadia);
-
-		try {
-			hospede.realizarReserva(cartao, estacao);
-		} catch (Exception e) {
-		}
-
-		Contrato contrato = null;
-		Iterator<Contrato> contratos = hospede.getContratos().iterator();
-
-		while (contratos.hasNext()) {
-			contrato = contratos.next();
-		}
 
 		int p = (int) spinner.getValue(), ls = (int) spinner_1.getValue(), ld = (int) spinner_2
 				.getValue(), lt = (int) spinner_3.getValue(), es = (int) spinner_4
@@ -596,6 +581,14 @@ public class RealizarReserva extends JPanel {
 			ErrorLabel.setVisible(true);
 			return;
 		}
+
+		Estacao estacao = Sistema.getHotel().procuraEstacao(estadia);
+		hospede.realizarReserva(cartao, estacao);
+
+		Contrato contrato = null;
+		Iterator<Contrato> contratos = hospede.getContratos().iterator();
+		while (contratos.hasNext()) contrato = contratos.next();
+
 		ErrorLabel.setVisible(false);
 
 		for (Quarto q : Sistema.getHotel().getQuartosDisponiveis(estadia)) {
@@ -658,6 +651,7 @@ public class RealizarReserva extends JPanel {
 				break;
 			}
 		}
+
 		Sistema.setTela(new Menu(true));
 	}
 

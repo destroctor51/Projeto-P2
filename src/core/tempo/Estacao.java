@@ -41,8 +41,7 @@ public class Estacao implements Cloneable, Serializable {
 		if(id == null)
 			throw new IllegalArgumentException();
 
-		Random rand = new Random();
-		this.hash = new String(rand.nextLong()+":"+GregorianCalendar.getInstance().hashCode()).hashCode();
+		this.hash = new String(new Random().nextLong()+":"+GregorianCalendar.getInstance().hashCode()).hashCode();
 
 		this.tarifa = tarifa;
 		this.id = id;

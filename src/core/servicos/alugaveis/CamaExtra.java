@@ -19,7 +19,6 @@ public class CamaExtra implements Alugavel {
 	private static final long serialVersionUID = 1L;
 
 	public static final float DIARIA_CAMA_EXTRA = 30;
-	private final String descricao = "Cama extra";
 	private int codigo;
 
 	private Periodo periodoAlugado;
@@ -42,7 +41,7 @@ public class CamaExtra implements Alugavel {
 	 */
 	@Override
 	public String getDescricao() {
-		return descricao + " alugada por " + periodoAlugado.getNumeroDias() + " dias";
+		return "Cama extra alugada por " + periodoAlugado.getNumeroDias() + " dias";
 	}
 
 	/**
@@ -67,7 +66,7 @@ public class CamaExtra implements Alugavel {
 
 	@Override
 	public String toString() {
-		return Integer.toString(codigo);
+		return "Cama extra de c\u00F3digo " + Integer.toString(codigo);
 	}
 
 	@Override

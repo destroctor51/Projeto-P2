@@ -46,14 +46,27 @@ public class ContratosEmAberto extends JPanel {
 			}
 		});
 
+		JPanel panel = new JPanel();
+		panel.setBorder(new CompoundBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Relat\u00F3rio", TitledBorder.LEADING, TitledBorder.ABOVE_TOP, null, new Color(0, 0, 0)), new EmptyBorder(10, 10, 10, 10)));
+		GridBagConstraints gbc_panel = new GridBagConstraints();
+		gbc_panel.insets = new Insets(0, 0, 5, 5);
+		gbc_panel.fill = GridBagConstraints.BOTH;
+		gbc_panel.gridx = 1;
+		gbc_panel.gridy = 1;
+		add(panel, gbc_panel);
+		GridBagLayout gbl_panel = new GridBagLayout();
+		gbl_panel.columnWidths = new int[] {0};
+		gbl_panel.rowHeights = new int[] {0};
+		gbl_panel.columnWeights = new double[]{1.0};
+		gbl_panel.rowWeights = new double[]{1.0};
+		panel.setLayout(gbl_panel);
+
 		JTextArea relatorio = new JTextArea();
-		relatorio.setBorder(new CompoundBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Relat\u00F3rio", TitledBorder.LEADING, TitledBorder.ABOVE_TOP, null, new Color(0, 0, 0)), new EmptyBorder(10, 10, 10, 10)));
 		GridBagConstraints gbc_relatorio = new GridBagConstraints();
 		gbc_relatorio.fill = GridBagConstraints.BOTH;
-		gbc_relatorio.insets = new Insets(0, 0, 10, 5);
-		gbc_relatorio.gridx = 1;
-		gbc_relatorio.gridy = 1;
-		add(relatorio, gbc_relatorio);
+		gbc_relatorio.gridx = 0;
+		gbc_relatorio.gridy = 0;
+		panel.add(relatorio, gbc_relatorio);
 		relatorio.setBackground(UIManager.getColor("Panel.background"));
 		relatorio.setEditable(false);
 		relatorio.setText(geraRelatorio(null));

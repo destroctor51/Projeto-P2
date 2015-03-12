@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 import core.interfaces.Devolvivel;
 import core.interfaces.Pagavel;
@@ -45,7 +46,7 @@ public class Contrato implements Serializable {
 
 		this.cartao = cartao;
 		this.estacao = estacao;
-		protocolo = GregorianCalendar.getInstance().hashCode();
+		protocolo = new String(new Random().nextLong()+":"+GregorianCalendar.getInstance().hashCode()).hashCode();
 		servicos = new ArrayList<>();
 	}
 
@@ -213,10 +214,10 @@ public class Contrato implements Serializable {
 
 		return false;
 	}
-	
+
 	/**
 	 * Calcula fatura e retorna valor ja com tarifa da estacao.
-	 * 
+	 *
 	 * @return fatura
 	 */
 	public double getFatura() {

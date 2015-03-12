@@ -231,6 +231,7 @@ public class VisualizarContrato extends JPanel {
 			@Override
 			public void ancestorAdded(AncestorEvent arg0) {
 				Filtro.preencheJList(contrato.getServicos(), list);
+				btnDevolver.setEnabled(false);
 			}
 			@Override
 			public void ancestorMoved(AncestorEvent arg0) {}
