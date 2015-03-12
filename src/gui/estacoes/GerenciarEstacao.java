@@ -265,9 +265,17 @@ public class GerenciarEstacao extends JPanel {
 					ErrorLabel.setVisible(true);
 					return;
 				}
-
+				
+				try {
+					estacao.setTarifa(tarifa);
+				}
+				catch (IllegalArgumentException iae) {
+					ErrorLabel.setText("Valor de tarifa inv\u00E1lido");
+					ErrorLabel.setVisible(true);
+					return;
+				}
+				
 				estacao.setId(nome);
-				estacao.setTarifa(tarifa);
 
 				Sistema.getHotel().removeEstacao(backup);
 				Sistema.getHotel().adicionaEstacao(estacao);

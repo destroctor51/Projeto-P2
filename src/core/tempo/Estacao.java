@@ -38,7 +38,7 @@ public class Estacao implements Cloneable, Serializable {
 	 * @param tarifa  tarifa da estacao
 	 */
 	public Estacao(String id, double tarifa){
-		if(id == null)
+		if(id == null && tarifa < 0)
 			throw new IllegalArgumentException();
 
 		this.hash = new String(new Random().nextLong()+":"+GregorianCalendar.getInstance().hashCode()).hashCode();
@@ -74,6 +74,8 @@ public class Estacao implements Cloneable, Serializable {
 	 * @param tarifa  a nova tarifa a ser atribuida
 	 */
 	public void setTarifa(double tarifa) {
+		if (tarifa < 0)
+			throw new IllegalArgumentException();
 		this.tarifa = tarifa;
 	}
 
