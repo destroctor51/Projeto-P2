@@ -23,7 +23,7 @@ public class ContratoTest {
 
 	@Before
 	public void setUp() {
-		estacao = new Estacao("amor", 2);
+		estacao = new Estacao("amor", 1);
 		contrato = new Contrato(cartao, estacao);
 	}
 
@@ -131,6 +131,17 @@ public class ContratoTest {
 		Assert.assertEquals(new GregorianCalendar(2015, 2, 23), contrato.getDataCheckOut());
 	}
 
+	@Test
+	public void getFaturaTest()
+	{
+		Assert.assertEquals(0.0, contrato.getFatura(),0.01);
+		
+		contrato.adicionaServico(new Refeicao("comida",10.0f));
+	
+		Assert.assertEquals(10.0f, contrato.getFatura(),0.01);
+	}
+	
+	
 	@Test
 	public void testaToString() {
 		Assert.assertEquals("Contrato Pendente, protocolo: " + contrato.getProtocolo(), contrato.toString());

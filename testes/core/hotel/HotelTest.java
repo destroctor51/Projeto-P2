@@ -56,7 +56,7 @@ public class HotelTest {
 		Assert.assertEquals(85, hotel.getQuartos().size());
 		Assert.assertEquals(0, hotel.getCarros().size());
 		Assert.assertEquals("Riviera", hotel.getNome());
-		Assert.assertFalse(hotel.getTarifas().hasNext());
+		Assert.assertTrue(hotel.getTarifas().hasNext());
 	}
 
 	@Test
@@ -79,9 +79,16 @@ public class HotelTest {
 		hotel.adicionaCamaExtra(10394);
 
 		try {
-			hotel.adicionaCamaExtra(10394);
+			hotel.adicionaCamaExtra(-10394);
 			Assert.fail();
 		} catch(Exception e) {}
+		
+		hotel.adicionaCamaExtra(101);
+		try {
+			hotel.adicionaCamaExtra(101);
+		} catch(Exception e) {
+			Assert.assertEquals(e.getMessage(), "C\u00F3digo j\u00E1 est\u00E1 sendo utilizado");
+		}
 
 		// BABA
 
@@ -98,6 +105,17 @@ public class HotelTest {
 			hotel.adicionaBaba("Julia");
 			Assert.fail();
 		} catch(Exception e) {}
+		
+		try {
+			hotel.adicionaBaba(null);
+			Assert.fail();
+		} catch(Exception e) {}
+		
+		try {
+			hotel.adicionaBaba("");
+			Assert.fail();
+		} catch(Exception e) {}
+
 
 		Periodo p = new Periodo(new GregorianCalendar(2014, 1, 2), new GregorianCalendar(2014, 1, 3));
 		Assert.assertEquals(2, hotel.getBabasDisponiveis(p).size());
@@ -152,6 +170,18 @@ public class HotelTest {
 			hotel.adicionaQuarto(TipoQuarto.LUXO_SIMPLES, 1001);
 			Assert.fail();
 		} catch(Exception e) {}
+		
+
+		try {
+			hotel.adicionaQuarto(null, 1001);
+			Assert.fail();
+		} catch(Exception e) {}
+
+		try {
+			hotel.adicionaQuarto(TipoQuarto.LUXO_SIMPLES, -1001);
+			Assert.fail();
+		} catch(Exception e) {}
+
 
 		// CARRO
 
@@ -176,22 +206,57 @@ public class HotelTest {
 			hotel.adicionaCarro(TipoCarro.LUXO, "4123ABC");
 			Assert.fail();
 		} catch(Exception e) {}
+		
+		try {
+			hotel.adicionaCarro(null, "ABC-1234");
+			Assert.fail();
+		} catch(Exception e) {}
+		
+		try {
+			hotel.adicionaCarro(TipoCarro.LUXO, null);
+			Assert.fail();
+		} catch(Exception e) {}
+		
+		try {
+			hotel.adicionaCarro(TipoCarro.LUXO, "");
+			Assert.fail();
+		} catch(Exception e) {}
+		
+		hotel.adicionaCarro(TipoCarro.LUXO, "ABC-1234");
+		try {
+			hotel.adicionaCarro(TipoCarro.LUXO, "ABC-1234");
+			Assert.fail();
+		} catch(Exception e) {
+			Assert.assertTrue(e.getMessage().equals("Placa j\u00E1 existente"));
+		}
+
 
 		// RESTAURANTE
 
-		Assert.assertEquals(0, hotel.getRestaurantes().size());
+		Assert.assertEquals(2, hotel.getRestaurantes().size());
 
 		hotel.adicionaRestaurante("Gourmet");
-		Assert.assertEquals(1, hotel.getRestaurantes().size());
+		Assert.assertEquals(3, hotel.getRestaurantes().size());
 		hotel.adicionaRestaurante("Guaiamum");
 
 		hotel.removeRestaurante(new Restaurante("Gourmet"));
-		Assert.assertEquals(1, hotel.getRestaurantes().size());
+		Assert.assertEquals(3, hotel.getRestaurantes().size());
 
 		try {
 			hotel.adicionaRestaurante("Guaiamum");
 			Assert.fail();
 		} catch(Exception e) {}
+		
+		try {
+			hotel.adicionaRestaurante("");
+			Assert.fail();
+		} catch(Exception e) {}
+
+		try {
+			hotel.adicionaRestaurante(null);
+			Assert.fail();
+		} catch(Exception e) {}
+
 
 		// ESTACAO
 
@@ -213,10 +278,15 @@ public class HotelTest {
 
 		hotel.removeEstacao(estacao);
 		hotel.removeEstacao(estacao2);
-		Assert.assertFalse(hotel.getTarifas().hasNext());
+		Assert.assertTrue(hotel.getTarifas().hasNext());
 
 		try {
 			hotel.adicionaEstacao(null);
+			Assert.fail();
+			} catch(IllegalArgumentException e) {}
+		
+		try {
+			 hotel.procuraEstacao(null);
 			Assert.fail();
 			} catch(IllegalArgumentException e) {}
 

@@ -60,8 +60,14 @@ public class GerenciadorDeContasTest {
 		assertEquals(null, gdc.cadastra("Mateus", ADMINISTRADOR, nomeDefault, emailDefault, "ththuy"));
 		assertEquals(null, gdc.cadastra("Rodrigo", ADMINISTRADOR, nomeDefault, emailDefault, "ahybnui"));
 		assertEquals(null, gdc.cadastra("Rafaela", GERENTE, nomeDefault, emailDefault, "oemugnu"));
-
+		
 		assertFalse(gdc.vazio());
+		
+		assertEquals(null,gdc.getConta("Jurema"));
+		
+		Conta conta = new Conta("Victor", GERENTE, nomeDefault, emailDefault, "oemugnu");
+		assertEquals(true,conta.equals(gdc.getConta("Victor")));
+		
 	}
 
 	@Test

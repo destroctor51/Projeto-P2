@@ -80,9 +80,9 @@ public class CamaExtraTest {
 
 	@Test
 	public void testToString(){
-		Assert.assertEquals(camaextra1.toString(), "10");
-		Assert.assertEquals(camaextra2.toString(), "18");
-		Assert.assertEquals(camaextra3.toString(), "18");
+		Assert.assertEquals(camaextra1.toString(), "Cama extra de código 10");
+		Assert.assertEquals(camaextra2.toString(), "Cama extra de código 18");
+		Assert.assertEquals(camaextra3.toString(), "Cama extra de código 18");
 		Assert.assertEquals(camaextra2.toString(), camaextra3.toString());
 	}
 
